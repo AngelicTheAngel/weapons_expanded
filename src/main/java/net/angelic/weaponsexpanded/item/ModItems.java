@@ -13,13 +13,15 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
+import java.util.function.Function;
+
 public class ModItems {
 
-    public static final Item WOODEN_BROADSWORD = registerItem("wooden_broadsword", new SwordItem(ToolMaterial.WOOD, 2.0F, -2.1F,
-            new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID,"wooden_broadsword")))));
+    public static final Item WOODEN_BROADSWORD = registerItem("wooden_broadsword",
+            setting -> new Item(setting.sword(ToolMaterial.WOOD, 2, -2.1f)));
 
-    public static final Item GOLDEN_BROADSWORD = registerItem("golden_broadsword", new SwordItem(ToolMaterial.GOLD, 2.0F, -2.1F,
-            new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID,"golden_broadsword")))));
+    public static final Item GOLDEN_BROADSWORD = registerItem("golden_broadsword",
+            setting -> new Item(setting.sword(ToolMaterial.GOLD, 2, -2.1f)));
 
     public static final Item STONE_BROADSWORD = registerItem("stone_broadsword", new SwordItem(ToolMaterial.STONE, 2.0F, -2.1F,
             new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID,"stone_broadsword")))));
@@ -159,22 +161,22 @@ public class ModItems {
     public static final Item NETHERITE_BATTLEAXE = registerItem("netherite_battleaxe", new AxeItem(ToolMaterial.NETHERITE, 7.0F, -3.2F,
             new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID,"netherite_battleaxe")))));
 
-    public static final Item WOODEN_GREATSWORD = registerItem("wooden_greatsword", new TwoHandedHeavySwordItem(ModToolMaterials.FAUX_WOOD, 8.0F, -3.3F,
+    public static final Item WOODEN_GREATSWORD = registerItem("wooden_greatsword", new TwoHandedHeavySwordItem(ToolMaterial.WOOD, 8.0F, -3.3F,
             new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID,"wooden_greatsword")))));
 
-    public static final Item GOLDEN_GREATSWORD = registerItem("golden_greatsword", new TwoHandedHeavySwordItem(ModToolMaterials.FAUX_GOLD, 8.0F, -3.1F,
+    public static final Item GOLDEN_GREATSWORD = registerItem("golden_greatsword", new TwoHandedHeavySwordItem(ToolMaterial.GOLD, 8.0F, -3.1F,
             new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID,"golden_greatsword")))));
 
-    public static final Item STONE_GREATSWORD = registerItem("stone_greatsword", new TwoHandedHeavySwordItem(ModToolMaterials.FAUX_STONE, 8.0F, -3.3F,
+    public static final Item STONE_GREATSWORD = registerItem("stone_greatsword", new TwoHandedHeavySwordItem(ToolMaterial.STONE, 8.0F, -3.3F,
             new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID,"stone_greatsword")))));
 
-    public static final Item IRON_GREATSWORD = registerItem("iron_greatsword", new TwoHandedHeavySwordItem(ModToolMaterials.FAUX_IRON, 8.0F, -3.2F,
+    public static final Item IRON_GREATSWORD = registerItem("iron_greatsword", new TwoHandedHeavySwordItem(ToolMaterial.IRON, 8.0F, -3.2F,
             new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID,"iron_greatsword")))));
 
-    public static final Item DIAMOND_GREATSWORD = registerItem("diamond_greatsword", new TwoHandedHeavySwordItem(ModToolMaterials.FAUX_DIAMOND, 8.0F, -3.1F,
+    public static final Item DIAMOND_GREATSWORD = registerItem("diamond_greatsword", new TwoHandedHeavySwordItem(ToolMaterial.DIAMOND, 8.0F, -3.1F,
             new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID,"diamond_greatsword")))));
 
-    public static final Item NETHERITE_GREATSWORD = registerItem("netherite_greatsword", new TwoHandedHeavySwordItem(ModToolMaterials.FAUX_NETHERITE, 8.0F, -3.1F,
+    public static final Item NETHERITE_GREATSWORD = registerItem("netherite_greatsword", new TwoHandedHeavySwordItem(ToolMaterial.NETHERITE, 8.0F, -3.1F,
             new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID,"netherite_greatsword")))));
 
     public static final Item IRON_SPEAR = registerItem("iron_spear", new PierceWeaponItem(ToolMaterial.IRON, 4.5F, -2.7F,
@@ -183,8 +185,9 @@ public class ModItems {
     public static final Item IRON_RAPIER = registerItem("iron_rapier", new PierceWeaponItem(ToolMaterial.IRON, 2.0F, -2.2F,
             new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID,"iron_rapier")))));
 
-    private static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, Identifier.of(WeaponsExpanded.MOD_ID, name), item);
+    private static Item registerItem(String name, Function<Item.Settings, Item> function) {
+        return Registry.register(Registries.ITEM, Identifier.of(WeaponsExpanded.MOD_ID, name),
+                function.apply(new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID, name)))));
     }
 
     public static void registerModItems() {

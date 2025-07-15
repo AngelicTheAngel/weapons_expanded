@@ -1,21 +1,24 @@
 package net.angelic.weaponsexpanded.item.custom;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.item.consume.UseAction;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-public class TwoHandedSwordItem extends SwordItem {
+public class TwoHandedSwordItem extends Item {
 
     public TwoHandedSwordItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
-        super(material, attackDamage, attackSpeed, settings);
+        super(settings.sword(material, attackDamage, attackSpeed));
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+    public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot, boolean selected) {
         if (selected) {
             if (entity instanceof PlayerEntity) {
                 ItemStack offhandItem = ((PlayerEntity) entity).getStackInHand(Hand.OFF_HAND);
@@ -23,7 +26,7 @@ public class TwoHandedSwordItem extends SwordItem {
                 ((PlayerEntity) entity).giveOrDropStack(offhandItem);
             }
         }
-        super.inventoryTick(stack, world, entity, slot, selected);
+        super.inventoryTick(stack, world, entity, slot);
     }
 
 }
