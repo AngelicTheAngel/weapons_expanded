@@ -16,7 +16,6 @@ public class TwoHandedHeavySwordItem extends Item {
         super(settings.sword(material, attackDamage, attackSpeed));
     }
 
-    @Override
     public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot, boolean selected) {
         if (selected) {
             if (entity instanceof PlayerEntity) {
