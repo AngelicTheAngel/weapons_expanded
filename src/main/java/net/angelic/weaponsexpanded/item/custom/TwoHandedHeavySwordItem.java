@@ -15,15 +15,4 @@ public class TwoHandedHeavySwordItem extends Item {
     public TwoHandedHeavySwordItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
         super(settings.sword(material, attackDamage, attackSpeed));
     }
-
-    public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot, boolean selected) {
-        if (selected) {
-            if (entity instanceof PlayerEntity) {
-                ItemStack offhandItem = ((PlayerEntity) entity).getStackInHand(Hand.OFF_HAND);
-                ((PlayerEntity) entity).setStackInHand(Hand.OFF_HAND, ItemStack.EMPTY);
-                ((PlayerEntity) entity).giveOrDropStack(offhandItem);
-            }
-        }
-        super.inventoryTick(stack, world, entity, slot);
-    }
 }

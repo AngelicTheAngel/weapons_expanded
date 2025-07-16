@@ -1,0 +1,38 @@
+package net.angelic.weaponsexpanded.mixin;
+
+import net.angelic.weaponsexpanded.item.custom.*;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
+import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.minecraft.entity.LivingEntity;
+
+@Mixin(LivingEntity.class)
+public abstract class TwoHandedHeavySwordMixin {
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void onTick(CallbackInfo ci) {
+        LivingEntity entity = (LivingEntity)(Object)this;
+
+        if (!(entity instanceof PlayerEntity player)) return;
+        World world = player.getWorld();
+
+        if (world.isClient) return;
+
+        ItemStack mainHandStack = player.getMainHandStack();
+
+        // ✅ Check if the item in hand is an instance of your custom class
+        if (!(mainHandStack.getItem() instanceof TwoHandedHeavySwordItem)) return;
+
+        ItemStack offhand = player.getOffHandStack();
+        if (!offhand.isEmpty()) {
+            ItemStack stack = player.getOffHandStack();
+            player.setStackInHand(Hand.OFF_HAND, ItemStack.EMPTY);
+            player.getInventory().insertStack(stack);
+        }
+    }
+}
