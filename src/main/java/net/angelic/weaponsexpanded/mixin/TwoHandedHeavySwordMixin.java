@@ -25,7 +25,6 @@ public abstract class TwoHandedHeavySwordMixin {
 
         ItemStack mainHandStack = player.getMainHandStack();
 
-        // ✅ Check if the item in hand is an instance of your custom class
         if (!(mainHandStack.getItem() instanceof TwoHandedHeavySwordItem)) return;
 
         ItemStack offhand = player.getOffHandStack();
