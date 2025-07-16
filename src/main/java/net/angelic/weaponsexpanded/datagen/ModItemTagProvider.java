@@ -15,7 +15,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE)
+        valueLookupBuilder(ItemTags.SWORD_ENCHANTABLE)
                 .add(ModItems.WOODEN_BROADSWORD)
                 .add(ModItems.GOLDEN_BROADSWORD)
                 .add(ModItems.STONE_BROADSWORD)
@@ -52,7 +52,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.IRON_GREATSWORD)
                 .add(ModItems.DIAMOND_GREATSWORD)
                 .add(ModItems.NETHERITE_GREATSWORD);
-        getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
+        valueLookupBuilder(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(ModItems.WOODEN_BROADSWORD)
                 .add(ModItems.GOLDEN_BROADSWORD)
                 .add(ModItems.STONE_BROADSWORD)
@@ -107,7 +107,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.IRON_GREATSWORD)
                 .add(ModItems.DIAMOND_GREATSWORD)
                 .add(ModItems.NETHERITE_GREATSWORD);
-        getOrCreateTagBuilder(ItemTags.WEAPON_ENCHANTABLE)
+        valueLookupBuilder(ItemTags.WEAPON_ENCHANTABLE)
                 .add(ModItems.WOODEN_HATCHET)
                 .add(ModItems.GOLDEN_HATCHET)
                 .add(ModItems.STONE_HATCHET)
@@ -126,7 +126,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.IRON_BATTLEAXE)
                 .add(ModItems.DIAMOND_BATTLEAXE)
                 .add(ModItems.NETHERITE_BATTLEAXE);
-        getOrCreateTagBuilder(ItemTags.SHARP_WEAPON_ENCHANTABLE)
+        valueLookupBuilder(ItemTags.SHARP_WEAPON_ENCHANTABLE)
                 .add(ModItems.WOODEN_HATCHET)
                 .add(ModItems.GOLDEN_HATCHET)
                 .add(ModItems.STONE_HATCHET)
@@ -145,7 +145,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.IRON_BATTLEAXE)
                 .add(ModItems.DIAMOND_BATTLEAXE)
                 .add(ModItems.NETHERITE_BATTLEAXE);
-        getOrCreateTagBuilder(ItemTags.SWORDS)
+        valueLookupBuilder(ItemTags.SWORDS)
                 .add(ModItems.WOODEN_BROADSWORD)
                 .add(ModItems.GOLDEN_BROADSWORD)
                 .add(ModItems.STONE_BROADSWORD)
@@ -182,7 +182,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.IRON_GREATSWORD)
                 .add(ModItems.DIAMOND_GREATSWORD)
                 .add(ModItems.NETHERITE_GREATSWORD);
-        getOrCreateTagBuilder(ItemTags.AXES)
+        valueLookupBuilder(ItemTags.AXES)
                 .add(ModItems.WOODEN_HATCHET)
                 .add(ModItems.GOLDEN_HATCHET)
                 .add(ModItems.STONE_HATCHET)
@@ -201,7 +201,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.IRON_BATTLEAXE)
                 .add(ModItems.DIAMOND_BATTLEAXE)
                 .add(ModItems.NETHERITE_BATTLEAXE);
-        getOrCreateTagBuilder(ItemTags.MINING_ENCHANTABLE)
+        valueLookupBuilder(ItemTags.MINING_ENCHANTABLE)
                 .add(ModItems.WOODEN_HATCHET)
                 .add(ModItems.GOLDEN_HATCHET)
                 .add(ModItems.STONE_HATCHET)

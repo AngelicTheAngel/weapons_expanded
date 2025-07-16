@@ -14,7 +14,6 @@ public class TwoHandedSwordItem extends Item {
     public TwoHandedSwordItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
         super(settings.sword(material, attackDamage, attackSpeed));
     }
-    @Override
 public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot, boolean selected) {
         if (selected) {
             if (entity instanceof PlayerEntity) {

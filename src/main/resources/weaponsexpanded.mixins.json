@@ -3,7 +3,8 @@
 	"package": "net.angelic.weaponsexpanded.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"TwoHandedSwordMixin",
+		"TwoHandedHeavySwordMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
