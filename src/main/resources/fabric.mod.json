@@ -9,7 +9,7 @@
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/weapons-expanded",
-		"sources": "https://github.com/AngelicTheAngel/weapons_expanded_1.21.4_1.6"
+		"sources": "https://github.com/AngelicTheAngel/weapons_expanded_1.6_1.21.4"
 	},
 	"license": "MIT",
 	"icon": "assets/weaponsexpanded/icon.png",
@@ -27,7 +27,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.16.9",
-		"minecraft": "~1.21.4",
+		"minecraft": "~1.21.8",
 		"java": ">=21",
 		"fabric-api": "*"
 	},

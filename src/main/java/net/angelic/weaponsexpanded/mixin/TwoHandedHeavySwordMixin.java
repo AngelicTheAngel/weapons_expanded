@@ -19,9 +19,6 @@ public abstract class TwoHandedHeavySwordMixin {
         LivingEntity entity = (LivingEntity)(Object)this;
 
         if (!(entity instanceof PlayerEntity player)) return;
-        World world = player.getWorld();
-
-        if (world.isClient) return;
 
         ItemStack mainHandStack = player.getMainHandStack();
 
