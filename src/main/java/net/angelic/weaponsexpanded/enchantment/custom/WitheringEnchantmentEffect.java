@@ -20,9 +20,12 @@ public record WitheringEnchantmentEffect() implements EnchantmentEntityEffect {
             StatusEffectInstance witherEffectL2 = new StatusEffectInstance(StatusEffects.WITHER, 160, 1);
             if (level == 1) {
                 ((LivingEntity) user).addStatusEffect(witherEffectL1);
+                ((LivingEntity) user).removeStatusEffect(StatusEffects.POISON);
             }
             if (level == 2) {
                 ((LivingEntity) user).addStatusEffect(witherEffectL2);
+                ((LivingEntity) user).removeStatusEffect(StatusEffects.POISON);
+
             }
         }
     }
