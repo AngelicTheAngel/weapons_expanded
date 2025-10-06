@@ -9,7 +9,7 @@
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/weapons-expanded",
-		"sources": "https://github.com/AngelicTheAngel/weapons_expanded_1.6_1.21.4"
+		"sources": "https://github.com/AngelicTheAngel/weapons_expanded"
 	},
 	"license": "MIT",
 	"icon": "assets/weaponsexpanded/icon.png",
