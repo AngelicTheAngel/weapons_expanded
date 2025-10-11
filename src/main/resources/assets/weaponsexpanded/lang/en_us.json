@@ -91,5 +91,7 @@
   "advancements.netherite_sword": "Ol' Reliable",
   "advancements.description.netherite_sword": "Obtain a Netherite Sword",
   "advancements.netherite_axe": "Wood's Worst Enemy",
-  "advancements.description.netherite_axe": "Obtain a Netherite Axe"
+  "advancements.description.netherite_axe": "Obtain a Netherite Axe",
+
+  "tooltip.twohandedsword": "Two-Handed"
 }
