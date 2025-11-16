@@ -36,7 +36,7 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.DIAMOND, 2.0F, -2.2F)));
 
     public static final Item NETHERITE_BROADSWORD = registerItem("netherite_broadsword",
-            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 2.0F, -2.2F)));
+            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 2.0F, -2.2F).fireproof()));
 
     public static final Item WOODEN_SICKLE = registerItem("wooden_sickle",
             settings -> new Item(settings.sword(ToolMaterial.WOOD, 2.5F, -2.3F)));
@@ -57,7 +57,7 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.DIAMOND, 2.5F, -2.3F)));
 
     public static final Item NETHERITE_SICKLE = registerItem("netherite_sickle",
-            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 2.5F, -2.3F)));
+            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 2.5F, -2.3F).fireproof()));
 
     public static final Item WOODEN_SCYTHE = registerItem("wooden_scythe",
             settings -> new Item(settings.sword(ToolMaterial.WOOD, 4.0F, -2.5F)));
@@ -78,7 +78,7 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.DIAMOND, 4.5F, -2.5F)));
 
     public static final Item NETHERITE_SCYTHE = registerItem("netherite_scythe",
-            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 4.5F, -2.5F)));
+            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 4.5F, -2.5F).fireproof()));
 
     public static final Item WOODEN_LONGSWORD = registerItem("wooden_longsword",
             settings -> new Item(settings.sword(ToolMaterial.WOOD, 6.0F, -2.9F)));
@@ -99,7 +99,7 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.DIAMOND, 6.0F, -2.9F)));
 
     public static final Item NETHERITE_LONGSWORD = registerItem("netherite_longsword",
-            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 6.0F, -2.9F)));
+            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 6.0F, -2.9F).fireproof()));
 
     public static final Item WOODEN_KATANA = registerItem("wooden_katana",
             settings -> new TwoHandedSwordItem(ToolMaterial.WOOD, 3.0F, -2.2F, settings));
@@ -120,7 +120,7 @@ public class ModItems {
             settings -> new TwoHandedSwordItem(ToolMaterial.DIAMOND, 3.0F, -2.2F, settings));
 
     public static final Item NETHERITE_KATANA = registerItem("netherite_katana",
-            settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 3.0F, -2.2F, settings));
+            settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 3.0F, -2.2F, settings.fireproof()));
 
     public static final Item WOODEN_HATCHET = registerItem("wooden_hatchet",
             settings -> new Item(settings.axe(ToolMaterial.WOOD, 5.0F, -3.0F)));
@@ -141,7 +141,7 @@ public class ModItems {
             settings -> new Item(settings.axe(ToolMaterial.DIAMOND, 4.0F, -2.8F)));
 
     public static final Item NETHERITE_HATCHET = registerItem("netherite_hatchet",
-            settings -> new Item(settings.axe(ToolMaterial.NETHERITE, 4.0F, -2.8F)));
+            settings -> new Item(settings.axe(ToolMaterial.NETHERITE, 4.0F, -2.8F).fireproof()));
 
     public static final Item WOODEN_HAMMER = registerItem("wooden_hammer",
             settings -> new BluntWeaponItem(ModToolMaterials.FAUX_WOOD, 7.0F, -3.3F, settings));
@@ -162,7 +162,7 @@ public class ModItems {
             settings -> new BluntWeaponItem(ModToolMaterials.FAUX_DIAMOND, 6.0F, -3.1F, settings));
 
     public static final Item NETHERITE_HAMMER = registerItem("netherite_hammer",
-            settings -> new BluntWeaponItem(ModToolMaterials.FAUX_NETHERITE, 6.0F, -3.1F, settings));
+            settings -> new BluntWeaponItem(ModToolMaterials.FAUX_NETHERITE, 6.0F, -3.1F, settings.fireproof()));
 
     public static final Item WOODEN_BATTLEAXE = registerItem("wooden_battleaxe",
             settings -> new Item(settings.axe(ToolMaterial.WOOD, 8.0F, -3.4F)));
@@ -183,7 +183,7 @@ public class ModItems {
             settings -> new Item(settings.axe(ToolMaterial.DIAMOND, 7.0F, -3.2F)));
 
     public static final Item NETHERITE_BATTLEAXE = registerItem("netherite_battleaxe",
-            settings -> new Item(settings.axe(ToolMaterial.NETHERITE, 7.0F, -3.2F)));
+            settings -> new Item(settings.axe(ToolMaterial.NETHERITE, 7.0F, -3.2F).fireproof()));
 
     public static final Item WOODEN_GREATSWORD = registerItem("wooden_greatsword",
             settings -> new TwoHandedHeavySwordItem(ToolMaterial.WOOD, 8.0F, -3.3F, settings));
@@ -204,7 +204,7 @@ public class ModItems {
             settings -> new TwoHandedHeavySwordItem(ToolMaterial.DIAMOND, 8.0F, -3.1F, settings));
 
     public static final Item NETHERITE_GREATSWORD = registerItem("netherite_greatsword",
-            settings -> new TwoHandedHeavySwordItem(ToolMaterial.NETHERITE, 8.0F, -3.1F, settings));
+            settings -> new TwoHandedHeavySwordItem(ToolMaterial.NETHERITE, 8.0F, -3.1F, settings.fireproof()));
 
     public static final Item IRON_SPEAR = registerItem("iron_spear",
             settings -> new PierceWeaponItem(ToolMaterial.IRON, 4.5F, -2.7F, settings));
