@@ -4,7 +4,6 @@ import net.angelic.weaponsexpanded.item.custom.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,13 +18,9 @@ public abstract class TwoHandedHeavySwordMixin {
         LivingEntity entity = (LivingEntity)(Object)this;
 
         if (!(entity instanceof PlayerEntity player)) return;
-        World world = player.getWorld();
-
-        if (world.isClient) return;
 
         ItemStack mainHandStack = player.getMainHandStack();
 
-        // ✅ Check if the item in hand is an instance of your custom class
         if (!(mainHandStack.getItem() instanceof TwoHandedHeavySwordItem)) return;
 
         ItemStack offhand = player.getOffHandStack();
