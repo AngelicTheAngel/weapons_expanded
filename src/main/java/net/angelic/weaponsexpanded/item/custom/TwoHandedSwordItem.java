@@ -7,9 +7,8 @@ import net.minecraft.text.Text;
 import java.util.List;
 
 public class TwoHandedSwordItem extends SwordItem {
-
-    public TwoHandedSwordItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
-        super(material, attackDamage, attackSpeed, settings);
+    public TwoHandedSwordItem(ToolMaterial toolMaterial, Settings settings) {
+        super(toolMaterial, settings);
     }
 
     @Override
@@ -18,3 +17,5 @@ public class TwoHandedSwordItem extends SwordItem {
         super.appendTooltip(stack, context, tooltip, type);
     }
 }
+
+

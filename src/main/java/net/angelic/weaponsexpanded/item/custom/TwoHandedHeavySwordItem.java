@@ -9,10 +9,9 @@ import net.minecraft.text.Text;
 import java.util.List;
 
 public class TwoHandedHeavySwordItem extends SwordItem {
-    public TwoHandedHeavySwordItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
-        super(material, attackDamage, attackSpeed, settings);
+    public TwoHandedHeavySwordItem(ToolMaterial toolMaterial, Settings settings) {
+        super(toolMaterial, settings);
     }
-
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.translatable("tooltip.twohandedsword"));

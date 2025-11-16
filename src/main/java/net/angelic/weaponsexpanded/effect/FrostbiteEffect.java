@@ -12,13 +12,13 @@ public class FrostbiteEffect extends StatusEffect {
     }
 
     @Override
-    public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
-        if (entity.isOnFire()) {
-            return false;
-        } else {
-            entity.setFrozenTicks(160);
-            return true;
-        }
+    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+            if (entity.isOnFire()) {
+                return false;
+            } else {
+                entity.setFrozenTicks(160);
+                return true;
+            }
     }
 
     @Override
