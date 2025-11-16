@@ -1,4 +1,4 @@
-// 1.21.3	2025-11-16T01:51:26.8147362	Weapons Expanded/Model Definitions
+// 1.21.2	2025-11-16T02:07:05.9503867	Weapons Expanded/Model Definitions
 afd17ae2b394ae3eda1a7c07d11493a182999233 assets\weaponsexpanded\models\item\stone_sickle.json
 4804284ea9bf1684e6d773c88bf0193feb09d894 assets\weaponsexpanded\models\item\golden_scythe.json
 cfc01c005db9c1e07f214b66908f029e13713ad2 assets\weaponsexpanded\models\item\golden_battleaxe.json
@@ -12,8 +12,8 @@ a71e2fea9b778075a8db7349cef210776b6154e4 assets\weaponsexpanded\models\item\neth
 63e3b0c8e58233a827da6f680df0d41f7de6d32e assets\weaponsexpanded\models\item\iron_hammer.json
 aeedcc68179e90050fb8cba7c1f099698dcc8e9c assets\weaponsexpanded\models\item\diamond_battleaxe.json
 e2c837e3ce8d989b42f66bbdd284af3b4f8cce17 assets\weaponsexpanded\models\item\golden_hatchet.json
-63766e99ad38f6b82afdce91b3a9cdeb0259ed29 assets\weaponsexpanded\models\item\iron_sickle.json
 8832772c0def5a591eea613989688471cb8a30e8 assets\weaponsexpanded\models\item\diamond_hammer.json
+63766e99ad38f6b82afdce91b3a9cdeb0259ed29 assets\weaponsexpanded\models\item\iron_sickle.json
 2c6640559ce570a0c20bf07fb31f9fe96f73db26 assets\weaponsexpanded\models\item\diamond_katana.json
 1d6c324a85dca08829b5595847ed7f4261edb99c assets\weaponsexpanded\models\item\wooden_longsword.json
 b0c058bd291e6dff8c8d90932e4e7179fad556e1 assets\weaponsexpanded\models\item\netherite_battleaxe.json
@@ -53,5 +53,5 @@ b3ba784769c88f0063e39489c9b5dee898ae020b assets\weaponsexpanded\models\item\gold
 50d2af428a9703f883eec81e82a1c111dc022f9b assets\weaponsexpanded\models\item\netherite_hatchet.json
 ad9a3357098050ff1d5c32220d922f1d672ccfc5 assets\weaponsexpanded\models\item\wooden_greatsword.json
 96b7286b40e5248dfc9d1288b07e440dae056abd assets\weaponsexpanded\models\item\iron_katana.json
-520f04781334a3870731bf58defbdb5bd1c1d71e assets\weaponsexpanded\models\item\stone_greatsword.json
 f0a7e216c0d5ade14a35b37d706831b94207afc9 assets\weaponsexpanded\models\item\iron_scythe.json
+520f04781334a3870731bf58defbdb5bd1c1d71e assets\weaponsexpanded\models\item\stone_greatsword.json
