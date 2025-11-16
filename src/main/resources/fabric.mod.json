@@ -1,15 +1,15 @@
 {
 	"schemaVersion": 1,
 	"id": "weaponsexpanded",
-	"version": "1.6.0",
+	"version": "1.6.4",
 	"name": "Weapons Expanded",
 	"description": "This mod adds new weapons, enchantments, effects, advancements, and more.",
 	"authors": [
 		"AngelicThe_Angel"
 	],
 	"contact": {
-		"homepage": "https://modrinth.com/mod/weapons-expanded",
-		"sources": "https://github.com/AngelicTheAngel/weapons_expanded_1.21.4_1.6"
+		"homepage": "https://modrinth.com/mod/weaponsexpanded",
+		"sources": "https://github.com/AngelicTheAngel/weapons_expanded"
 	},
 	"license": "MIT",
 	"icon": "assets/weaponsexpanded/icon.png",

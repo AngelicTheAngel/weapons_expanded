@@ -224,5 +224,15 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.IRON_BATTLEAXE)
                 .add(ModItems.DIAMOND_BATTLEAXE)
                 .add(ModItems.NETHERITE_BATTLEAXE);
+        getOrCreateTagBuilder(ItemTags.PIGLIN_LOVED)
+                .add(ModItems.GOLDEN_BROADSWORD)
+                .add(ModItems.GOLDEN_SICKLE)
+                .add(ModItems.GOLDEN_SCYTHE)
+                .add(ModItems.GOLDEN_LONGSWORD)
+                .add(ModItems.GOLDEN_KATANA)
+                .add(ModItems.GOLDEN_HATCHET)
+                .add(ModItems.GOLDEN_HAMMER)
+                .add(ModItems.GOLDEN_BATTLEAXE)
+                .add(ModItems.GOLDEN_GREATSWORD);
     }
 }
