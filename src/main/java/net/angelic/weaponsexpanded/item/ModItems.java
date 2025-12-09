@@ -284,8 +284,6 @@ public class ModItems {
             entries.add(IRON_GREATSWORD);
             entries.add(DIAMOND_GREATSWORD);
             entries.add(NETHERITE_GREATSWORD);
-            entries.add(IRON_SPEAR);
-            entries.add(IRON_RAPIER);
         });
     }
 }
