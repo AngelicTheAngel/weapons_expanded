@@ -15,7 +15,7 @@ public record ExplodingEnchantmentEffect() implements EnchantmentEntityEffect {
     @Override
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
         if (user instanceof LivingEntity) {
-            world.createExplosion(user, user.getX(), user.getY() + 1, user.getZ(), 1.0F, World.ExplosionSourceType.NONE);
+            world.createExplosion(user, user.getX(), user.getY() + 1, user.getZ(), 5.0F, World.ExplosionSourceType.NONE);
         }
     }
 

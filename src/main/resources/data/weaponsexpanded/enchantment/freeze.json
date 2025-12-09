@@ -4,24 +4,13 @@
     "translate": "enchantment.weaponsexpanded.freeze"
   },
   "effects": {
-    "minecraft:post_attack": [
+    "minecraft:projectile_spawned": [
       {
         "affected": "victim",
         "effect": {
-          "type": "weaponsexpanded:freeze",
-          "duration": {
-            "type": "minecraft:linear",
-            "base": 4.0,
-            "per_level_above_first": 4.0
-          }
+          "type": "weaponsexpanded:freeze"
         },
-        "enchanted": "attacker",
-        "requirements": {
-          "condition": "minecraft:damage_source_properties",
-          "predicate": {
-            "is_direct": false
-          }
-        }
+        "enchanted": "attacker"
       }
     ]
   },
