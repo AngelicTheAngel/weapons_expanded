@@ -20,7 +20,7 @@ public abstract class FrostbiteFireMixin {
 
     @Inject(method = "damage", at = @At("HEAD"))
     private void onDamage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if(source.isOf(DamageTypes.IN_FIRE) || source.isOf(DamageTypes.ON_FIRE)) {
+        if(source.isOf(DamageTypes.IN_FIRE) || source.isOf(DamageTypes.ON_FIRE) || source.isOf(DamageTypes.HOT_FLOOR) || source.isOf(DamageTypes.LAVA)) {
             removeStatusEffect(ModEffects.FROSTBITE);
         }
     }
