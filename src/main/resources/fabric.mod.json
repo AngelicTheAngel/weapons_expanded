@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "weaponsexpanded",
-	"version": "1.6.5",
+	"version": "1.7.0",
 	"name": "Weapons Expanded",
 	"description": "This mod adds new weapons, enchantments, effects, advancements, and more.",
 	"authors": [
@@ -17,6 +17,9 @@
 	"entrypoints": {
 		"main": [
 			"net.angelic.weaponsexpanded.WeaponsExpanded"
+		],
+		"client": [
+			"net.angelic.weaponsexpanded.WeaponsExpandedClient"
 		],
 		"fabric-datagen": [
 			"net.angelic.weaponsexpanded.WeaponsExpandedDataGenerator"

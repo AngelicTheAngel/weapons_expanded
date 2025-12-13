@@ -2,6 +2,7 @@ package net.angelic.weaponsexpanded;
 
 import net.angelic.weaponsexpanded.effect.ModEffects;
 import net.angelic.weaponsexpanded.enchantment.ModEnchantmentEffects;
+import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
@@ -17,5 +18,6 @@ public class WeaponsExpanded implements ModInitializer {
 		ModItems.registerModItems();
 		ModEnchantmentEffects.registerEnchantmentEffects();
 		ModEffects.registerEffects();
+		ModEntities.registerEntities();
 	}
 }

@@ -6,7 +6,7 @@
   "effects": {
     "minecraft:projectile_spawned": [
       {
-        "affected": "victim",
+        "affected": "projectile",
         "effect": {
           "type": "weaponsexpanded:freeze"
         },

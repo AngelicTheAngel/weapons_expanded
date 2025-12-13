@@ -16,10 +16,9 @@ public class TwoHandedHeavySwordItem extends Item {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable("tooltip.twohandedsword"));
-
         super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
-
 }
