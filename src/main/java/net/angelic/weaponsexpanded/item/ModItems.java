@@ -3,6 +3,7 @@ package net.angelic.weaponsexpanded.item;
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.item.custom.BluntWeaponItem;
 import net.angelic.weaponsexpanded.item.custom.HeavyArrowItem;
+import net.angelic.weaponsexpanded.item.custom.LongbowItem;
 import net.angelic.weaponsexpanded.item.custom.PierceWeaponItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedHeavySwordItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
@@ -210,6 +211,9 @@ public class ModItems {
     public static final Item HEAVY_ARROW = registerItem("heavy_arrow",
             settings -> new HeavyArrowItem(settings.maxCount(64)));
 
+    public static final Item LONGBOW = registerItem("longbow",
+            settings -> new LongbowItem(settings.maxDamage(384)));
+
     public static final Item IRON_SPEAR = registerItem("iron_spear",
             settings -> new PierceWeaponItem(ToolMaterial.IRON, 4.5F, -2.7F, settings));
 
@@ -289,6 +293,7 @@ public class ModItems {
             entries.add(DIAMOND_GREATSWORD);
             entries.add(NETHERITE_GREATSWORD);
             entries.add(HEAVY_ARROW);
+            entries.add(LONGBOW);
         });
     }
 }

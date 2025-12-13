@@ -8,8 +8,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class HeavyArrowEntity extends ArrowEntity {
-    private static final double BASE_DAMAGE = 5.0; // vanilla arrow is ~2.0 base before velocity scaling
-    private static final float EXTRA_AIR_DRAG = 0.85f; // lower = shorter range (more drag)
+    private static final double BASE_DAMAGE = 5.0;
+    private static final float EXTRA_AIR_DRAG = 0.85f;
+
+    private ItemStack weaponsexpanded$pickupStack = ItemStack.EMPTY;
 
     public HeavyArrowEntity(EntityType<? extends ArrowEntity> type, World world) {
         super(type, world);
@@ -21,6 +23,15 @@ public class HeavyArrowEntity extends ArrowEntity {
         this.setOwner(owner);
         this.setPosition(owner.getX(), owner.getEyeY() - 0.1, owner.getZ());
         this.setDamage(BASE_DAMAGE);
+
+        // Remember what this arrow should drop when picked up
+        this.weaponsexpanded$pickupStack = pickupItemStack.copy();
+    }
+
+    @Override
+    protected ItemStack asItemStack() {
+        // This controls what players receive when they pick the arrow back up
+        return this.weaponsexpanded$pickupStack.isEmpty() ? super.asItemStack() : this.weaponsexpanded$pickupStack.copy();
     }
 
     @Override
