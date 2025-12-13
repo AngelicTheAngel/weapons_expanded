@@ -7,7 +7,6 @@
     "FrostbiteCleanupMixin",
     "FrostbiteFireMixin",
     "ProjectileFreezeMixin",
-    "TwoHandedHeavySwordMixin",
     "TwoHandedSwordMixin",
     "accessor.PersistentProjectileEntityAccessor"
   ],
@@ -15,6 +14,8 @@
     "defaultRequire": 1
   },
   "client": [
-    "LongbowFovMixin"
+    "LongbowFovMixin",
+    "TwoHandedSwordArmPoseMixin",
+    "TwoHandedSwordHideOffhandMixin"
   ]
 }

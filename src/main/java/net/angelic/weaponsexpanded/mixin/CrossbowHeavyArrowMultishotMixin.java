@@ -15,14 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class CrossbowHeavyArrowMultishotMixin {
 
     @Inject(method = "shoot", at = @At("HEAD"))
-    private void weaponsexpanded$multishotPickupRules(LivingEntity shooter,
-                                                     ProjectileEntity projectile,
-                                                     int index,
-                                                     float speed,
-                                                     float divergence,
-                                                     float yaw,
-                                                     @Nullable LivingEntity target,
-                                                     CallbackInfo ci) {
+    private void weaponsexpanded$multishotPickupRules(LivingEntity shooter, ProjectileEntity projectile, int index, float speed, float divergence, float yaw, @Nullable LivingEntity target, CallbackInfo ci) {
 
         if (shooter.getEntityWorld().isClient()) return;
 
