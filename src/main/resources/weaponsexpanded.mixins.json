@@ -8,7 +8,8 @@
     "FrostbiteFireMixin",
     "ProjectileFreezeMixin",
     "TwoHandedHeavySwordMixin",
-    "TwoHandedSwordMixin"
+    "TwoHandedSwordMixin",
+    "accessor.PersistentProjectileEntityAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

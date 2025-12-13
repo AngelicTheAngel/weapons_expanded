@@ -1,6 +1,7 @@
 package net.angelic.weaponsexpanded.util;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
+import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -22,6 +23,37 @@ public final class ProjectileEnchantmentApplier {
 
         applyFreeze(world, weaponStack, projectile);
         applyFlame(world, weaponStack, projectile);
+    }
+
+    /**
+     * Heavy-arrow specific: apply Power (damage) + Punch (knockback) in a way that works for custom projectiles.
+     */
+    public static void applyPowerAndPunchForHeavyArrow(World world, ItemStack weaponStack, HeavyArrowEntity arrow) {
+        if (world.isClient()) return;
+
+        int powerLevel = getLevel(world, weaponStack, Identifier.ofVanilla("power"));
+        int punchLevel = getLevel(world, weaponStack, Identifier.ofVanilla("punch"));
+
+        // Power: set base projectile damage directly (no getDamage() needed)
+        if (powerLevel > 0) {
+            double bonusDamage = powerLevel * 0.5D + 0.5D; // vanilla-ish
+            arrow.setDamage(HeavyArrowEntity.BASE_DAMAGE + bonusDamage);
+        } else {
+            arrow.setDamage(HeavyArrowEntity.BASE_DAMAGE);
+        }
+
+        // Punch: store level on entity; entity applies extra knockback on hit
+        arrow.weaponsexpanded$setPunchLevel(punchLevel);
+    }
+
+    private static int getLevel(World world, ItemStack weaponStack, Identifier enchantId) {
+        RegistryKey<Enchantment> key = RegistryKey.of(RegistryKeys.ENCHANTMENT, enchantId);
+        Optional<RegistryEntry.Reference<Enchantment>> opt =
+                world.getRegistryManager()
+                        .getOrThrow(RegistryKeys.ENCHANTMENT)
+                        .getOptional(key);
+
+        return opt.map(entry -> EnchantmentHelper.getLevel(entry, weaponStack)).orElse(0);
     }
 
     private static void applyFreeze(World world, ItemStack weaponStack, PersistentProjectileEntity projectile) {
