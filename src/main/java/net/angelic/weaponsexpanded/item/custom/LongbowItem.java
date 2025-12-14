@@ -59,6 +59,10 @@ public class LongbowItem extends BowItem {
         return EnchantmentHelper.getLevel(infinity, bowStack) > 0;
     }
 
+    private static boolean isNormalArrow(ItemStack ammo) {
+        return ammo.isOf(Items.ARROW);
+    }
+
     @Override
     public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if (!(user instanceof PlayerEntity player)) return false;
@@ -66,7 +70,12 @@ public class LongbowItem extends BowItem {
         ItemStack ammo = player.getProjectileType(stack);
 
         boolean hasInfinity = hasInfinity(stack, world);
-        boolean canShootWithoutAmmo = player.getAbilities().creativeMode || hasInfinity;
+
+        // Infinity should only "cover" normal arrows
+        boolean infinityCoversThisShot = hasInfinity && (ammo.isEmpty() || isNormalArrow(ammo));
+
+        // Only allow shooting with NO ammo if Infinity is present (and it will shoot a normal arrow)
+        boolean canShootWithoutAmmo = player.getAbilities().creativeMode || infinityCoversThisShot;
 
         int usedTicks = this.getMaxUseTime(stack, user) - remainingUseTicks;
         float pull = getLongbowPullProgress(usedTicks);
@@ -80,11 +89,25 @@ public class LongbowItem extends BowItem {
 
         if (!(ammo.getItem() instanceof ArrowItem arrowItem)) return false;
 
+        // Recompute now that ammo is guaranteed non-empty
+        boolean infinityFreeNormalArrow = hasInfinity && isNormalArrow(ammo);
+
         if (!world.isClient()) {
             PersistentProjectileEntity projectile = arrowItem.createArrow(world, ammo, player, stack);
 
             // Apply Freeze/Flame to ANY projectile fired from the longbow
             ProjectileEnchantmentApplier.applyFreezeAndFlame(world, stack, projectile);
+
+            // Pickup rules:
+            // - Normal arrow + Infinity: survival cannot pick up (vanilla-ish)
+            // - Other arrows: allow pickup in survival
+            if (!player.getAbilities().creativeMode) {
+                if (infinityFreeNormalArrow) {
+                    projectile.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
+                } else {
+                    projectile.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
+                }
+            }
 
             projectile.setVelocity(
                     player,
@@ -109,7 +132,10 @@ public class LongbowItem extends BowItem {
 
         player.incrementStat(Stats.USED.getOrCreateStat(this));
 
-        if (!player.getAbilities().creativeMode && !hasInfinity) {
+        // Consume ammo:
+        // - Creative: never consume
+        // - Infinity: only prevents consuming normal arrows
+        if (!player.getAbilities().creativeMode && !infinityFreeNormalArrow) {
             ammo.decrement(1);
             if (ammo.isEmpty()) {
                 player.getInventory().removeOne(ammo);

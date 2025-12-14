@@ -17,13 +17,16 @@ public class HeavyArrowItem extends ArrowItem {
 
     @Override
     public PersistentProjectileEntity createArrow(World world, ItemStack stack, LivingEntity shooter, ItemStack weaponStack) {
-        HeavyArrowEntity arrow = new HeavyArrowEntity(world, shooter, stack.copy(), weaponStack);
+        ItemStack newStack = stack.copy();
+        newStack.setCount(1);
+
+        HeavyArrowEntity arrow = new HeavyArrowEntity(world, shooter, newStack, weaponStack);
 
         // Make enchantment logic see the bow/crossbow stack
         if (!world.isClient()) {
             ((PersistentProjectileEntityAccessor) arrow).weaponsexpanded$setWeapon(weaponStack.copy());
 
-            //  Make Power/Punch apply
+            // Make Power/Punch apply
             ProjectileEnchantmentApplier.applyPowerAndPunchForHeavyArrow(world, weaponStack, arrow);
         }
 
