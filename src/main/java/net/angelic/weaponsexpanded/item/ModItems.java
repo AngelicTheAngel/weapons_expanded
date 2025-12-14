@@ -1,12 +1,7 @@
 package net.angelic.weaponsexpanded.item;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
-import net.angelic.weaponsexpanded.item.custom.BluntWeaponItem;
-import net.angelic.weaponsexpanded.item.custom.HeavyArrowItem;
-import net.angelic.weaponsexpanded.item.custom.LongbowItem;
-import net.angelic.weaponsexpanded.item.custom.PierceWeaponItem;
-import net.angelic.weaponsexpanded.item.custom.TwoHandedHeavySwordItem;
-import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
+import net.angelic.weaponsexpanded.item.custom.*;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
@@ -214,6 +209,9 @@ public class ModItems {
     public static final Item LONGBOW = registerItem("longbow",
             settings -> new LongbowItem(settings.maxDamage(384)));
 
+    public static final Item CHAIN_CROSSBOW = registerItem("chain_crossbow",
+            settings -> new ChainCrossbowItem(settings.maxDamage(384)));
+
     public static final Item IRON_SPEAR = registerItem("iron_spear",
             settings -> new PierceWeaponItem(ToolMaterial.IRON, 4.5F, -2.7F, settings));
 
@@ -294,6 +292,7 @@ public class ModItems {
             entries.add(NETHERITE_GREATSWORD);
             entries.add(HEAVY_ARROW);
             entries.add(LONGBOW);
+            entries.add(CHAIN_CROSSBOW);
         });
     }
 }

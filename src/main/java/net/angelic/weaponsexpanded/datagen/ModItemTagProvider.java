@@ -100,7 +100,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.COPPER_GREATSWORD)
                 .add(ModItems.IRON_GREATSWORD)
                 .add(ModItems.DIAMOND_GREATSWORD)
-                .add(ModItems.NETHERITE_GREATSWORD);
+                .add(ModItems.NETHERITE_GREATSWORD)
+                .add(ModItems.LONGBOW)
+                .add(ModItems.CHAIN_CROSSBOW);
         valueLookupBuilder(ItemTags.WEAPON_ENCHANTABLE)
                 .add(ModItems.WOODEN_HATCHET)
                 .add(ModItems.GOLDEN_HATCHET)
@@ -246,5 +248,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.HEAVY_ARROW);
         valueLookupBuilder(ItemTags.BOW_ENCHANTABLE)
                 .add(ModItems.LONGBOW);
+        valueLookupBuilder(ItemTags.CROSSBOW_ENCHANTABLE)
+                .add(ModItems.CHAIN_CROSSBOW);
     }
 }

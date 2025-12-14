@@ -25,7 +25,7 @@ import net.angelic.weaponsexpanded.util.ProjectileEnchantmentApplier;
 public class LongbowItem extends BowItem {
     // Vanilla bow effectively “full draws” at 20 ticks
     private static final int FULL_DRAW_TICKS = 32;     // longbow: slower draw
-    private static final float VELOCITY_MULT = 4.0f;   // vanilla uses 3.0f
+    private static final float VELOCITY_MULT = 3.6f;   // vanilla uses 3.0f
 
     public LongbowItem(Settings settings) {
         super(settings);

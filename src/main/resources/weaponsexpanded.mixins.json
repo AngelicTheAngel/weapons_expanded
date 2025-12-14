@@ -3,18 +3,25 @@
   "package": "net.angelic.weaponsexpanded.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ChainCrossbowFireMixin",
+    "ChainCrossbowPullTimeMixin",
     "CrossbowHeavyArrowMultishotMixin",
     "FrostbiteCleanupMixin",
     "FrostbiteFireMixin",
     "ProjectileFreezeMixin",
     "TwoHandedSwordMixin",
-    "accessor.PersistentProjectileEntityAccessor"
+    "accessor.CrossbowItemAccessor",
+    "accessor.PersistentProjectileEntityAccessor",
+    "invoker.PersistentProjectileEntityPierceInvoker"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
+    "HeldItemRendererChainCrossbowHideOffhandMixin",
+    "HeldItemRendererChainCrossbowMixin",
     "LongbowFovMixin",
+    "PlayerEntityRendererChainCrossbowPoseMixin",
     "TwoHandedSwordArmPoseMixin",
     "TwoHandedSwordHideOffhandMixin"
   ]

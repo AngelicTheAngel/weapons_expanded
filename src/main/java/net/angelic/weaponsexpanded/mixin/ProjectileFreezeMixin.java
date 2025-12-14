@@ -95,4 +95,22 @@ public class ProjectileFreezeMixin {
             }
         }
     }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void weaponsexpanded$removeFreezeTagInHeat(CallbackInfo ci) {
+        PersistentProjectileEntity projectile = (PersistentProjectileEntity) (Object) this;
+        World world = projectile.getEntityWorld();
+
+        if (world.isClient()) return;
+
+        boolean inHeat = projectile.isInLava() || projectile.isOnFire();
+        if (!inHeat) return;
+
+        for (String tag : projectile.getCommandTags()) {
+            if (tag.startsWith("weaponsexpanded.freeze.level.")) {
+                projectile.removeCommandTag(tag);
+                break;
+            }
+        }
+    }
 }
