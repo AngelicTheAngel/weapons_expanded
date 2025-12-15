@@ -16,7 +16,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.item.Item.TooltipContext;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.text.Text;
 
@@ -159,8 +158,8 @@ public class ChainCrossbowItem extends CrossbowItem {
         NbtList queue = root.getListOrEmpty(WEAPONSEXPANDED$QUEUE_KEY);
         if (queue.isEmpty()) return List.of();
 
-        NbtCompound chamber = queue.get(0).asCompound().orElse(null);
-        queue.remove(0);
+        NbtCompound chamber = queue.getFirst().asCompound().orElse(null);
+        queue.removeFirst();
 
         if (queue.isEmpty()) {
             root.remove(WEAPONSEXPANDED$QUEUE_KEY);
@@ -185,7 +184,7 @@ public class ChainCrossbowItem extends CrossbowItem {
         if (queue.size() <= queuedMax) return;
 
         while (queue.size() > queuedMax) {
-            queue.remove(queue.size() - 1);
+            queue.removeLast();
         }
 
         if (queue.isEmpty()) {
@@ -225,8 +224,8 @@ public class ChainCrossbowItem extends CrossbowItem {
         List<ItemStack> out = new ArrayList<>();
         NbtList list = chamber.getListOrEmpty("projectiles");
 
-        for (int i = 0; i < list.size(); i++) {
-            NbtCompound stackTag = list.get(i).asCompound().orElse(null);
+        for (NbtElement nbtElement : list) {
+            NbtCompound stackTag = nbtElement.asCompound().orElse(null);
             if (stackTag == null) continue;
 
             ItemStack decoded = weaponsexpanded$decodeStack(world, stackTag);
