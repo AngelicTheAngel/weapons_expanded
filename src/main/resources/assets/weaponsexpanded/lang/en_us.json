@@ -96,5 +96,7 @@
   "advancements.netherite_axe": "Wood's Worst Enemy",
   "advancements.description.netherite_axe": "Obtain a Netherite Axe",
 
-  "tooltip.twohandedsword": "Two-Handed"
+  "tooltip.twohandedsword": "Two-Handed",
+  "tooltip.weaponsexpanded.chain_crossbow_shots": "Shots: %s/%s",
+  "tooltip.weaponsexpanded.chain_crossbow_queued": "Queued: %s/%s"
 }

@@ -10,5 +10,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface CrossbowItemAccessor {
 
     @Invoker("loadProjectiles")
-    boolean weaponsexpanded$loadProjectiles(LivingEntity shooter, ItemStack crossbow);
+    static boolean weaponsexpanded$loadProjectiles(LivingEntity shooter, ItemStack crossbow) {
+        throw new AssertionError("Mixin invoker not transformed");
+    }
 }

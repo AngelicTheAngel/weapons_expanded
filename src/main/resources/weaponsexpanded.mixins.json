@@ -8,6 +8,7 @@
     "CrossbowHeavyArrowMultishotMixin",
     "FrostbiteCleanupMixin",
     "FrostbiteFireMixin",
+    "HeavyArrowSidePickupVanishMixin",
     "ProjectileFreezeMixin",
     "TwoHandedSwordMixin",
     "accessor.CrossbowItemAccessor",
@@ -21,6 +22,7 @@
     "HeldItemRendererChainCrossbowHideOffhandMixin",
     "HeldItemRendererChainCrossbowMixin",
     "LongbowFovMixin",
+    "MinecraftClientChainCrossbowAttackMixin",
     "PlayerEntityRendererChainCrossbowPoseMixin",
     "TwoHandedSwordArmPoseMixin",
     "TwoHandedSwordHideOffhandMixin"
