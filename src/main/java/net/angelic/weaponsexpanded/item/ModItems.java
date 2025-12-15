@@ -12,6 +12,8 @@ import net.minecraft.util.Identifier;
 
 import java.util.function.Function;
 
+import static net.minecraft.item.Items.*;
+
 public class ModItems {
 
     public static final Item WOODEN_BROADSWORD = registerItem("wooden_broadsword",
@@ -227,72 +229,102 @@ public class ModItems {
         WeaponsExpanded.LOGGER.info("Registering Items for " + WeaponsExpanded.MOD_ID);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
-            entries.add(WOODEN_BROADSWORD);
-            entries.add(GOLDEN_BROADSWORD);
-            entries.add(STONE_BROADSWORD);
-            entries.add(COPPER_BROADSWORD);
-            entries.add(IRON_BROADSWORD);
-            entries.add(DIAMOND_BROADSWORD);
-            entries.add(NETHERITE_BROADSWORD);
-            entries.add(WOODEN_SICKLE);
-            entries.add(GOLDEN_SICKLE);
-            entries.add(STONE_SICKLE);
-            entries.add(COPPER_SICKLE);
-            entries.add(IRON_SICKLE);
-            entries.add(DIAMOND_SICKLE);
-            entries.add(NETHERITE_SICKLE);
-            entries.add(WOODEN_SCYTHE);
-            entries.add(GOLDEN_SCYTHE);
-            entries.add(STONE_SCYTHE);
-            entries.add(COPPER_SCYTHE);
-            entries.add(IRON_SCYTHE);
-            entries.add(DIAMOND_SCYTHE);
-            entries.add(NETHERITE_SCYTHE);
-            entries.add(WOODEN_LONGSWORD);
-            entries.add(GOLDEN_LONGSWORD);
-            entries.add(STONE_LONGSWORD);
-            entries.add(COPPER_LONGSWORD);
-            entries.add(IRON_LONGSWORD);
-            entries.add(DIAMOND_LONGSWORD);
-            entries.add(NETHERITE_LONGSWORD);
-            entries.add(WOODEN_KATANA);
-            entries.add(GOLDEN_KATANA);
-            entries.add(STONE_KATANA);
-            entries.add(COPPER_KATANA);
-            entries.add(IRON_KATANA);
-            entries.add(DIAMOND_KATANA);
-            entries.add(NETHERITE_KATANA);
-            entries.add(WOODEN_HATCHET);
-            entries.add(GOLDEN_HATCHET);
-            entries.add(STONE_HATCHET);
-            entries.add(COPPER_HATCHET);
-            entries.add(IRON_HATCHET);
-            entries.add(DIAMOND_HATCHET);
-            entries.add(NETHERITE_HATCHET);
-            entries.add(WOODEN_HAMMER);
-            entries.add(GOLDEN_HAMMER);
-            entries.add(STONE_HAMMER);
-            entries.add(COPPER_HAMMER);
-            entries.add(IRON_HAMMER);
-            entries.add(DIAMOND_HAMMER);
-            entries.add(NETHERITE_HAMMER);
-            entries.add(WOODEN_BATTLEAXE);
-            entries.add(GOLDEN_BATTLEAXE);
-            entries.add(STONE_BATTLEAXE);
-            entries.add(COPPER_BATTLEAXE);
-            entries.add(IRON_BATTLEAXE);
-            entries.add(DIAMOND_BATTLEAXE);
-            entries.add(NETHERITE_BATTLEAXE);
-            entries.add(WOODEN_GREATSWORD);
-            entries.add(GOLDEN_GREATSWORD);
-            entries.add(STONE_GREATSWORD);
-            entries.add(COPPER_GREATSWORD);
-            entries.add(IRON_GREATSWORD);
-            entries.add(DIAMOND_GREATSWORD);
-            entries.add(NETHERITE_GREATSWORD);
-            entries.add(HEAVY_ARROW);
-            entries.add(LONGBOW);
-            entries.add(CHAIN_CROSSBOW);
+            // Ranged placement relative to vanilla items
+            entries.addAfter(Items.BOW, LONGBOW);
+            entries.addAfter(Items.CROSSBOW, CHAIN_CROSSBOW);
+            entries.addAfter(Items.SPECTRAL_ARROW, HEAVY_ARROW);
+
+            // Melee groups: start after Netherite Sword, keep strict material ordering within each type.
+            Item anchor = Items.WOODEN_SWORD;
+
+            // Broadswords
+            entries.addBefore(anchor, WOODEN_BROADSWORD);
+            entries.addAfter(WOODEN_BROADSWORD, GOLDEN_BROADSWORD);
+            entries.addAfter(GOLDEN_BROADSWORD, STONE_BROADSWORD);
+            entries.addAfter(STONE_BROADSWORD, COPPER_BROADSWORD);
+            entries.addAfter(COPPER_BROADSWORD, IRON_BROADSWORD);
+            entries.addAfter(IRON_BROADSWORD, DIAMOND_BROADSWORD);
+            entries.addAfter(DIAMOND_BROADSWORD, NETHERITE_BROADSWORD);
+            anchor = NETHERITE_BROADSWORD;
+
+            // Sickles
+            entries.addAfter(anchor, WOODEN_SICKLE);
+            entries.addAfter(WOODEN_SICKLE, GOLDEN_SICKLE);
+            entries.addAfter(GOLDEN_SICKLE, STONE_SICKLE);
+            entries.addAfter(STONE_SICKLE, COPPER_SICKLE);
+            entries.addAfter(COPPER_SICKLE, IRON_SICKLE);
+            entries.addAfter(IRON_SICKLE, DIAMOND_SICKLE);
+            entries.addAfter(DIAMOND_SICKLE, NETHERITE_SICKLE);
+            anchor = NETHERITE_SWORD;
+
+            // Scythes
+            entries.addAfter(anchor, WOODEN_SCYTHE);
+            entries.addAfter(WOODEN_SCYTHE, GOLDEN_SCYTHE);
+            entries.addAfter(GOLDEN_SCYTHE, STONE_SCYTHE);
+            entries.addAfter(STONE_SCYTHE, COPPER_SCYTHE);
+            entries.addAfter(COPPER_SCYTHE, IRON_SCYTHE);
+            entries.addAfter(IRON_SCYTHE, DIAMOND_SCYTHE);
+            entries.addAfter(DIAMOND_SCYTHE, NETHERITE_SCYTHE);
+            anchor = NETHERITE_SCYTHE;
+
+            // Longswords
+            entries.addAfter(anchor, WOODEN_LONGSWORD);
+            entries.addAfter(WOODEN_LONGSWORD, GOLDEN_LONGSWORD);
+            entries.addAfter(GOLDEN_LONGSWORD, STONE_LONGSWORD);
+            entries.addAfter(STONE_LONGSWORD, COPPER_LONGSWORD);
+            entries.addAfter(COPPER_LONGSWORD, IRON_LONGSWORD);
+            entries.addAfter(IRON_LONGSWORD, DIAMOND_LONGSWORD);
+            entries.addAfter(DIAMOND_LONGSWORD, NETHERITE_LONGSWORD);
+            anchor = NETHERITE_LONGSWORD;
+
+            // Katanas
+            entries.addAfter(anchor, WOODEN_KATANA);
+            entries.addAfter(WOODEN_KATANA, GOLDEN_KATANA);
+            entries.addAfter(GOLDEN_KATANA, STONE_KATANA);
+            entries.addAfter(STONE_KATANA, COPPER_KATANA);
+            entries.addAfter(COPPER_KATANA, IRON_KATANA);
+            entries.addAfter(IRON_KATANA, DIAMOND_KATANA);
+            entries.addAfter(DIAMOND_KATANA, NETHERITE_KATANA);
+            anchor = WOODEN_AXE;
+
+            // Hatchets
+            entries.addBefore(anchor, WOODEN_HATCHET);
+            entries.addAfter(WOODEN_HATCHET, GOLDEN_HATCHET);
+            entries.addAfter(GOLDEN_HATCHET, STONE_HATCHET);
+            entries.addAfter(STONE_HATCHET, COPPER_HATCHET);
+            entries.addAfter(COPPER_HATCHET, IRON_HATCHET);
+            entries.addAfter(IRON_HATCHET, DIAMOND_HATCHET);
+            entries.addAfter(DIAMOND_HATCHET, NETHERITE_HATCHET);
+            anchor = NETHERITE_AXE;
+
+            // Hammers
+            entries.addAfter(anchor, WOODEN_HAMMER);
+            entries.addAfter(WOODEN_HAMMER, GOLDEN_HAMMER);
+            entries.addAfter(GOLDEN_HAMMER, STONE_HAMMER);
+            entries.addAfter(STONE_HAMMER, COPPER_HAMMER);
+            entries.addAfter(COPPER_HAMMER, IRON_HAMMER);
+            entries.addAfter(IRON_HAMMER, DIAMOND_HAMMER);
+            entries.addAfter(DIAMOND_HAMMER, NETHERITE_HAMMER);
+            anchor = NETHERITE_HAMMER;
+
+            // Battleaxes
+            entries.addAfter(anchor, WOODEN_BATTLEAXE);
+            entries.addAfter(WOODEN_BATTLEAXE, GOLDEN_BATTLEAXE);
+            entries.addAfter(GOLDEN_BATTLEAXE, STONE_BATTLEAXE);
+            entries.addAfter(STONE_BATTLEAXE, COPPER_BATTLEAXE);
+            entries.addAfter(COPPER_BATTLEAXE, IRON_BATTLEAXE);
+            entries.addAfter(IRON_BATTLEAXE, DIAMOND_BATTLEAXE);
+            entries.addAfter(DIAMOND_BATTLEAXE, NETHERITE_BATTLEAXE);
+            anchor = NETHERITE_KATANA;
+
+            // Greatswords
+            entries.addAfter(anchor, WOODEN_GREATSWORD);
+            entries.addAfter(WOODEN_GREATSWORD, GOLDEN_GREATSWORD);
+            entries.addAfter(GOLDEN_GREATSWORD, STONE_GREATSWORD);
+            entries.addAfter(STONE_GREATSWORD, COPPER_GREATSWORD);
+            entries.addAfter(COPPER_GREATSWORD, IRON_GREATSWORD);
+            entries.addAfter(IRON_GREATSWORD, DIAMOND_GREATSWORD);
+            entries.addAfter(DIAMOND_GREATSWORD, NETHERITE_GREATSWORD);
         });
     }
 }
