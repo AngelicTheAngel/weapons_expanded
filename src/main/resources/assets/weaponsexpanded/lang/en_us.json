@@ -99,5 +99,7 @@
 
   "tooltip.twohandedsword": "Two-Handed",
   "tooltip.weaponsexpanded.chain_crossbow_shots": "Shots: %s/%s",
-  "tooltip.weaponsexpanded.chain_crossbow_queued": "Queued: %s/%s"
+
+  "subtitles.weaponsexpanded.item.chain_crossbow.chamber": "Chain Crossbow chambers",
+  "subtitles.weaponsexpanded.item.chain_crossbow.full": "Chain Crossbow is full"
 }

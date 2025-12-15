@@ -6,6 +6,7 @@ import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.network.FireChainCrossbowPayload;
+import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 import net.angelic.weaponsexpanded.network.ModPackets;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -27,13 +28,12 @@ public class WeaponsExpanded implements ModInitializer {
 		ModEnchantmentEffects.registerEnchantmentEffects();
 		ModEffects.registerEffects();
 		ModEntities.registerEntities();
+        ModSounds.register();
 
         // Register payload types once (safe if called again elsewhere)
         ModPackets.register();
 
-        ServerPlayNetworking.registerGlobalReceiver(FireChainCrossbowPayload.ID, (payload, context) -> {
-            context.server().execute(() -> weaponsexpanded$tryFireChainCrossbow(context.player()));
-        });
+        ServerPlayNetworking.registerGlobalReceiver(FireChainCrossbowPayload.ID, (payload, context) -> context.server().execute(() -> weaponsexpanded$tryFireChainCrossbow(context.player())));
     }
 
     private static void weaponsexpanded$tryFireChainCrossbow(PlayerEntity player) {
