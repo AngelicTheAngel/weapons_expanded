@@ -212,7 +212,7 @@ public class ModItems {
             settings -> new LongbowItem(settings.maxDamage(384)));
 
     public static final Item CHAIN_CROSSBOW = registerItem("chain_crossbow",
-            settings -> new ChainCrossbowItem(settings.maxDamage(384)));
+            settings -> new ChainCrossbowItem(settings.maxDamage(465)));
 
     public static final Item IRON_SPEAR = registerItem("iron_spear",
             settings -> new PierceWeaponItem(ToolMaterial.IRON, 4.5F, -2.7F, settings));
