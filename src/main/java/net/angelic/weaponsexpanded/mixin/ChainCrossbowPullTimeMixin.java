@@ -17,7 +17,7 @@ public class ChainCrossbowPullTimeMixin {
 
     // Fixed base charge time (before Quick Charge), in ticks
     @Unique
-    private static final int CHAIN_CROSSBOW_BASE_PULL_TICKS = 45;
+    private static final int CHAIN_CROSSBOW_BASE_PULL_TICKS = 38;
 
     @Inject(method = "getPullTime", at = @At("HEAD"), cancellable = true)
     private static void weaponsexpanded$fixedPullTimeWithQuickCharge(

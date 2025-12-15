@@ -59,7 +59,7 @@ public abstract class ChainCrossbowFireMixin {
 
         // Apply 10-tick cooldown after firing
         if (shooter instanceof PlayerEntity player) {
-            player.getItemCooldownManager().set(stack, 10);
+            player.getItemCooldownManager().set(stack, 8);
         }
 
         ChargedProjectilesComponent charged =
