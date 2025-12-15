@@ -209,10 +209,10 @@ public class ModItems {
             settings -> new HeavyArrowItem(settings.maxCount(64)));
 
     public static final Item LONGBOW = registerItem("longbow",
-            settings -> new LongbowItem(settings.maxDamage(384)));
+            settings -> new LongbowItem(settings.maxDamage(384).enchantable(1)));
 
     public static final Item CHAIN_CROSSBOW = registerItem("chain_crossbow",
-            settings -> new ChainCrossbowItem(settings.maxDamage(465)));
+            settings -> new ChainCrossbowItem(settings.maxDamage(465).enchantable(1)));
 
     public static final Item IRON_SPEAR = registerItem("iron_spear",
             settings -> new PierceWeaponItem(ToolMaterial.IRON, 4.5F, -2.7F, settings));
