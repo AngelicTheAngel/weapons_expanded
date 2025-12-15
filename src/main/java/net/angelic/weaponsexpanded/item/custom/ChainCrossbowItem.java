@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.item.custom;
 
+import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.component.type.NbtComponent;
@@ -11,6 +12,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -51,7 +53,6 @@ public class ChainCrossbowItem extends CrossbowItem {
         int total = Math.min(WEAPONSEXPANDED$MAX_TOTAL_SHOTS, currentOrSaved + queued);
 
         textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.chain_crossbow_shots", total, WEAPONSEXPANDED$MAX_TOTAL_SHOTS));
-        textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.chain_crossbow_queued", queued, WEAPONSEXPANDED$MAX_TOTAL_SHOTS - 1));
 
         super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
@@ -77,6 +78,15 @@ public class ChainCrossbowItem extends CrossbowItem {
         int total = currentOrSaved + queued;
 
         if (total >= WEAPONSEXPANDED$MAX_TOTAL_SHOTS) {
+            user.getEntityWorld().playSound(
+                    null,
+                    user.getX(), user.getY(), user.getZ(),
+                    ModSounds.CHAIN_CROSSBOW_FULL,
+                    SoundCategory.PLAYERS,
+                    1.0F,
+                    1.0F
+            );
+
             weaponsexpanded$setCustomNbt(crossbow, root);
             return ActionResult.FAIL;
         }
@@ -86,7 +96,7 @@ public class ChainCrossbowItem extends CrossbowItem {
             return ActionResult.CONSUME;
         }
 
-        // If the chamber is empty but we have queued shots and NO ammo to manually load,
+        // If the chamber is empty, but we have queued shots and NO ammo to manually load,
         // just reload from the stored queue (no ammo required).
         if (!isChargedNow && queued > 0 && user.getProjectileType(crossbow).isEmpty()) {
             List<ItemStack> next = weaponsexpanded$popNextChamber(world, crossbow);
@@ -97,7 +107,7 @@ public class ChainCrossbowItem extends CrossbowItem {
         }
 
         // Topping up while already charged:
-        // Save current chamber, clear it, then let vanilla load another (consumes ammo).
+        // Save the current chamber, clear it, then let vanilla load another (consumes ammo).
         if (isChargedNow) {
             root.put(WEAPONSEXPANDED$SAVED_CHAMBER_KEY, weaponsexpanded$encodeChamber(world, crossbow));
             weaponsexpanded$setCustomNbt(crossbow, root);
