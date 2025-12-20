@@ -12,6 +12,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -96,12 +97,17 @@ public class ChainCrossbowItem extends CrossbowItem {
             return ActionResult.CONSUME;
         }
 
-        // If the chamber is empty, but we have queued shots and NO ammo to manually load,
-        // just reload from the stored queue (no ammo required).
+        // Recovery logic: If the chamber is empty, but we have queued shots and NO ammo to manually load,
+        // force a reload from the stored queue.
         if (!isChargedNow && queued > 0 && user.getProjectileType(crossbow).isEmpty()) {
             List<ItemStack> next = weaponsexpanded$popNextChamber(world, crossbow);
             if (!next.isEmpty()) {
                 crossbow.set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.of(next));
+
+                // Sync the fix to the client immediately
+                if (user instanceof ServerPlayerEntity serverPlayer) {
+                    serverPlayer.currentScreenHandler.syncState();
+                }
                 return ActionResult.CONSUME;
             }
         }

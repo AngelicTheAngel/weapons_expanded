@@ -122,25 +122,25 @@ public class ModItems {
             settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 3.0F, -2.2F, settings.fireproof()));
 
     public static final Item WOODEN_HATCHET = registerItem("wooden_hatchet",
-            settings -> new Item(settings.axe(ToolMaterial.WOOD, 5.0F, -3.0F)));
+            settings -> new AxeItem(ToolMaterial.WOOD, 5.0F, -3.0F, settings));
 
     public static final Item GOLDEN_HATCHET = registerItem("golden_hatchet",
-            settings -> new Item(settings.axe(ToolMaterial.GOLD, 5.0F, -2.8F)));
+            settings -> new AxeItem(ToolMaterial.GOLD, 5.0F, -2.8F, settings));
 
     public static final Item STONE_HATCHET = registerItem("stone_hatchet",
-            settings -> new Item(settings.axe(ToolMaterial.STONE, 6.0F, -3.0F)));
+            settings -> new AxeItem(ToolMaterial.STONE, 6.0F, -3.0F, settings));
 
     public static final Item COPPER_HATCHET = registerItem("copper_hatchet",
-            settings -> new Item(settings.axe(ToolMaterial.COPPER, 6.0F, -3.0F)));
+            settings -> new AxeItem(ToolMaterial.COPPER, 6.0F, -3.0F, settings));
 
     public static final Item IRON_HATCHET = registerItem("iron_hatchet",
-            settings -> new Item(settings.axe(ToolMaterial.IRON, 5.0F, -2.9F)));
+            settings -> new AxeItem(ToolMaterial.IRON, 5.0F, -2.9F, settings));
 
     public static final Item DIAMOND_HATCHET = registerItem("diamond_hatchet",
-            settings -> new Item(settings.axe(ToolMaterial.DIAMOND, 4.0F, -2.8F)));
+            settings -> new AxeItem(ToolMaterial.DIAMOND, 4.0F, -2.8F, settings));
 
     public static final Item NETHERITE_HATCHET = registerItem("netherite_hatchet",
-            settings -> new Item(settings.axe(ToolMaterial.NETHERITE, 4.0F, -2.8F).fireproof()));
+            settings -> new AxeItem(ToolMaterial.NETHERITE, 4.0F, -2.8F, settings.fireproof()));
 
     public static final Item WOODEN_HAMMER = registerItem("wooden_hammer",
             settings -> new BluntWeaponItem(ModToolMaterials.FAUX_WOOD, 7.0F, -3.3F, settings));
@@ -164,25 +164,25 @@ public class ModItems {
             settings -> new BluntWeaponItem(ModToolMaterials.FAUX_NETHERITE, 6.0F, -3.1F, settings.fireproof()));
 
     public static final Item WOODEN_BATTLEAXE = registerItem("wooden_battleaxe",
-            settings -> new Item(settings.axe(ToolMaterial.WOOD, 8.0F, -3.4F)));
+            settings -> new AxeItem(ToolMaterial.WOOD, 8.0F, -3.4F, settings));
 
     public static final Item GOLDEN_BATTLEAXE = registerItem("golden_battleaxe",
-            settings -> new Item(settings.axe(ToolMaterial.GOLD, 8.0F, -3.2F)));
+            settings -> new AxeItem(ToolMaterial.GOLD, 8.0F, -3.2F, settings));
 
     public static final Item STONE_BATTLEAXE = registerItem("stone_battleaxe",
-            settings -> new Item(settings.axe(ToolMaterial.STONE, 9.0F, -3.4F)));
+            settings -> new AxeItem(ToolMaterial.STONE, 9.0F, -3.4F, settings));
 
     public static final Item COPPER_BATTLEAXE = registerItem("copper_battleaxe",
-            settings -> new Item(settings.axe(ToolMaterial.COPPER, 9.0F, -3.4F)));
+            settings -> new AxeItem(ToolMaterial.COPPER, 9.0F, -3.4F, settings));
 
     public static final Item IRON_BATTLEAXE = registerItem("iron_battleaxe",
-            settings -> new Item(settings.axe(ToolMaterial.IRON, 8.0F, -3.3F)));
+            settings -> new AxeItem(ToolMaterial.IRON, 8.0F, -3.3F, settings));
 
     public static final Item DIAMOND_BATTLEAXE = registerItem("diamond_battleaxe",
-            settings -> new Item(settings.axe(ToolMaterial.DIAMOND, 7.0F, -3.2F)));
+            settings -> new AxeItem(ToolMaterial.DIAMOND, 7.0F, -3.2F, settings));
 
     public static final Item NETHERITE_BATTLEAXE = registerItem("netherite_battleaxe",
-            settings -> new Item(settings.axe(ToolMaterial.NETHERITE, 7.0F, -3.2F).fireproof()));
+            settings -> new AxeItem(ToolMaterial.NETHERITE, 7.0F, -3.2F, settings.fireproof()));
 
     public static final Item WOODEN_GREATSWORD = registerItem("wooden_greatsword",
             settings -> new TwoHandedHeavySwordItem(ToolMaterial.WOOD, 8.0F, -3.3F, settings));
@@ -226,7 +226,7 @@ public class ModItems {
     }
 
     public static void registerModItems() {
-        WeaponsExpanded.LOGGER.info("Registering Items for " + WeaponsExpanded.MOD_ID);
+        WeaponsExpanded.LOGGER.info("Registering items for " + WeaponsExpanded.MOD_ID);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
             // Ranged placement relative to vanilla items

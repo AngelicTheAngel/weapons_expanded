@@ -16,6 +16,6 @@ public class ModEffects {
     }
 
     public static void registerEffects() {
-        WeaponsExpanded.LOGGER.info("Registering Effects for" + WeaponsExpanded.MOD_ID);
+        WeaponsExpanded.LOGGER.info("Registering effects for " + WeaponsExpanded.MOD_ID);
     }
 }
