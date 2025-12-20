@@ -226,7 +226,7 @@ public class ModItems {
     }
 
     public static void registerModItems() {
-        WeaponsExpanded.LOGGER.info("Registering Items for " + WeaponsExpanded.MOD_ID);
+        WeaponsExpanded.LOGGER.info("Registering items for " + WeaponsExpanded.MOD_ID);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
             // Ranged placement relative to vanilla items
