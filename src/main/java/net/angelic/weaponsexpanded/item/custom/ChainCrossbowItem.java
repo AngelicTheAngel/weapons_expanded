@@ -112,6 +112,12 @@ public class ChainCrossbowItem extends CrossbowItem {
             }
         }
 
+        if (!isChargedNow && queued == 0) {
+            if (user instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.currentScreenHandler.syncState();
+            }
+        }
+
         // Topping up while already charged:
         // Save the current chamber, clear it, then let vanilla load another (consumes ammo).
         if (isChargedNow) {
