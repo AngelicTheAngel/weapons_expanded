@@ -17,8 +17,8 @@ public class ModEnchantmentEffects {
             registerEntityEffect("frostbite", FrostbiteEnchantmentEffect.CODEC);
     public static final MapCodec<? extends EnchantmentEntityEffect> FREEZE =
             registerEntityEffect("freeze", FreezeEnchantmentEffect.CODEC);
-    public static final MapCodec<? extends EnchantmentEntityEffect> EXPLODING =
-            registerEntityEffect("exploding", ExplodingEnchantmentEffect.CODEC);
+    public static final MapCodec<? extends EnchantmentEntityEffect> LEECH =
+            registerEntityEffect("leech", LeechEnchantmentEffect.CODEC);
 
     private static MapCodec<? extends EnchantmentEntityEffect> registerEntityEffect(String name, MapCodec<? extends EnchantmentEntityEffect> codec) {
         return Registry.register(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Identifier.of(WeaponsExpanded.MOD_ID, name), codec);

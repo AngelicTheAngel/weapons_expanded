@@ -234,7 +234,6 @@ public class ModItems {
             entries.addAfter(Items.CROSSBOW, CHAIN_CROSSBOW);
             entries.addAfter(Items.SPECTRAL_ARROW, HEAVY_ARROW);
 
-            // Melee groups: start after Netherite Sword, keep strict material ordering within each type.
             Item anchor = Items.WOODEN_SWORD;
 
             // Broadswords
