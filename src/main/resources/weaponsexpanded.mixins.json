@@ -9,6 +9,7 @@
     "FrostbiteCleanupMixin",
     "FrostbiteFireMixin",
     "HeavyArrowSidePickupVanishMixin",
+    "LeechShieldBlockMixin",
     "ProjectileFreezeMixin",
     "TwoHandedSwordMixin",
     "accessor.CrossbowItemAccessor",

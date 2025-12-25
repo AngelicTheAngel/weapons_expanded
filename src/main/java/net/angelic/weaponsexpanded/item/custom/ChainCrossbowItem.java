@@ -10,9 +10,9 @@ import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -92,29 +92,35 @@ public class ChainCrossbowItem extends CrossbowItem {
             return ActionResult.FAIL;
         }
 
-        if (hasSavedChamber) {
-            weaponsexpanded$setCustomNbt(crossbow, root);
-            return ActionResult.CONSUME;
-        }
+        // Force-recovery logic:
+        // If vanilla says "not charged", but our custom NBT indicates we still have a shot,
+        // force-load it into CHARGED_PROJECTILES.
+        if (!isChargedNow) {
+            // 1) Restore from saved chamber first (this represents the "current" shot)
+            if (hasSavedChamber) {
+                NbtCompound saved = root.getCompound(WEAPONSEXPANDED$SAVED_CHAMBER_KEY).orElse(null);
+                root.remove(WEAPONSEXPANDED$SAVED_CHAMBER_KEY);
+                weaponsexpanded$setCustomNbt(crossbow, root);
 
-        // Recovery logic: If the chamber is empty, but we have queued shots and NO ammo to manually load,
-        // force a reload from the stored queue.
-        if (!isChargedNow && queued > 0 && user.getProjectileType(crossbow).isEmpty()) {
-            List<ItemStack> next = weaponsexpanded$popNextChamber(world, crossbow);
-            if (!next.isEmpty()) {
-                crossbow.set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.of(next));
-
-                // Sync the fix to the client immediately
-                if (user instanceof ServerPlayerEntity serverPlayer) {
-                    serverPlayer.currentScreenHandler.syncState();
+                if (saved != null) {
+                    weaponsexpanded$applyChamberToCrossbow(world, crossbow, saved);
+                    if (user instanceof ServerPlayerEntity serverPlayer) {
+                        serverPlayer.currentScreenHandler.syncState();
+                    }
+                    return ActionResult.CONSUME;
                 }
-                return ActionResult.CONSUME;
             }
-        }
 
-        if (!isChargedNow && queued == 0) {
-            if (user instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.currentScreenHandler.syncState();
+            // 2) Otherwise, pull from queued chambers
+            if (queued > 0) {
+                List<ItemStack> next = weaponsexpanded$popNextChamber(world, crossbow);
+                if (!next.isEmpty()) {
+                    crossbow.set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.of(next));
+                    if (user instanceof ServerPlayerEntity serverPlayer) {
+                        serverPlayer.currentScreenHandler.syncState();
+                    }
+                    return ActionResult.CONSUME;
+                }
             }
         }
 
