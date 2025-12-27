@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.BlockStateModelGenerator;
 import net.minecraft.client.data.ItemModelGenerator;
 import net.minecraft.client.data.Models;
+import org.jspecify.annotations.NonNull;
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
@@ -13,7 +14,7 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+    public void generateBlockStateModels(@NonNull BlockStateModelGenerator blockStateModelGenerator) {
 
     }
 
@@ -83,6 +84,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DIAMOND_GREATSWORD, Models.HANDHELD);
         itemModelGenerator.register(ModItems.NETHERITE_GREATSWORD, Models.HANDHELD);
         itemModelGenerator.register(ModItems.HEAVY_ARROW, Models.GENERATED);
+        itemModelGenerator.register(ModItems.EXPLOSIVE_ARROW, Models.GENERATED);
         itemModelGenerator.register(ModItems.IRON_SPEAR, Models.HANDHELD);
         itemModelGenerator.register(ModItems.IRON_RAPIER, Models.HANDHELD);
     }

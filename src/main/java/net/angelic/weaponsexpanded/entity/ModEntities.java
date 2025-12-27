@@ -1,6 +1,7 @@
 package net.angelic.weaponsexpanded.entity;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
+import net.angelic.weaponsexpanded.entity.projectile.ExplosiveArrowEntity;
 import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -23,6 +24,19 @@ public class ModEntities {
                     .trackingTickInterval(1)
                     .maxTrackingRange(64)
                     .build(HEAVY_ARROW_KEY)
+    );
+
+    private static final RegistryKey<EntityType<?>> EXPLOSIVE_ARROW_KEY =
+            RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(WeaponsExpanded.MOD_ID, "explosive_arrow"));
+
+    public static final EntityType<ExplosiveArrowEntity> EXPLOSIVE_ARROW = Registry.register(
+            Registries.ENTITY_TYPE,
+            Identifier.of(WeaponsExpanded.MOD_ID, "explosive_arrow"),
+            EntityType.Builder.<ExplosiveArrowEntity>create(ExplosiveArrowEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.5f, 0.5f)
+                    .trackingTickInterval(1)
+                    .maxTrackingRange(64)
+                    .build(EXPLOSIVE_ARROW_KEY)
     );
 
     public static void registerEntities() {

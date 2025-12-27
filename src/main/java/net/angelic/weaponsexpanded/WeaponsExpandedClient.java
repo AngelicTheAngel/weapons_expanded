@@ -9,6 +9,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.entity.ArrowEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.HitResult;
@@ -18,6 +19,7 @@ public class WeaponsExpandedClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         EntityRendererFactories.register(ModEntities.HEAVY_ARROW, HeavyArrowEntityRenderer::new);
+        EntityRendererFactories.register(ModEntities.EXPLOSIVE_ARROW, ArrowEntityRenderer::new);
 
         // Register payload types once (guarded against double-register)
         ModPackets.register();

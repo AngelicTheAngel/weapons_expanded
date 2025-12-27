@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "weaponsexpanded:iron_broadsword",
+  "result": {
+    "id": "minecraft:iron_nugget"
+  }
+}

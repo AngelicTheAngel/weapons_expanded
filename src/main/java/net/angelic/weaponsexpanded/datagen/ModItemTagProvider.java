@@ -274,7 +274,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLDEN_BATTLEAXE)
                 .add(ModItems.GOLDEN_GREATSWORD);
         valueLookupBuilder(ItemTags.ARROWS)
-                .add(ModItems.HEAVY_ARROW);
+                .add(ModItems.HEAVY_ARROW)
+                .add(ModItems.EXPLOSIVE_ARROW);
         valueLookupBuilder(ItemTags.BOW_ENCHANTABLE)
                 .add(ModItems.LONGBOW);
         valueLookupBuilder(ItemTags.CROSSBOW_ENCHANTABLE)

@@ -208,6 +208,9 @@ public class ModItems {
     public static final Item HEAVY_ARROW = registerItem("heavy_arrow",
             settings -> new HeavyArrowItem(settings.maxCount(64)));
 
+    public static final Item EXPLOSIVE_ARROW = registerItem("explosive_arrow",
+            settings -> new ExplosiveArrowItem(settings.maxCount(64)));
+
     public static final Item LONGBOW = registerItem("longbow",
             settings -> new LongbowItem(settings.maxDamage(384).enchantable(1)));
 
@@ -233,6 +236,7 @@ public class ModItems {
             entries.addAfter(Items.BOW, LONGBOW);
             entries.addAfter(Items.CROSSBOW, CHAIN_CROSSBOW);
             entries.addAfter(Items.SPECTRAL_ARROW, HEAVY_ARROW);
+            entries.addAfter(HEAVY_ARROW, EXPLOSIVE_ARROW);
 
             Item anchor = Items.WOODEN_SWORD;
 

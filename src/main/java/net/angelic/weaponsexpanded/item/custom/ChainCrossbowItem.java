@@ -4,10 +4,12 @@ import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.component.type.NbtComponent;
+import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -18,7 +20,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.text.Text;
 
@@ -26,13 +27,42 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 import java.util.List;
 
+import net.angelic.weaponsexpanded.item.ModItems;
+
 public class ChainCrossbowItem extends CrossbowItem {
 
     private static final String WEAPONSEXPANDED$QUEUE_KEY = "weaponsexpanded:chain_crossbow_queue";
     private static final String WEAPONSEXPANDED$SAVED_CHAMBER_KEY = "weaponsexpanded:chain_crossbow_saved_chamber";
 
-    // Total shots = (current chamber OR saved chamber) + queued chambers
     private static final int WEAPONSEXPANDED$MAX_TOTAL_SHOTS = 4;
+
+    // Use float slot 0 in CustomModelDataComponent to drive item model selection
+    private static final float WEAPONSEXPANDED$CMD_EXPLOSIVE_LOADED = 1.0F;
+
+    private static void weaponsexpanded$updateLoadedVisual(ItemStack stack) {
+        ChargedProjectilesComponent charged =
+                stack.getOrDefault(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
+
+        boolean hasExplosive = charged.getProjectiles().stream()
+                .anyMatch(s -> !s.isEmpty() && s.getItem() == ModItems.EXPLOSIVE_ARROW);
+
+        if (hasExplosive) {
+            stack.set(
+                    DataComponentTypes.CUSTOM_MODEL_DATA,
+                    new CustomModelDataComponent(List.of(WEAPONSEXPANDED$CMD_EXPLOSIVE_LOADED), List.of(), List.of(), List.of())
+            );
+        } else {
+            stack.remove(DataComponentTypes.CUSTOM_MODEL_DATA);
+        }
+    }
+
+    /**
+     * Public hook for mixins/other code paths (auto-reload, restore, etc.)
+     * to refresh the item model state after CHARGED_PROJECTILES changes.
+     */
+    public static void weaponsexpanded$refreshLoadedVisual(ItemStack stack) {
+        weaponsexpanded$updateLoadedVisual(stack);
+    }
 
     public ChainCrossbowItem(Settings settings) {
         super(settings);
@@ -62,13 +92,8 @@ public class ChainCrossbowItem extends CrossbowItem {
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack crossbow = user.getStackInHand(hand);
 
-        if (world.isClient()) {
-            return super.use(world, user, hand);
-        }
-
+        // Compute fullness on BOTH sides so the client doesn't run vanilla "shootAll" when full.
         NbtCompound root = weaponsexpanded$getOrCreateCustomNbt(crossbow);
-
-        // Hard safety: never allow queue to exceed allowed capacity
         weaponsexpanded$trimQueueToMax(root);
 
         boolean hasSavedChamber = root.contains(WEAPONSEXPANDED$SAVED_CHAMBER_KEY);
@@ -79,17 +104,28 @@ public class ChainCrossbowItem extends CrossbowItem {
         int total = currentOrSaved + queued;
 
         if (total >= WEAPONSEXPANDED$MAX_TOTAL_SHOTS) {
-            user.getEntityWorld().playSound(
-                    null,
-                    user.getX(), user.getY(), user.getZ(),
-                    ModSounds.CHAIN_CROSSBOW_FULL,
-                    SoundCategory.PLAYERS,
-                    1.0F,
-                    1.0F
-            );
+            // Server plays the sound; client just returns FAIL to avoid clearing CHARGED_PROJECTILES.
+            if (!world.isClient()) {
+                user.getEntityWorld().playSound(
+                        null,
+                        user.getX(), user.getY(), user.getZ(),
+                        ModSounds.CHAIN_CROSSBOW_FULL,
+                        SoundCategory.PLAYERS,
+                        1.0F,
+                        1.0F
+                );
+                weaponsexpanded$setCustomNbt(crossbow, root);
 
-            weaponsexpanded$setCustomNbt(crossbow, root);
+                // Keep visuals consistent in case anything changed earlier.
+                weaponsexpanded$refreshLoadedVisual(crossbow);
+            }
+
             return ActionResult.FAIL;
+        }
+
+        // If client and not full, let vanilla handle hand animation, etc.
+        if (world.isClient()) {
+            return super.use(world, user, hand);
         }
 
         // Force-recovery logic:
@@ -154,6 +190,14 @@ public class ChainCrossbowItem extends CrossbowItem {
     }
 
     @Override
+    public void shootAll(World world, LivingEntity shooter, Hand hand, ItemStack stack, float speed, float divergence, LivingEntity target) {
+        // We’re about to consume the charged projectiles; clear the flag so the model returns to normal.
+        stack.remove(DataComponentTypes.CUSTOM_MODEL_DATA);
+
+        super.shootAll(world, shooter, hand, stack, speed, divergence, target);
+    }
+
+    @Override
     public boolean onStoppedUsing(ItemStack crossbow, World world, LivingEntity user, int remainingUseTicks) {
         boolean result = super.onStoppedUsing(crossbow, world, user, remainingUseTicks);
 
@@ -178,6 +222,10 @@ public class ChainCrossbowItem extends CrossbowItem {
         }
 
         weaponsexpanded$setCustomNbt(crossbow, root);
+
+        // Refresh model flag after charging/restoring chambers
+        weaponsexpanded$updateLoadedVisual(crossbow);
+
         return result;
     }
 

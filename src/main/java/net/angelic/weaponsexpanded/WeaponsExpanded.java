@@ -10,12 +10,17 @@ import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 import net.angelic.weaponsexpanded.network.ModPackets;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import net.fabricmc.loader.api.FabricLoader;
@@ -25,6 +30,12 @@ import net.minecraft.server.network.ServerPlayerEntity;
 public class WeaponsExpanded implements ModInitializer {
     public static final String MOD_ID = "weaponsexpanded";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+    // Everything in this tag will be usable as furnace fuel.
+    public static final TagKey<Item> WOODEN_FUEL = TagKey.of(
+            RegistryKeys.ITEM,
+            Identifier.of(MOD_ID, "wooden_fuel")
+    );
 
     // Global version variable fetched from fabric.mod.json
     public static final String VERSION = FabricLoader.getInstance()
@@ -36,10 +47,14 @@ public class WeaponsExpanded implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Initializing {} version {}", MOD_ID, VERSION);
 
-		ModItems.registerModItems();
-		ModEnchantmentEffects.registerEnchantmentEffects();
-		ModEffects.registerEffects();
-		ModEntities.registerEntities();
+        ModItems.registerModItems();
+
+        // 200 ticks = same as most vanilla wooden tools.
+        FuelRegistryEvents.BUILD.register((builder, context) -> builder.add(WOODEN_FUEL, 200));
+
+        ModEnchantmentEffects.registerEnchantmentEffects();
+        ModEffects.registerEffects();
+        ModEntities.registerEntities();
         ModSounds.register();
 
         // Register payload types once (safe if called again elsewhere)
@@ -60,12 +75,8 @@ public class WeaponsExpanded implements ModInitializer {
 
         chainCrossbow.shootAll(player.getEntityWorld(), player, Hand.MAIN_HAND, stack, speed, 1.0F, null);
 
-        // Explicitly trigger the advancement on the server side after firing.
-        // We pass a dummy vanilla crossbow stack to satisfy the hardcoded "minecraft:crossbow" requirement
-        // in the vanilla advancement JSONs.
         if (player instanceof ServerPlayerEntity serverPlayer) {
             ItemStack dummy = new ItemStack(Items.CROSSBOW);
-            // Copy relevant components if needed, but for "Ol' Betsy" the ID is usually enough.
             Criteria.SHOT_CROSSBOW.trigger(serverPlayer, dummy);
         }
     }

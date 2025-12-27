@@ -4,29 +4,35 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AxeDurabilityMixin",
-    "ChainCrossbowFireMixin",
-    "ChainCrossbowPullTimeMixin",
-    "CrossbowHeavyArrowMultishotMixin",
-    "FrostbiteCleanupMixin",
-    "FrostbiteFireMixin",
-    "HeavyArrowSidePickupVanishMixin",
-    "LeechShieldBlockMixin",
-    "ProjectileFreezeMixin",
-    "TwoHandedSwordMixin",
     "accessor.CrossbowItemAccessor",
     "accessor.PersistentProjectileEntityAccessor",
-    "invoker.PersistentProjectileEntityPierceInvoker"
+    "chain_crossbow.ChainCrossbowFireMixin",
+    "chain_crossbow.ChainCrossbowPullTimeMixin",
+    "enchantment.FrostbiteCleanupMixin",
+    "enchantment.FrostbiteFireMixin",
+    "enchantment.LeechShieldBlockMixin",
+    "enchantment.ProjectileFreezeMixin",
+    "entity_equipment.LivingEntityEquipStackZombieSwapMixin",
+    "entity_equipment.PiglinBruteEquipmentMixin",
+    "entity_equipment.PiglinEquipmentMixin",
+    "entity_equipment.ZombieEquipmentMixin",
+    "entity_equipment.ZombifiedPiglinEquipmentMixin",
+    "explosive_arrow.BowExplosiveArrowBlockMixin",
+    "explosive_arrow.CrossbowExplosiveArrowDurabilityMixin",
+    "explosive_arrow.CrossbowItemExplosiveVisualMixin",
+    "heavy_arrow.CrossbowHeavyArrowMultishotMixin",
+    "heavy_arrow.HeavyArrowSidePickupVanishMixin",
+    "invoker.PersistentProjectileEntityPierceInvoker",
+    "two_handed_sword.TwoHandedSwordMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "HeldItemRendererChainCrossbowHideOffhandMixin",
-    "HeldItemRendererChainCrossbowMixin",
+    "HeldItemRendererHideOffhandMixin",
     "LongbowFovMixin",
-    "MinecraftClientChainCrossbowAttackMixin",
-    "PlayerEntityRendererChainCrossbowPoseMixin",
-    "TwoHandedSwordArmPoseMixin",
-    "TwoHandedSwordHideOffhandMixin"
+    "PlayerEntityRendererArmPoseMixin",
+    "chain_crossbow.HeldItemRendererChainCrossbowMixin",
+    "chain_crossbow.MinecraftClientChainCrossbowAttackMixin"
   ]
 }
