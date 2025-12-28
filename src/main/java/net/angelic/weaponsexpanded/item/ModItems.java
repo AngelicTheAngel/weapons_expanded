@@ -217,12 +217,6 @@ public class ModItems {
     public static final Item CHAIN_CROSSBOW = registerItem("chain_crossbow",
             settings -> new ChainCrossbowItem(settings.maxDamage(465).enchantable(1)));
 
-    public static final Item IRON_SPEAR = registerItem("iron_spear",
-            settings -> new PierceWeaponItem(ToolMaterial.IRON, 4.5F, -2.7F, settings));
-
-    public static final Item IRON_RAPIER = registerItem("iron_rapier",
-            settings -> new PierceWeaponItem(ToolMaterial.IRON, 2.0F, -2.2F, settings));
-
     private static Item registerItem(String name, Function<Item.Settings, Item> function) {
         return Registry.register(Registries.ITEM, Identifier.of(WeaponsExpanded.MOD_ID, name),
                 function.apply(new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID, name)))));
