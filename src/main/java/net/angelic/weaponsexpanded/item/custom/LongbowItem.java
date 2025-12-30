@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.item.custom;
 
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -15,6 +16,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -25,7 +27,7 @@ import net.angelic.weaponsexpanded.util.ProjectileEnchantmentApplier;
 public class LongbowItem extends BowItem {
     // Vanilla bow effectively “full draws” at 20 ticks
     private static final int FULL_DRAW_TICKS = 32;     // longbow: slower draw
-    private static final float VELOCITY_MULT = 3.6f;   // vanilla uses 3.0f
+    private static final float VELOCITY_MULT = 4f;   // vanilla uses 3.0f
 
     public LongbowItem(Settings settings) {
         super(settings);
@@ -131,6 +133,13 @@ public class LongbowItem extends BowItem {
         );
 
         player.incrementStat(Stats.USED.getOrCreateStat(this));
+
+        // Damage bow durability (vanilla behavior). Unbreaking is handled by damage().
+        if (!player.getAbilities().creativeMode) {
+            Hand hand = player.getActiveHand();
+            EquipmentSlot slot = (hand == Hand.MAIN_HAND) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+            stack.damage(1, player, slot);
+        }
 
         // Consume ammo:
         // - Creative: never consume
