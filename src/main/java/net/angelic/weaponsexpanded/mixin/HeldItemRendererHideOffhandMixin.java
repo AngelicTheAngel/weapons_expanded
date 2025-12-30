@@ -1,7 +1,6 @@
 package net.angelic.weaponsexpanded.mixin;
 
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
-import net.angelic.weaponsexpanded.item.custom.TwoHandedHeavySwordItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
@@ -37,8 +36,7 @@ public abstract class HeldItemRendererHideOffhandMixin {
         ItemStack main = player.getMainHandStack();
 
         boolean isTwoHandedSword =
-                main.getItem() instanceof TwoHandedSwordItem
-                        || main.getItem() instanceof TwoHandedHeavySwordItem;
+                main.getItem() instanceof TwoHandedSwordItem;
 
         if (isTwoHandedSword) {
             ci.cancel();

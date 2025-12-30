@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:nether/obtain_ancient_debris",
+  "parent": "weaponsexpanded:netherite_axe",
   "criteria": {
     "netherite_hammer": {
       "conditions": {
@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.description.netherite_hammer"
+      "translate": "advancements.weaponsexpanded.description.netherite_hammer"
     },
     "frame": "challenge",
     "icon": {
@@ -22,7 +22,7 @@
       "id": "weaponsexpanded:netherite_hammer"
     },
     "title": {
-      "translate": "advancements.netherite_hammer"
+      "translate": "advancements.weaponsexpanded.netherite_hammer"
     }
   },
   "requirements": [

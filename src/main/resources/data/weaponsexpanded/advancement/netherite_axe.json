@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:nether/obtain_ancient_debris",
+  "parent": "weaponsexpanded:netherite_hatchet",
   "criteria": {
     "netherite_axe": {
       "conditions": {
@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.description.netherite_axe"
+      "translate": "advancements.weaponsexpanded.description.netherite_axe"
     },
     "frame": "challenge",
     "icon": {
@@ -22,7 +22,7 @@
       "id": "minecraft:netherite_axe"
     },
     "title": {
-      "translate": "advancements.netherite_axe"
+      "translate": "advancements.weaponsexpanded.netherite_axe"
     }
   },
   "requirements": [

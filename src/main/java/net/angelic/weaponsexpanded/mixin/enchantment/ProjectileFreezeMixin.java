@@ -140,7 +140,7 @@ public class ProjectileFreezeMixin {
 
         if (!inPowderSnow) return;
 
-        // Apply level 1 from powdered snow. (Change to a different level if you want.)
+        // Apply level 1 from powdered snow.
         weaponsexpanded$applyFreezeTagOnce(projectile, 1);
     }
 

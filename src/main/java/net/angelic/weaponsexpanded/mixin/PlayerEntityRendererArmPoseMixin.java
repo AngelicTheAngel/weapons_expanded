@@ -1,7 +1,6 @@
 package net.angelic.weaponsexpanded.mixin;
 
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
-import net.angelic.weaponsexpanded.item.custom.TwoHandedHeavySwordItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -31,7 +30,7 @@ public abstract class PlayerEntityRendererArmPoseMixin {
         ItemStack main = player.getStackInHand(Hand.MAIN_HAND);
 
         // Two-handed swords: always force the pose
-        if (main.getItem() instanceof TwoHandedSwordItem || main.getItem() instanceof TwoHandedHeavySwordItem) {
+        if (main.getItem() instanceof TwoHandedSwordItem) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
             return;
         }

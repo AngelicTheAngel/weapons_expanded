@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:nether/obtain_ancient_debris",
+  "parent": "weaponsexpanded:netherite_broadsword",
   "criteria": {
     "netherite_sickle": {
       "conditions": {
@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.description.netherite_sickle"
+      "translate": "advancements.weaponsexpanded.description.netherite_sickle"
     },
     "frame": "challenge",
     "icon": {
@@ -22,7 +22,7 @@
       "id": "weaponsexpanded:netherite_sickle"
     },
     "title": {
-      "translate": "advancements.netherite_sickle"
+      "translate": "advancements.weaponsexpanded.netherite_sickle"
     }
   },
   "requirements": [

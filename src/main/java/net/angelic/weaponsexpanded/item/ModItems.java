@@ -185,25 +185,25 @@ public class ModItems {
             settings -> new AxeItem(ToolMaterial.NETHERITE, 7.0F, -3.2F, settings.fireproof()));
 
     public static final Item WOODEN_GREATSWORD = registerItem("wooden_greatsword",
-            settings -> new TwoHandedHeavySwordItem(ToolMaterial.WOOD, 8.0F, -3.3F, settings));
+            settings -> new TwoHandedSwordItem(ToolMaterial.WOOD, 8.0F, -3.3F, settings));
 
     public static final Item GOLDEN_GREATSWORD = registerItem("golden_greatsword",
-            settings -> new TwoHandedHeavySwordItem(ToolMaterial.GOLD, 8.0F, -3.1F, settings));
+            settings -> new TwoHandedSwordItem(ToolMaterial.GOLD, 8.0F, -3.1F, settings));
 
     public static final Item STONE_GREATSWORD = registerItem("stone_greatsword",
-            settings -> new TwoHandedHeavySwordItem(ToolMaterial.STONE, 8.0F, -3.3F, settings));
+            settings -> new TwoHandedSwordItem(ToolMaterial.STONE, 8.0F, -3.3F, settings));
 
     public static final Item COPPER_GREATSWORD = registerItem("copper_greatsword",
-            settings -> new TwoHandedHeavySwordItem(ToolMaterial.COPPER, 8.0F, -3.3F, settings));
+            settings -> new TwoHandedSwordItem(ToolMaterial.COPPER, 8.0F, -3.3F, settings));
 
     public static final Item IRON_GREATSWORD = registerItem("iron_greatsword",
-            settings -> new TwoHandedHeavySwordItem(ToolMaterial.IRON, 8.0F, -3.2F, settings));
+            settings -> new TwoHandedSwordItem(ToolMaterial.IRON, 8.0F, -3.2F, settings));
 
     public static final Item DIAMOND_GREATSWORD = registerItem("diamond_greatsword",
-            settings -> new TwoHandedHeavySwordItem(ToolMaterial.DIAMOND, 8.0F, -3.1F, settings));
+            settings -> new TwoHandedSwordItem(ToolMaterial.DIAMOND, 8.0F, -3.1F, settings));
 
     public static final Item NETHERITE_GREATSWORD = registerItem("netherite_greatsword",
-            settings -> new TwoHandedHeavySwordItem(ToolMaterial.NETHERITE, 8.0F, -3.1F, settings.fireproof()));
+            settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 8.0F, -3.1F, settings.fireproof()));
 
     public static final Item HEAVY_ARROW = registerItem("heavy_arrow",
             settings -> new HeavyArrowItem(settings.maxCount(64)));

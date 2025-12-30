@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:nether/obtain_ancient_debris",
+  "parent": "weaponsexpanded:netherite_hammer",
   "criteria": {
     "netherite_battleaxe": {
       "conditions": {
@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.description.netherite_battleaxe"
+      "translate": "advancements.weaponsexpanded.description.netherite_battleaxe"
     },
     "frame": "challenge",
     "icon": {
@@ -22,7 +22,7 @@
       "id": "weaponsexpanded:netherite_battleaxe"
     },
     "title": {
-      "translate": "advancements.netherite_battleaxe"
+      "translate": "advancements.weaponsexpanded.netherite_battleaxe"
     }
   },
   "requirements": [

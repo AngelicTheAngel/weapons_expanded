@@ -1,6 +1,5 @@
 package net.angelic.weaponsexpanded.mixin.two_handed_sword;
 
-import net.angelic.weaponsexpanded.item.custom.TwoHandedHeavySwordItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,8 +20,7 @@ public abstract class TwoHandedSwordMixin {
 
         ItemStack mainHandStack = player.getMainHandStack();
         boolean holdingTwoHanded =
-                mainHandStack.getItem() instanceof TwoHandedSwordItem
-                        || mainHandStack.getItem() instanceof TwoHandedHeavySwordItem;
+                mainHandStack.getItem() instanceof TwoHandedSwordItem;
 
         if (!holdingTwoHanded) return;
 
@@ -46,8 +44,7 @@ public abstract class TwoHandedSwordMixin {
 
         ItemStack mainHandStack = player.getMainHandStack();
         boolean holdingTwoHanded =
-                mainHandStack.getItem() instanceof TwoHandedSwordItem
-                        || mainHandStack.getItem() instanceof TwoHandedHeavySwordItem;
+                mainHandStack.getItem() instanceof TwoHandedSwordItem;
 
         if (!holdingTwoHanded) return;
 

@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:nether/obtain_ancient_debris",
+  "parent": "weaponsexpanded:netherite_sword",
   "criteria": {
     "netherite_scythe": {
       "conditions": {
@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.description.netherite_scythe"
+      "translate": "advancements.weaponsexpanded.description.netherite_scythe"
     },
     "frame": "challenge",
     "icon": {
@@ -22,7 +22,7 @@
       "id": "weaponsexpanded:netherite_scythe"
     },
     "title": {
-      "translate": "advancements.netherite_scythe"
+      "translate": "advancements.weaponsexpanded.netherite_scythe"
     }
   },
   "requirements": [
