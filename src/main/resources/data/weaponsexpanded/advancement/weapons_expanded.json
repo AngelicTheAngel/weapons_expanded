@@ -1,0 +1,180 @@
+{
+  "parent": "weaponsexpanded:netherite_weapon",
+  "criteria": {
+    "obtain_netherite_sword": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherite_sword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtain_netherite_axe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherite_axe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtain_netherite_spear": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:netherite_spear"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtain_netherite_broadsword": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:netherite_broadsword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtain_netherite_sickle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:netherite_sickle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtain_netherite_scythe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:netherite_scythe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtain_netherite_longsword": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:netherite_longsword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtain_netherite_katana": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:netherite_katana"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtain_netherite_greatsword": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:netherite_greatsword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtain_netherite_hatchet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:netherite_hatchet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtain_netherite_hammer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:netherite_hammer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtain_netherite_battleaxe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:netherite_battleaxe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.weaponsexpanded.weapons_expanded.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "weaponsexpanded:netherite_scythe"
+    },
+    "title": {
+      "translate": "advancements.weaponsexpanded.weapons_expanded"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_netherite_sword"
+    ],
+    [
+      "obtain_netherite_axe"
+    ],
+    [
+      "obtain_netherite_spear"
+    ],
+    [
+      "obtain_netherite_broadsword"
+    ],
+    [
+      "obtain_netherite_sickle"
+    ],
+    [
+      "obtain_netherite_scythe"
+    ],
+    [
+      "obtain_netherite_longsword"
+    ],
+    [
+      "obtain_netherite_katana"
+    ],
+    [
+      "obtain_netherite_greatsword"
+    ],
+    [
+      "obtain_netherite_hatchet"
+    ],
+    [
+      "obtain_netherite_hammer"
+    ],
+    [
+      "obtain_netherite_battleaxe"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}
