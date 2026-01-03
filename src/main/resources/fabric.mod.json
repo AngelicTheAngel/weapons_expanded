@@ -9,6 +9,7 @@
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/weaponsexpanded",
+		"issues": "https://github.com/AngelicTheAngel/weapons_expanded/issues",
 		"sources": "https://github.com/AngelicTheAngel/weapons_expanded"
 	},
 	"license": "MIT",
