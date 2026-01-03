@@ -29,8 +29,8 @@ public class PiglinBruteEquipmentMixin {
         // Only replace if vanilla gave them a golden axe
         if (!mainHand.isOf(Items.GOLDEN_AXE)) return;
 
-        // 1/4 chance to swap
-        if (random.nextInt(4) != 0) return;
+        // 1/3 chance to swap
+        if (random.nextInt(3) != 0) return;
 
         ItemStack replacement = new ItemStack(ModItems.GOLDEN_BATTLEAXE);
 

@@ -27,7 +27,7 @@ public class ZombifiedPiglinEquipmentMixin {
         ItemStack mainHand = self.getEquippedStack(EquipmentSlot.MAINHAND);
         if (!mainHand.isOf(Items.GOLDEN_SWORD)) return;
 
-        if (random.nextInt(4) != 0) return;
+        if (random.nextInt(3) != 0) return;
 
         ItemStack replacement = new ItemStack(ModItems.GOLDEN_LONGSWORD);
 

@@ -7,7 +7,7 @@ import net.minecraft.client.render.entity.state.ArrowEntityRenderState;
 import net.minecraft.util.Identifier;
 
 public class HeavyArrowEntityRenderer extends ArrowEntityRenderer {
-    private static final Identifier HEAVY_TEXTURE =
+    private static final Identifier HEAVY_ARROW =
             Identifier.of(WeaponsExpanded.MOD_ID, "textures/entity/projectiles/heavy_arrow.png");
 
     public HeavyArrowEntityRenderer(EntityRendererFactory.Context context) {
@@ -16,6 +16,6 @@ public class HeavyArrowEntityRenderer extends ArrowEntityRenderer {
 
     @Override
     protected Identifier getTexture(ArrowEntityRenderState state) {
-        return HEAVY_TEXTURE;
+        return HEAVY_ARROW;
     }
 }
