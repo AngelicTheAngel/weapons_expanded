@@ -2,6 +2,7 @@
   "required": true,
   "package": "net.angelic.weaponsexpanded.mixin",
   "compatibilityLevel": "JAVA_21",
+  "plugin": "net.angelic.weaponsexpanded.mixin.WeaponsExpandedMixinPlugin",
   "mixins": [
     "AxeDurabilityMixin",
     "accessor.CrossbowItemAccessor",
