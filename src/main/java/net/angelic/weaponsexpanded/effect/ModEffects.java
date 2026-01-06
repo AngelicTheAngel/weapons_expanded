@@ -15,7 +15,5 @@ public class ModEffects {
         return Registry.registerReference(Registries.STATUS_EFFECT, Identifier.of(WeaponsExpanded.MOD_ID, name), statusEffect);
     }
 
-    public static void registerEffects() {
-        WeaponsExpanded.LOGGER.info("Registering effects for " + WeaponsExpanded.MOD_ID);
-    }
+    public static void registerEffects() {}
 }

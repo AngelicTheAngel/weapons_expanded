@@ -24,7 +24,5 @@ public class ModEnchantmentEffects {
         return Registry.register(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Identifier.of(WeaponsExpanded.MOD_ID, name), codec);
     }
 
-    public static void registerEnchantmentEffects() {
-        WeaponsExpanded.LOGGER.info("Registering enchantment effects for " + WeaponsExpanded.MOD_ID);
-    }
+    public static void registerEnchantmentEffects() {}
 }

@@ -21,8 +21,9 @@ public final class WeaponsExpandedConfig {
     private static volatile WeaponsExpandedConfig INSTANCE;
 
     public boolean enableCustomLootTables = true;                 // enabled by default
-    public boolean enableEntityMeleeEquipment = true;            // enabled by default
-    public boolean enableTrialChamberMeleeEquipment = true;   // enabled by default
+    public boolean enableEntityMeleeEquipment = true;             // enabled by default
+    public boolean enableTrialChamberMeleeEquipment = true;       // enabled by default
+    public boolean enableWeaponsmithTrades = true;                // enabled by default
 
     private WeaponsExpandedConfig() {}
 

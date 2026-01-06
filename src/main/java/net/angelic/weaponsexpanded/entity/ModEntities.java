@@ -39,7 +39,5 @@ public class ModEntities {
                     .build(EXPLOSIVE_ARROW_KEY)
     );
 
-    public static void registerEntities() {
-        WeaponsExpanded.LOGGER.info("Registering entities for " + WeaponsExpanded.MOD_ID);
-    }
+    public static void registerEntities() {}
 }
