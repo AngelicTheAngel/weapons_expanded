@@ -34,7 +34,7 @@ public final class WeaponsExpandedMixinPlugin implements IMixinConfigPlugin {
 
         // General toggle for entity equipment mixins
         if (mixinClassName.startsWith(ENTITY_EQUIPMENT_PREFIX)) {
-            return WeaponsExpandedConfig.get().enableEntityEquipmentMixins;
+            return WeaponsExpandedConfig.get().enableEntityMeleeEquipment;
         }
 
         return true;
