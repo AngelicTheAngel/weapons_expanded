@@ -29,7 +29,7 @@ public final class WeaponsExpandedMixinPlugin implements IMixinConfigPlugin {
 
         // Specific toggle for trial spawner melee weapon swapping
         if (mixinClassName.equals(TRIAL_EQUIP_SWAP_MIXIN)) {
-            return WeaponsExpandedConfig.get().enableTrialChamberMeleeEquipmentLoot;
+            return WeaponsExpandedConfig.get().enableTrialChamberMeleeEquipment;
         }
 
         // General toggle for entity equipment mixins

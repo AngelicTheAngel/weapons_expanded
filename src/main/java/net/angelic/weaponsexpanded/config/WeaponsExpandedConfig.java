@@ -22,7 +22,7 @@ public final class WeaponsExpandedConfig {
 
     public boolean enableCustomLootTables = true;                 // enabled by default
     public boolean enableEntityEquipmentMixins = true;            // enabled by default
-    public boolean enableTrialChamberMeleeEquipmentLoot = true;   // enabled by default
+    public boolean enableTrialChamberMeleeEquipment = true;   // enabled by default
 
     private WeaponsExpandedConfig() {}
 

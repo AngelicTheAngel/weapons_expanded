@@ -1,7 +1,7 @@
 package net.angelic.weaponsexpanded.resource;
 
 import net.angelic.weaponsexpanded.resource.condition.CustomLootTablesEnabledCondition;
-import net.angelic.weaponsexpanded.resource.condition.TrialChamberMeleeEquipmentLootEnabledCondition;
+import net.angelic.weaponsexpanded.resource.condition.TrialChamberMeleeEquipmentEnabledCondition;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 
 /**
@@ -12,6 +12,6 @@ public final class WeaponsExpandedResourceConditions {
 
     public static void init() {
         ResourceConditions.register(CustomLootTablesEnabledCondition.TYPE);
-        ResourceConditions.register(TrialChamberMeleeEquipmentLootEnabledCondition.TYPE);
+        ResourceConditions.register(TrialChamberMeleeEquipmentEnabledCondition.TYPE);
     }
 }

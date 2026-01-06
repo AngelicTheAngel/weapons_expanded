@@ -44,9 +44,6 @@ public class ModLootTableModifiers {
             // --- General toggle: custom chest loot tweaks ---
             if (!cfg.enableCustomLootTables) return;
 
-            // =========================
-            // Existing conversions (keep / adjust as you like)
-            // =========================
             if (LootTables.IGLOO_CHEST_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -134,7 +131,7 @@ public class ModLootTableModifiers {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
                         .conditionally(RandomChanceLootCondition.builder(CHANCE_SPECIAL))
-                        .with(enchantWithLevels(weightedItem(ModItems.DIAMOND_HAMMER, 1), registry, 5, 15));
+                        .with(enchantWithLevels(weightedItem(ModItems.IRON_HATCHET, 1), registry, 5, 15));
                 tableBuilder.pool(pool.build());
             }
 
@@ -142,15 +139,11 @@ public class ModLootTableModifiers {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
                         .conditionally(RandomChanceLootCondition.builder(CHANCE_SPECIAL))
+                        .with(enchantWithLevels(weightedItem(ModItems.DIAMOND_HAMMER, 1), registry, 10, 20))
                         .with(enchantWithLevels(weightedItem(ModItems.DIAMOND_BATTLEAXE, 1), registry, 10, 20));
                 tableBuilder.pool(pool.build());
             }
 
-            // ==========================================================
-            // Conversions for the attached JSON files (mod items only)
-            // ==========================================================
-
-            // underwater_ruin_small.json -> weaponsexpanded:stone_hammer weight 1
             if (LootTables.UNDERWATER_RUIN_SMALL_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -159,7 +152,6 @@ public class ModLootTableModifiers {
                 tableBuilder.pool(pool.build());
             }
 
-            // stronghold_corridor.json -> weaponsexpanded:iron_hammer (2), weaponsexpanded:iron_katana (1)
             if (LootTables.STRONGHOLD_CORRIDOR_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -169,7 +161,6 @@ public class ModLootTableModifiers {
                 tableBuilder.pool(pool.build());
             }
 
-            // buried_treasure.json -> weaponsexpanded:iron_broadsword, iron_sickle, iron_scythe
             if (LootTables.BURIED_TREASURE_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -180,7 +171,6 @@ public class ModLootTableModifiers {
                 tableBuilder.pool(pool.build());
             }
 
-            // bastion_bridge.json -> weaponsexpanded:golden_longsword (no enchant), weaponsexpanded:golden_battleaxe (enchanted randomly)
             if (LootTables.BASTION_BRIDGE_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -191,7 +181,6 @@ public class ModLootTableModifiers {
                 tableBuilder.pool(pool.build());
             }
 
-            // bastion_hoglin_stable.json -> weaponsexpanded:golden_battleaxe (enchanted randomly)
             if (LootTables.BASTION_HOGLIN_STABLE_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -200,7 +189,6 @@ public class ModLootTableModifiers {
                 tableBuilder.pool(pool.build());
             }
 
-            // bastion_other.json -> weaponsexpanded:iron_scythe (damage + enchant_randomly), weaponsexpanded:golden_hatchet (enchant_randomly), weaponsexpanded:golden_longsword
             if (LootTables.BASTION_OTHER_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -212,7 +200,6 @@ public class ModLootTableModifiers {
                 tableBuilder.pool(pool.build());
             }
 
-            // bastion_treasure.json -> weaponsexpanded diamond weapons
             if (LootTables.BASTION_TREASURE_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -224,7 +211,6 @@ public class ModLootTableModifiers {
                 tableBuilder.pool(pool.build());
             }
 
-            // end_city_treasure.json -> weaponsexpanded:diamond_scythe, diamond_greatsword, iron_longsword, iron_greatsword
             if (LootTables.END_CITY_TREASURE_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -239,7 +225,6 @@ public class ModLootTableModifiers {
     }
 
     // -------- helper builders --------
-    // IMPORTANT: keep the return type as LeafEntry.Builder<?> so apply(...) exists.
 
     private static LeafEntry.Builder<?> weightedItem(net.minecraft.item.Item item, int weight) {
         return ItemEntry.builder(item).weight(weight);

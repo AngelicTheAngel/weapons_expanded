@@ -10,20 +10,20 @@ import net.minecraft.util.Identifier;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-public final class TrialChamberMeleeEquipmentLootEnabledCondition implements ResourceCondition {
+public final class TrialChamberMeleeEquipmentEnabledCondition implements ResourceCondition {
     public static final Identifier ID = Identifier.of(WeaponsExpanded.MOD_ID, "trial_chamber_melee_equipment_loot_enabled");
 
-    public static final TrialChamberMeleeEquipmentLootEnabledCondition INSTANCE =
-            new TrialChamberMeleeEquipmentLootEnabledCondition();
+    public static final TrialChamberMeleeEquipmentEnabledCondition INSTANCE =
+            new TrialChamberMeleeEquipmentEnabledCondition();
 
-    public static final ResourceConditionType<TrialChamberMeleeEquipmentLootEnabledCondition> TYPE =
+    public static final ResourceConditionType<TrialChamberMeleeEquipmentEnabledCondition> TYPE =
             ResourceConditionType.create(ID, MapCodec.unit(INSTANCE));
 
-    private TrialChamberMeleeEquipmentLootEnabledCondition() {}
+    private TrialChamberMeleeEquipmentEnabledCondition() {}
 
     @Override
     public boolean test(RegistryOps.@Nullable RegistryInfoGetter registryInfo) {
-        return WeaponsExpandedConfig.get().enableTrialChamberMeleeEquipmentLoot;
+        return WeaponsExpandedConfig.get().enableTrialChamberMeleeEquipment;
     }
 
     @Override
