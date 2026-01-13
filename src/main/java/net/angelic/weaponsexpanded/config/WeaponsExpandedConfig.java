@@ -24,6 +24,7 @@ public final class WeaponsExpandedConfig {
     public boolean enableEntityMeleeEquipment = true;             // enabled by default
     public boolean enableTrialChamberMeleeEquipment = true;       // enabled by default
     public boolean enableWeaponsmithTrades = true;                // enabled by default
+    public boolean altTwoHandedSwordHandling = false;             // disabled by default
 
     private WeaponsExpandedConfig() {}
 
@@ -45,8 +46,18 @@ public final class WeaponsExpandedConfig {
         }
     }
 
+    public void save() {
+        synchronized (WeaponsExpandedConfig.class) {
+            write(getPath(), this);
+        }
+    }
+
+    private static Path getPath() {
+        return FabricLoader.getInstance().getConfigDir().resolve(FILE_NAME);
+    }
+
     private static WeaponsExpandedConfig loadOrCreate() {
-        Path path = FabricLoader.getInstance().getConfigDir().resolve(FILE_NAME);
+        Path path = getPath();
 
         if (Files.exists(path)) {
             try (BufferedReader reader = Files.newBufferedReader(path)) {

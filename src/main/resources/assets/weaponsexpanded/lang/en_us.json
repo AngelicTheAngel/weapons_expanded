@@ -87,5 +87,14 @@
   "tooltip.weaponsexpanded.chain_crossbow_shots": "Shots: %s/%s",
 
   "subtitles.weaponsexpanded.item.chain_crossbow.chamber": "Chain Crossbow chambers",
-  "subtitles.weaponsexpanded.item.chain_crossbow.full": "Chain Crossbow is full"
+  "subtitles.weaponsexpanded.item.chain_crossbow.full": "Chain Crossbow is full",
+
+  "config.weaponsexpanded.title": "Weapons Expanded Config",
+  "config.weaponsexpanded.category.general": "General",
+
+  "config.weaponsexpanded.option.enableCustomLootTables": "Enable Custom Loot Tables",
+  "config.weaponsexpanded.option.enableEntityMeleeEquipment": "Enable Entity Melee Equipment",
+  "config.weaponsexpanded.option.enableTrialChamberMeleeEquipment": "Enable Trial Chamber Melee Equipment",
+  "config.weaponsexpanded.option.enableWeaponsmithTrades": "Enable Weaponsmith Trades",
+  "config.weaponsexpanded.option.altTwoHandedSwordHandling": "Alt Two-Handed Sword Handling"
 }
