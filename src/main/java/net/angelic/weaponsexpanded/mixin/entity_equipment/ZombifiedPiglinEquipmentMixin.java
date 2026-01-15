@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.mixin.entity_equipment;
 
+import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -22,21 +23,23 @@ public class ZombifiedPiglinEquipmentMixin {
             at = @At("TAIL")
     )
     private void weaponsexpanded$maybeSwapSwordToLongsword(Random random, LocalDifficulty localDifficulty, CallbackInfo ci) {
-        ZombifiedPiglinEntity self = (ZombifiedPiglinEntity) (Object) this;
+        if (WeaponsExpandedConfig.get().enableEntityMeleeEquipment) {
+            ZombifiedPiglinEntity self = (ZombifiedPiglinEntity) (Object) this;
 
-        ItemStack mainHand = self.getEquippedStack(EquipmentSlot.MAINHAND);
-        if (!mainHand.isOf(Items.GOLDEN_SWORD)) return;
+            ItemStack mainHand = self.getEquippedStack(EquipmentSlot.MAINHAND);
+            if (!mainHand.isOf(Items.GOLDEN_SWORD)) return;
 
-        if (random.nextInt(3) != 0) return;
+            if (random.nextInt(3) != 0) return;
 
-        ItemStack replacement = new ItemStack(ModItems.GOLDEN_LONGSWORD);
+            ItemStack replacement = new ItemStack(ModItems.GOLDEN_LONGSWORD);
 
-        ItemEnchantmentsComponent ench =
-                mainHand.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
-        if (!ench.isEmpty()) {
-            replacement.set(DataComponentTypes.ENCHANTMENTS, ench);
+            ItemEnchantmentsComponent ench =
+                    mainHand.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
+            if (!ench.isEmpty()) {
+                replacement.set(DataComponentTypes.ENCHANTMENTS, ench);
+            }
+
+            self.equipStack(EquipmentSlot.MAINHAND, replacement);
         }
-
-        self.equipStack(EquipmentSlot.MAINHAND, replacement);
     }
 }

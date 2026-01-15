@@ -8,7 +8,6 @@ import net.angelic.weaponsexpanded.item.ModItems;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.network.FireChainCrossbowPayload;
 import net.angelic.weaponsexpanded.network.ModPackets;
-import net.angelic.weaponsexpanded.resource.WeaponsExpandedResourceConditions;
 import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.angelic.weaponsexpanded.util.ModLootTableModifiers;
 import net.fabricmc.api.ModInitializer;
@@ -57,9 +56,6 @@ public class WeaponsExpanded implements ModInitializer {
         LOGGER.info("Initializing {} version {}", MOD_ID, VERSION);
 
         WeaponsExpandedConfig.get();
-
-        // Register Fabric resource conditions used by loot-table JSONs
-        WeaponsExpandedResourceConditions.init();
 
         ModItems.registerModItems();
 

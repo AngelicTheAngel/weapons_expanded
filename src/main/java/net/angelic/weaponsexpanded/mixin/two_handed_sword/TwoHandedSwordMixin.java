@@ -45,7 +45,7 @@ public abstract class TwoHandedSwordMixin {
             if (!offhand.isEmpty()) {
                 ItemStack stack = player.getOffHandStack();
                 player.setStackInHand(Hand.OFF_HAND, ItemStack.EMPTY);
-                player.getInventory().insertStack(stack);
+                player.giveOrDropStack(stack);
             }
         }
     }

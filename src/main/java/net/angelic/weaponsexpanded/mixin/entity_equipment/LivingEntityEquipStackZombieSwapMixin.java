@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.mixin.entity_equipment;
 
+import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.util.ZombieWeaponSwapUtil;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -23,25 +24,27 @@ public abstract class LivingEntityEquipStackZombieSwapMixin {
             at = @At("TAIL")
     )
     private void weaponsexpanded$swapZombieSwordWhenEquipped(EquipmentSlot slot, ItemStack stack, CallbackInfo ci) {
-        if (slot != EquipmentSlot.MAINHAND) return;
-        if (weaponsexpanded$replacingMainhand) return;
+        if (WeaponsExpandedConfig.get().enableTrialChamberMeleeEquipment) {
+            if (slot != EquipmentSlot.MAINHAND) return;
+            if (weaponsexpanded$replacingMainhand) return;
 
-        if (!((Object) this instanceof ZombieEntity zombie)) return;
+            if (!((Object) this instanceof ZombieEntity zombie)) return;
 
-        // Prevent overwriting swords the zombie equips later (e.g., picked up from the ground).
-        // "age" is in ticks since spawn; spawner gear is typically applied immediately.
-        if (zombie.age > 1) return;
+            // Prevent overwriting swords the zombie equips later (e.g., picked up from the ground).
+            // "age" is in ticks since spawn; spawner gear is typically applied immediately.
+            if (zombie.age > 1) return;
 
-        boolean isIronSword = stack.isOf(Items.IRON_SWORD);
-        boolean isDiamondSword = stack.isOf(Items.DIAMOND_SWORD);
-        if (!isIronSword && !isDiamondSword) return;
-        if (stack.getCustomName() != null) return;
+            boolean isIronSword = stack.isOf(Items.IRON_SWORD);
+            boolean isDiamondSword = stack.isOf(Items.DIAMOND_SWORD);
+            if (!isIronSword && !isDiamondSword) return;
+            if (stack.getCustomName() != null) return;
 
-        try {
-            weaponsexpanded$replacingMainhand = true;
-            ZombieWeaponSwapUtil.maybeSwapSword(zombie, zombie.getRandom());
-        } finally {
-            weaponsexpanded$replacingMainhand = false;
+            try {
+                weaponsexpanded$replacingMainhand = true;
+                ZombieWeaponSwapUtil.maybeSwapSword(zombie, zombie.getRandom());
+            } finally {
+                weaponsexpanded$replacingMainhand = false;
+            }
         }
     }
 }

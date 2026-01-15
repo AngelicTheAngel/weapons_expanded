@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.mixin.entity_equipment;
 
+import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -22,24 +23,26 @@ public class PiglinBruteEquipmentMixin {
             at = @At("TAIL")
     )
     private void weaponsexpanded$maybeSwapAxeToBattleaxe(Random random, LocalDifficulty localDifficulty, CallbackInfo ci) {
-        PiglinBruteEntity self = (PiglinBruteEntity) (Object) this;
+        if (WeaponsExpandedConfig.get().enableEntityMeleeEquipment) {
+            PiglinBruteEntity self = (PiglinBruteEntity) (Object) this;
 
-        ItemStack mainHand = self.getEquippedStack(EquipmentSlot.MAINHAND);
+            ItemStack mainHand = self.getEquippedStack(EquipmentSlot.MAINHAND);
 
-        // Only replace if vanilla gave them a golden axe
-        if (!mainHand.isOf(Items.GOLDEN_AXE)) return;
+            // Only replace if vanilla gave them a golden axe
+            if (!mainHand.isOf(Items.GOLDEN_AXE)) return;
 
-        // 1/3 chance to swap
-        if (random.nextInt(3) != 0) return;
+            // 1/3 chance to swap
+            if (random.nextInt(3) != 0) return;
 
-        ItemStack replacement = new ItemStack(ModItems.GOLDEN_BATTLEAXE);
+            ItemStack replacement = new ItemStack(ModItems.GOLDEN_BATTLEAXE);
 
-        ItemEnchantmentsComponent ench =
-                mainHand.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
-        if (!ench.isEmpty()) {
-            replacement.set(DataComponentTypes.ENCHANTMENTS, ench);
+            ItemEnchantmentsComponent ench =
+                    mainHand.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
+            if (!ench.isEmpty()) {
+                replacement.set(DataComponentTypes.ENCHANTMENTS, ench);
+            }
+
+            self.equipStack(EquipmentSlot.MAINHAND, replacement);
         }
-
-        self.equipStack(EquipmentSlot.MAINHAND, replacement);
     }
 }
