@@ -10,7 +10,6 @@ import net.minecraft.text.Text;
 import java.util.function.Consumer;
 
 public class TwoHandedSwordItem extends Item {
-
     public TwoHandedSwordItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
         super(settings.sword(material, attackDamage, attackSpeed));
     }

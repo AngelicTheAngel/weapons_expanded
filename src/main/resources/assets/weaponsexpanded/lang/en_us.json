@@ -86,6 +86,9 @@
   "tooltip.weaponsexpanded.twohandedsword": "Two-Handed",
   "tooltip.weaponsexpanded.chain_crossbow_shots": "Shots: %s/%s",
 
+  "item.modifiers.bothhands": "When in Both Hands:",
+  "attribute.name.generic.attack_damage": "Attack Damage",
+
   "subtitles.weaponsexpanded.item.chain_crossbow.chamber": "Chain Crossbow chambers",
   "subtitles.weaponsexpanded.item.chain_crossbow.full": "Chain Crossbow is full",
 
