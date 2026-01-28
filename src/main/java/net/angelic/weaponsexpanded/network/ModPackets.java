@@ -13,6 +13,7 @@ public final class ModPackets {
 
         // Client -> Server (PLAY)
         PayloadTypeRegistry.playC2S().register(FireChainCrossbowPayload.ID, FireChainCrossbowPayload.CODEC);
+        PayloadTypeRegistry.playC2S().register(ToggleBastardSwordModePayload.ID, ToggleBastardSwordModePayload.CODEC);
 
         // If you later add server->client payloads:
         // PayloadTypeRegistry.playS2C().register(SomePayload.ID, SomePayload.CODEC);

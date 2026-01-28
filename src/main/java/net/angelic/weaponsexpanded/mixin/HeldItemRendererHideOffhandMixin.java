@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.mixin;
 
+import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -39,6 +40,19 @@ public abstract class HeldItemRendererHideOffhandMixin {
                 main.getItem() instanceof TwoHandedSwordItem;
 
         if (isTwoHandedSword) {
+            ci.cancel();
+            return;
+        }
+
+        boolean isTwoHandedBastardSword = false;
+
+        if (main.getItem() instanceof BastardSwordItem bastardSword) {
+            isTwoHandedBastardSword = bastardSword.isTwoHanded(main);
+        } else {
+            isTwoHandedBastardSword = false;
+        }
+
+        if (isTwoHandedBastardSword) {
             ci.cancel();
             return;
         }

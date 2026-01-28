@@ -80,25 +80,25 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 4.5F, -2.5F).fireproof()));
 
     public static final Item WOODEN_LONGSWORD = registerItem("wooden_longsword",
-            settings -> new LongswordItem(ToolMaterial.WOOD, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.WOOD, 6.0F, -2.9F, 7.0F, -2.9F, settings));
 
     public static final Item GOLDEN_LONGSWORD = registerItem("golden_longsword",
-            settings -> new LongswordItem(ToolMaterial.GOLD, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.GOLD, 6.0F, -2.9F, 7.0F, -2.9F, settings));
 
     public static final Item STONE_LONGSWORD = registerItem("stone_longsword",
-            settings -> new LongswordItem(ToolMaterial.STONE, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.STONE, 6.0F, -2.9F, 7.0F, -2.9F, settings));
 
     public static final Item COPPER_LONGSWORD = registerItem("copper_longsword",
-            settings -> new LongswordItem(ToolMaterial.COPPER, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.COPPER, 6.0F, -2.9F, 7.0F, -2.9F, settings));
 
     public static final Item IRON_LONGSWORD = registerItem("iron_longsword",
-            settings -> new LongswordItem(ToolMaterial.IRON, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.IRON, 6.0F, -2.9F, 7.0F, -2.9F, settings));
 
     public static final Item DIAMOND_LONGSWORD = registerItem("diamond_longsword",
-            settings -> new LongswordItem(ToolMaterial.DIAMOND, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.DIAMOND, 6.0F, -2.9F, 7.0F, -2.9F, settings));
 
     public static final Item NETHERITE_LONGSWORD = registerItem("netherite_longsword",
-            settings -> new LongswordItem(ToolMaterial.NETHERITE, 6.0F, -2.9F, 7.0F, -2.9F, settings.fireproof()));
+            settings -> new BastardSwordItem(ToolMaterial.NETHERITE, 6.0F, -2.9F, 7.0F, -2.9F, settings.fireproof()));
 
     public static final Item WOODEN_KATANA = registerItem("wooden_katana",
             settings -> new TwoHandedSwordItem(ToolMaterial.WOOD, 3.0F, -2.2F, settings));

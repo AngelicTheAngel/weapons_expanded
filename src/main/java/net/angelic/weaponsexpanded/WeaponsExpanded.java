@@ -5,9 +5,11 @@ import net.angelic.weaponsexpanded.effect.ModEffects;
 import net.angelic.weaponsexpanded.enchantment.ModEnchantmentEffects;
 import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.angelic.weaponsexpanded.item.ModItems;
+import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.network.FireChainCrossbowPayload;
 import net.angelic.weaponsexpanded.network.ModPackets;
+import net.angelic.weaponsexpanded.network.ToggleBastardSwordModePayload;
 import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.angelic.weaponsexpanded.util.ModLootTableModifiers;
 import net.fabricmc.api.ModInitializer;
@@ -75,6 +77,10 @@ public class WeaponsExpanded implements ModInitializer {
 
         ServerPlayNetworking.registerGlobalReceiver(FireChainCrossbowPayload.ID, (payload, context) ->
                 context.server().execute(() -> weaponsexpanded$tryFireChainCrossbow(context.player()))
+        );
+
+        ServerPlayNetworking.registerGlobalReceiver(ToggleBastardSwordModePayload.ID, (payload, context) ->
+                context.server().execute(() -> weaponsexpanded$toggleBastardSwordMode(context.player()))
         );
 
         if (WeaponsExpandedConfig.get().enableWeaponsmithTrades) {
@@ -236,6 +242,16 @@ public class WeaponsExpanded implements ModInitializer {
                 });
             });
         }
+    }
+
+    private static void weaponsexpanded$toggleBastardSwordMode(PlayerEntity player) {
+        ItemStack stack = player.getMainHandStack();
+        if (!(stack.getItem() instanceof BastardSwordItem bastardSword)) return;
+
+        bastardSword.toggleTwoHanded(stack);
+
+        // Optional: force a re-send / re-equip behavior if you later hook attributes to this flag.
+        // player.currentScreenHandler.sendContentUpdates();
     }
 
     private static void weaponsexpanded$tryFireChainCrossbow(PlayerEntity player) {

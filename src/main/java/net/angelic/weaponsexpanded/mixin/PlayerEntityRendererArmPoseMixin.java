@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.mixin;
 
+import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
@@ -33,6 +34,14 @@ public abstract class PlayerEntityRendererArmPoseMixin {
         if (main.getItem() instanceof TwoHandedSwordItem) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
             return;
+        }
+
+        // Bastard swords: force pose when two-handed
+        if (main.getItem() instanceof BastardSwordItem) {
+            if (((BastardSwordItem) main.getItem()).isTwoHanded(main)) {
+                cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
+                return;
+            }
         }
 
         // Chain crossbow: force pose only when charged
