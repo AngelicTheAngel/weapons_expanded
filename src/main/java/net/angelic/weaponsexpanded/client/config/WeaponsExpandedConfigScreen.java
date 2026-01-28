@@ -46,6 +46,11 @@ public final class WeaponsExpandedConfigScreen {
                 .setSaveConsumer(v -> cfg.altTwoHandedSwordHandling = v)
                 .build());
 
+        general.addEntry(eb.startBooleanToggle(Text.translatable("config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes"), cfg.disableExtraDurabilityDamageForAxes)
+                .setDefaultValue(true)
+                .setSaveConsumer(v -> cfg.disableExtraDurabilityDamageForAxes = v)
+                .build());
+
         return builder.build();
     }
 }

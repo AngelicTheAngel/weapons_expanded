@@ -25,6 +25,7 @@ public final class WeaponsExpandedConfig {
     public boolean enableTrialChamberMeleeEquipment = true;       // enabled by default
     public boolean enableWeaponsmithTrades = true;                // enabled by default
     public boolean altTwoHandedSwordHandling = false;             // disabled by default
+    public boolean disableExtraDurabilityDamageForAxes = true;    // enabled by default
 
     private WeaponsExpandedConfig() {}
 
