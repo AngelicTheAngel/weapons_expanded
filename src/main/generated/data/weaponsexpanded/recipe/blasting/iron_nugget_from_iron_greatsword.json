@@ -3,6 +3,7 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.1,
+  "group": "ironnugget",
   "ingredient": "weaponsexpanded:iron_greatsword",
   "result": {
     "id": "minecraft:iron_nugget"

@@ -3,6 +3,7 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.1,
+  "group": "goldnugget",
   "ingredient": "weaponsexpanded:golden_broadsword",
   "result": {
     "id": "minecraft:gold_nugget"

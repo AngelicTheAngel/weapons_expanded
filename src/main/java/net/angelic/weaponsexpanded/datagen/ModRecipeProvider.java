@@ -1,6 +1,5 @@
 package net.angelic.weaponsexpanded.datagen;
 
-import com.terraformersmc.modmenu.util.mod.Mod;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -354,6 +353,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                     xp,
                                     cookTime
                             )
+                            .group(materialName + "nugget")
                             .criterion(hasItem(input), conditionsFromItem(input))
                             .offerTo(exporter, "smelting/" + materialName + "_nugget_from_" + inputIdPath);
                 }
@@ -376,6 +376,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                     xp,
                                     cookTime
                             )
+                            .group(materialName + "nugget")
                             .criterion(hasItem(input), conditionsFromItem(input))
                             .offerTo(exporter, "blasting/" + materialName + "_nugget_from_" + inputIdPath);
                 }

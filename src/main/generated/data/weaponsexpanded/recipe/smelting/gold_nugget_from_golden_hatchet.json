@@ -3,6 +3,7 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.1,
+  "group": "goldnugget",
   "ingredient": "weaponsexpanded:golden_hatchet",
   "result": {
     "id": "minecraft:gold_nugget"
