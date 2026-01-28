@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "iron_greatsword",
+  "key": {
+    "M": "#minecraft:iron_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "  M",
+    "MM ",
+    "SM "
+  ],
+  "result": {
+    "count": 1,
+    "id": "weaponsexpanded:iron_greatsword"
+  }
+}

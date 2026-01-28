@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "copper_hatchet",
+  "key": {
+    "M": "#minecraft:copper_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " M ",
+    "MS ",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "weaponsexpanded:copper_hatchet"
+  }
+}

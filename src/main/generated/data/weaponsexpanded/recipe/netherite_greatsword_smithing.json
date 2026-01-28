@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#minecraft:netherite_tool_materials",
+  "base": "weaponsexpanded:diamond_greatsword",
+  "result": {
+    "id": "weaponsexpanded:netherite_greatsword"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

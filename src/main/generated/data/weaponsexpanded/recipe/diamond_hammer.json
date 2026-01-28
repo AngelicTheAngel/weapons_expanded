@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "diamond_hammer",
+  "key": {
+    "M": "#minecraft:diamond_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "MSM",
+    "MSM",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "weaponsexpanded:diamond_hammer"
+  }
+}
