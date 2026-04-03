@@ -4,12 +4,18 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.NbtComponent;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+
+import java.util.function.Consumer;
 
 public class BastardSwordItem extends Item {
 
@@ -87,6 +93,15 @@ public class BastardSwordItem extends Item {
                 .build();
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        if(isTwoHanded(stack)) {
+            textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.twohandedsword").formatted(Formatting.BLUE));
+            super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+        }
+    }
+
     public float getTwoHandedAttackDamage() {
         return twoHandedAttackDamage;
     }
@@ -125,10 +140,9 @@ public class BastardSwordItem extends Item {
         );
     }
 
-    public boolean toggleTwoHanded(ItemStack stack) {
+    public void toggleTwoHanded(ItemStack stack) {
         boolean next = !isTwoHanded(stack);
         setTwoHanded(stack, next);
-        return next;
     }
 
     /**

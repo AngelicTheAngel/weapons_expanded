@@ -26,6 +26,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import java.util.Optional;
+
+import net.minecraft.item.ShieldItem;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -249,9 +251,9 @@ public class WeaponsExpanded implements ModInitializer {
         if (!(stack.getItem() instanceof BastardSwordItem bastardSword)) return;
 
         bastardSword.toggleTwoHanded(stack);
-
-        // Optional: force a re-send / re-equip behavior if you later hook attributes to this flag.
-        // player.currentScreenHandler.sendContentUpdates();
+        if (player.getOffHandStack().getItem() instanceof ShieldItem shield) {
+            player.getItemCooldownManager().set(shield.getDefaultStack(), 20);
+        }
     }
 
     private static void weaponsexpanded$tryFireChainCrossbow(PlayerEntity player) {
