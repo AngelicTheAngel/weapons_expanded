@@ -3,10 +3,10 @@ package net.angelic.weaponsexpanded.enchantment;
 import com.mojang.serialization.MapCodec;
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.enchantment.custom.*;
-import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
 
 public class ModEnchantmentEffects {
     public static final MapCodec<? extends EnchantmentEntityEffect> WITHERING =
@@ -21,7 +21,7 @@ public class ModEnchantmentEffects {
             registerEntityEffect("leech", LeechEnchantmentEffect.CODEC);
 
     private static MapCodec<? extends EnchantmentEntityEffect> registerEntityEffect(String name, MapCodec<? extends EnchantmentEntityEffect> codec) {
-        return Registry.register(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Identifier.of(WeaponsExpanded.MOD_ID, name), codec);
+        return Registry.register(BuiltInRegistries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, name), codec);
     }
 
     public static void registerEnchantmentEffects() {}

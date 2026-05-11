@@ -2,45 +2,45 @@ package net.angelic.weaponsexpanded.mixin.entity_equipment;
 
 import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.util.ZombieWeaponSwapUtil;
-import net.minecraft.entity.EntityData;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.level.ServerLevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ZombieEntity.class)
+@Mixin(Zombie.class)
 public class ZombieEquipmentMixin {
 
     @Inject(
-            method = "initEquipment(Lnet/minecraft/util/math/random/Random;Lnet/minecraft/world/LocalDifficulty;)V",
+            method = "populateDefaultEquipmentSlots(Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/DifficultyInstance;)V",
             at = @At("TAIL")
     )
-    private void weaponsexpanded$swapSwordToSickleOrScythe(Random random, LocalDifficulty localDifficulty, CallbackInfo ci) {
+    private void weaponsexpanded$swapSwordToSickleOrScythe(RandomSource random, DifficultyInstance localDifficulty, CallbackInfo ci) {
         if (WeaponsExpandedConfig.get().enableEntityMeleeEquipment) {
-            ZombieEntity self = (ZombieEntity) (Object) this;
+            Zombie self = (Zombie) (Object) this;
             ZombieWeaponSwapUtil.maybeSwapSword(self, random);
         }
     }
 
     @Inject(
-            method = "initialize(Lnet/minecraft/world/ServerWorldAccess;Lnet/minecraft/world/LocalDifficulty;Lnet/minecraft/entity/SpawnReason;Lnet/minecraft/entity/EntityData;)Lnet/minecraft/entity/EntityData;",
+            method = "finalizeSpawn(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/world/DifficultyInstance;Lnet/minecraft/world/entity/EntitySpawnReason;Lnet/minecraft/world/entity/SpawnGroupData;)Lnet/minecraft/world/entity/SpawnGroupData;",
             at = @At("TAIL")
     )
     private void weaponsexpanded$swapSwordAfterInitialize(
-            ServerWorldAccess world,
-            LocalDifficulty difficulty,
-            SpawnReason spawnReason,
-            EntityData entityData,
-            CallbackInfoReturnable<EntityData> cir
+            ServerLevelAccessor world,
+            DifficultyInstance difficulty,
+            EntitySpawnReason spawnReason,
+            SpawnGroupData entityData,
+            CallbackInfoReturnable<SpawnGroupData> cir
     ) {
         if (WeaponsExpandedConfig.get().enableEntityMeleeEquipment) {
-            ZombieEntity self = (ZombieEntity) (Object) this;
+            Zombie self = (Zombie) (Object) this;
             ZombieWeaponSwapUtil.maybeSwapSword(self, self.getRandom());
         }
     }

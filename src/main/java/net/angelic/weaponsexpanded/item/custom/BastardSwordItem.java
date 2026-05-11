@@ -1,21 +1,20 @@
 package net.angelic.weaponsexpanded.item.custom;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
 import java.util.function.Consumer;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class BastardSwordItem extends Item {
 
@@ -29,8 +28,8 @@ public class BastardSwordItem extends Item {
     private final float twoHandedAttackDamage;
     private final float twoHandedAttackSpeed;
 
-    private final AttributeModifiersComponent weaponsexpanded$oneHandedModifiers;
-    private final AttributeModifiersComponent weaponsexpanded$twoHandedModifiers;
+    private final ItemAttributeModifiers weaponsexpanded$oneHandedModifiers;
+    private final ItemAttributeModifiers weaponsexpanded$twoHandedModifiers;
 
     public BastardSwordItem(
             ToolMaterial material,
@@ -38,7 +37,7 @@ public class BastardSwordItem extends Item {
             float attackSpeed,
             float twoHandedAttackDamage,
             float twoHandedAttackSpeed,
-            Settings settings
+            Properties settings
     ) {
         super(settings.sword(material, attackDamage, attackSpeed));
         this.material = material;
@@ -50,55 +49,55 @@ public class BastardSwordItem extends Item {
         this.twoHandedAttackSpeed = twoHandedAttackSpeed;
 
         // Build explicit modifier sets (matching vanilla sword math).
-        this.weaponsexpanded$oneHandedModifiers = AttributeModifiersComponent.builder()
+        this.weaponsexpanded$oneHandedModifiers = ItemAttributeModifiers.builder()
                 .add(
-                        EntityAttributes.ATTACK_DAMAGE,
-                        new EntityAttributeModifier(
-                                Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
+                        Attributes.ATTACK_DAMAGE,
+                        new AttributeModifier(
+                                Item.BASE_ATTACK_DAMAGE_ID,
                                 (double) material.attackDamageBonus() + (double) attackDamage,
-                                EntityAttributeModifier.Operation.ADD_VALUE
+                                AttributeModifier.Operation.ADD_VALUE
                         ),
-                        AttributeModifierSlot.MAINHAND
+                        EquipmentSlotGroup.MAINHAND
                 )
                 .add(
-                        EntityAttributes.ATTACK_SPEED,
-                        new EntityAttributeModifier(
-                                Item.BASE_ATTACK_SPEED_MODIFIER_ID,
+                        Attributes.ATTACK_SPEED,
+                        new AttributeModifier(
+                                Item.BASE_ATTACK_SPEED_ID,
                                 attackSpeed,
-                                EntityAttributeModifier.Operation.ADD_VALUE
+                                AttributeModifier.Operation.ADD_VALUE
                         ),
-                        AttributeModifierSlot.MAINHAND
+                        EquipmentSlotGroup.MAINHAND
                 )
                 .build();
 
-        this.weaponsexpanded$twoHandedModifiers = AttributeModifiersComponent.builder()
+        this.weaponsexpanded$twoHandedModifiers = ItemAttributeModifiers.builder()
                 .add(
-                        EntityAttributes.ATTACK_DAMAGE,
-                        new EntityAttributeModifier(
-                                Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
+                        Attributes.ATTACK_DAMAGE,
+                        new AttributeModifier(
+                                Item.BASE_ATTACK_DAMAGE_ID,
                                 (double) material.attackDamageBonus() + (double) twoHandedAttackDamage,
-                                EntityAttributeModifier.Operation.ADD_VALUE
+                                AttributeModifier.Operation.ADD_VALUE
                         ),
-                        AttributeModifierSlot.MAINHAND
+                        EquipmentSlotGroup.MAINHAND
                 )
                 .add(
-                        EntityAttributes.ATTACK_SPEED,
-                        new EntityAttributeModifier(
-                                Item.BASE_ATTACK_SPEED_MODIFIER_ID,
+                        Attributes.ATTACK_SPEED,
+                        new AttributeModifier(
+                                Item.BASE_ATTACK_SPEED_ID,
                                 twoHandedAttackSpeed,
-                                EntityAttributeModifier.Operation.ADD_VALUE
+                                AttributeModifier.Operation.ADD_VALUE
                         ),
-                        AttributeModifierSlot.MAINHAND
+                        EquipmentSlotGroup.MAINHAND
                 )
                 .build();
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
         if(isTwoHanded(stack)) {
-            textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.twohandedsword").formatted(Formatting.BLUE));
-            super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+            textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.twohandedsword").withStyle(ChatFormatting.BLUE));
+            super.appendHoverText(stack, context, displayComponent, textConsumer, type);
         }
     }
 
@@ -111,15 +110,15 @@ public class BastardSwordItem extends Item {
     }
 
     public boolean isTwoHanded(ItemStack stack) {
-        NbtComponent custom = stack.get(DataComponentTypes.CUSTOM_DATA);
+        CustomData custom = stack.get(DataComponents.CUSTOM_DATA);
         if (custom == null) return false;
-        NbtCompound nbt = custom.copyNbt();
+        CompoundTag nbt = custom.copyTag();
         return nbt.getBoolean(WEAPONSEXPANDED$TWO_HANDED_KEY).orElse(false);
     }
 
     public void setTwoHanded(ItemStack stack, boolean twoHanded) {
-        NbtComponent custom = stack.get(DataComponentTypes.CUSTOM_DATA);
-        NbtCompound nbt = (custom != null) ? custom.copyNbt() : new NbtCompound();
+        CustomData custom = stack.get(DataComponents.CUSTOM_DATA);
+        CompoundTag nbt = (custom != null) ? custom.copyTag() : new CompoundTag();
 
         if (twoHanded) {
             nbt.putBoolean(WEAPONSEXPANDED$TWO_HANDED_KEY, true);
@@ -128,14 +127,14 @@ public class BastardSwordItem extends Item {
         }
 
         if (nbt.isEmpty()) {
-            stack.remove(DataComponentTypes.CUSTOM_DATA);
+            stack.remove(DataComponents.CUSTOM_DATA);
         } else {
-            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
         }
 
         // Swap modifiers explicitly (don't remove), so we always keep sword-like stats.
         stack.set(
-                DataComponentTypes.ATTRIBUTE_MODIFIERS,
+                DataComponents.ATTRIBUTE_MODIFIERS,
                 twoHanded ? this.weaponsexpanded$twoHandedModifiers : this.weaponsexpanded$oneHandedModifiers
         );
     }

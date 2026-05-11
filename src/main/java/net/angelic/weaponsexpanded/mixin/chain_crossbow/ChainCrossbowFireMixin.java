@@ -3,19 +3,19 @@ package net.angelic.weaponsexpanded.mixin.chain_crossbow;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.mixin.accessor.PersistentProjectileEntityAccessor;
 import net.angelic.weaponsexpanded.sound.ModSounds;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ChargedProjectilesComponent;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ChargedProjectiles;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,10 +27,10 @@ import java.util.List;
 @Mixin(CrossbowItem.class)
 public abstract class ChainCrossbowFireMixin {
 
-    @Inject(method = "shoot", at = @At("HEAD"))
+    @Inject(method = "shootProjectile", at = @At("HEAD"))
     private void weaponsexpanded$ensureWeaponIsSet(
             LivingEntity shooter,
-            ProjectileEntity projectile,
+            Projectile projectile,
             int index,
             float speed,
             float divergence,
@@ -38,11 +38,11 @@ public abstract class ChainCrossbowFireMixin {
             @Nullable LivingEntity target,
             CallbackInfo ci
     ) {
-        if (projectile instanceof PersistentProjectileEntity persistentProjectile) {
+        if (projectile instanceof AbstractArrow persistentProjectile) {
             // Check both hands since the fire request might come from the main hand 
             // but vanilla logic sometimes checks active hand.
-            ItemStack main = shooter.getMainHandStack();
-            ItemStack off = shooter.getOffHandStack();
+            ItemStack main = shooter.getMainHandItem();
+            ItemStack off = shooter.getOffhandItem();
             
             boolean isChainCrossbow = (main.getItem() instanceof ChainCrossbowItem) || (off.getItem() instanceof ChainCrossbowItem);
 
@@ -51,55 +51,55 @@ public abstract class ChainCrossbowFireMixin {
                 // which check for "minecraft:crossbow" specifically will trigger.
                 ItemStack spoofedWeapon = new ItemStack(Items.CROSSBOW);
                 // Copy enchantments and components so Piercing/Multishot are recognized
-                spoofedWeapon.applyComponentsFrom((main.getItem() instanceof ChainCrossbowItem ? main : off).getComponents());
+                spoofedWeapon.applyComponents((main.getItem() instanceof ChainCrossbowItem ? main : off).getComponents());
                 
                 ((PersistentProjectileEntityAccessor) persistentProjectile).weaponsexpanded$setWeapon(spoofedWeapon);
             }
         }
     }
 
-    @Inject(method = "shootAll", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "performShooting", at = @At("HEAD"), cancellable = true)
     private void weaponsexpanded$blockShootAllWhileOnCooldown(
-            World world,
+            Level world,
             LivingEntity shooter,
-            Hand hand,
+            InteractionHand hand,
             ItemStack stack,
             float speed,
             float divergence,
             @Nullable LivingEntity target,
             CallbackInfo ci
     ) {
-        if (world.isClient()) return;
+        if (world.isClientSide()) return;
         if (!(stack.getItem() instanceof ChainCrossbowItem)) return;
 
-        if (shooter instanceof PlayerEntity player) {
-            if (player.getItemCooldownManager().isCoolingDown(stack)) {
+        if (shooter instanceof Player player) {
+            if (player.getCooldowns().isOnCooldown(stack)) {
                 ci.cancel(); // Prevent firing while cooldown is active
             }
         }
     }
 
-    @Inject(method = "shootAll", at = @At("TAIL"))
+    @Inject(method = "performShooting", at = @At("TAIL"))
     private void weaponsexpanded$autoReloadFromStoredQueue(
-            World world,
+            Level world,
             LivingEntity shooter,
-            Hand hand,
+            InteractionHand hand,
             ItemStack stack,
             float speed,
             float divergence,
             @Nullable LivingEntity target,
             CallbackInfo ci
     ) {
-        if (world.isClient()) return;
+        if (world.isClientSide()) return;
         if (!(stack.getItem() instanceof ChainCrossbowItem)) return;
 
         // Apply 8-tick cooldown after firing
-        if (shooter instanceof PlayerEntity player) {
-            player.getItemCooldownManager().set(stack, 8);
+        if (shooter instanceof Player player) {
+            player.getCooldowns().addCooldown(stack, 8);
         }
 
-        ChargedProjectilesComponent charged =
-                stack.getOrDefault(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
+        ChargedProjectiles charged =
+                stack.getOrDefault(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
 
         // Only refill when the chamber is actually empty
         if (!charged.isEmpty()) return;
@@ -112,19 +112,19 @@ public abstract class ChainCrossbowFireMixin {
                 null,
                 shooter.getX(), shooter.getY(), shooter.getZ(),
                 ModSounds.CHAIN_CROSSBOW_CHAMBER,
-                SoundCategory.PLAYERS,
+                SoundSource.PLAYERS,
                 0.7F,
                 1.0F
         );
 
-        stack.set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.of(nextChamber));
+        stack.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.of(nextChamber));
 
         // NEW: refresh custom model data based on what we just loaded
         ChainCrossbowItem.weaponsexpanded$refreshLoadedVisual(stack);
 
         // SYNC FIX: Ensure the client knows the item has been updated
-        if (shooter instanceof ServerPlayerEntity serverPlayer) {
-            serverPlayer.currentScreenHandler.syncState();
+        if (shooter instanceof ServerPlayer serverPlayer) {
+            serverPlayer.containerMenu.sendAllDataToRemote();
         }
     }
 }

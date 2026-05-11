@@ -17,25 +17,24 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ChargedProjectilesComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.component.ChargedProjectiles;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.trading.ItemCost;
+import net.minecraft.world.item.trading.MerchantOffer;
 import java.util.Optional;
-
-import net.minecraft.item.ShieldItem;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradedItem;
-import net.minecraft.village.VillagerProfession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,9 +43,9 @@ public class WeaponsExpanded implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     // Everything in this tag will be usable as furnace fuel.
-    public static final TagKey<Item> WOODEN_FUEL = TagKey.of(
-            RegistryKeys.ITEM,
-            Identifier.of(MOD_ID, "wooden_fuel")
+    public static final TagKey<Item> WOODEN_FUEL = TagKey.create(
+            Registries.ITEM,
+            Identifier.fromNamespaceAndPath(MOD_ID, "wooden_fuel")
     );
 
     // Global version variable fetched from fabric.mod.json
@@ -88,52 +87,52 @@ public class WeaponsExpanded implements ModInitializer {
         if (WeaponsExpandedConfig.get().enableWeaponsmithTrades) {
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.WEAPONSMITH, 4, factories -> {
                 factories.add((world, entity, random) -> {
-                    int enchantLevel = random.nextBetween(5, 19);
+                    int enchantLevel = random.nextIntBetweenInclusive(5, 19);
                     ItemStack hammer = new ItemStack(ModItems.DIAMOND_HAMMER, 1);
-                    EnchantmentHelper.enchant(
+                    EnchantmentHelper.enchantItem(
                             random,
                             hammer,
                             enchantLevel,
-                            world.getRegistryManager(),
+                            world.registryAccess(),
                             Optional.empty()
                     );
                     int cost = 17 + enchantLevel;
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, cost),
+                    return new MerchantOffer(
+                            new ItemCost(Items.EMERALD, cost),
                             hammer,
                             3, 15, 0.2F
                     );
                 });
                 factories.add((world, entity, random) -> {
-                    int enchantLevel = random.nextBetween(5, 19);
+                    int enchantLevel = random.nextIntBetweenInclusive(5, 19);
                     ItemStack hatchet = new ItemStack(ModItems.DIAMOND_HATCHET, 1);
-                    EnchantmentHelper.enchant(
+                    EnchantmentHelper.enchantItem(
                             random,
                             hatchet,
                             enchantLevel,
-                            world.getRegistryManager(),
+                            world.registryAccess(),
                             Optional.empty()
                     );
                     int cost = 17 + enchantLevel;
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, cost),
+                    return new MerchantOffer(
+                            new ItemCost(Items.EMERALD, cost),
                             hatchet,
                             3, 15, 0.2F
                     );
                 });
                 factories.add((world, entity, random) -> {
-                    int enchantLevel = random.nextBetween(5, 19);
+                    int enchantLevel = random.nextIntBetweenInclusive(5, 19);
                     ItemStack battleaxe = new ItemStack(ModItems.DIAMOND_BATTLEAXE, 1);
-                    EnchantmentHelper.enchant(
+                    EnchantmentHelper.enchantItem(
                             random,
                             battleaxe,
                             enchantLevel,
-                            world.getRegistryManager(),
+                            world.registryAccess(),
                             Optional.empty()
                     );
                     int cost = 17 + enchantLevel;
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, cost),
+                    return new MerchantOffer(
+                            new ItemCost(Items.EMERALD, cost),
                             battleaxe,
                             3, 15, 0.2F
                     );
@@ -141,103 +140,103 @@ public class WeaponsExpanded implements ModInitializer {
             });
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.WEAPONSMITH, 5, factories -> {
                 factories.add((world, entity, random) -> {
-                    int enchantLevel = random.nextBetween(5, 19);
+                    int enchantLevel = random.nextIntBetweenInclusive(5, 19);
                     ItemStack weapon = new ItemStack(ModItems.DIAMOND_BROADSWORD, 1);
-                    EnchantmentHelper.enchant(
+                    EnchantmentHelper.enchantItem(
                             random,
                             weapon,
                             enchantLevel,
-                            world.getRegistryManager(),
+                            world.registryAccess(),
                             Optional.empty()
                     );
                     int cost = 13 + enchantLevel;
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, cost),
+                    return new MerchantOffer(
+                            new ItemCost(Items.EMERALD, cost),
                             weapon,
                             3, 30, 0.2F
                     );
                 });
                 factories.add((world, entity, random) -> {
-                    int enchantLevel = random.nextBetween(5, 19);
+                    int enchantLevel = random.nextIntBetweenInclusive(5, 19);
                     ItemStack weapon = new ItemStack(ModItems.DIAMOND_SICKLE, 1);
-                    EnchantmentHelper.enchant(
+                    EnchantmentHelper.enchantItem(
                             random,
                             weapon,
                             enchantLevel,
-                            world.getRegistryManager(),
+                            world.registryAccess(),
                             Optional.empty()
                     );
                     int cost = 13 + enchantLevel;
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, cost),
+                    return new MerchantOffer(
+                            new ItemCost(Items.EMERALD, cost),
                             weapon,
                             3, 30, 0.2F
                     );
                 });
                 factories.add((world, entity, random) -> {
-                    int enchantLevel = random.nextBetween(5, 19);
+                    int enchantLevel = random.nextIntBetweenInclusive(5, 19);
                     ItemStack weapon = new ItemStack(ModItems.DIAMOND_SCYTHE, 1);
-                    EnchantmentHelper.enchant(
+                    EnchantmentHelper.enchantItem(
                             random,
                             weapon,
                             enchantLevel,
-                            world.getRegistryManager(),
+                            world.registryAccess(),
                             Optional.empty()
                     );
                     int cost = 13 + enchantLevel;
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, cost),
+                    return new MerchantOffer(
+                            new ItemCost(Items.EMERALD, cost),
                             weapon,
                             3, 30, 0.2F
                     );
                 });
                 factories.add((world, entity, random) -> {
-                    int enchantLevel = random.nextBetween(5, 19);
+                    int enchantLevel = random.nextIntBetweenInclusive(5, 19);
                     ItemStack weapon = new ItemStack(ModItems.DIAMOND_LONGSWORD, 1);
-                    EnchantmentHelper.enchant(
+                    EnchantmentHelper.enchantItem(
                             random,
                             weapon,
                             enchantLevel,
-                            world.getRegistryManager(),
+                            world.registryAccess(),
                             Optional.empty()
                     );
                     int cost = 13 + enchantLevel;
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, cost),
+                    return new MerchantOffer(
+                            new ItemCost(Items.EMERALD, cost),
                             weapon,
                             3, 30, 0.2F
                     );
                 });
                 factories.add((world, entity, random) -> {
-                    int enchantLevel = random.nextBetween(5, 19);
+                    int enchantLevel = random.nextIntBetweenInclusive(5, 19);
                     ItemStack weapon = new ItemStack(ModItems.DIAMOND_KATANA, 1);
-                    EnchantmentHelper.enchant(
+                    EnchantmentHelper.enchantItem(
                             random,
                             weapon,
                             enchantLevel,
-                            world.getRegistryManager(),
+                            world.registryAccess(),
                             Optional.empty()
                     );
                     int cost = 13 + enchantLevel;
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, cost),
+                    return new MerchantOffer(
+                            new ItemCost(Items.EMERALD, cost),
                             weapon,
                             3, 30, 0.2F
                     );
                 });
                 factories.add((world, entity, random) -> {
-                    int enchantLevel = random.nextBetween(5, 19);
+                    int enchantLevel = random.nextIntBetweenInclusive(5, 19);
                     ItemStack weapon = new ItemStack(ModItems.DIAMOND_GREATSWORD, 1);
-                    EnchantmentHelper.enchant(
+                    EnchantmentHelper.enchantItem(
                             random,
                             weapon,
                             enchantLevel,
-                            world.getRegistryManager(),
+                            world.registryAccess(),
                             Optional.empty()
                     );
                     int cost = 13 + enchantLevel;
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, cost),
+                    return new MerchantOffer(
+                            new ItemCost(Items.EMERALD, cost),
                             weapon,
                             3, 30, 0.2F
                     );
@@ -246,31 +245,31 @@ public class WeaponsExpanded implements ModInitializer {
         }
     }
 
-    private static void weaponsexpanded$toggleBastardSwordMode(PlayerEntity player) {
-        ItemStack stack = player.getMainHandStack();
+    private static void weaponsexpanded$toggleBastardSwordMode(Player player) {
+        ItemStack stack = player.getMainHandItem();
         if (!(stack.getItem() instanceof BastardSwordItem bastardSword)) return;
 
         bastardSword.toggleTwoHanded(stack);
-        if (player.getOffHandStack().getItem() instanceof ShieldItem shield) {
-            player.getItemCooldownManager().set(shield.getDefaultStack(), 20);
+        if (player.getOffhandItem().getItem() instanceof ShieldItem shield) {
+            player.getCooldowns().addCooldown(shield.getDefaultInstance(), 20);
         }
     }
 
-    private static void weaponsexpanded$tryFireChainCrossbow(PlayerEntity player) {
-        ItemStack stack = player.getMainHandStack();
+    private static void weaponsexpanded$tryFireChainCrossbow(Player player) {
+        ItemStack stack = player.getMainHandItem();
         if (!(stack.getItem() instanceof ChainCrossbowItem chainCrossbow)) return;
-        if (!net.minecraft.item.CrossbowItem.isCharged(stack)) return;
+        if (!net.minecraft.world.item.CrossbowItem.isCharged(stack)) return;
 
-        ChargedProjectilesComponent charged =
-                stack.getOrDefault(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
+        ChargedProjectiles charged =
+                stack.getOrDefault(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
 
-        float speed = charged.contains(net.minecraft.item.Items.FIREWORK_ROCKET) ? 1.6F : 3.15F;
+        float speed = charged.contains(net.minecraft.world.item.Items.FIREWORK_ROCKET) ? 1.6F : 3.15F;
 
-        chainCrossbow.shootAll(player.getEntityWorld(), player, Hand.MAIN_HAND, stack, speed, 1.0F, null);
+        chainCrossbow.performShooting(player.level(), player, InteractionHand.MAIN_HAND, stack, speed, 1.0F, null);
 
-        if (player instanceof ServerPlayerEntity serverPlayer) {
+        if (player instanceof ServerPlayer serverPlayer) {
             ItemStack dummy = new ItemStack(Items.CROSSBOW);
-            Criteria.SHOT_CROSSBOW.trigger(serverPlayer, dummy);
+            CriteriaTriggers.SHOT_CROSSBOW.trigger(serverPlayer, dummy);
         }
     }
 }

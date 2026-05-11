@@ -1,13 +1,13 @@
 package net.angelic.weaponsexpanded.mixin.explosive_arrow;
 
 import net.angelic.weaponsexpanded.item.ModItems;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.RangedWeaponItem;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Hand;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ProjectileWeaponItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,17 +15,17 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.List;
 
-@Mixin(RangedWeaponItem.class)
+@Mixin(ProjectileWeaponItem.class)
 public class CrossbowExplosiveArrowDurabilityMixin {
 
     @Unique
     private static final int WEAPONSEXPANDED$DURABILITY_PER_ARROW_FIRED = 4;
 
     @Redirect(
-            method = "shootAll(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/item/ItemStack;Ljava/util/List;FFZLnet/minecraft/entity/LivingEntity;)V",
+            method = "shoot(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/item/ItemStack;Ljava/util/List;FFZLnet/minecraft/world/entity/LivingEntity;)V",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/EquipmentSlot;)V"
+                    target = "Lnet/minecraft/world/item/ItemStack;hurtAndBreak(ILnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/EquipmentSlot;)V"
             )
     )
     private void weaponsexpanded$damageWeaponForExplosiveArrows(
@@ -33,9 +33,9 @@ public class CrossbowExplosiveArrowDurabilityMixin {
             int originalAmount,
             LivingEntity damageReceiver,
             EquipmentSlot slot,
-            ServerWorld world,
+            ServerLevel world,
             LivingEntity shooter,
-            Hand hand,
+            InteractionHand hand,
             ItemStack weaponStack,
             List<ItemStack> projectiles,
             float speed,
@@ -55,6 +55,6 @@ public class CrossbowExplosiveArrowDurabilityMixin {
             }
         }
 
-        instance.damage(newAmount, damageReceiver, slot);
+        instance.hurtAndBreak(newAmount, damageReceiver, slot);
     }
 }

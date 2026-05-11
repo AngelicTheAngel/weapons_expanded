@@ -11,33 +11,33 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.render.entity.ArrowEntityRenderer;
-import net.minecraft.client.render.entity.EntityRendererFactories;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.HitResult;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.TippableArrowRenderer;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.HitResult;
 import org.lwjgl.glfw.GLFW;
 
 import static net.angelic.weaponsexpanded.WeaponsExpanded.MOD_ID;
 
 public class WeaponsExpandedClient implements ClientModInitializer {
 
-    private static final KeyBinding.Category WEAPONSEXPANDED$KEY_CATEGORY =
-            KeyBinding.Category.create(Identifier.of(MOD_ID, "general"));
+    private static final KeyMapping.Category WEAPONSEXPANDED$KEY_CATEGORY =
+            KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MOD_ID, "general"));
     private static final String WEAPONSEXPANDED$KEY_TOGGLE_BASTARD_SWORD =
             "key.weaponsexpanded.toggle_bastard_sword_mode";
 
-    private static KeyBinding weaponsexpanded$toggleBastardSwordModeKey;
+    private static KeyMapping weaponsexpanded$toggleBastardSwordModeKey;
 
     @Override
     public void onInitializeClient() {
-        EntityRendererFactories.register(ModEntities.HEAVY_ARROW, HeavyArrowEntityRenderer::new);
-        EntityRendererFactories.register(ModEntities.EXPLOSIVE_ARROW, ArrowEntityRenderer::new);
+        EntityRenderers.register(ModEntities.HEAVY_ARROW, HeavyArrowEntityRenderer::new);
+        EntityRenderers.register(ModEntities.EXPLOSIVE_ARROW, TippableArrowRenderer::new);
 
         weaponsexpanded$toggleBastardSwordModeKey = KeyBindingHelper.registerKeyBinding(
-                new KeyBinding(
+                new KeyMapping(
                         WEAPONSEXPANDED$KEY_TOGGLE_BASTARD_SWORD,
                         GLFW.GLFW_KEY_V,
                         WEAPONSEXPANDED$KEY_CATEGORY
@@ -51,27 +51,27 @@ public class WeaponsExpandedClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(WeaponsExpandedClient::weaponsexpanded$handleBastardSwordToggleKey);
     }
 
-    private static void weaponsexpanded$handleBastardSwordToggleKey(MinecraftClient client) {
+    private static void weaponsexpanded$handleBastardSwordToggleKey(Minecraft client) {
         if (client.player == null) return;
 
-        while (weaponsexpanded$toggleBastardSwordModeKey.wasPressed()) {
-            ItemStack stack = client.player.getMainHandStack();
+        while (weaponsexpanded$toggleBastardSwordModeKey.consumeClick()) {
+            ItemStack stack = client.player.getMainHandItem();
             if (!(stack.getItem() instanceof BastardSwordItem)) return;
 
             ClientPlayNetworking.send(new ToggleBastardSwordModePayload());
         }
     }
 
-    private static void weaponsexpanded$handleChainCrossbowLeftClick(MinecraftClient client) {
+    private static void weaponsexpanded$handleChainCrossbowLeftClick(Minecraft client) {
         if (client.player == null) return;
         if (client.options == null) return;
 
-        while (client.options.attackKey.wasPressed()) {
-            ItemStack stack = client.player.getMainHandStack();
+        while (client.options.keyAttack.consumeClick()) {
+            ItemStack stack = client.player.getMainHandItem();
             if (!(stack.getItem() instanceof ChainCrossbowItem)) return;
-            if (!net.minecraft.item.CrossbowItem.isCharged(stack)) return;
+            if (!net.minecraft.world.item.CrossbowItem.isCharged(stack)) return;
 
-            if (client.crosshairTarget != null && client.crosshairTarget.getType() != HitResult.Type.MISS) return;
+            if (client.hitResult != null && client.hitResult.getType() != HitResult.Type.MISS) return;
 
             ClientPlayNetworking.send(new FireChainCrossbowPayload());
         }

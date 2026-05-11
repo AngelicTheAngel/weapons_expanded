@@ -1,8 +1,8 @@
 package net.angelic.weaponsexpanded.item;
 
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ToolMaterial;
 
 public class ModToolMaterials {
     public static final ToolMaterial FAUX_WOOD = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 59, 1.0F, 0.0F, 15, ItemTags.WOODEN_TOOL_MATERIALS);

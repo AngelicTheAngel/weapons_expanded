@@ -1,28 +1,26 @@
 package net.angelic.weaponsexpanded.item.custom;
 
 import net.angelic.weaponsexpanded.sound.ModSounds;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ChargedProjectilesComponent;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.component.type.CustomModelDataComponent;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.nbt.NbtList;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
-
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.text.Text;
-
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ChargedProjectiles;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.CustomModelData;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import java.util.List;
@@ -40,19 +38,19 @@ public class ChainCrossbowItem extends CrossbowItem {
     private static final float WEAPONSEXPANDED$CMD_EXPLOSIVE_LOADED = 1.0F;
 
     private static void weaponsexpanded$updateLoadedVisual(ItemStack stack) {
-        ChargedProjectilesComponent charged =
-                stack.getOrDefault(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
+        ChargedProjectiles charged =
+                stack.getOrDefault(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
 
-        boolean hasExplosive = charged.getProjectiles().stream()
-                .anyMatch(s -> !s.isEmpty() && s.getItem() == ModItems.EXPLOSIVE_ARROW);
+        boolean hasExplosive = charged.items().stream()
+                .anyMatch(s -> s.item() == ModItems.EXPLOSIVE_ARROW);
 
         if (hasExplosive) {
             stack.set(
-                    DataComponentTypes.CUSTOM_MODEL_DATA,
-                    new CustomModelDataComponent(List.of(WEAPONSEXPANDED$CMD_EXPLOSIVE_LOADED), List.of(), List.of(), List.of())
+                    DataComponents.CUSTOM_MODEL_DATA,
+                    new CustomModelData(List.of(WEAPONSEXPANDED$CMD_EXPLOSIVE_LOADED), List.of(), List.of(), List.of())
             );
         } else {
-            stack.remove(DataComponentTypes.CUSTOM_MODEL_DATA);
+            stack.remove(DataComponents.CUSTOM_MODEL_DATA);
         }
     }
 
@@ -64,36 +62,36 @@ public class ChainCrossbowItem extends CrossbowItem {
         weaponsexpanded$updateLoadedVisual(stack);
     }
 
-    public ChainCrossbowItem(Settings settings) {
+    public ChainCrossbowItem(Properties settings) {
         super(settings);
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent,
-                              Consumer<Text> textConsumer, TooltipType type) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent,
+                              Consumer<Component> textConsumer, TooltipFlag type) {
         // queued shots (not counting the current chamber)
         int queued = weaponsexpanded$getQueuedChambers(stack);
 
         // current-or-saved chamber counts as one "loaded" shot for display
-        NbtCompound root = weaponsexpanded$getOrCreateCustomNbt(stack);
+        CompoundTag root = weaponsexpanded$getOrCreateCustomNbt(stack);
         boolean hasSaved = root.contains(WEAPONSEXPANDED$SAVED_CHAMBER_KEY);
         boolean isCharged = CrossbowItem.isCharged(stack);
         int currentOrSaved = (isCharged || hasSaved) ? 1 : 0;
 
         int total = Math.min(WEAPONSEXPANDED$MAX_TOTAL_SHOTS, currentOrSaved + queued);
 
-        textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.chain_crossbow_shots", total, WEAPONSEXPANDED$MAX_TOTAL_SHOTS));
+        textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.chain_crossbow_shots", total, WEAPONSEXPANDED$MAX_TOTAL_SHOTS));
 
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+        super.appendHoverText(stack, context, displayComponent, textConsumer, type);
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        ItemStack crossbow = user.getStackInHand(hand);
+    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+        ItemStack crossbow = user.getItemInHand(hand);
 
         // Compute fullness on BOTH sides so the client doesn't run vanilla "shootAll" when full.
-        NbtCompound root = weaponsexpanded$getOrCreateCustomNbt(crossbow);
+        CompoundTag root = weaponsexpanded$getOrCreateCustomNbt(crossbow);
         weaponsexpanded$trimQueueToMax(root);
 
         boolean hasSavedChamber = root.contains(WEAPONSEXPANDED$SAVED_CHAMBER_KEY);
@@ -105,12 +103,12 @@ public class ChainCrossbowItem extends CrossbowItem {
 
         if (total >= WEAPONSEXPANDED$MAX_TOTAL_SHOTS) {
             // Server plays the sound; client just returns FAIL to avoid clearing CHARGED_PROJECTILES.
-            if (!world.isClient()) {
-                user.getEntityWorld().playSound(
+            if (!world.isClientSide()) {
+                user.level().playSound(
                         null,
                         user.getX(), user.getY(), user.getZ(),
                         ModSounds.CHAIN_CROSSBOW_FULL,
-                        SoundCategory.PLAYERS,
+                        SoundSource.PLAYERS,
                         1.0F,
                         1.0F
                 );
@@ -120,11 +118,11 @@ public class ChainCrossbowItem extends CrossbowItem {
                 weaponsexpanded$refreshLoadedVisual(crossbow);
             }
 
-            return ActionResult.FAIL;
+            return InteractionResult.FAIL;
         }
 
         // If client and not full, let vanilla handle hand animation, etc.
-        if (world.isClient()) {
+        if (world.isClientSide()) {
             return super.use(world, user, hand);
         }
 
@@ -134,16 +132,16 @@ public class ChainCrossbowItem extends CrossbowItem {
         if (!isChargedNow) {
             // 1) Restore from saved chamber first (this represents the "current" shot)
             if (hasSavedChamber) {
-                NbtCompound saved = root.getCompound(WEAPONSEXPANDED$SAVED_CHAMBER_KEY).orElse(null);
+                CompoundTag saved = root.getCompound(WEAPONSEXPANDED$SAVED_CHAMBER_KEY).orElse(null);
                 root.remove(WEAPONSEXPANDED$SAVED_CHAMBER_KEY);
                 weaponsexpanded$setCustomNbt(crossbow, root);
 
                 if (saved != null) {
                     weaponsexpanded$applyChamberToCrossbow(world, crossbow, saved);
-                    if (user instanceof ServerPlayerEntity serverPlayer) {
-                        serverPlayer.currentScreenHandler.syncState();
+                    if (user instanceof ServerPlayer serverPlayer) {
+                        serverPlayer.containerMenu.sendAllDataToRemote();
                     }
-                    return ActionResult.CONSUME;
+                    return InteractionResult.CONSUME;
                 }
             }
 
@@ -151,11 +149,11 @@ public class ChainCrossbowItem extends CrossbowItem {
             if (queued > 0) {
                 List<ItemStack> next = weaponsexpanded$popNextChamber(world, crossbow);
                 if (!next.isEmpty()) {
-                    crossbow.set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.of(next));
-                    if (user instanceof ServerPlayerEntity serverPlayer) {
-                        serverPlayer.currentScreenHandler.syncState();
+                    crossbow.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.of(next));
+                    if (user instanceof ServerPlayer serverPlayer) {
+                        serverPlayer.containerMenu.sendAllDataToRemote();
                     }
-                    return ActionResult.CONSUME;
+                    return InteractionResult.CONSUME;
                 }
             }
         }
@@ -166,14 +164,14 @@ public class ChainCrossbowItem extends CrossbowItem {
             root.put(WEAPONSEXPANDED$SAVED_CHAMBER_KEY, weaponsexpanded$encodeChamber(world, crossbow));
             weaponsexpanded$setCustomNbt(crossbow, root);
 
-            crossbow.set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
+            crossbow.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
 
-            ActionResult vanillaResult = super.use(world, user, hand);
+            InteractionResult vanillaResult = super.use(world, user, hand);
 
             // If vanilla couldn't start loading (e.g., no ammo), restore the saved chamber immediately.
-            if (vanillaResult == ActionResult.FAIL) {
-                NbtCompound restoreRoot = weaponsexpanded$getOrCreateCustomNbt(crossbow);
-                NbtCompound saved = restoreRoot.getCompound(WEAPONSEXPANDED$SAVED_CHAMBER_KEY).orElse(null);
+            if (vanillaResult == InteractionResult.FAIL) {
+                CompoundTag restoreRoot = weaponsexpanded$getOrCreateCustomNbt(crossbow);
+                CompoundTag saved = restoreRoot.getCompound(WEAPONSEXPANDED$SAVED_CHAMBER_KEY).orElse(null);
                 restoreRoot.remove(WEAPONSEXPANDED$SAVED_CHAMBER_KEY);
                 weaponsexpanded$setCustomNbt(crossbow, restoreRoot);
 
@@ -190,20 +188,20 @@ public class ChainCrossbowItem extends CrossbowItem {
     }
 
     @Override
-    public void shootAll(World world, LivingEntity shooter, Hand hand, ItemStack stack, float speed, float divergence, LivingEntity target) {
+    public void performShooting(Level world, LivingEntity shooter, InteractionHand hand, ItemStack stack, float speed, float divergence, LivingEntity target) {
         // We’re about to consume the charged projectiles; clear the flag so the model returns to normal.
-        stack.remove(DataComponentTypes.CUSTOM_MODEL_DATA);
+        stack.remove(DataComponents.CUSTOM_MODEL_DATA);
 
-        super.shootAll(world, shooter, hand, stack, speed, divergence, target);
+        super.performShooting(world, shooter, hand, stack, speed, divergence, target);
     }
 
     @Override
-    public boolean onStoppedUsing(ItemStack crossbow, World world, LivingEntity user, int remainingUseTicks) {
-        boolean result = super.onStoppedUsing(crossbow, world, user, remainingUseTicks);
+    public boolean releaseUsing(ItemStack crossbow, Level world, LivingEntity user, int remainingUseTicks) {
+        boolean result = super.releaseUsing(crossbow, world, user, remainingUseTicks);
 
-        if (world.isClient()) return result;
+        if (world.isClientSide()) return result;
 
-        NbtCompound root = weaponsexpanded$getOrCreateCustomNbt(crossbow);
+        CompoundTag root = weaponsexpanded$getOrCreateCustomNbt(crossbow);
         weaponsexpanded$trimQueueToMax(root);
 
         boolean toppingUp = root.contains(WEAPONSEXPANDED$SAVED_CHAMBER_KEY);
@@ -213,7 +211,7 @@ public class ChainCrossbowItem extends CrossbowItem {
         }
 
         if (toppingUp) {
-            NbtCompound saved = root.getCompound(WEAPONSEXPANDED$SAVED_CHAMBER_KEY).orElse(null);
+            CompoundTag saved = root.getCompound(WEAPONSEXPANDED$SAVED_CHAMBER_KEY).orElse(null);
             root.remove(WEAPONSEXPANDED$SAVED_CHAMBER_KEY);
 
             if (saved != null) {
@@ -229,12 +227,12 @@ public class ChainCrossbowItem extends CrossbowItem {
         return result;
     }
 
-    public static List<ItemStack> weaponsexpanded$popNextChamber(World world, ItemStack crossbow) {
-        NbtCompound root = weaponsexpanded$getOrCreateCustomNbt(crossbow);
-        NbtList queue = root.getListOrEmpty(WEAPONSEXPANDED$QUEUE_KEY);
+    public static List<ItemStack> weaponsexpanded$popNextChamber(Level world, ItemStack crossbow) {
+        CompoundTag root = weaponsexpanded$getOrCreateCustomNbt(crossbow);
+        ListTag queue = root.getListOrEmpty(WEAPONSEXPANDED$QUEUE_KEY);
         if (queue.isEmpty()) return List.of();
 
-        NbtCompound chamber = queue.getFirst().asCompound().orElse(null);
+        CompoundTag chamber = queue.getFirst().asCompound().orElse(null);
         queue.removeFirst();
 
         if (queue.isEmpty()) {
@@ -249,12 +247,12 @@ public class ChainCrossbowItem extends CrossbowItem {
     }
 
     public static int weaponsexpanded$getQueuedChambers(ItemStack crossbow) {
-        NbtCompound root = weaponsexpanded$getOrCreateCustomNbt(crossbow);
+        CompoundTag root = weaponsexpanded$getOrCreateCustomNbt(crossbow);
         return root.getListOrEmpty(WEAPONSEXPANDED$QUEUE_KEY).size();
     }
 
-    private static void weaponsexpanded$trimQueueToMax(NbtCompound root) {
-        NbtList queue = root.getListOrEmpty(WEAPONSEXPANDED$QUEUE_KEY);
+    private static void weaponsexpanded$trimQueueToMax(CompoundTag root) {
+        ListTag queue = root.getListOrEmpty(WEAPONSEXPANDED$QUEUE_KEY);
         int queuedMax = WEAPONSEXPANDED$MAX_TOTAL_SHOTS - 1;
 
         if (queue.size() <= queuedMax) return;
@@ -270,8 +268,8 @@ public class ChainCrossbowItem extends CrossbowItem {
         }
     }
 
-    private static void weaponsexpanded$appendCurrentChamberToQueue(World world, ItemStack crossbow, NbtCompound root) {
-        NbtList queue = root.getListOrEmpty(WEAPONSEXPANDED$QUEUE_KEY);
+    private static void weaponsexpanded$appendCurrentChamberToQueue(Level world, ItemStack crossbow, CompoundTag root) {
+        ListTag queue = root.getListOrEmpty(WEAPONSEXPANDED$QUEUE_KEY);
         int queuedMax = WEAPONSEXPANDED$MAX_TOTAL_SHOTS - 1;
         if (queue.size() >= queuedMax) return;
 
@@ -279,14 +277,14 @@ public class ChainCrossbowItem extends CrossbowItem {
         root.put(WEAPONSEXPANDED$QUEUE_KEY, queue);
     }
 
-    private static NbtCompound weaponsexpanded$encodeChamber(World world, ItemStack crossbow) {
-        ChargedProjectilesComponent charged =
-                crossbow.getOrDefault(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
+    private static CompoundTag weaponsexpanded$encodeChamber(Level world, ItemStack crossbow) {
+        ChargedProjectiles charged =
+                crossbow.getOrDefault(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
 
-        NbtCompound chamber = new NbtCompound();
-        NbtList projectiles = new NbtList();
+        CompoundTag chamber = new CompoundTag();
+        ListTag projectiles = new ListTag();
 
-        for (ItemStack p : charged.getProjectiles()) {
+        for (ItemStack p : charged.items()) {
             ItemStack one = p.copy();
             one.setCount(1);
             projectiles.add(weaponsexpanded$encodeStack(world, one));
@@ -296,12 +294,12 @@ public class ChainCrossbowItem extends CrossbowItem {
         return chamber;
     }
 
-    private static List<ItemStack> weaponsexpanded$decodeChamber(World world, NbtCompound chamber) {
+    private static List<ItemStack> weaponsexpanded$decodeChamber(Level world, CompoundTag chamber) {
         List<ItemStack> out = new ArrayList<>();
-        NbtList list = chamber.getListOrEmpty("projectiles");
+        ListTag list = chamber.getListOrEmpty("projectiles");
 
-        for (NbtElement nbtElement : list) {
-            NbtCompound stackTag = nbtElement.asCompound().orElse(null);
+        for (Tag nbtElement : list) {
+            CompoundTag stackTag = nbtElement.asCompound().orElse(null);
             if (stackTag == null) continue;
 
             ItemStack decoded = weaponsexpanded$decodeStack(world, stackTag);
@@ -314,36 +312,36 @@ public class ChainCrossbowItem extends CrossbowItem {
         return out;
     }
 
-    private static void weaponsexpanded$applyChamberToCrossbow(World world, ItemStack crossbow, NbtCompound chamber) {
+    private static void weaponsexpanded$applyChamberToCrossbow(Level world, ItemStack crossbow, CompoundTag chamber) {
         List<ItemStack> projectiles = weaponsexpanded$decodeChamber(world, chamber);
         if (projectiles.isEmpty()) {
-            crossbow.set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
+            crossbow.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
         } else {
-            crossbow.set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.of(projectiles));
+            crossbow.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.of(projectiles));
         }
     }
 
-    private static NbtCompound weaponsexpanded$getOrCreateCustomNbt(ItemStack stack) {
-        NbtComponent custom = stack.get(DataComponentTypes.CUSTOM_DATA);
-        return (custom != null) ? custom.copyNbt() : new NbtCompound();
+    private static CompoundTag weaponsexpanded$getOrCreateCustomNbt(ItemStack stack) {
+        CustomData custom = stack.get(DataComponents.CUSTOM_DATA);
+        return (custom != null) ? custom.copyTag() : new CompoundTag();
     }
 
-    private static void weaponsexpanded$setCustomNbt(ItemStack stack, NbtCompound nbt) {
+    private static void weaponsexpanded$setCustomNbt(ItemStack stack, CompoundTag nbt) {
         if (nbt.isEmpty()) {
-            stack.remove(DataComponentTypes.CUSTOM_DATA);
+            stack.remove(DataComponents.CUSTOM_DATA);
         } else {
-            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
         }
     }
 
-    private static NbtCompound weaponsexpanded$encodeStack(World world, ItemStack stack) {
-        var ops = world.getRegistryManager().getOps(NbtOps.INSTANCE);
-        NbtElement elem = ItemStack.CODEC.encodeStart(ops, stack).getOrThrow();
-        return elem.asCompound().orElseGet(NbtCompound::new);
+    private static CompoundTag weaponsexpanded$encodeStack(Level world, ItemStack stack) {
+        var ops = world.registryAccess().createSerializationContext(NbtOps.INSTANCE);
+        Tag elem = ItemStack.CODEC.encodeStart(ops, stack).getOrThrow();
+        return elem.asCompound().orElseGet(CompoundTag::new);
     }
 
-    private static ItemStack weaponsexpanded$decodeStack(World world, NbtCompound nbt) {
-        var ops = world.getRegistryManager().getOps(NbtOps.INSTANCE);
+    private static ItemStack weaponsexpanded$decodeStack(Level world, CompoundTag nbt) {
+        var ops = world.registryAccess().createSerializationContext(NbtOps.INSTANCE);
         return ItemStack.CODEC.parse(ops, nbt).result().orElse(ItemStack.EMPTY);
     }
 }

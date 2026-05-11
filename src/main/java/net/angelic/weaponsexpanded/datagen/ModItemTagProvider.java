@@ -1,22 +1,22 @@
 package net.angelic.weaponsexpanded.datagen;
 
 import net.angelic.weaponsexpanded.item.ModItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
-    public ModItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
+    public ModItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, completableFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.@NonNull WrapperLookup wrapperLookup) {
+    protected void addTags(HolderLookup.@NonNull Provider wrapperLookup) {
         valueLookupBuilder(ItemTags.MELEE_WEAPON_ENCHANTABLE)
                 .add(ModItems.WOODEN_BROADSWORD)
                 .add(ModItems.GOLDEN_BROADSWORD)

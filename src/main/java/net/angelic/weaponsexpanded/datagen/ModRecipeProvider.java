@@ -1,18 +1,19 @@
 package net.angelic.weaponsexpanded.datagen;
 
 import net.angelic.weaponsexpanded.item.ModItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.recipe.CookingRecipeJsonBuilder;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
@@ -20,15 +21,15 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
 
-    public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ModRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected @NonNull RecipeGenerator getRecipeGenerator(RegistryWrapper.@NonNull WrapperLookup registries, @NonNull RecipeExporter exporter) {
-        return new RecipeGenerator(registries, exporter) {
+    protected @NonNull RecipeProvider createRecipeProvider(HolderLookup.@NonNull Provider registries, @NonNull RecipeOutput exporter) {
+        return new RecipeProvider(registries, exporter) {
             @Override
-            public void generate() {
+            public void buildRecipes() {
                 float xp = 0.1f;
 
                 int smeltTime = 200;
@@ -109,230 +110,230 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 offerBattleaxeRecipe(ModItems.IRON_BATTLEAXE, ItemTags.IRON_TOOL_MATERIALS);
                 offerBattleaxeRecipe(ModItems.DIAMOND_BATTLEAXE, ItemTags.DIAMOND_TOOL_MATERIALS);
 
-                offerNetheriteUpgradeRecipe(ModItems.DIAMOND_BROADSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_BROADSWORD);
-                offerNetheriteUpgradeRecipe(ModItems.DIAMOND_SICKLE, RecipeCategory.COMBAT, ModItems.NETHERITE_SICKLE);
-                offerNetheriteUpgradeRecipe(ModItems.DIAMOND_SCYTHE, RecipeCategory.COMBAT, ModItems.NETHERITE_SCYTHE);
-                offerNetheriteUpgradeRecipe(ModItems.DIAMOND_LONGSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_LONGSWORD);
-                offerNetheriteUpgradeRecipe(ModItems.DIAMOND_KATANA, RecipeCategory.COMBAT, ModItems.NETHERITE_KATANA);
-                offerNetheriteUpgradeRecipe(ModItems.DIAMOND_GREATSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_GREATSWORD);
-                offerNetheriteUpgradeRecipe(ModItems.DIAMOND_HATCHET, RecipeCategory.COMBAT, ModItems.NETHERITE_HATCHET);
-                offerNetheriteUpgradeRecipe(ModItems.DIAMOND_HAMMER, RecipeCategory.COMBAT, ModItems.NETHERITE_HAMMER);
-                offerNetheriteUpgradeRecipe(ModItems.DIAMOND_BATTLEAXE, RecipeCategory.COMBAT, ModItems.NETHERITE_BATTLEAXE);
+                netheriteSmithing(ModItems.DIAMOND_BROADSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_BROADSWORD);
+                netheriteSmithing(ModItems.DIAMOND_SICKLE, RecipeCategory.COMBAT, ModItems.NETHERITE_SICKLE);
+                netheriteSmithing(ModItems.DIAMOND_SCYTHE, RecipeCategory.COMBAT, ModItems.NETHERITE_SCYTHE);
+                netheriteSmithing(ModItems.DIAMOND_LONGSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_LONGSWORD);
+                netheriteSmithing(ModItems.DIAMOND_KATANA, RecipeCategory.COMBAT, ModItems.NETHERITE_KATANA);
+                netheriteSmithing(ModItems.DIAMOND_GREATSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_GREATSWORD);
+                netheriteSmithing(ModItems.DIAMOND_HATCHET, RecipeCategory.COMBAT, ModItems.NETHERITE_HATCHET);
+                netheriteSmithing(ModItems.DIAMOND_HAMMER, RecipeCategory.COMBAT, ModItems.NETHERITE_HAMMER);
+                netheriteSmithing(ModItems.DIAMOND_BATTLEAXE, RecipeCategory.COMBAT, ModItems.NETHERITE_BATTLEAXE);
             }
 
             public void offerBroadswordRecipe(Item output, TagKey<Item> input) {
                 if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern("  M")
                             .pattern(" M ")
                             .pattern("S  ")
-                            .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
                 } else {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern("  M")
                             .pattern(" M ")
                             .pattern("S  ")
-                            .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
                 }
             }
 
             public void offerSickleRecipe(Item output, TagKey<Item> input) {
                 if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern(" M ")
                             .pattern("  M")
                             .pattern(" S ")
-                            .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
                 } else {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern(" M ")
                             .pattern("  M")
                             .pattern(" S ")
-                            .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
                 }
             }
 
             public void offerScytheRecipe(Item output, TagKey<Item> input) {
                 if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern("MMM")
                             .pattern("  S")
                             .pattern("  S")
-                            .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
                 } else {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern("MMM")
                             .pattern("  S")
                             .pattern("  S")
-                            .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
                 }
             }
 
             public void offerLongswordRecipe(Item output, TagKey<Item> input) {
                 if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern(" M ")
                             .pattern(" M ")
                             .pattern("MSM")
-                            .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
                 } else {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern(" M ")
                             .pattern(" M ")
                             .pattern("MSM")
-                            .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
                 }
             }
 
             public void offerKatanaRecipe(Item output, TagKey<Item> input) {
                 if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern("  M")
                             .pattern(" M ")
                             .pattern(" S ")
-                            .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
                 } else {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern("  M")
                             .pattern(" M ")
                             .pattern(" S ")
-                            .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
                 }
             }
 
             public void offerGreatswordRecipe(Item output, TagKey<Item> input) {
                 if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern("  M")
                             .pattern("MM ")
                             .pattern("SM ")
-                            .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
                 } else {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern("  M")
                             .pattern("MM ")
                             .pattern("SM ")
-                            .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
                 }
             }
 
             public void offerHatchetRecipe(Item output, TagKey<Item> input) {
                 if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern(" M ")
                             .pattern("MS ")
                             .pattern(" S ")
-                            .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
                 } else {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern(" M ")
                             .pattern("MS ")
                             .pattern(" S ")
-                            .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
                 }
             }
 
             public void offerHammerRecipe(Item output, TagKey<Item> input) {
                 if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern("MSM")
                             .pattern("MSM")
                             .pattern(" S ")
-                            .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
                 } else {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern("MSM")
                             .pattern("MSM")
                             .pattern(" S ")
-                            .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
                 }
             }
 
             public void offerBattleaxeRecipe(Item output, TagKey<Item> input) {
                 if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern("MM ")
                             .pattern("MSM")
                             .pattern(" S ")
-                            .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
                 } else {
-                    this.createShaped(RecipeCategory.COMBAT, output)
-                            .input('M', input)
-                            .input('S', Items.STICK)
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
                             .pattern("MM ")
                             .pattern("MSM")
                             .pattern(" S ")
-                            .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
-                            .offerTo(this.exporter);
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
                 }
             }
 
@@ -344,18 +345,19 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     int cookTime
             ) {
                 for (Item input : inputs) {
-                    String inputIdPath = getRecipeName(input);
+                    String inputIdPath = getSimpleRecipeName(input);
 
-                    CookingRecipeJsonBuilder.createSmelting(
-                                    Ingredient.ofItems(input),
+                    SimpleCookingRecipeBuilder.smelting(
+                                    Ingredient.of(input),
                                     RecipeCategory.MISC,
+                                    CookingBookCategory.MISC,
                                     result,
                                     xp,
                                     cookTime
                             )
                             .group(materialName + "nugget")
-                            .criterion(hasItem(input), conditionsFromItem(input))
-                            .offerTo(exporter, "smelting/" + materialName + "_nugget_from_" + inputIdPath);
+                            .unlockedBy(getHasName(input), has(input))
+                            .save(output, "smelting/" + materialName + "_nugget_from_" + inputIdPath);
                 }
             }
 
@@ -367,18 +369,19 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     int cookTime
             ) {
                 for (Item input : inputs) {
-                    String inputIdPath = getRecipeName(input);
+                    String inputIdPath = getSimpleRecipeName(input);
 
-                    CookingRecipeJsonBuilder.createBlasting(
-                                    Ingredient.ofItems(input),
+                    SimpleCookingRecipeBuilder.blasting(
+                                    Ingredient.of(input),
                                     RecipeCategory.MISC,
+                                    CookingBookCategory.MISC,
                                     result,
                                     xp,
                                     cookTime
                             )
                             .group(materialName + "nugget")
-                            .criterion(hasItem(input), conditionsFromItem(input))
-                            .offerTo(exporter, "blasting/" + materialName + "_nugget_from_" + inputIdPath);
+                            .unlockedBy(getHasName(input), has(input))
+                            .save(output, "blasting/" + materialName + "_nugget_from_" + inputIdPath);
                 }
             }
 

@@ -3,10 +3,10 @@ package net.angelic.weaponsexpanded.mixin.two_handed_sword;
 import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,39 +28,39 @@ public abstract class TwoHandedSwordMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     private void weaponsexpanded$twoHandedSwordTick(CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
-        if (!(entity instanceof PlayerEntity player)) return;
+        if (!(entity instanceof Player player)) return;
 
-        ItemStack mainHandStack = player.getMainHandStack();
+        ItemStack mainHandStack = player.getMainHandItem();
         if (!weaponsexpanded$isEffectivelyTwoHanded(mainHandStack)) return;
 
         if (!WeaponsExpandedConfig.get().altTwoHandedSwordHandling) {
             // If they were already using *anything* (including offhand) and then ended up holding a two-handed sword,
             // stop the use action.
             if (player.isUsingItem()) {
-                player.stopUsingItem();
+                player.releaseUsingItem();
             }
         } else {
-            ItemStack offhand = player.getOffHandStack();
+            ItemStack offhand = player.getOffhandItem();
             if (!offhand.isEmpty()) {
-                ItemStack stack = player.getOffHandStack();
-                player.setStackInHand(Hand.OFF_HAND, ItemStack.EMPTY);
-                player.giveOrDropStack(stack);
+                ItemStack stack = player.getOffhandItem();
+                player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                player.handleExtraItemsCreatedOnUse(stack);
             }
         }
     }
 
-    @Inject(method = "setCurrentHand(Lnet/minecraft/util/Hand;)V", at = @At("HEAD"), cancellable = true)
-    private void weaponsexpanded$preventOffhandUseWhileTwoHanded(Hand hand, CallbackInfo ci) {
+    @Inject(method = "startUsingItem(Lnet/minecraft/world/InteractionHand;)V", at = @At("HEAD"), cancellable = true)
+    private void weaponsexpanded$preventOffhandUseWhileTwoHanded(InteractionHand hand, CallbackInfo ci) {
         if (WeaponsExpandedConfig.get().altTwoHandedSwordHandling) return;
 
         LivingEntity entity = (LivingEntity) (Object) this;
-        if (!(entity instanceof PlayerEntity player)) return;
+        if (!(entity instanceof Player player)) return;
 
-        ItemStack mainHandStack = player.getMainHandStack();
+        ItemStack mainHandStack = player.getMainHandItem();
         if (!weaponsexpanded$isEffectivelyTwoHanded(mainHandStack)) return;
 
         // Block *any* attempt to start "using" the OFF_HAND item while two-handing.
-        if (hand == Hand.OFF_HAND) {
+        if (hand == InteractionHand.OFF_HAND) {
             ci.cancel();
         }
     }

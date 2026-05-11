@@ -1,11 +1,11 @@
 package net.angelic.weaponsexpanded.mixin.enchantment;
 
 import net.angelic.weaponsexpanded.effect.ModEffects;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,8 +21,8 @@ public abstract class FrostbiteCleanupMixin {
 
     @Unique
     private static boolean weaponsexpanded$isInPowderSnow(LivingEntity entity) {
-        BlockState state = entity.getEntityWorld().getBlockState(entity.getBlockPos());
-        return state.isOf(Blocks.POWDER_SNOW);
+        BlockState state = entity.level().getBlockState(entity.blockPosition());
+        return state.is(Blocks.POWDER_SNOW);
     }
 
     @Unique
@@ -30,25 +30,25 @@ public abstract class FrostbiteCleanupMixin {
         return !weaponsexpanded$isInPowderSnow(entity);
     }
 
-    @Inject(method = "removeStatusEffect", at = @At("HEAD"))
-    private void weaponsexpanded$onRemoveStatusEffect(RegistryEntry<StatusEffect> effect, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "removeEffect", at = @At("HEAD"))
+    private void weaponsexpanded$onRemoveStatusEffect(Holder<MobEffect> effect, CallbackInfoReturnable<Boolean> cir) {
         if (effect == ModEffects.FROSTBITE) {
             LivingEntity self = (LivingEntity) (Object) this;
             if (weaponsexpanded$shouldClearFrozenTicks(self)) {
-                self.setFrozenTicks(0);
+                self.setTicksFrozen(0);
             }
         }
     }
 
-    @Inject(method = "tickStatusEffects", at = @At("TAIL"))
+    @Inject(method = "tickEffects", at = @At("TAIL"))
     private void weaponsexpanded$afterTickStatusEffects(CallbackInfo ci) {
         LivingEntity self = (LivingEntity) (Object) this;
 
-        boolean hasFrostbiteNow = self.hasStatusEffect(ModEffects.FROSTBITE);
+        boolean hasFrostbiteNow = self.hasEffect(ModEffects.FROSTBITE);
 
         if (weaponsexpanded$hadFrostbiteLastTick && !hasFrostbiteNow) {
             if (weaponsexpanded$shouldClearFrozenTicks(self)) {
-                self.setFrozenTicks(0);
+                self.setTicksFrozen(0);
             }
         }
 

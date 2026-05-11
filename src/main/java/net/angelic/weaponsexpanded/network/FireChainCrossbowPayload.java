@@ -1,22 +1,22 @@
 package net.angelic.weaponsexpanded.network;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
-
 import static net.angelic.weaponsexpanded.WeaponsExpanded.MOD_ID;
 
-public record FireChainCrossbowPayload() implements CustomPayload {
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 
-    public static final CustomPayload.Id<FireChainCrossbowPayload> ID =
-            new CustomPayload.Id<>(Identifier.of(MOD_ID, "fire_chain_crossbow"));
+public record FireChainCrossbowPayload() implements CustomPacketPayload {
 
-    public static final PacketCodec<RegistryByteBuf, FireChainCrossbowPayload> CODEC =
-            PacketCodec.unit(new FireChainCrossbowPayload());
+    public static final CustomPacketPayload.Type<FireChainCrossbowPayload> ID =
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(MOD_ID, "fire_chain_crossbow"));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, FireChainCrossbowPayload> CODEC =
+            StreamCodec.unit(new FireChainCrossbowPayload());
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> getId() {
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 }

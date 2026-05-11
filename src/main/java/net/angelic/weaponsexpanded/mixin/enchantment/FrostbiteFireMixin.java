@@ -1,12 +1,12 @@
 package net.angelic.weaponsexpanded.mixin.enchantment;
 
 import net.angelic.weaponsexpanded.effect.ModEffects;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,12 +16,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 public abstract class FrostbiteFireMixin {
 
-    @Shadow public abstract boolean removeStatusEffect(RegistryEntry<StatusEffect> effect);
+    @Shadow public abstract boolean removeEffect(Holder<MobEffect> effect);
 
-    @Inject(method = "damage", at = @At("HEAD"))
-    private void onDamage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if(source.isOf(DamageTypes.IN_FIRE) || source.isOf(DamageTypes.ON_FIRE) || source.isOf(DamageTypes.HOT_FLOOR) || source.isOf(DamageTypes.LAVA)) {
-            removeStatusEffect(ModEffects.FROSTBITE);
+    @Inject(method = "hurtServer", at = @At("HEAD"))
+    private void onDamage(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if(source.is(DamageTypes.IN_FIRE) || source.is(DamageTypes.ON_FIRE) || source.is(DamageTypes.HOT_FLOOR) || source.is(DamageTypes.LAVA)) {
+            removeEffect(ModEffects.FROSTBITE);
         }
     }
 }

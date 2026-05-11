@@ -1,12 +1,12 @@
 package net.angelic.weaponsexpanded.enchantment;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 public class ModEnchantments {
-    public static final RegistryKey<Enchantment> LEECH =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(WeaponsExpanded.MOD_ID, "leech"));
+    public static final ResourceKey<Enchantment> LEECH =
+            ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "leech"));
 }

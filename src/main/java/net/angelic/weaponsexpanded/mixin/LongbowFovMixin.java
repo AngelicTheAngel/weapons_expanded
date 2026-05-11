@@ -2,21 +2,21 @@ package net.angelic.weaponsexpanded.mixin;
 
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.angelic.weaponsexpanded.item.custom.LongbowItem;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.player.AbstractClientPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AbstractClientPlayerEntity.class)
+@Mixin(AbstractClientPlayer.class)
 public class LongbowFovMixin {
 
-    @Inject(method = "getFovMultiplier", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getFieldOfViewModifier", at = @At("RETURN"), cancellable = true)
     private void weaponsexpanded$longbowZoom(CallbackInfoReturnable<Float> cir) {
-        AbstractClientPlayerEntity player = (AbstractClientPlayerEntity) (Object) this;
+        AbstractClientPlayer player = (AbstractClientPlayer) (Object) this;
 
-        if (player.isUsingItem() && player.getActiveItem().isOf(ModItems.LONGBOW)) {
-            int i = player.getItemUseTime();
+        if (player.isUsingItem() && player.getUseItem().is(ModItems.LONGBOW)) {
+            int i = player.getTicksUsingItem();
             float pull = (float) i / (float) LongbowItem.getFullDrawTicks();
             
             if (pull > 1.0F) {

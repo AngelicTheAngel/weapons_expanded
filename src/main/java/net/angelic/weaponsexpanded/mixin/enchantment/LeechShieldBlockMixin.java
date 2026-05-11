@@ -1,16 +1,16 @@
 package net.angelic.weaponsexpanded.mixin.enchantment;
 
 import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -19,52 +19,52 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class LeechShieldBlockMixin {
 
     @Redirect(
-            method = "damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z",
+            method = "hurtServer(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)Z",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/entity/LivingEntity;getDamageBlockedAmount(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)F"
+                    target = "Lnet/minecraft/world/entity/LivingEntity;applyItemBlocking(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)F"
             )
     )
     private float weaponsexpanded$leechAndDisableBlocking(
-            LivingEntity defender, ServerWorld world, DamageSource source, float incomingDamage
+            LivingEntity defender, ServerLevel world, DamageSource source, float incomingDamage
     ) {
-        ItemStack blockingItem = defender.getBlockingItem(); // null if not actually blocking
-        int damageBefore = (blockingItem != null && blockingItem.isDamageable()) ? blockingItem.getDamage() : 0;
+        ItemStack blockingItem = defender.getItemBlockingWith(); // null if not actually blocking
+        int damageBefore = (blockingItem != null && blockingItem.isDamageableItem()) ? blockingItem.getDamageValue() : 0;
 
-        float blocked = defender.getDamageBlockedAmount(world, source, incomingDamage);
+        float blocked = defender.applyItemBlocking(world, source, incomingDamage);
         if (blocked <= 0.0F) {
             return blocked;
         }
 
         // If attacker is using a weapon that disables blocking, only block HALF of this hit
         // AND do not apply Leech healing / extra durability.
-        Entity attackerEntity = source.getAttacker();
+        Entity attackerEntity = source.getEntity();
         if (attackerEntity instanceof LivingEntity attacker) {
-            if (attacker.getWeaponDisableBlockingForSeconds() > 0.0F) {
+            if (attacker.getSecondsToDisableBlocking() > 0.0F) {
                 return incomingDamage * 0.75F; // defender takes .75% damage
             }
         }
 
         // Successful block: if the blocking item has Leech, heal and take 25% more shield durability.
         if (blockingItem != null) {
-            RegistryEntry.Reference<Enchantment> leechEntry = world.getRegistryManager()
-                    .getOrThrow(RegistryKeys.ENCHANTMENT)
+            Holder.Reference<Enchantment> leechEntry = world.registryAccess()
+                    .lookupOrThrow(Registries.ENCHANTMENT)
                     .getOrThrow(ModEnchantments.LEECH);
 
-            int lvl = EnchantmentHelper.getLevel(leechEntry, blockingItem);
+            int lvl = EnchantmentHelper.getItemEnchantmentLevel(leechEntry, blockingItem);
             if (lvl > 0) {
                 // Add +25% durability cost compared to what vanilla just consumed for this block.
                 int vanillaUsed = 0;
-                if (blockingItem.isDamageable()) {
-                    vanillaUsed = blockingItem.getDamage() - damageBefore;
+                if (blockingItem.isDamageableItem()) {
+                    vanillaUsed = blockingItem.getDamageValue() - damageBefore;
                     if (vanillaUsed > 0) {
-                        int extra = MathHelper.ceil(vanillaUsed * 0.5F);
+                        int extra = Mth.ceil(vanillaUsed * 0.5F);
                         if (extra > 0) {
-                            blockingItem.damage(extra, defender, defender.getActiveHand().getEquipmentSlot());
+                            blockingItem.hurtAndBreak(extra, defender, defender.getUsedItemHand().asEquipmentSlot());
                         }
                     }
                 }
-                defender.heal(MathHelper.ceil(vanillaUsed * 0.15F));
+                defender.heal(Mth.ceil(vanillaUsed * 0.15F));
             }
         }
 

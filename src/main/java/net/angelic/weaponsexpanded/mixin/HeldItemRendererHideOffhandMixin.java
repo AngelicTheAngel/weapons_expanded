@@ -1,40 +1,40 @@
 package net.angelic.weaponsexpanded.mixin;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.item.HeldItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.ItemInHandRenderer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(HeldItemRenderer.class)
+@Mixin(ItemInHandRenderer.class)
 public abstract class HeldItemRendererHideOffhandMixin {
 
-    @Inject(method = "renderFirstPersonItem", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
     private void weaponsexpanded$hideOffhandForCertainMainhandItems(
-            AbstractClientPlayerEntity player,
+            AbstractClientPlayer player,
             float tickProgress,
             float pitch,
-            Hand hand,
+            InteractionHand hand,
             float swingProgress,
             ItemStack item,
             float equipProgress,
-            MatrixStack matrices,
-            OrderedRenderCommandQueue orderedRenderCommandQueue,
+            PoseStack matrices,
+            SubmitNodeCollector orderedRenderCommandQueue,
             int light,
             CallbackInfo ci
     ) {
-        if (hand != Hand.OFF_HAND) return;
+        if (hand != InteractionHand.OFF_HAND) return;
 
-        ItemStack main = player.getMainHandStack();
+        ItemStack main = player.getMainHandItem();
 
         boolean isTwoHandedSword =
                 main.getItem() instanceof TwoHandedSwordItem;
@@ -61,7 +61,7 @@ public abstract class HeldItemRendererHideOffhandMixin {
         if (!isChainCrossbow) return;
 
         boolean mainIsCharged = CrossbowItem.isCharged(main);
-        boolean mainIsBeingUsed = player.isUsingItem() && player.getActiveHand() == Hand.MAIN_HAND;
+        boolean mainIsBeingUsed = player.isUsingItem() && player.getUsedItemHand() == InteractionHand.MAIN_HAND;
 
         if (mainIsCharged || mainIsBeingUsed) {
             ci.cancel();

@@ -1,21 +1,21 @@
 package net.angelic.weaponsexpanded.client.render;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
-import net.minecraft.client.render.entity.ArrowEntityRenderer;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.state.ArrowEntityRenderState;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.TippableArrowRenderer;
+import net.minecraft.client.renderer.entity.state.TippableArrowRenderState;
+import net.minecraft.resources.Identifier;
 
-public class HeavyArrowEntityRenderer extends ArrowEntityRenderer {
+public class HeavyArrowEntityRenderer extends TippableArrowRenderer {
     private static final Identifier HEAVY_ARROW =
-            Identifier.of(WeaponsExpanded.MOD_ID, "textures/entity/projectiles/heavy_arrow.png");
+            Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "textures/entity/projectiles/heavy_arrow.png");
 
-    public HeavyArrowEntityRenderer(EntityRendererFactory.Context context) {
+    public HeavyArrowEntityRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    protected Identifier getTexture(ArrowEntityRenderState state) {
+    protected Identifier getTextureLocation(TippableArrowRenderState state) {
         return HEAVY_ARROW;
     }
 }

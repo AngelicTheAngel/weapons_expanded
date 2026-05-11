@@ -1,22 +1,22 @@
 package net.angelic.weaponsexpanded.util;
 
 import net.angelic.weaponsexpanded.item.ModItems;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 
 public final class ZombieWeaponSwapUtil {
     private ZombieWeaponSwapUtil() {}
 
-    public static void maybeSwapSword(ZombieEntity zombie, Random random) {
-        ItemStack mainHand = zombie.getEquippedStack(EquipmentSlot.MAINHAND);
+    public static void maybeSwapSword(Zombie zombie, RandomSource random) {
+        ItemStack mainHand = zombie.getItemBySlot(EquipmentSlot.MAINHAND);
 
-        boolean isIronSword = mainHand.isOf(Items.IRON_SWORD);
-        boolean isDiamondSword = mainHand.isOf(Items.DIAMOND_SWORD);
+        boolean isIronSword = mainHand.is(Items.IRON_SWORD);
+        boolean isDiamondSword = mainHand.is(Items.DIAMOND_SWORD);
 
         if (!isIronSword && !isDiamondSword) return;
         if (random.nextInt(2) != 0) return;
@@ -33,12 +33,12 @@ public final class ZombieWeaponSwapUtil {
         }
 
         // Carry over enchantments from the original weapon
-        ItemEnchantmentsComponent ench =
-                mainHand.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
+        ItemEnchantments ench =
+                mainHand.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
         if (!ench.isEmpty()) {
-            replacement.set(DataComponentTypes.ENCHANTMENTS, ench);
+            replacement.set(DataComponents.ENCHANTMENTS, ench);
         }
 
-        zombie.equipStack(EquipmentSlot.MAINHAND, replacement);
+        zombie.setItemSlot(EquipmentSlot.MAINHAND, replacement);
     }
 }

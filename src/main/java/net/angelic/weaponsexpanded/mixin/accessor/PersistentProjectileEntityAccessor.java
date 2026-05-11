@@ -1,14 +1,14 @@
 package net.angelic.weaponsexpanded.mixin.accessor;
 
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-@Mixin(PersistentProjectileEntity.class)
+@Mixin(AbstractArrow.class)
 public interface PersistentProjectileEntityAccessor {
 
-    @Accessor("weapon")
+    @Accessor("firedFromWeapon")
     void weaponsexpanded$setWeapon(@Nullable ItemStack weapon);
 }

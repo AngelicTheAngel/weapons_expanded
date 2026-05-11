@@ -1,20 +1,20 @@
 package net.angelic.weaponsexpanded.item.custom;
 
 import net.angelic.weaponsexpanded.entity.projectile.ExplosiveArrowEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.item.ArrowItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.item.ArrowItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class ExplosiveArrowItem extends ArrowItem {
-    public ExplosiveArrowItem(Item.Settings settings) {
+    public ExplosiveArrowItem(Item.Properties settings) {
         super(settings);
     }
 
     @Override
-    public PersistentProjectileEntity createArrow(World world, ItemStack stack, LivingEntity shooter, ItemStack weaponStack) {
+    public AbstractArrow createArrow(Level world, ItemStack stack, LivingEntity shooter, ItemStack weaponStack) {
         ItemStack one = stack.copy();
         one.setCount(1);
 

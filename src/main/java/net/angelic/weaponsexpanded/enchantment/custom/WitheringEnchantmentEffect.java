@@ -1,37 +1,37 @@
 package net.angelic.weaponsexpanded.enchantment.custom;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.enchantment.EnchantmentEffectContext;
-import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.enchantment.EnchantedItemInUse;
+import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
+import net.minecraft.world.phys.Vec3;
 
 public record WitheringEnchantmentEffect() implements EnchantmentEntityEffect {
     public static final MapCodec<WitheringEnchantmentEffect> CODEC = MapCodec.unit(WitheringEnchantmentEffect::new);
 
     @Override
-    public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
+    public void apply(ServerLevel world, int level, EnchantedItemInUse context, Entity user, Vec3 pos) {
         if (user instanceof LivingEntity) {
-            StatusEffectInstance witherEffectL1 = new StatusEffectInstance(StatusEffects.WITHER, 100, 1);
-            StatusEffectInstance witherEffectL2 = new StatusEffectInstance(StatusEffects.WITHER, 160, 1);
+            MobEffectInstance witherEffectL1 = new MobEffectInstance(MobEffects.WITHER, 100, 1);
+            MobEffectInstance witherEffectL2 = new MobEffectInstance(MobEffects.WITHER, 160, 1);
             if (level == 1) {
-                ((LivingEntity) user).addStatusEffect(witherEffectL1);
-                ((LivingEntity) user).removeStatusEffect(StatusEffects.POISON);
+                ((LivingEntity) user).addEffect(witherEffectL1);
+                ((LivingEntity) user).removeEffect(MobEffects.POISON);
             }
             if (level == 2) {
-                ((LivingEntity) user).addStatusEffect(witherEffectL2);
-                ((LivingEntity) user).removeStatusEffect(StatusEffects.POISON);
+                ((LivingEntity) user).addEffect(witherEffectL2);
+                ((LivingEntity) user).removeEffect(MobEffects.POISON);
 
             }
         }
     }
 
     @Override
-    public MapCodec<? extends EnchantmentEntityEffect> getCodec() {
+    public MapCodec<? extends EnchantmentEntityEffect> codec() {
         return CODEC;
     }
 }

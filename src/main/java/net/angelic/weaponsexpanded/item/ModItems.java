@@ -3,16 +3,20 @@ package net.angelic.weaponsexpanded.item;
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.item.custom.*;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.*;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ToolMaterial;
 import java.util.function.Function;
 
-import static net.minecraft.item.Items.*;
+import static net.minecraft.world.item.Items.*;
 
 public class ModItems {
 
@@ -35,7 +39,7 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.DIAMOND, 2.0F, -2.2F)));
 
     public static final Item NETHERITE_BROADSWORD = registerItem("netherite_broadsword",
-            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 2.0F, -2.2F).fireproof()));
+            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 2.0F, -2.2F).fireResistant()));
 
     public static final Item WOODEN_SICKLE = registerItem("wooden_sickle",
             settings -> new Item(settings.sword(ToolMaterial.WOOD, 2.5F, -2.3F)));
@@ -56,7 +60,7 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.DIAMOND, 2.5F, -2.3F)));
 
     public static final Item NETHERITE_SICKLE = registerItem("netherite_sickle",
-            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 2.5F, -2.3F).fireproof()));
+            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 2.5F, -2.3F).fireResistant()));
 
     public static final Item WOODEN_SCYTHE = registerItem("wooden_scythe",
             settings -> new Item(settings.sword(ToolMaterial.WOOD, 4.0F, -2.5F)));
@@ -77,7 +81,7 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.DIAMOND, 4.5F, -2.5F)));
 
     public static final Item NETHERITE_SCYTHE = registerItem("netherite_scythe",
-            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 4.5F, -2.5F).fireproof()));
+            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 4.5F, -2.5F).fireResistant()));
 
     public static final Item WOODEN_LONGSWORD = registerItem("wooden_longsword",
             settings -> new BastardSwordItem(ToolMaterial.WOOD, 6.0F, -2.9F, 7.0F, -2.9F, settings));
@@ -98,7 +102,7 @@ public class ModItems {
             settings -> new BastardSwordItem(ToolMaterial.DIAMOND, 6.0F, -2.9F, 7.0F, -2.9F, settings));
 
     public static final Item NETHERITE_LONGSWORD = registerItem("netherite_longsword",
-            settings -> new BastardSwordItem(ToolMaterial.NETHERITE, 6.0F, -2.9F, 7.0F, -2.9F, settings.fireproof()));
+            settings -> new BastardSwordItem(ToolMaterial.NETHERITE, 6.0F, -2.9F, 7.0F, -2.9F, settings.fireResistant()));
 
     public static final Item WOODEN_KATANA = registerItem("wooden_katana",
             settings -> new TwoHandedSwordItem(ToolMaterial.WOOD, 3.0F, -2.2F, settings));
@@ -119,7 +123,7 @@ public class ModItems {
             settings -> new TwoHandedSwordItem(ToolMaterial.DIAMOND, 3.0F, -2.2F, settings));
 
     public static final Item NETHERITE_KATANA = registerItem("netherite_katana",
-            settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 3.0F, -2.2F, settings.fireproof()));
+            settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 3.0F, -2.2F, settings.fireResistant()));
 
     public static final Item WOODEN_HATCHET = registerItem("wooden_hatchet",
             settings -> new AxeItem(ToolMaterial.WOOD, 5.0F, -3.0F, settings));
@@ -140,7 +144,7 @@ public class ModItems {
             settings -> new AxeItem(ToolMaterial.DIAMOND, 4.0F, -2.8F, settings));
 
     public static final Item NETHERITE_HATCHET = registerItem("netherite_hatchet",
-            settings -> new AxeItem(ToolMaterial.NETHERITE, 4.0F, -2.8F, settings.fireproof()));
+            settings -> new AxeItem(ToolMaterial.NETHERITE, 4.0F, -2.8F, settings.fireResistant()));
 
     public static final Item WOODEN_HAMMER = registerItem("wooden_hammer",
             settings -> new BluntWeaponItem(ModToolMaterials.FAUX_WOOD, 7.0F, -3.3F, settings));
@@ -161,7 +165,7 @@ public class ModItems {
             settings -> new BluntWeaponItem(ModToolMaterials.FAUX_DIAMOND, 6.0F, -3.1F, settings));
 
     public static final Item NETHERITE_HAMMER = registerItem("netherite_hammer",
-            settings -> new BluntWeaponItem(ModToolMaterials.FAUX_NETHERITE, 6.0F, -3.1F, settings.fireproof()));
+            settings -> new BluntWeaponItem(ModToolMaterials.FAUX_NETHERITE, 6.0F, -3.1F, settings.fireResistant()));
 
     public static final Item WOODEN_BATTLEAXE = registerItem("wooden_battleaxe",
             settings -> new AxeItem(ToolMaterial.WOOD, 8.0F, -3.4F, settings));
@@ -182,7 +186,7 @@ public class ModItems {
             settings -> new AxeItem(ToolMaterial.DIAMOND, 7.0F, -3.2F, settings));
 
     public static final Item NETHERITE_BATTLEAXE = registerItem("netherite_battleaxe",
-            settings -> new AxeItem(ToolMaterial.NETHERITE, 7.0F, -3.2F, settings.fireproof()));
+            settings -> new AxeItem(ToolMaterial.NETHERITE, 7.0F, -3.2F, settings.fireResistant()));
 
     public static final Item WOODEN_GREATSWORD = registerItem("wooden_greatsword",
             settings -> new TwoHandedSwordItem(ToolMaterial.WOOD, 8.0F, -3.3F, settings));
@@ -203,27 +207,27 @@ public class ModItems {
             settings -> new TwoHandedSwordItem(ToolMaterial.DIAMOND, 8.0F, -3.1F, settings));
 
     public static final Item NETHERITE_GREATSWORD = registerItem("netherite_greatsword",
-            settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 8.0F, -3.1F, settings.fireproof()));
+            settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 8.0F, -3.1F, settings.fireResistant()));
 
     public static final Item HEAVY_ARROW = registerItem("heavy_arrow",
-            settings -> new HeavyArrowItem(settings.maxCount(64)));
+            settings -> new HeavyArrowItem(settings.stacksTo(64)));
 
     public static final Item EXPLOSIVE_ARROW = registerItem("explosive_arrow",
-            settings -> new ExplosiveArrowItem(settings.maxCount(64)));
+            settings -> new ExplosiveArrowItem(settings.stacksTo(64)));
 
     public static final Item LONGBOW = registerItem("longbow",
-            settings -> new LongbowItem(settings.maxDamage(384).enchantable(1)));
+            settings -> new LongbowItem(settings.durability(384).enchantable(1)));
 
     public static final Item CHAIN_CROSSBOW = registerItem("chain_crossbow",
-            settings -> new ChainCrossbowItem(settings.maxDamage(465).enchantable(1)));
+            settings -> new ChainCrossbowItem(settings.durability(465).enchantable(1)));
 
-    private static Item registerItem(String name, Function<Item.Settings, Item> function) {
-        return Registry.register(Registries.ITEM, Identifier.of(WeaponsExpanded.MOD_ID, name),
-                function.apply(new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(WeaponsExpanded.MOD_ID, name)))));
+    private static Item registerItem(String name, Function<Item.Properties, Item> function) {
+        return Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, name),
+                function.apply(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, name)))));
     }
 
     public static void registerModItems() {
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries -> {
             // Ranged placement relative to vanilla items
             entries.addAfter(Items.BOW, LONGBOW);
             entries.addAfter(Items.CROSSBOW, CHAIN_CROSSBOW);
