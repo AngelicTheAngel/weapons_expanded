@@ -6,6 +6,7 @@
     "AxeDurabilityMixin",
     "accessor.CrossbowItemAccessor",
     "accessor.PersistentProjectileEntityAccessor",
+    "accessor.EntityAccessor",
     "chain_crossbow.ChainCrossbowFireMixin",
     "chain_crossbow.ChainCrossbowPullTimeMixin",
     "enchantment.FrostbiteCleanupMixin",

@@ -13,6 +13,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.level.Level;
@@ -104,7 +105,7 @@ public abstract class ChainCrossbowFireMixin {
         // Only refill when the chamber is actually empty
         if (!charged.isEmpty()) return;
 
-        List<ItemStack> nextChamber = ChainCrossbowItem.weaponsexpanded$popNextChamber(world, stack);
+        List<ItemStackTemplate> nextChamber = ChainCrossbowItem.weaponsexpanded$popNextChamber(world, stack);
         if (nextChamber.isEmpty()) return;
 
         // Play chamber sound after firing
@@ -117,7 +118,7 @@ public abstract class ChainCrossbowFireMixin {
                 1.0F
         );
 
-        stack.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.of(nextChamber));
+        stack.set(DataComponents.CHARGED_PROJECTILES, new ChargedProjectiles(nextChamber));
 
         // NEW: refresh custom model data based on what we just loaded
         ChainCrossbowItem.weaponsexpanded$refreshLoadedVisual(stack);

@@ -15,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.item.component.CustomData;
@@ -42,7 +43,7 @@ public class ChainCrossbowItem extends CrossbowItem {
                 stack.getOrDefault(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
 
         boolean hasExplosive = charged.items().stream()
-                .anyMatch(s -> s.item() == ModItems.EXPLOSIVE_ARROW);
+                .anyMatch(s -> s.item().value() == ModItems.EXPLOSIVE_ARROW);
 
         if (hasExplosive) {
             stack.set(
@@ -147,9 +148,9 @@ public class ChainCrossbowItem extends CrossbowItem {
 
             // 2) Otherwise, pull from queued chambers
             if (queued > 0) {
-                List<ItemStack> next = weaponsexpanded$popNextChamber(world, crossbow);
+                List<ItemStackTemplate> next = weaponsexpanded$popNextChamber(world, crossbow);
                 if (!next.isEmpty()) {
-                    crossbow.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.of(next));
+                    crossbow.set(DataComponents.CHARGED_PROJECTILES, new ChargedProjectiles(next));
                     if (user instanceof ServerPlayer serverPlayer) {
                         serverPlayer.containerMenu.sendAllDataToRemote();
                     }
@@ -227,7 +228,7 @@ public class ChainCrossbowItem extends CrossbowItem {
         return result;
     }
 
-    public static List<ItemStack> weaponsexpanded$popNextChamber(Level world, ItemStack crossbow) {
+    public static List<ItemStackTemplate> weaponsexpanded$popNextChamber(Level world, ItemStack crossbow) {
         CompoundTag root = weaponsexpanded$getOrCreateCustomNbt(crossbow);
         ListTag queue = root.getListOrEmpty(WEAPONSEXPANDED$QUEUE_KEY);
         if (queue.isEmpty()) return List.of();
@@ -284,27 +285,24 @@ public class ChainCrossbowItem extends CrossbowItem {
         CompoundTag chamber = new CompoundTag();
         ListTag projectiles = new ListTag();
 
-        for (ItemStack p : charged.items()) {
-            ItemStack one = p.copy();
-            one.setCount(1);
-            projectiles.add(weaponsexpanded$encodeStack(world, one));
+        for (ItemStackTemplate template : charged.items()) {
+            projectiles.add(weaponsexpanded$encodeTemplate(world, template));
         }
 
         chamber.put("projectiles", projectiles);
         return chamber;
     }
 
-    private static List<ItemStack> weaponsexpanded$decodeChamber(Level world, CompoundTag chamber) {
-        List<ItemStack> out = new ArrayList<>();
+    private static List<ItemStackTemplate> weaponsexpanded$decodeChamber(Level world, CompoundTag chamber) {
+        List<ItemStackTemplate> out = new ArrayList<>();
         ListTag list = chamber.getListOrEmpty("projectiles");
 
         for (Tag nbtElement : list) {
-            CompoundTag stackTag = nbtElement.asCompound().orElse(null);
-            if (stackTag == null) continue;
+            CompoundTag templateTag = nbtElement.asCompound().orElse(null);
+            if (templateTag == null) continue;
 
-            ItemStack decoded = weaponsexpanded$decodeStack(world, stackTag);
-            if (!decoded.isEmpty()) {
-                decoded.setCount(1);
+            ItemStackTemplate decoded = weaponsexpanded$decodeTemplate(world, templateTag);
+            if (decoded != null) {
                 out.add(decoded);
             }
         }
@@ -313,11 +311,11 @@ public class ChainCrossbowItem extends CrossbowItem {
     }
 
     private static void weaponsexpanded$applyChamberToCrossbow(Level world, ItemStack crossbow, CompoundTag chamber) {
-        List<ItemStack> projectiles = weaponsexpanded$decodeChamber(world, chamber);
+        List<ItemStackTemplate> projectiles = weaponsexpanded$decodeChamber(world, chamber);
         if (projectiles.isEmpty()) {
             crossbow.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
         } else {
-            crossbow.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.of(projectiles));
+            crossbow.set(DataComponents.CHARGED_PROJECTILES, new ChargedProjectiles(projectiles));
         }
     }
 
@@ -334,14 +332,14 @@ public class ChainCrossbowItem extends CrossbowItem {
         }
     }
 
-    private static CompoundTag weaponsexpanded$encodeStack(Level world, ItemStack stack) {
+    private static CompoundTag weaponsexpanded$encodeTemplate(Level world, ItemStackTemplate template) {
         var ops = world.registryAccess().createSerializationContext(NbtOps.INSTANCE);
-        Tag elem = ItemStack.CODEC.encodeStart(ops, stack).getOrThrow();
+        Tag elem = ItemStackTemplate.CODEC.encodeStart(ops, template).getOrThrow();
         return elem.asCompound().orElseGet(CompoundTag::new);
     }
 
-    private static ItemStack weaponsexpanded$decodeStack(Level world, CompoundTag nbt) {
+    private static ItemStackTemplate weaponsexpanded$decodeTemplate(Level world, CompoundTag nbt) {
         var ops = world.registryAccess().createSerializationContext(NbtOps.INSTANCE);
-        return ItemStack.CODEC.parse(ops, nbt).result().orElse(ItemStack.EMPTY);
+        return ItemStackTemplate.CODEC.parse(ops, nbt).result().orElse(null);
     }
 }

@@ -2,6 +2,7 @@ package net.angelic.weaponsexpanded.util;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
+import net.angelic.weaponsexpanded.mixin.accessor.EntityAccessor;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -72,7 +73,7 @@ public final class ProjectileEnchantmentApplier {
         if (level <= 0) return;
 
         String tag = "weaponsexpanded.freeze.level." + level;
-        if (!projectile.getTags().contains(tag)) {
+        if (!((EntityAccessor) projectile).weaponsexpanded$getTags().contains(tag)) {
             projectile.addTag(tag);
         }
     }

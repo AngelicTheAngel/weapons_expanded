@@ -12,10 +12,10 @@ public final class ModPackets {
         weaponsexpanded$registered = true;
 
         // Client -> Server (PLAY)
-        PayloadTypeRegistry.playC2S().register(FireChainCrossbowPayload.ID, FireChainCrossbowPayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(ToggleBastardSwordModePayload.ID, ToggleBastardSwordModePayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(FireChainCrossbowPayload.ID, FireChainCrossbowPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ToggleBastardSwordModePayload.ID, ToggleBastardSwordModePayload.CODEC);
 
         // If you later add server->client payloads:
-        // PayloadTypeRegistry.playS2C().register(SomePayload.ID, SomePayload.CODEC);
+        // PayloadTypeRegistry.clientboundPlay().register(SomePayload.ID, SomePayload.CODEC);
     }
 }

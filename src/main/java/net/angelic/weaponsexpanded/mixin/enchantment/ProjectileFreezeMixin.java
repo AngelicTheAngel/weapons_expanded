@@ -1,6 +1,7 @@
 package net.angelic.weaponsexpanded.mixin.enchantment;
 
 import net.angelic.weaponsexpanded.effect.ModEffects;
+import net.angelic.weaponsexpanded.mixin.accessor.EntityAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -28,7 +29,7 @@ public class ProjectileFreezeMixin {
 
     @Unique
     private static boolean weaponsexpanded$hasFreezeTag(AbstractArrow projectile) {
-        for (String tag : projectile.getTags()) {
+        for (String tag : ((EntityAccessor) projectile).weaponsexpanded$getTags()) {
             if (tag.startsWith(WEAPONSEXPANDED$FREEZE_TAG_PREFIX)) return true;
         }
         return false;
@@ -40,7 +41,7 @@ public class ProjectileFreezeMixin {
         if (weaponsexpanded$hasFreezeTag(projectile)) return;
 
         // Guard 2: don't apply repeatedly from powdered snow every tick
-        if (projectile.getTags().contains(WEAPONSEXPANDED$POWDER_SNOW_APPLIED_TAG)) return;
+        if (((EntityAccessor) projectile).weaponsexpanded$getTags().contains(WEAPONSEXPANDED$POWDER_SNOW_APPLIED_TAG)) return;
 
         int safeLevel = Math.max(1, level);
         projectile.addTag(WEAPONSEXPANDED$FREEZE_TAG_PREFIX + safeLevel);
@@ -53,7 +54,7 @@ public class ProjectileFreezeMixin {
         Entity target = entityHitResult.getEntity();
 
         if (target instanceof LivingEntity livingTarget && !projectile.level().isClientSide()) {
-            for (String tag : projectile.getTags()) {
+            for (String tag : ((EntityAccessor) projectile).weaponsexpanded$getTags()) {
                 if (tag.startsWith(WEAPONSEXPANDED$FREEZE_TAG_PREFIX)) {
                     try {
                         int level = Integer.parseInt(tag.substring(WEAPONSEXPANDED$FREEZE_TAG_PREFIX.length()));
@@ -81,7 +82,7 @@ public class ProjectileFreezeMixin {
         if (!world.isClientSide()) {
             ServerLevel serverWorld = (ServerLevel) world;
 
-            for (String tag : projectile.getTags()) {
+            for (String tag : ((EntityAccessor) projectile).weaponsexpanded$getTags()) {
                 if (tag.startsWith(WEAPONSEXPANDED$FREEZE_TAG_PREFIX)) {
 
                     serverWorld.sendParticles(
@@ -108,7 +109,7 @@ public class ProjectileFreezeMixin {
         Level world = projectile.level();
 
         if (!world.isClientSide() && projectile.isInWater()) {
-            for (String tag : projectile.getTags()) {
+            for (String tag : ((EntityAccessor) projectile).weaponsexpanded$getTags()) {
                 if (tag.startsWith(WEAPONSEXPANDED$FREEZE_TAG_PREFIX)) {
                     BlockPos pos = projectile.blockPosition();
 
@@ -154,7 +155,7 @@ public class ProjectileFreezeMixin {
         boolean inHeat = projectile.isInLava() || projectile.isOnFire();
         if (!inHeat) return;
 
-        for (String tag : projectile.getTags()) {
+        for (String tag : ((EntityAccessor) projectile).weaponsexpanded$getTags()) {
             if (tag.startsWith(WEAPONSEXPANDED$FREEZE_TAG_PREFIX)) {
                 projectile.removeTag(tag);
                 projectile.removeTag(WEAPONSEXPANDED$POWDER_SNOW_APPLIED_TAG);

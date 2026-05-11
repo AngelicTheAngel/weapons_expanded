@@ -9,7 +9,7 @@ import net.angelic.weaponsexpanded.network.ModPackets;
 import net.angelic.weaponsexpanded.network.ToggleBastardSwordModePayload;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -36,7 +36,7 @@ public class WeaponsExpandedClient implements ClientModInitializer {
         EntityRenderers.register(ModEntities.HEAVY_ARROW, HeavyArrowEntityRenderer::new);
         EntityRenderers.register(ModEntities.EXPLOSIVE_ARROW, TippableArrowRenderer::new);
 
-        weaponsexpanded$toggleBastardSwordModeKey = KeyBindingHelper.registerKeyBinding(
+        weaponsexpanded$toggleBastardSwordModeKey = KeyMappingHelper.registerKeyMapping(
                 new KeyMapping(
                         WEAPONSEXPANDED$KEY_TOGGLE_BASTARD_SWORD,
                         GLFW.GLFW_KEY_V,
