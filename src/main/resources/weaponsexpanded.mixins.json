@@ -33,7 +33,6 @@
     "HeldItemRendererHideOffhandMixin",
     "LongbowFovMixin",
     "PlayerEntityRendererArmPoseMixin",
-    "chain_crossbow.HeldItemRendererChainCrossbowMixin",
     "chain_crossbow.MinecraftClientChainCrossbowAttackMixin",
     "two_handed_sword.TwoHandedSwordTooltipMixin"
   ]

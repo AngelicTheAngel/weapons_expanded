@@ -2,7 +2,7 @@ package net.angelic.weaponsexpanded.item;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.item.custom.*;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -227,103 +227,103 @@ public class ModItems {
     }
 
     public static void registerModItems() {
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(entries -> {
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(entries -> {
             // Ranged placement relative to vanilla items
-            entries.addAfter(Items.BOW, LONGBOW);
-            entries.addAfter(Items.CROSSBOW, CHAIN_CROSSBOW);
-            entries.addAfter(Items.SPECTRAL_ARROW, HEAVY_ARROW);
-            entries.addAfter(HEAVY_ARROW, EXPLOSIVE_ARROW);
+            entries.insertAfter(Items.BOW, LONGBOW);
+            entries.insertAfter(Items.CROSSBOW, CHAIN_CROSSBOW);
+            entries.insertAfter(Items.SPECTRAL_ARROW, HEAVY_ARROW);
+            entries.insertAfter(HEAVY_ARROW, EXPLOSIVE_ARROW);
 
             Item anchor = Items.WOODEN_SWORD;
 
             // Broadswords
-            entries.addBefore(anchor, WOODEN_BROADSWORD);
-            entries.addAfter(WOODEN_BROADSWORD, GOLDEN_BROADSWORD);
-            entries.addAfter(GOLDEN_BROADSWORD, STONE_BROADSWORD);
-            entries.addAfter(STONE_BROADSWORD, COPPER_BROADSWORD);
-            entries.addAfter(COPPER_BROADSWORD, IRON_BROADSWORD);
-            entries.addAfter(IRON_BROADSWORD, DIAMOND_BROADSWORD);
-            entries.addAfter(DIAMOND_BROADSWORD, NETHERITE_BROADSWORD);
+            entries.insertBefore(anchor, WOODEN_BROADSWORD);
+            entries.insertAfter(WOODEN_BROADSWORD, GOLDEN_BROADSWORD);
+            entries.insertAfter(GOLDEN_BROADSWORD, STONE_BROADSWORD);
+            entries.insertAfter(STONE_BROADSWORD, COPPER_BROADSWORD);
+            entries.insertAfter(COPPER_BROADSWORD, IRON_BROADSWORD);
+            entries.insertAfter(IRON_BROADSWORD, DIAMOND_BROADSWORD);
+            entries.insertAfter(DIAMOND_BROADSWORD, NETHERITE_BROADSWORD);
             anchor = NETHERITE_BROADSWORD;
 
             // Sickles
-            entries.addAfter(anchor, WOODEN_SICKLE);
-            entries.addAfter(WOODEN_SICKLE, GOLDEN_SICKLE);
-            entries.addAfter(GOLDEN_SICKLE, STONE_SICKLE);
-            entries.addAfter(STONE_SICKLE, COPPER_SICKLE);
-            entries.addAfter(COPPER_SICKLE, IRON_SICKLE);
-            entries.addAfter(IRON_SICKLE, DIAMOND_SICKLE);
-            entries.addAfter(DIAMOND_SICKLE, NETHERITE_SICKLE);
+            entries.insertAfter(anchor, WOODEN_SICKLE);
+            entries.insertAfter(WOODEN_SICKLE, GOLDEN_SICKLE);
+            entries.insertAfter(GOLDEN_SICKLE, STONE_SICKLE);
+            entries.insertAfter(STONE_SICKLE, COPPER_SICKLE);
+            entries.insertAfter(COPPER_SICKLE, IRON_SICKLE);
+            entries.insertAfter(IRON_SICKLE, DIAMOND_SICKLE);
+            entries.insertAfter(DIAMOND_SICKLE, NETHERITE_SICKLE);
             anchor = NETHERITE_SWORD;
 
-            // Scythes
-            entries.addAfter(anchor, WOODEN_SCYTHE);
-            entries.addAfter(WOODEN_SCYTHE, GOLDEN_SCYTHE);
-            entries.addAfter(GOLDEN_SCYTHE, STONE_SCYTHE);
-            entries.addAfter(STONE_SCYTHE, COPPER_SCYTHE);
-            entries.addAfter(COPPER_SCYTHE, IRON_SCYTHE);
-            entries.addAfter(IRON_SCYTHE, DIAMOND_SCYTHE);
-            entries.addAfter(DIAMOND_SCYTHE, NETHERITE_SCYTHE);
+            //
+            entries.insertAfter(anchor, WOODEN_SCYTHE);
+            entries.insertAfter(WOODEN_SCYTHE, GOLDEN_SCYTHE);
+            entries.insertAfter(GOLDEN_SCYTHE, STONE_SCYTHE);
+            entries.insertAfter(STONE_SCYTHE, COPPER_SCYTHE);
+            entries.insertAfter(COPPER_SCYTHE, IRON_SCYTHE);
+            entries.insertAfter(IRON_SCYTHE, DIAMOND_SCYTHE);
+            entries.insertAfter(DIAMOND_SCYTHE, NETHERITE_SCYTHE);
             anchor = NETHERITE_SCYTHE;
 
             // Longswords
-            entries.addAfter(anchor, WOODEN_LONGSWORD);
-            entries.addAfter(WOODEN_LONGSWORD, GOLDEN_LONGSWORD);
-            entries.addAfter(GOLDEN_LONGSWORD, STONE_LONGSWORD);
-            entries.addAfter(STONE_LONGSWORD, COPPER_LONGSWORD);
-            entries.addAfter(COPPER_LONGSWORD, IRON_LONGSWORD);
-            entries.addAfter(IRON_LONGSWORD, DIAMOND_LONGSWORD);
-            entries.addAfter(DIAMOND_LONGSWORD, NETHERITE_LONGSWORD);
+            entries.insertAfter(anchor, WOODEN_LONGSWORD);
+            entries.insertAfter(WOODEN_LONGSWORD, GOLDEN_LONGSWORD);
+            entries.insertAfter(GOLDEN_LONGSWORD, STONE_LONGSWORD);
+            entries.insertAfter(STONE_LONGSWORD, COPPER_LONGSWORD);
+            entries.insertAfter(COPPER_LONGSWORD, IRON_LONGSWORD);
+            entries.insertAfter(IRON_LONGSWORD, DIAMOND_LONGSWORD);
+            entries.insertAfter(DIAMOND_LONGSWORD, NETHERITE_LONGSWORD);
             anchor = NETHERITE_LONGSWORD;
 
             // Katanas
-            entries.addAfter(anchor, WOODEN_KATANA);
-            entries.addAfter(WOODEN_KATANA, GOLDEN_KATANA);
-            entries.addAfter(GOLDEN_KATANA, STONE_KATANA);
-            entries.addAfter(STONE_KATANA, COPPER_KATANA);
-            entries.addAfter(COPPER_KATANA, IRON_KATANA);
-            entries.addAfter(IRON_KATANA, DIAMOND_KATANA);
-            entries.addAfter(DIAMOND_KATANA, NETHERITE_KATANA);
+            entries.insertAfter(anchor, WOODEN_KATANA);
+            entries.insertAfter(WOODEN_KATANA, GOLDEN_KATANA);
+            entries.insertAfter(GOLDEN_KATANA, STONE_KATANA);
+            entries.insertAfter(STONE_KATANA, COPPER_KATANA);
+            entries.insertAfter(COPPER_KATANA, IRON_KATANA);
+            entries.insertAfter(IRON_KATANA, DIAMOND_KATANA);
+            entries.insertAfter(DIAMOND_KATANA, NETHERITE_KATANA);
             anchor = WOODEN_AXE;
 
             // Hatchets
-            entries.addBefore(anchor, WOODEN_HATCHET);
-            entries.addAfter(WOODEN_HATCHET, GOLDEN_HATCHET);
-            entries.addAfter(GOLDEN_HATCHET, STONE_HATCHET);
-            entries.addAfter(STONE_HATCHET, COPPER_HATCHET);
-            entries.addAfter(COPPER_HATCHET, IRON_HATCHET);
-            entries.addAfter(IRON_HATCHET, DIAMOND_HATCHET);
-            entries.addAfter(DIAMOND_HATCHET, NETHERITE_HATCHET);
+            entries.insertBefore(anchor, WOODEN_HATCHET);
+            entries.insertAfter(WOODEN_HATCHET, GOLDEN_HATCHET);
+            entries.insertAfter(GOLDEN_HATCHET, STONE_HATCHET);
+            entries.insertAfter(STONE_HATCHET, COPPER_HATCHET);
+            entries.insertAfter(COPPER_HATCHET, IRON_HATCHET);
+            entries.insertAfter(IRON_HATCHET, DIAMOND_HATCHET);
+            entries.insertAfter(DIAMOND_HATCHET, NETHERITE_HATCHET);
             anchor = NETHERITE_AXE;
 
             // Hammers
-            entries.addAfter(anchor, WOODEN_HAMMER);
-            entries.addAfter(WOODEN_HAMMER, GOLDEN_HAMMER);
-            entries.addAfter(GOLDEN_HAMMER, STONE_HAMMER);
-            entries.addAfter(STONE_HAMMER, COPPER_HAMMER);
-            entries.addAfter(COPPER_HAMMER, IRON_HAMMER);
-            entries.addAfter(IRON_HAMMER, DIAMOND_HAMMER);
-            entries.addAfter(DIAMOND_HAMMER, NETHERITE_HAMMER);
+            entries.insertAfter(anchor, WOODEN_HAMMER);
+            entries.insertAfter(WOODEN_HAMMER, GOLDEN_HAMMER);
+            entries.insertAfter(GOLDEN_HAMMER, STONE_HAMMER);
+            entries.insertAfter(STONE_HAMMER, COPPER_HAMMER);
+            entries.insertAfter(COPPER_HAMMER, IRON_HAMMER);
+            entries.insertAfter(IRON_HAMMER, DIAMOND_HAMMER);
+            entries.insertAfter(DIAMOND_HAMMER, NETHERITE_HAMMER);
             anchor = NETHERITE_HAMMER;
 
             // Battleaxes
-            entries.addAfter(anchor, WOODEN_BATTLEAXE);
-            entries.addAfter(WOODEN_BATTLEAXE, GOLDEN_BATTLEAXE);
-            entries.addAfter(GOLDEN_BATTLEAXE, STONE_BATTLEAXE);
-            entries.addAfter(STONE_BATTLEAXE, COPPER_BATTLEAXE);
-            entries.addAfter(COPPER_BATTLEAXE, IRON_BATTLEAXE);
-            entries.addAfter(IRON_BATTLEAXE, DIAMOND_BATTLEAXE);
-            entries.addAfter(DIAMOND_BATTLEAXE, NETHERITE_BATTLEAXE);
+            entries.insertAfter(anchor, WOODEN_BATTLEAXE);
+            entries.insertAfter(WOODEN_BATTLEAXE, GOLDEN_BATTLEAXE);
+            entries.insertAfter(GOLDEN_BATTLEAXE, STONE_BATTLEAXE);
+            entries.insertAfter(STONE_BATTLEAXE, COPPER_BATTLEAXE);
+            entries.insertAfter(COPPER_BATTLEAXE, IRON_BATTLEAXE);
+            entries.insertAfter(IRON_BATTLEAXE, DIAMOND_BATTLEAXE);
+            entries.insertAfter(DIAMOND_BATTLEAXE, NETHERITE_BATTLEAXE);
             anchor = NETHERITE_KATANA;
 
             // Greatswords
-            entries.addAfter(anchor, WOODEN_GREATSWORD);
-            entries.addAfter(WOODEN_GREATSWORD, GOLDEN_GREATSWORD);
-            entries.addAfter(GOLDEN_GREATSWORD, STONE_GREATSWORD);
-            entries.addAfter(STONE_GREATSWORD, COPPER_GREATSWORD);
-            entries.addAfter(COPPER_GREATSWORD, IRON_GREATSWORD);
-            entries.addAfter(IRON_GREATSWORD, DIAMOND_GREATSWORD);
-            entries.addAfter(DIAMOND_GREATSWORD, NETHERITE_GREATSWORD);
+            entries.insertAfter(anchor, WOODEN_GREATSWORD);
+            entries.insertAfter(WOODEN_GREATSWORD, GOLDEN_GREATSWORD);
+            entries.insertAfter(GOLDEN_GREATSWORD, STONE_GREATSWORD);
+            entries.insertAfter(STONE_GREATSWORD, COPPER_GREATSWORD);
+            entries.insertAfter(COPPER_GREATSWORD, IRON_GREATSWORD);
+            entries.insertAfter(IRON_GREATSWORD, DIAMOND_GREATSWORD);
+            entries.insertAfter(DIAMOND_GREATSWORD, NETHERITE_GREATSWORD);
         });
     }
 }
