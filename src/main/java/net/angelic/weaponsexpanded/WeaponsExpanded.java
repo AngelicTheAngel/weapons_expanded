@@ -10,11 +10,13 @@ import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.network.FireChainCrossbowPayload;
 import net.angelic.weaponsexpanded.network.ModPackets;
 import net.angelic.weaponsexpanded.network.ToggleBastardSwordModePayload;
+import net.angelic.weaponsexpanded.potion.ModPotions;
 import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.angelic.weaponsexpanded.util.ModLootTableModifiers;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancement.criterion.Criteria;
@@ -28,6 +30,7 @@ import net.minecraft.item.Items;
 import java.util.Optional;
 
 import net.minecraft.item.ShieldItem;
+import net.minecraft.potion.Potions;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -70,6 +73,7 @@ public class WeaponsExpanded implements ModInitializer {
         ModEffects.registerEffects();
         ModEntities.registerEntities();
         ModSounds.register();
+        ModPotions.registerPotions();
 
         // Register loot modifications (these will be gated by config inside the callback)
         ModLootTableModifiers.modifyLootTables();
@@ -242,6 +246,11 @@ public class WeaponsExpanded implements ModInitializer {
                             3, 30, 0.2F
                     );
                 });
+            });
+
+            FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> {
+                builder.registerPotionRecipe(Potions.AWKWARD, Items.BLUE_ICE, ModPotions.FROSTBITE_POTION);
+                builder.registerPotionRecipe(ModPotions.FROSTBITE_POTION, Items.REDSTONE, ModPotions.LONG_FROSTBITE_POTION);
             });
         }
     }

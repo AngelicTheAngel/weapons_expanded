@@ -68,6 +68,12 @@
   "item.weaponsexpanded.longbow": "Longbow",
   "item.weaponsexpanded.chain_crossbow": "Chain Crossbow",
 
+  "item.minecraft.potion.effect.frostbite": "Potion of Frostbite",
+  "item.minecraft.splash_potion.effect.frostbite": "Splash Potion of Frostbite",
+  "item.minecraft.lingering_potion.effect.frostbite": "Lingering Potion of Frostbite",
+  "item.minecraft.tipped_arrow.effect.frostbite": "Arrow of Frostbite",
+
+
   "enchantment.weaponsexpanded.withering": "Withering",
   "enchantment.weaponsexpanded.polluting": "Polluting",
   "enchantment.weaponsexpanded.frostbite": "Frostbite",
@@ -78,7 +84,7 @@
 
   "advancements.weaponsexpanded.diamond_weapon": "Diamond Warrior",
   "advancements.weaponsexpanded.diamond_weapon.description": "Obtain a diamond weapon",
-  "advancements.weaponsexpanded.netherite_weapon": "Nether Warrior",
+  "advancements.weaponsexpanded.netherite_weapon": "Nether Maniac",
   "advancements.weaponsexpanded.netherite_weapon.description": "Upgrade a diamond weapon to Netherite",
   "advancements.weaponsexpanded.weapons_expanded": "Weapons Expanded",
   "advancements.weaponsexpanded.weapons_expanded.description": "Obtain every Netherite weapon",
