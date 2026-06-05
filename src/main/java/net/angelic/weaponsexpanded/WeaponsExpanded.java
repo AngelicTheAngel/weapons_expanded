@@ -10,11 +10,13 @@ import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.network.FireChainCrossbowPayload;
 import net.angelic.weaponsexpanded.network.ModPackets;
 import net.angelic.weaponsexpanded.network.ToggleBastardSwordModePayload;
+import net.angelic.weaponsexpanded.potion.ModPotions;
 import net.angelic.weaponsexpanded.registries.ModFuels;
 import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.angelic.weaponsexpanded.util.ModLootTableModifiers;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.registry.FabricPotionBrewingBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.component.DataComponents;
@@ -24,7 +26,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.component.ChargedProjectiles;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,12 +49,12 @@ public class WeaponsExpanded implements ModInitializer {
         WeaponsExpandedConfig.get();
 
         ModItems.registerModItems();
-
         ModEnchantmentEffects.registerEnchantmentEffects();
         ModEffects.registerEffects();
         ModEntities.registerEntities();
         ModSounds.register();
         ModFuels.registerFuels();
+        ModPotions.registerPotions();
 
         // Register loot modifications (these will be gated by config inside the callback)
         ModLootTableModifiers.modifyLootTables();
@@ -65,6 +69,11 @@ public class WeaponsExpanded implements ModInitializer {
         ServerPlayNetworking.registerGlobalReceiver(ToggleBastardSwordModePayload.ID, (payload, context) ->
                 context.server().execute(() -> weaponsexpanded$toggleBastardSwordMode(context.player()))
         );
+
+        FabricPotionBrewingBuilder.BUILD.register(builder -> {
+            builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(Items.BLUE_ICE), ModPotions.FROSTBITE_POTION);
+            builder.registerPotionRecipe(ModPotions.FROSTBITE_POTION, Ingredient.of(Items.REDSTONE), ModPotions.LONG_FROSTBITE_POTION);
+        });
     }
 
     private static void weaponsexpanded$toggleBastardSwordMode(Player player) {
