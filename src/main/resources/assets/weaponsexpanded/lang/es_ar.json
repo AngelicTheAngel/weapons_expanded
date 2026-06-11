@@ -68,6 +68,11 @@
   "item.weaponsexpanded.longbow": "Arco largo",
   "item.weaponsexpanded.chain_crossbow": "Ballesta de cadena",
 
+  "item.minecraft.potion.effect.frostbite": "Poción de congelación",
+  "item.minecraft.splash_potion.effect.frostbite": "Poción arrojadiza de congelación",
+  "item.minecraft.lingering_potion.effect.frostbite": "Poción persistente de congelación",
+  "item.minecraft.tipped_arrow.effect.frostbite": "Flecha de congelación",
+
   "enchantment.weaponsexpanded.withering": "Marchitez",
   "enchantment.weaponsexpanded.polluting": "Contaminador",
   "enchantment.weaponsexpanded.frostbite": "Congelación",
@@ -87,5 +92,19 @@
   "tooltip.weaponsexpanded.chain_crossbow_shots": "Balas: %s/%s",
 
   "subtitles.weaponsexpanded.item.chain_crossbow.chamber": "Cámaras de ballesta de cadena",
-  "subtitles.weaponsexpanded.item.chain_crossbow.full": "La ballesta de cadena está llena"
+  "subtitles.weaponsexpanded.item.chain_crossbow.full": "La ballesta de cadena está llena",
+
+  "item.modifiers.bothhands": "Cuando se tiene en ambas manos:",
+
+  "config.weaponsexpanded.title": "Configuración ampliada de armas",
+  "config.weaponsexpanded.category.general": "General",
+  "config.weaponsexpanded.option.enableCustomLootTables": "Habilitar tablas de botín personalizadas",
+  "config.weaponsexpanded.option.enableEntityMeleeEquipment": "Habilitar el equipamiento cuerpo a cuerpo de las entidades",
+  "config.weaponsexpanded.option.enableTrialChamberMeleeEquipment": "Habilitar el equipamiento cuerpo a cuerpo para las entidades en las salas de juicio",
+  "config.weaponsexpanded.option.enableWeaponsmithTrades": "Habilitar oficios de Herrero de armas personalizados",
+  "config.weaponsexpanded.option.altTwoHandedSwordHandling": "Manejo alternativo de la espada a dos manos",
+  "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "Desactivar el daño por durabilidad adicional de las hachas",
+
+  "key.category.weaponsexpanded.general": "Armas ampliadas",
+  "key.weaponsexpanded.toggle_bastard_sword_mode": "Alternar el agarre a dos manos"
 }

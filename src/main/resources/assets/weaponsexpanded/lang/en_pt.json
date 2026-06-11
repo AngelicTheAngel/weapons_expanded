@@ -54,10 +54,31 @@
   "item.weaponsexpanded.diamond_greatsword": "Greatsword o' diamond",
   "item.weaponsexpanded.netherite_greatsword": "Blackbeard's greatsword",
 
+  "item.weaponsexpanded.copper_broadsword": "Knife o' copper",
+  "item.weaponsexpanded.copper_sickle": "Sickle o' copper",
+  "item.weaponsexpanded.copper_scythe": "Reaper o' copper",
+  "item.weaponsexpanded.copper_longsword": "Longsword o' copper",
+  "item.weaponsexpanded.copper_katana": "Skinny sword o' copper",
+  "item.weaponsexpanded.copper_hatchet": "Tomahawk o' copper",
+  "item.weaponsexpanded.copper_hammer": "Smasher o' copper",
+  "item.weaponsexpanded.copper_battleaxe": "Greataxe o' copper",
+  "item.weaponsexpanded.copper_greatsword": "Greatsword o' copper",
+
+  "item.weaponsexpanded.heavy_arrow": "Heavy bolt",
+  "item.weaponsexpanded.explosive_arrow": "Explodin' bolt",
+  "item.weaponsexpanded.longbow": "Longbow",
+  "item.weaponsexpanded.chain_crossbow": "Chain Crossbow",
+
+  "item.minecraft.potion.effect.frostbite": "Brew o' freezin'",
+  "item.minecraft.splash_potion.effect.frostbite": "Grenade o' freezin'",
+  "item.minecraft.lingering_potion.effect.frostbite": "Bottled fog o' freezin'",
+  "item.minecraft.tipped_arrow.effect.frostbite": "Bolt o' freezin'",
+
   "enchantment.weaponsexpanded.withering": "Scurvy",
   "enchantment.weaponsexpanded.polluting": "Taintin'",
   "enchantment.weaponsexpanded.frostbite": "Frosty",
   "enchantment.weaponsexpanded.freeze": "Frost",
+  "enchantment.weaponsexpanded.leech": "Bloodsucker",
 
   "effect.weaponsexpanded.frostbite": "Coldness",
 
@@ -66,5 +87,25 @@
   "advancements.weaponsexpanded.netherite_weapon": "Blackbeard's Heir",
   "advancements.weaponsexpanded.netherite_weapon.description": "Get yerself one of Blackbeard's weapons",
   "advancements.weaponsexpanded.weapons_expanded": "Weapons Expanded",
-  "advancements.weaponsexpanded.weapons_expanded.description": "Get yerself all of Blackbeard's weapons"
+  "advancements.weaponsexpanded.weapons_expanded.description": "Get yerself all of Blackbeard's weapons",
+
+  "tooltip.weaponsexpanded.twohandedsword": "Two-Hooked",
+  "tooltip.weaponsexpanded.chain_crossbow_shots": "Shots: %s/%s",
+
+  "item.modifiers.bothhands": "If in Both Yer Hooks:",
+
+  "subtitles.weaponsexpanded.item.chain_crossbow.chamber": "Chain Crossbow chambers",
+  "subtitles.weaponsexpanded.item.chain_crossbow.full": "Chain Crossbow is full",
+
+  "config.weaponsexpanded.title": "Weapons Expanded Config",
+  "config.weaponsexpanded.category.general": "General",
+  "config.weaponsexpanded.option.enableCustomLootTables": "Enable Custom Loot Tables",
+  "config.weaponsexpanded.option.enableEntityMeleeEquipment": "Enable Entity Melee Equipment",
+  "config.weaponsexpanded.option.enableTrialChamberMeleeEquipment": "Enable Trial Chamber Melee Equipment",
+  "config.weaponsexpanded.option.enableWeaponsmithTrades": "Enable Weaponsmith Trades",
+  "config.weaponsexpanded.option.altTwoHandedSwordHandling": "Alt Two-Handed Sword Handling",
+  "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "Disable Extra Durability Damage for Axes",
+
+  "key.category.weaponsexpanded.general": "Weapons Expanded",
+  "key.weaponsexpanded.toggle_bastard_sword_mode": "Two-Handed Toggle"
 }
