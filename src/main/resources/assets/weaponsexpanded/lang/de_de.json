@@ -68,6 +68,11 @@
   "item.weaponsexpanded.longbow": "Langbogen",
   "item.weaponsexpanded.chain_crossbow": "Kettenarmbrust",
 
+  "item.minecraft.potion.effect.frostbite": "Trank der Erfrierung",
+  "item.minecraft.splash_potion.effect.frostbite": "Wurftrank der Erfrierung",
+  "item.minecraft.lingering_potion.effect.frostbite": "Verweiltrank der Erfrierung",
+  "item.minecraft.tipped_arrow.effect.frostbite": "Pfeil der Erfrierung",
+
   "enchantment.weaponsexpanded.withering": "Verwelken",
   "enchantment.weaponsexpanded.polluting": "Verschmutzung",
   "enchantment.weaponsexpanded.frostbite": "Erfrierung",
@@ -87,5 +92,20 @@
   "tooltip.weaponsexpanded.chain_crossbow_shots": "Rundens: %s/%s",
 
   "subtitles.weaponsexpanded.item.chain_crossbow.chamber": "Kettenarmbrustkammern",
-  "subtitles.weaponsexpanded.item.chain_crossbow.full": "Die Kettenarmbrust ist vollständig geladen"
+  "subtitles.weaponsexpanded.item.chain_crossbow.full": "Die Kettenarmbrust ist vollständig geladen",
+
+
+  "item.modifiers.bothhands": "Wenn man es in beiden Händen hält:",
+
+  "config.weaponsexpanded.title": "Erweiterte Waffenkonfiguration",
+  "config.weaponsexpanded.category.general": "Allgemeines",
+  "config.weaponsexpanded.option.enableCustomLootTables": "Benutzerdefinierte Beutetabellen aktivieren",
+  "config.weaponsexpanded.option.enableEntityMeleeEquipment": "Entity-Nahkampfausrüstung aktivieren",
+  "config.weaponsexpanded.option.enableTrialChamberMeleeEquipment": "Ausrüstung für Nahkampf in der Prozesskammer aktivieren",
+  "config.weaponsexpanded.option.enableWeaponsmithTrades": "Waffenschmiede-Handel aktivieren",
+  "config.weaponsexpanded.option.altTwoHandedSwordHandling": "Alternative Handhabung des Zweihandschwerts",
+  "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "Zusätzlichen Haltbarkeitsschaden für Äxte deaktivieren",
+
+  "key.category.weaponsexpanded.general": "Erweiterte Waffen",
+  "key.weaponsexpanded.toggle_bastard_sword_mode": "Zweihand-Kippschalter"
 }
