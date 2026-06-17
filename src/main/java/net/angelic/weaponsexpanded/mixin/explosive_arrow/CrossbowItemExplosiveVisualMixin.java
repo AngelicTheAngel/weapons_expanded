@@ -36,7 +36,7 @@ public class CrossbowItemExplosiveVisualMixin {
                 crossbow.getOrDefault(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY);
 
         boolean hasExplosive = charged.items().stream()
-                .anyMatch(s -> s.item() == ModItems.EXPLOSIVE_ARROW);
+                .anyMatch(s -> s.item().value() == ModItems.EXPLOSIVE_ARROW);
 
         if (hasExplosive) {
             crossbow.set(
