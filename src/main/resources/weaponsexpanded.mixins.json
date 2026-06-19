@@ -5,8 +5,8 @@
   "mixins": [
     "AxeDurabilityMixin",
     "accessor.CrossbowItemAccessor",
-    "accessor.PersistentProjectileEntityAccessor",
     "accessor.EntityAccessor",
+    "accessor.PersistentProjectileEntityAccessor",
     "chain_crossbow.ChainCrossbowFireMixin",
     "chain_crossbow.ChainCrossbowPullTimeMixin",
     "enchantment.FrostbiteCleanupMixin",
@@ -30,6 +30,7 @@
     "defaultRequire": 1
   },
   "client": [
+    "ChainCrossbowFirstPersonMixin",
     "HeldItemRendererHideOffhandMixin",
     "LongbowFovMixin",
     "PlayerEntityRendererArmPoseMixin",
