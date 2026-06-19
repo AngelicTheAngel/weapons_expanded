@@ -205,6 +205,9 @@ public class ModItems {
     public static final Item NETHERITE_GREATSWORD = registerItem("netherite_greatsword",
             settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 8.0F, -3.1F, settings.fireproof()));
 
+    public static final Item IRON_WARHAMMER = registerItem("iron_warhammer",
+            settings -> new WarhammerItem(ToolMaterial.IRON, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+
     public static final Item HEAVY_ARROW = registerItem("heavy_arrow",
             settings -> new HeavyArrowItem(settings.maxCount(64)));
 

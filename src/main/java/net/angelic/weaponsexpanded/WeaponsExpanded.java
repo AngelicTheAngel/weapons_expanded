@@ -7,9 +7,11 @@ import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
+import net.angelic.weaponsexpanded.item.custom.WarhammerItem;
 import net.angelic.weaponsexpanded.network.FireChainCrossbowPayload;
 import net.angelic.weaponsexpanded.network.ModPackets;
 import net.angelic.weaponsexpanded.network.ToggleBastardSwordModePayload;
+import net.angelic.weaponsexpanded.network.ToggleWarhammerModePayload;
 import net.angelic.weaponsexpanded.potion.ModPotions;
 import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.angelic.weaponsexpanded.util.ModLootTableModifiers;
@@ -87,6 +89,10 @@ public class WeaponsExpanded implements ModInitializer {
 
         ServerPlayNetworking.registerGlobalReceiver(ToggleBastardSwordModePayload.ID, (payload, context) ->
                 context.server().execute(() -> weaponsexpanded$toggleBastardSwordMode(context.player()))
+        );
+
+        ServerPlayNetworking.registerGlobalReceiver(ToggleWarhammerModePayload.ID, (payload, context) ->
+                context.server().execute(() -> weaponsexpanded$toggleWarhammerMode(context.player()))
         );
 
         if (WeaponsExpandedConfig.get().enableWeaponsmithTrades) {
@@ -263,6 +269,13 @@ public class WeaponsExpanded implements ModInitializer {
         if (player.getOffHandStack().getItem() instanceof ShieldItem shield) {
             player.getItemCooldownManager().set(shield.getDefaultStack(), 20);
         }
+    }
+
+    private static void weaponsexpanded$toggleWarhammerMode(PlayerEntity player) {
+        ItemStack stack = player.getMainHandStack();
+        if (!(stack.getItem() instanceof WarhammerItem warhammer)) return;
+
+        warhammer.toggleSharpSide(stack);
     }
 
     private static void weaponsexpanded$tryFireChainCrossbow(PlayerEntity player) {

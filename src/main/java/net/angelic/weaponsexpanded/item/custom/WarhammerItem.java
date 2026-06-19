@@ -96,11 +96,10 @@ public class WarhammerItem extends Item {
     @Override
     @SuppressWarnings("deprecation")
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        if (isBluntSide(stack)) {
+        if (isSharpSide(stack)) {
             textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.warhammer_sharp_side").formatted(Formatting.BLUE));
             super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-        }
-        if (isSharpSide(stack)) {
+        } else {
             textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.warhammer_blunt_side").formatted(Formatting.BLUE));
             super.appendTooltip(stack, context, displayComponent, textConsumer, type);
         }
@@ -119,13 +118,6 @@ public class WarhammerItem extends Item {
         if (custom == null) return false;
         NbtCompound nbt = custom.copyNbt();
         return nbt.getBoolean(WEAPONSEXPANDED$SHARP_SIDE_KEY).orElse(false);
-    }
-
-    public boolean isBluntSide(ItemStack stack) {
-        NbtComponent custom = stack.get(DataComponentTypes.CUSTOM_DATA);
-        if (custom == null) return false;
-        NbtCompound nbt = custom.copyNbt();
-        return nbt.getBoolean(WEAPONSEXPANDED$SHARP_SIDE_KEY).orElse(true);
     }
 
     public void setSharpSide(ItemStack stack, boolean sharpSide) {

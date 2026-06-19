@@ -4,9 +4,11 @@ import net.angelic.weaponsexpanded.client.render.HeavyArrowEntityRenderer;
 import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
+import net.angelic.weaponsexpanded.item.custom.WarhammerItem;
 import net.angelic.weaponsexpanded.network.FireChainCrossbowPayload;
 import net.angelic.weaponsexpanded.network.ModPackets;
 import net.angelic.weaponsexpanded.network.ToggleBastardSwordModePayload;
+import net.angelic.weaponsexpanded.network.ToggleWarhammerModePayload;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -56,9 +58,15 @@ public class WeaponsExpandedClient implements ClientModInitializer {
 
         while (weaponsexpanded$toggleBastardSwordModeKey.wasPressed()) {
             ItemStack stack = client.player.getMainHandStack();
-            if (!(stack.getItem() instanceof BastardSwordItem)) return;
+            if (!(stack.getItem() instanceof BastardSwordItem || stack.getItem() instanceof WarhammerItem)) return;
 
-            ClientPlayNetworking.send(new ToggleBastardSwordModePayload());
+            if (stack.getItem() instanceof BastardSwordItem) {
+                ClientPlayNetworking.send(new ToggleBastardSwordModePayload());
+            }
+
+            if (stack.getItem() instanceof WarhammerItem) {
+                ClientPlayNetworking.send(new ToggleWarhammerModePayload());
+            }
         }
     }
 

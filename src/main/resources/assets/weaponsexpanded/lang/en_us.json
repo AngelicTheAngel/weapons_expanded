@@ -108,5 +108,5 @@
   "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "Disable Extra Durability Damage for Axes",
 
   "key.category.weaponsexpanded.general": "Weapons Expanded",
-  "key.weaponsexpanded.toggle_bastard_sword_mode": "Two-Handed Toggle"
+  "key.weaponsexpanded.toggle_bastard_sword_mode": "Toggle Weapon Mode"
 }
