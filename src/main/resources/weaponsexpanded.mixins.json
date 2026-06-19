@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AxeDurabilityMixin",
+    "warhammer.WarhammerSweepingMixin",
     "accessor.CrossbowItemAccessor",
     "accessor.PersistentProjectileEntityAccessor",
     "chain_crossbow.ChainCrossbowFireMixin",
@@ -29,9 +30,9 @@
     "defaultRequire": 1
   },
   "client": [
-    "HeldItemRendererHideOffhandMixin",
+    "two_handed_sword.HeldItemRendererHideOffhandMixin",
     "LongbowFovMixin",
-    "PlayerEntityRendererArmPoseMixin",
+    "chain_crossbow.PlayerEntityRendererArmPoseMixin",
     "chain_crossbow.HeldItemRendererChainCrossbowMixin",
     "chain_crossbow.MinecraftClientChainCrossbowAttackMixin",
     "two_handed_sword.TwoHandedSwordTooltipMixin"

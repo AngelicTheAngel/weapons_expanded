@@ -1,14 +1,14 @@
 package net.angelic.weaponsexpanded.item.custom;
 
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.component.type.*;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.nbt.NbtCompound;
@@ -40,7 +40,11 @@ public class WarhammerItem extends Item {
             float sharpSideAttackSpeed,
             Settings settings
     ) {
-        super(settings.sword(material, attackDamage, attackSpeed));
+        super(settings.sword(material, attackDamage, attackSpeed)
+                .component(
+                        DataComponentTypes.WEAPON,
+                        new WeaponComponent(1, WeaponComponent.AXE_DISABLE_BLOCKING_FOR_SECONDS)
+                ));
         this.material = material;
 
         this.bluntSideAttackDamage = attackDamage;
@@ -140,6 +144,13 @@ public class WarhammerItem extends Item {
         stack.set(
                 DataComponentTypes.ATTRIBUTE_MODIFIERS,
                 sharpSide ? this.weaponsexpanded$sharpSideModifiers : this.weaponsexpanded$bluntSideModifiers
+        );
+
+        stack.set(
+                DataComponentTypes.WEAPON,
+                sharpSide
+                        ? new WeaponComponent(1)
+                        : new WeaponComponent(1, WeaponComponent.AXE_DISABLE_BLOCKING_FOR_SECONDS)
         );
     }
 

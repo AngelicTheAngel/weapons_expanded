@@ -218,7 +218,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.COPPER_GREATSWORD)
                 .add(ModItems.IRON_GREATSWORD)
                 .add(ModItems.DIAMOND_GREATSWORD)
-                .add(ModItems.NETHERITE_GREATSWORD);
+                .add(ModItems.NETHERITE_GREATSWORD)
+                .add(ModItems.IRON_WARHAMMER);
         valueLookupBuilder(ItemTags.AXES)
                 .add(ModItems.WOODEN_HATCHET)
                 .add(ModItems.GOLDEN_HATCHET)

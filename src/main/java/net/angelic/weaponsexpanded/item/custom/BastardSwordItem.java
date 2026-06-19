@@ -40,7 +40,7 @@ public class BastardSwordItem extends Item {
             float twoHandedAttackSpeed,
             Settings settings
     ) {
-        super(settings.axe(material, attackDamage, attackSpeed));
+        super(settings.sword(material, attackDamage, attackSpeed));
         this.material = material;
 
         this.oneHandedAttackDamage = attackDamage;
