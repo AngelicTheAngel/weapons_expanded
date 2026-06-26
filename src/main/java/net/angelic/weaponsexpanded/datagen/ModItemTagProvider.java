@@ -87,7 +87,14 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.COPPER_BATTLEAXE)
                 .add(ModItems.IRON_BATTLEAXE)
                 .add(ModItems.DIAMOND_BATTLEAXE)
-                .add(ModItems.NETHERITE_BATTLEAXE);
+                .add(ModItems.NETHERITE_BATTLEAXE)
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.COPPER_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER);
         valueLookupBuilder(ItemTags.SWEEPING_ENCHANTABLE)
                 .add(ModItems.WOODEN_BROADSWORD)
                 .add(ModItems.GOLDEN_BROADSWORD)
@@ -130,7 +137,14 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.COPPER_GREATSWORD)
                 .add(ModItems.IRON_GREATSWORD)
                 .add(ModItems.DIAMOND_GREATSWORD)
-                .add(ModItems.NETHERITE_GREATSWORD);
+                .add(ModItems.NETHERITE_GREATSWORD)
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.COPPER_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER);
         valueLookupBuilder(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(ModItems.WOODEN_BROADSWORD)
                 .add(ModItems.GOLDEN_BROADSWORD)
@@ -174,6 +188,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.IRON_GREATSWORD)
                 .add(ModItems.DIAMOND_GREATSWORD)
                 .add(ModItems.NETHERITE_GREATSWORD)
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.COPPER_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER)
                 .add(ModItems.LONGBOW)
                 .add(ModItems.CHAIN_CROSSBOW);
         valueLookupBuilder(ItemTags.SWORDS)
@@ -219,7 +240,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.IRON_GREATSWORD)
                 .add(ModItems.DIAMOND_GREATSWORD)
                 .add(ModItems.NETHERITE_GREATSWORD)
-                .add(ModItems.IRON_WARHAMMER);
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.COPPER_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER);
         valueLookupBuilder(ItemTags.AXES)
                 .add(ModItems.WOODEN_HATCHET)
                 .add(ModItems.GOLDEN_HATCHET)
@@ -241,7 +268,14 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.COPPER_BATTLEAXE)
                 .add(ModItems.IRON_BATTLEAXE)
                 .add(ModItems.DIAMOND_BATTLEAXE)
-                .add(ModItems.NETHERITE_BATTLEAXE);
+                .add(ModItems.NETHERITE_BATTLEAXE)
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.COPPER_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER);
         valueLookupBuilder(ItemTags.MINING_ENCHANTABLE)
                 .add(ModItems.WOODEN_HATCHET)
                 .add(ModItems.GOLDEN_HATCHET)
@@ -263,7 +297,14 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.COPPER_BATTLEAXE)
                 .add(ModItems.IRON_BATTLEAXE)
                 .add(ModItems.DIAMOND_BATTLEAXE)
-                .add(ModItems.NETHERITE_BATTLEAXE);
+                .add(ModItems.NETHERITE_BATTLEAXE)
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.COPPER_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER);
         valueLookupBuilder(ItemTags.PIGLIN_LOVED)
                 .add(ModItems.GOLDEN_BROADSWORD)
                 .add(ModItems.GOLDEN_SICKLE)
@@ -273,7 +314,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLDEN_HATCHET)
                 .add(ModItems.GOLDEN_HAMMER)
                 .add(ModItems.GOLDEN_BATTLEAXE)
-                .add(ModItems.GOLDEN_GREATSWORD);
+                .add(ModItems.GOLDEN_GREATSWORD)
+                .add(ModItems.GOLDEN_WARHAMMER);
         valueLookupBuilder(ItemTags.ARROWS)
                 .add(ModItems.HEAVY_ARROW)
                 .add(ModItems.EXPLOSIVE_ARROW);

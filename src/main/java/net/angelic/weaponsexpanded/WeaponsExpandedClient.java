@@ -66,6 +66,7 @@ public class WeaponsExpandedClient implements ClientModInitializer {
 
             if (stack.getItem() instanceof WarhammerItem) {
                 ClientPlayNetworking.send(new ToggleWarhammerModePayload());
+                client.player.resetTicksSinceLastAttack();
             }
         }
     }

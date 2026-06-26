@@ -2,18 +2,16 @@ package net.angelic.weaponsexpanded.item.custom;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShieldItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
 import java.util.function.Consumer;
 
@@ -32,20 +30,38 @@ public class WarhammerItem extends Item {
     private final AttributeModifiersComponent weaponsexpanded$bluntSideModifiers;
     private final AttributeModifiersComponent weaponsexpanded$sharpSideModifiers;
 
+    private final Identifier weaponsexpanded$bluntModel;
+    private final Identifier weaponsexpanded$sharpModel;
+
+    private static Identifier weaponsexpanded$id(String path) {
+        return Identifier.of("weaponsexpanded", path);
+    }
+
     public WarhammerItem(
             ToolMaterial material,
             float attackDamage,
             float attackSpeed,
             float sharpSideAttackDamage,
             float sharpSideAttackSpeed,
+            String modelName,
             Settings settings
     ) {
-        super(settings.sword(material, attackDamage, attackSpeed)
+        super(settings
+                .sword(material, attackDamage, attackSpeed)
                 .component(
                         DataComponentTypes.WEAPON,
                         new WeaponComponent(1, WeaponComponent.AXE_DISABLE_BLOCKING_FOR_SECONDS)
-                ));
+                )
+                .component(
+                        DataComponentTypes.ITEM_MODEL,
+                        weaponsexpanded$id(modelName)
+                )
+        );
+
         this.material = material;
+
+        this.weaponsexpanded$bluntModel = weaponsexpanded$id(modelName);
+        this.weaponsexpanded$sharpModel = weaponsexpanded$id(modelName + "_sharp");
 
         this.bluntSideAttackDamage = attackDamage;
         this.bluntSideAttackSpeed = attackSpeed;
@@ -53,7 +69,6 @@ public class WarhammerItem extends Item {
         this.sharpSideAttackDamage = sharpSideAttackDamage;
         this.sharpSideAttackSpeed = sharpSideAttackSpeed;
 
-        // Build explicit modifier sets.
         this.weaponsexpanded$bluntSideModifiers = AttributeModifiersComponent.builder()
                 .add(
                         EntityAttributes.ATTACK_DAMAGE,
@@ -101,10 +116,10 @@ public class WarhammerItem extends Item {
     @SuppressWarnings("deprecation")
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         if (isSharpSide(stack)) {
-            textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.warhammer_sharp_side").formatted(Formatting.BLUE));
+            textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.warhammer.sharp_side").formatted(Formatting.BLUE));
             super.appendTooltip(stack, context, displayComponent, textConsumer, type);
         } else {
-            textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.warhammer_blunt_side").formatted(Formatting.BLUE));
+            textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.warhammer.blunt_side").formatted(Formatting.BLUE));
             super.appendTooltip(stack, context, displayComponent, textConsumer, type);
         }
     }
@@ -151,6 +166,13 @@ public class WarhammerItem extends Item {
                 sharpSide
                         ? new WeaponComponent(1)
                         : new WeaponComponent(1, WeaponComponent.AXE_DISABLE_BLOCKING_FOR_SECONDS)
+        );
+
+        stack.set(
+                DataComponentTypes.ITEM_MODEL,
+                sharpSide
+                        ? this.weaponsexpanded$sharpModel
+                        : this.weaponsexpanded$bluntModel
         );
     }
 

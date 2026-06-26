@@ -91,6 +91,8 @@
 
   "tooltip.weaponsexpanded.twohandedsword": "Two-Handed",
   "tooltip.weaponsexpanded.chain_crossbow_shots": "Shots: %s/%s",
+  "tooltip.weaponsexpanded.warhammer.blunt_side": "Blunt",
+  "tooltip.weaponsexpanded.warhammer.sharp_side": "Sharp",
 
   "item.modifiers.bothhands": "When in Both Hands:",
 

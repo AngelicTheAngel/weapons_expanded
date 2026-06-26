@@ -276,6 +276,7 @@ public class WeaponsExpanded implements ModInitializer {
         if (!(stack.getItem() instanceof WarhammerItem warhammer)) return;
 
         warhammer.toggleSharpSide(stack);
+        player.resetTicksSinceLastAttack();
     }
 
     private static void weaponsexpanded$tryFireChainCrossbow(PlayerEntity player) {

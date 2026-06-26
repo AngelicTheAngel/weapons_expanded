@@ -109,6 +109,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 offerBattleaxeRecipe(ModItems.IRON_BATTLEAXE, ItemTags.IRON_TOOL_MATERIALS);
                 offerBattleaxeRecipe(ModItems.DIAMOND_BATTLEAXE, ItemTags.DIAMOND_TOOL_MATERIALS);
 
+                offerWarhammerRecipe(ModItems.WOODEN_WARHAMMER, ItemTags.WOODEN_TOOL_MATERIALS);
+                offerWarhammerRecipe(ModItems.STONE_WARHAMMER, ItemTags.STONE_TOOL_MATERIALS);
+                offerWarhammerRecipe(ModItems.COPPER_WARHAMMER, ItemTags.COPPER_TOOL_MATERIALS);
+                offerWarhammerRecipe(ModItems.GOLDEN_WARHAMMER, ItemTags.GOLD_TOOL_MATERIALS);
+                offerWarhammerRecipe(ModItems.IRON_WARHAMMER, ItemTags.IRON_TOOL_MATERIALS);
+                offerWarhammerRecipe(ModItems.DIAMOND_WARHAMMER, ItemTags.DIAMOND_TOOL_MATERIALS);
+
                 offerNetheriteUpgradeRecipe(ModItems.DIAMOND_BROADSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_BROADSWORD);
                 offerNetheriteUpgradeRecipe(ModItems.DIAMOND_SICKLE, RecipeCategory.COMBAT, ModItems.NETHERITE_SICKLE);
                 offerNetheriteUpgradeRecipe(ModItems.DIAMOND_SCYTHE, RecipeCategory.COMBAT, ModItems.NETHERITE_SCYTHE);
@@ -118,6 +125,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 offerNetheriteUpgradeRecipe(ModItems.DIAMOND_HATCHET, RecipeCategory.COMBAT, ModItems.NETHERITE_HATCHET);
                 offerNetheriteUpgradeRecipe(ModItems.DIAMOND_HAMMER, RecipeCategory.COMBAT, ModItems.NETHERITE_HAMMER);
                 offerNetheriteUpgradeRecipe(ModItems.DIAMOND_BATTLEAXE, RecipeCategory.COMBAT, ModItems.NETHERITE_BATTLEAXE);
+                offerNetheriteUpgradeRecipe(ModItems.DIAMOND_WARHAMMER, RecipeCategory.COMBAT, ModItems.NETHERITE_WARHAMMER);
             }
 
             public void offerBroadswordRecipe(Item output, TagKey<Item> input) {
@@ -329,6 +337,30 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .input('S', Items.STICK)
                             .pattern("MM ")
                             .pattern("MSM")
+                            .pattern(" S ")
+                            .group(getItemPath(output))
+                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
+                            .offerTo(this.exporter);
+                }
+            }
+
+            public void offerWarhammerRecipe(Item output, TagKey<Item> input) {
+                if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
+                    this.createShaped(RecipeCategory.COMBAT, output)
+                            .input('M', input)
+                            .input('S', Items.STICK)
+                            .pattern("MMM")
+                            .pattern("MS ")
+                            .pattern(" S ")
+                            .group(getItemPath(output))
+                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
+                            .offerTo(this.exporter);
+                } else {
+                    this.createShaped(RecipeCategory.COMBAT, output)
+                            .input('M', input)
+                            .input('S', Items.STICK)
+                            .pattern("MMM")
+                            .pattern("MS ")
                             .pattern(" S ")
                             .group(getItemPath(output))
                             .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
