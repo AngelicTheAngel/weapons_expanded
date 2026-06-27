@@ -147,6 +147,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.DIAMOND_WARHAMMER)
                 .add(ModItems.NETHERITE_WARHAMMER);
         valueLookupBuilder(ModItemTags.CLEAVING_ENCHANTABLE)
+                .add(Items.WOODEN_AXE)
+                .add(Items.GOLDEN_AXE)
+                .add(Items.STONE_AXE)
+                .add(Items.COPPER_AXE)
+                .add(Items.IRON_AXE)
+                .add(Items.DIAMOND_AXE)
+                .add(Items.NETHERITE_AXE)
                 .add(ModItems.WOODEN_HATCHET)
                 .add(ModItems.GOLDEN_HATCHET)
                 .add(ModItems.STONE_HATCHET)

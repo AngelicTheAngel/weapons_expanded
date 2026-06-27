@@ -1,5 +1,12 @@
 {
   "values": [
+    "minecraft:wooden_axe",
+    "minecraft:golden_axe",
+    "minecraft:stone_axe",
+    "minecraft:copper_axe",
+    "minecraft:iron_axe",
+    "minecraft:diamond_axe",
+    "minecraft:netherite_axe",
     "weaponsexpanded:wooden_hatchet",
     "weaponsexpanded:golden_hatchet",
     "weaponsexpanded:stone_hatchet",
