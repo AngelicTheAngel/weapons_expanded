@@ -206,25 +206,25 @@ public class ModItems {
             settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 8.0F, -3.1F, settings.fireproof()));
 
     public static final Item WOODEN_WARHAMMER = registerItem("wooden_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.WOOD, 6.0F, -3.0F, 5.0F, -2.7F, "wooden_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.WOOD, 5.5F, -3.1F, 5.0F, -2.7F, "wooden_warhammer", settings));
 
     public static final Item GOLDEN_WARHAMMER = registerItem("golden_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.GOLD, 6.0F, -3.0F, 5.0F, -2.7F, "golden_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.GOLD, 5.5F, -2.9F, 5.0F, -2.7F, "golden_warhammer", settings));
 
     public static final Item STONE_WARHAMMER = registerItem("stone_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.STONE, 6.0F, -3.0F, 5.0F, -2.7F, "stone_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.STONE, 6.5F, -3.1F, 5.0F, -2.7F, "stone_warhammer", settings));
 
     public static final Item COPPER_WARHAMMER = registerItem("copper_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.COPPER, 6.0F, -3.0F, 5.0F, -2.7F, "copper_warhammer",  settings));
+            settings -> new WarhammerItem(ToolMaterial.COPPER, 6.5F, -3.1F, 5.0F, -2.7F, "copper_warhammer",  settings));
 
     public static final Item IRON_WARHAMMER = registerItem("iron_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.IRON, 6.0F, -3.0F, 5.0F, -2.7F, "iron_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.IRON, 5.5F, -3.0F, 5.0F, -2.7F, "iron_warhammer", settings));
 
     public static final Item DIAMOND_WARHAMMER = registerItem("diamond_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.DIAMOND, 6.0F, -3.0F, 5.0F, -2.7F, "diamond_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.DIAMOND, 4.5F, -2.9F, 5.0F, -2.7F, "diamond_warhammer", settings));
 
     public static final Item NETHERITE_WARHAMMER = registerItem("netherite_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.NETHERITE, 6.0F, -3.0F, 5.0F, -2.7F, "netherite_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.NETHERITE, 4.5F, -2.9F, 5.0F, -2.7F, "netherite_warhammer", settings));
 
     public static final Item HEAVY_ARROW = registerItem("heavy_arrow",
             settings -> new HeavyArrowItem(settings.maxCount(64)));
