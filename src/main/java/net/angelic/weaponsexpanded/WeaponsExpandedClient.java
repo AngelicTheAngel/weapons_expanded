@@ -62,6 +62,7 @@ public class WeaponsExpandedClient implements ClientModInitializer {
 
             if (stack.getItem() instanceof BastardSwordItem) {
                 ClientPlayNetworking.send(new ToggleBastardSwordModePayload());
+                client.player.resetTicksSinceLastAttack();
             }
 
             if (stack.getItem() instanceof WarhammerItem) {

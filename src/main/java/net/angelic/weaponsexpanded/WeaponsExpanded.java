@@ -266,6 +266,7 @@ public class WeaponsExpanded implements ModInitializer {
         if (!(stack.getItem() instanceof BastardSwordItem bastardSword)) return;
 
         bastardSword.toggleTwoHanded(stack);
+        player.resetTicksSinceLastAttack();
         if (player.getOffHandStack().getItem() instanceof ShieldItem shield) {
             player.getItemCooldownManager().set(shield.getDefaultStack(), 20);
         }
