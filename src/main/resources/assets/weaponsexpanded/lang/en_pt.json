@@ -64,6 +64,14 @@
   "item.weaponsexpanded.copper_battleaxe": "Greataxe o' copper",
   "item.weaponsexpanded.copper_greatsword": "Greatsword o' copper",
 
+  "item.weaponsexpanded.wooden_warhammer": "Spiky hammer o' timber",
+  "item.weaponsexpanded.golden_warhammer": "Spiky hammer o' gold",
+  "item.weaponsexpanded.stone_warhammer": "Spiky hammer o' rock",
+  "item.weaponsexpanded.copper_warhammer": "Spiky hammer o' copper",
+  "item.weaponsexpanded.iron_warhammer": "Spiky hammer o' steel",
+  "item.weaponsexpanded.diamond_warhammer": "Spiky hammer o' diamond",
+  "item.weaponsexpanded.netherite_warhammer": "Blackbeard's spiky hammer",
+
   "item.weaponsexpanded.heavy_arrow": "Heavy bolt",
   "item.weaponsexpanded.explosive_arrow": "Explodin' bolt",
   "item.weaponsexpanded.longbow": "Longbow",
@@ -79,6 +87,7 @@
   "enchantment.weaponsexpanded.frostbite": "Frosty",
   "enchantment.weaponsexpanded.freeze": "Frost",
   "enchantment.weaponsexpanded.leech": "Bloodsucker",
+  "enchantment.weaponsexpanded.cleaving": "Cleaving",
 
   "effect.weaponsexpanded.frostbite": "Coldness",
 
@@ -91,6 +100,8 @@
 
   "tooltip.weaponsexpanded.twohandedsword": "Two-Hooked",
   "tooltip.weaponsexpanded.chain_crossbow_shots": "Shots: %s/%s",
+  "tooltip.weaponsexpanded.warhammer.blunt_side": "Blunt",
+  "tooltip.weaponsexpanded.warhammer.sharp_side": "Sharp",
 
   "item.modifiers.bothhands": "If in Both Yer Hooks:",
 
@@ -107,5 +118,5 @@
   "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "Disable Extra Durability Damage for Axes",
 
   "key.category.weaponsexpanded.general": "Weapons Expanded",
-  "key.weaponsexpanded.toggle_bastard_sword_mode": "Two-Handed Toggle"
+  "key.weaponsexpanded.toggle_bastard_sword_mode": "Toggle Weapon Mode"
 }
