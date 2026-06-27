@@ -16,13 +16,8 @@ public record PollutingEnchantmentEffect() implements EnchantmentEntityEffect {
     @Override
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
         if (user instanceof LivingEntity) {
-            StatusEffectInstance pollutingEffectL1 = new StatusEffectInstance(StatusEffects.POISON, 160, 0);
-            StatusEffectInstance pollutingEffectL2 = new StatusEffectInstance(StatusEffects.POISON, 300, 0);
-            if (level == 1) {
-                ((LivingEntity) user).addStatusEffect(pollutingEffectL1);
-            }
-            if (level == 2) {
-                ((LivingEntity) user).addStatusEffect(pollutingEffectL2);
+            if (level > 0) {
+                ((LivingEntity) user).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 20 + 140 * level, 0));
             }
         }
     }

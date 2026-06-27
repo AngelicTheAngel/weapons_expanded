@@ -1,4 +1,4 @@
-package net.angelic.weaponsexpanded.mixin.two_handed_sword;
+package net.angelic.weaponsexpanded.mixin;
 
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;

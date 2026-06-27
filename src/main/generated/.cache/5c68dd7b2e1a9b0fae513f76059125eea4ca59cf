@@ -1,11 +1,12 @@
 // 1.21.11	-999999999-01-01T00:00:00	Weapons Expanded/Tags for minecraft:item
 3dc59f4f3a7d480cdf07fafd554a21fb26f86fa2 data/minecraft/tags/item/arrows.json
-5d3ce23e7f3c849543cd5b68bcdcbd30c6babb56 data/minecraft/tags/item/axes.json
+47148f548e7150b0f826016fc0d05675f69939bc data/minecraft/tags/item/axes.json
 f3cfd4baa044bb19a6f422d91ec15d6321bd6d71 data/minecraft/tags/item/enchantable/bow.json
 25f9f224421c38040fd27f91b433a834886df9db data/minecraft/tags/item/enchantable/crossbow.json
 7873fbe6e494f50b890678b72315a0ff4ba18b88 data/minecraft/tags/item/enchantable/durability.json
 b4ca768b4eed9ecef48ea05e19bbc70d899f4878 data/minecraft/tags/item/enchantable/melee_weapon.json
-5d3ce23e7f3c849543cd5b68bcdcbd30c6babb56 data/minecraft/tags/item/enchantable/mining.json
+b520037f2d415d64923299e6b7b8f6c9645b8588 data/minecraft/tags/item/enchantable/mining.json
 4beb7c076aafd61e95ce4ab86a7e456b42f4760b data/minecraft/tags/item/enchantable/sweeping.json
 b6610075849cadde28f568cf2693af229e844914 data/minecraft/tags/item/piglin_loved.json
 4beb7c076aafd61e95ce4ab86a7e456b42f4760b data/minecraft/tags/item/swords.json
+b520037f2d415d64923299e6b7b8f6c9645b8588 data/weaponsexpanded/tags/item/enchantable/cleaving.json

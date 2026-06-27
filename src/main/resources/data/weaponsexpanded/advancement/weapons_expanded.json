@@ -120,6 +120,16 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "obtain_netherite_warhammer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:netherite_warhammer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
