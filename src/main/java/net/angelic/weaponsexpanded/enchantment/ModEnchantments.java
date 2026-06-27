@@ -9,4 +9,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 public class ModEnchantments {
     public static final ResourceKey<Enchantment> LEECH =
             ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "leech"));
+
+    public static final ResourceKey<Enchantment> CLEAVING =
+            ResourceKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "cleaving"));
 }

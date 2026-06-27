@@ -62,6 +62,13 @@
   "item.weaponsexpanded.iron_greatsword": "Gran espada de hierro",
   "item.weaponsexpanded.diamond_greatsword": "Espada magna de diamante",
   "item.weaponsexpanded.netherite_greatsword": "Espada grande de netherita",
+  "item.weaponsexpanded.wooden_warhammer": "Warhammer de madera",
+  "item.weaponsexpanded.golden_warhammer": "Warhammer dorada",
+  "item.weaponsexpanded.stone_warhammer": "Warhammer de piedra",
+  "item.weaponsexpanded.copper_warhammer": "Warhammer de cobre",
+  "item.weaponsexpanded.iron_warhammer": "Warhammer de hierro",
+  "item.weaponsexpanded.diamond_warhammer": "Warhammer de diamante",
+  "item.weaponsexpanded.netherite_warhammer": "Warhammer de netherita",
 
   "item.weaponsexpanded.heavy_arrow": "Flecha pesada",
   "item.weaponsexpanded.explosive_arrow": "Flecha de dinamita",
@@ -78,6 +85,7 @@
   "enchantment.weaponsexpanded.frostbite": "Congelación",
   "enchantment.weaponsexpanded.freeze": "Congelar",
   "enchantment.weaponsexpanded.leech": "Sanguijuela",
+  "enchantment.weaponsexpanded.cleaving": "Corte",
 
   "effect.weaponsexpanded.frostbite": "Congelación",
 
@@ -90,6 +98,8 @@
 
   "tooltip.weaponsexpanded.twohandedsword": "A dos manos",
   "tooltip.weaponsexpanded.chain_crossbow_shots": "Balas: %s/%s",
+  "tooltip.weaponsexpanded.warhammer.blunt_side": "Blunt",
+  "tooltip.weaponsexpanded.warhammer.sharp_side": "Sharp",
 
   "subtitles.weaponsexpanded.item.chain_crossbow.chamber": "Cámaras de ballesta de cadena",
   "subtitles.weaponsexpanded.item.chain_crossbow.full": "La ballesta de cadena está llena",
@@ -106,5 +116,5 @@
   "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "Desactivar el daño por durabilidad adicional de las hachas",
 
   "key.category.weaponsexpanded.general": "Armas ampliadas",
-  "key.weaponsexpanded.toggle_bastard_sword_mode": "Alternar el agarre a dos manos"
+  "key.weaponsexpanded.toggle_bastard_sword_mode": "Cambiar el modo de arma"
 }

@@ -209,6 +209,27 @@ public class ModItems {
     public static final Item NETHERITE_GREATSWORD = registerItem("netherite_greatsword",
             settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 8.0F, -3.1F, settings.fireResistant()));
 
+    public static final Item WOODEN_WARHAMMER = registerItem("wooden_warhammer",
+            settings -> new WarhammerItem(ToolMaterial.WOOD, 5.0F, -3.1F, 5.0F, -2.7F, "wooden_warhammer", settings));
+
+    public static final Item GOLDEN_WARHAMMER = registerItem("golden_warhammer",
+            settings -> new WarhammerItem(ToolMaterial.GOLD, 5.0F, -2.9F, 5.0F, -2.7F, "golden_warhammer", settings));
+
+    public static final Item STONE_WARHAMMER = registerItem("stone_warhammer",
+            settings -> new WarhammerItem(ToolMaterial.STONE, 6.0F, -3.1F, 5.0F, -2.7F, "stone_warhammer", settings));
+
+    public static final Item COPPER_WARHAMMER = registerItem("copper_warhammer",
+            settings -> new WarhammerItem(ToolMaterial.COPPER, 6.0F, -3.1F, 5.0F, -2.7F, "copper_warhammer",  settings));
+
+    public static final Item IRON_WARHAMMER = registerItem("iron_warhammer",
+            settings -> new WarhammerItem(ToolMaterial.IRON, 5.0F, -3.0F, 5.0F, -2.7F, "iron_warhammer", settings));
+
+    public static final Item DIAMOND_WARHAMMER = registerItem("diamond_warhammer",
+            settings -> new WarhammerItem(ToolMaterial.DIAMOND, 4.0F, -2.9F, 5.0F, -2.7F, "diamond_warhammer", settings));
+
+    public static final Item NETHERITE_WARHAMMER = registerItem("netherite_warhammer",
+            settings -> new WarhammerItem(ToolMaterial.NETHERITE, 4.0F, -2.9F, 5.0F, -2.7F, "netherite_warhammer", settings.fireResistant()));
+
     public static final Item HEAVY_ARROW = registerItem("heavy_arrow",
             settings -> new HeavyArrowItem(settings.stacksTo(64)));
 
@@ -324,6 +345,16 @@ public class ModItems {
             entries.insertAfter(COPPER_GREATSWORD, IRON_GREATSWORD);
             entries.insertAfter(IRON_GREATSWORD, DIAMOND_GREATSWORD);
             entries.insertAfter(DIAMOND_GREATSWORD, NETHERITE_GREATSWORD);
+            anchor = NETHERITE_GREATSWORD;
+
+            // Warhammer
+            entries.insertAfter(anchor, WOODEN_WARHAMMER);
+            entries.insertAfter(WOODEN_WARHAMMER, GOLDEN_WARHAMMER);
+            entries.insertAfter(GOLDEN_WARHAMMER, STONE_WARHAMMER);
+            entries.insertAfter(STONE_WARHAMMER, COPPER_WARHAMMER);
+            entries.insertAfter(COPPER_WARHAMMER, IRON_WARHAMMER);
+            entries.insertAfter(IRON_WARHAMMER, DIAMOND_WARHAMMER);
+            entries.insertAfter(DIAMOND_WARHAMMER, NETHERITE_WARHAMMER);
         });
     }
 }

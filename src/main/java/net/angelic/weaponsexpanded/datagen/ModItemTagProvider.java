@@ -1,6 +1,7 @@
 package net.angelic.weaponsexpanded.datagen;
 
 import net.angelic.weaponsexpanded.item.ModItems;
+import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
@@ -138,6 +139,21 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.IRON_GREATSWORD))
                 .add(key(ModItems.DIAMOND_GREATSWORD))
                 .add(key(ModItems.NETHERITE_GREATSWORD));
+        builder(ModItemTags.CLEAVING_ENCHANTABLE)
+                .add(key(ModItems.WOODEN_HAMMER))
+                .add(key(ModItems.GOLDEN_HAMMER))
+                .add(key(ModItems.STONE_HAMMER))
+                .add(key(ModItems.COPPER_HAMMER))
+                .add(key(ModItems.IRON_HAMMER))
+                .add(key(ModItems.DIAMOND_HAMMER))
+                .add(key(ModItems.NETHERITE_HAMMER))
+                .add(key(ModItems.WOODEN_WARHAMMER))
+                .add(key(ModItems.GOLDEN_WARHAMMER))
+                .add(key(ModItems.STONE_WARHAMMER))
+                .add(key(ModItems.COPPER_WARHAMMER))
+                .add(key(ModItems.IRON_WARHAMMER))
+                .add(key(ModItems.DIAMOND_WARHAMMER))
+                .add(key(ModItems.NETHERITE_WARHAMMER));
         builder(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(key(ModItems.WOODEN_BROADSWORD))
                 .add(key(ModItems.GOLDEN_BROADSWORD))
@@ -234,13 +250,6 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.IRON_HATCHET))
                 .add(key(ModItems.DIAMOND_HATCHET))
                 .add(key(ModItems.NETHERITE_HATCHET))
-                .add(key(ModItems.WOODEN_HAMMER))
-                .add(key(ModItems.GOLDEN_HAMMER))
-                .add(key(ModItems.STONE_HAMMER))
-                .add(key(ModItems.COPPER_HAMMER))
-                .add(key(ModItems.IRON_HAMMER))
-                .add(key(ModItems.DIAMOND_HAMMER))
-                .add(key(ModItems.NETHERITE_HAMMER))
                 .add(key(ModItems.WOODEN_BATTLEAXE))
                 .add(key(ModItems.GOLDEN_BATTLEAXE))
                 .add(key(ModItems.STONE_BATTLEAXE))
@@ -263,6 +272,13 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.IRON_HAMMER))
                 .add(key(ModItems.DIAMOND_HAMMER))
                 .add(key(ModItems.NETHERITE_HAMMER))
+                .add(key(ModItems.WOODEN_WARHAMMER))
+                .add(key(ModItems.GOLDEN_WARHAMMER))
+                .add(key(ModItems.STONE_WARHAMMER))
+                .add(key(ModItems.COPPER_WARHAMMER))
+                .add(key(ModItems.IRON_WARHAMMER))
+                .add(key(ModItems.DIAMOND_WARHAMMER))
+                .add(key(ModItems.NETHERITE_WARHAMMER))
                 .add(key(ModItems.WOODEN_BATTLEAXE))
                 .add(key(ModItems.GOLDEN_BATTLEAXE))
                 .add(key(ModItems.STONE_BATTLEAXE))

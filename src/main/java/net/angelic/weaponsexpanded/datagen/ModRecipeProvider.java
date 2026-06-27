@@ -110,6 +110,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 offerBattleaxeRecipe(ModItems.IRON_BATTLEAXE, ItemTags.IRON_TOOL_MATERIALS);
                 offerBattleaxeRecipe(ModItems.DIAMOND_BATTLEAXE, ItemTags.DIAMOND_TOOL_MATERIALS);
 
+                offerWarhammerRecipe(ModItems.WOODEN_WARHAMMER, ItemTags.WOODEN_TOOL_MATERIALS);
+                offerWarhammerRecipe(ModItems.STONE_WARHAMMER, ItemTags.STONE_TOOL_MATERIALS);
+                offerWarhammerRecipe(ModItems.COPPER_WARHAMMER, ItemTags.COPPER_TOOL_MATERIALS);
+                offerWarhammerRecipe(ModItems.GOLDEN_WARHAMMER, ItemTags.GOLD_TOOL_MATERIALS);
+                offerWarhammerRecipe(ModItems.IRON_WARHAMMER, ItemTags.IRON_TOOL_MATERIALS);
+                offerWarhammerRecipe(ModItems.DIAMOND_WARHAMMER, ItemTags.DIAMOND_TOOL_MATERIALS);
+
                 netheriteSmithing(ModItems.DIAMOND_BROADSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_BROADSWORD);
                 netheriteSmithing(ModItems.DIAMOND_SICKLE, RecipeCategory.COMBAT, ModItems.NETHERITE_SICKLE);
                 netheriteSmithing(ModItems.DIAMOND_SCYTHE, RecipeCategory.COMBAT, ModItems.NETHERITE_SCYTHE);
@@ -119,6 +126,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 netheriteSmithing(ModItems.DIAMOND_HATCHET, RecipeCategory.COMBAT, ModItems.NETHERITE_HATCHET);
                 netheriteSmithing(ModItems.DIAMOND_HAMMER, RecipeCategory.COMBAT, ModItems.NETHERITE_HAMMER);
                 netheriteSmithing(ModItems.DIAMOND_BATTLEAXE, RecipeCategory.COMBAT, ModItems.NETHERITE_BATTLEAXE);
+                netheriteSmithing(ModItems.DIAMOND_WARHAMMER, RecipeCategory.COMBAT, ModItems.NETHERITE_WARHAMMER);
             }
 
             public void offerBroadswordRecipe(Item output, TagKey<Item> input) {
@@ -337,6 +345,30 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 }
             }
 
+            public void offerWarhammerRecipe(Item output, TagKey<Item> input) {
+                if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
+                            .pattern("MMM")
+                            .pattern("MS ")
+                            .pattern(" S ")
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
+                } else {
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
+                            .pattern("MMM")
+                            .pattern("MS ")
+                            .pattern(" S ")
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
+                }
+            }
+
             private void offerSmeltingNuggetRecipes(
                     String materialName,
                     List<Item> inputs,
@@ -430,7 +462,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    public String getName() {
+    public @NonNull String getName() {
         return "WeaponsExpanded Recipes";
     }
 }

@@ -16,13 +16,8 @@ public record FrostbiteEnchantmentEffect() implements EnchantmentEntityEffect {
     @Override
     public void apply(ServerLevel world, int level, EnchantedItemInUse context, Entity user, Vec3 pos) {
         if (user instanceof LivingEntity) {
-            MobEffectInstance frostbiteEffectL1 = new MobEffectInstance(ModEffects.FROSTBITE, 80, 0);
-            MobEffectInstance frostbiteEffectL2 = new MobEffectInstance(ModEffects.FROSTBITE, 120, 0);
-            if (level == 1) {
-                ((LivingEntity) user).addEffect(frostbiteEffectL1);
-            }
-            if (level == 2) {
-                ((LivingEntity) user).addEffect(frostbiteEffectL2);
+            if (level > 0) {
+                ((LivingEntity) user).addEffect(new MobEffectInstance(ModEffects.FROSTBITE, 40 + 40 * level, 0));
             }
         }
     }

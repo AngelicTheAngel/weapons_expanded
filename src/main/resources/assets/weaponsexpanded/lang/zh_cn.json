@@ -62,6 +62,13 @@
   "item.weaponsexpanded.iron_greatsword": "铁巨剑",
   "item.weaponsexpanded.diamond_greatsword": "钻石巨剑",
   "item.weaponsexpanded.netherite_greatsword": "下界合金巨剑",
+  "item.weaponsexpanded.wooden_warhammer": "木制战锤",
+  "item.weaponsexpanded.golden_warhammer": "黄金战锤",
+  "item.weaponsexpanded.stone_warhammer": "石制战锤",
+  "item.weaponsexpanded.copper_warhammer": "铜战锤",
+  "item.weaponsexpanded.iron_warhammer": "铁战锤",
+  "item.weaponsexpanded.diamond_warhammer": "钻石战锤",
+  "item.weaponsexpanded.netherite_warhammer": "深渊合金战锤",
 
   "item.weaponsexpanded.heavy_arrow": "重箭",
   "item.weaponsexpanded.explosive_arrow": "炸药箭",
@@ -78,6 +85,7 @@
   "enchantment.weaponsexpanded.frostbite": "冻伤",
   "enchantment.weaponsexpanded.freeze": "冻结",
   "enchantment.weaponsexpanded.leech": "吸血",
+  "enchantment.weaponsexpanded.cleaving": "劈开",
 
   "effect.weaponsexpanded.frostbite": "冻伤",
 
@@ -90,6 +98,8 @@
 
   "tooltip.weaponsexpanded.twohandedsword": "双手持握",
   "tooltip.weaponsexpanded.chain_crossbow_shots": "装填：%s/%s",
+  "tooltip.weaponsexpanded.warhammer.blunt_side": "钝的",
+  "tooltip.weaponsexpanded.warhammer.sharp_side": "夏普",
 
   "item.modifiers.bothhands": "双手持握时：",
 
@@ -107,5 +117,5 @@
   "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "禁用斧类额外耐久损耗",
 
   "key.category.weaponsexpanded.general": "武器扩展",
-  "key.weaponsexpanded.toggle_bastard_sword_mode": "切换双手持握"
+  "key.weaponsexpanded.toggle_bastard_sword_mode": "切换武器模式"
 }

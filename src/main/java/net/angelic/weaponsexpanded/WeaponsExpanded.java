@@ -7,9 +7,11 @@ import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
+import net.angelic.weaponsexpanded.item.custom.WarhammerItem;
 import net.angelic.weaponsexpanded.network.FireChainCrossbowPayload;
 import net.angelic.weaponsexpanded.network.ModPackets;
 import net.angelic.weaponsexpanded.network.ToggleBastardSwordModePayload;
+import net.angelic.weaponsexpanded.network.ToggleWarhammerModePayload;
 import net.angelic.weaponsexpanded.potion.ModPotions;
 import net.angelic.weaponsexpanded.registries.ModFuels;
 import net.angelic.weaponsexpanded.sound.ModSounds;
@@ -70,6 +72,10 @@ public class WeaponsExpanded implements ModInitializer {
                 context.server().execute(() -> weaponsexpanded$toggleBastardSwordMode(context.player()))
         );
 
+        ServerPlayNetworking.registerGlobalReceiver(ToggleWarhammerModePayload.ID, (payload, context) ->
+                context.server().execute(() -> weaponsexpanded$toggleWarhammerMode(context.player()))
+        );
+
         FabricPotionBrewingBuilder.BUILD.register(builder -> {
             builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(Items.BLUE_ICE), ModPotions.FROSTBITE_POTION);
             builder.registerPotionRecipe(ModPotions.FROSTBITE_POTION, Ingredient.of(Items.REDSTONE), ModPotions.LONG_FROSTBITE_POTION);
@@ -84,6 +90,15 @@ public class WeaponsExpanded implements ModInitializer {
         if (player.getOffhandItem().getItem() instanceof ShieldItem shield) {
             player.getCooldowns().addCooldown(shield.getDefaultInstance(), 20);
         }
+        player.resetAttackStrengthTicker();
+    }
+
+    private static void weaponsexpanded$toggleWarhammerMode(Player player) {
+        ItemStack stack = player.getMainHandItem();
+        if (!(stack.getItem() instanceof WarhammerItem warhammer)) return;
+
+        warhammer.toggleSharpSide(stack);
+        player.resetAttackStrengthTicker();
     }
 
     private static void weaponsexpanded$tryFireChainCrossbow(Player player) {

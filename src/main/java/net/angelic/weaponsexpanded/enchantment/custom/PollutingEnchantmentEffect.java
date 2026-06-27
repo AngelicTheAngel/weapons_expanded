@@ -16,13 +16,8 @@ public record PollutingEnchantmentEffect() implements EnchantmentEntityEffect {
     @Override
     public void apply(ServerLevel world, int level, EnchantedItemInUse context, Entity user, Vec3 pos) {
         if (user instanceof LivingEntity) {
-            MobEffectInstance pollutingEffectL1 = new MobEffectInstance(MobEffects.POISON, 160, 0);
-            MobEffectInstance pollutingEffectL2 = new MobEffectInstance(MobEffects.POISON, 300, 0);
-            if (level == 1) {
-                ((LivingEntity) user).addEffect(pollutingEffectL1);
-            }
-            if (level == 2) {
-                ((LivingEntity) user).addEffect(pollutingEffectL2);
+            if (level > 0) {
+                ((LivingEntity) user).addEffect(new MobEffectInstance(MobEffects.POISON, 20 + 140 * level, 0));
             }
         }
     }

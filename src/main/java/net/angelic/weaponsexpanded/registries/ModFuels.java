@@ -15,6 +15,7 @@ public class ModFuels {
             builder.add(ModItems.WOODEN_HATCHET, 200);
             builder.add(ModItems.WOODEN_HAMMER, 200);
             builder.add(ModItems.WOODEN_BATTLEAXE, 200);
+            builder.add(ModItems.WOODEN_WARHAMMER, 200);
         });
     }
 }
