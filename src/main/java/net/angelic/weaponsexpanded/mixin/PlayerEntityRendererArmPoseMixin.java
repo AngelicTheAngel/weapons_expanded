@@ -1,4 +1,4 @@
-package net.angelic.weaponsexpanded.mixin.chain_crossbow;
+package net.angelic.weaponsexpanded.mixin;
 
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
