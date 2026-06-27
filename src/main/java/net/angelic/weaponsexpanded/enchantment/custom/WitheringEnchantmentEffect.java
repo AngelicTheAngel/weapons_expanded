@@ -16,16 +16,9 @@ public record WitheringEnchantmentEffect() implements EnchantmentEntityEffect {
     @Override
     public void apply(ServerLevel world, int level, EnchantedItemInUse context, Entity user, Vec3 pos) {
         if (user instanceof LivingEntity) {
-            MobEffectInstance witherEffectL1 = new MobEffectInstance(MobEffects.WITHER, 100, 1);
-            MobEffectInstance witherEffectL2 = new MobEffectInstance(MobEffects.WITHER, 160, 1);
-            if (level == 1) {
-                ((LivingEntity) user).addEffect(witherEffectL1);
+            if (level > 0) {
+                ((LivingEntity) user).addEffect(new MobEffectInstance(MobEffects.WITHER, 40 + 60 * level, 1));
                 ((LivingEntity) user).removeEffect(MobEffects.POISON);
-            }
-            if (level == 2) {
-                ((LivingEntity) user).addEffect(witherEffectL2);
-                ((LivingEntity) user).removeEffect(MobEffects.POISON);
-
             }
         }
     }

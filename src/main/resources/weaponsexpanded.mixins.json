@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "AxeDurabilityMixin",
+    "CleavingShieldStunMixin",
     "accessor.CrossbowItemAccessor",
     "accessor.EntityAccessor",
     "accessor.PersistentProjectileEntityAccessor",
@@ -24,7 +25,8 @@
     "heavy_arrow.CrossbowHeavyArrowMultishotMixin",
     "heavy_arrow.HeavyArrowSidePickupVanishMixin",
     "invoker.PersistentProjectileEntityPierceInvoker",
-    "two_handed_sword.TwoHandedSwordMixin"
+    "two_handed_sword.TwoHandedSwordMixin",
+    "warhammer.WarhammerSweepingMixin"
   ],
   "injectors": {
     "defaultRequire": 1

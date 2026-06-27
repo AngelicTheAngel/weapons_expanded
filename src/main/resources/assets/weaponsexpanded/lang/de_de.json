@@ -62,6 +62,13 @@
   "item.weaponsexpanded.iron_greatsword": "Eisernes Großschwert",
   "item.weaponsexpanded.diamond_greatsword": "Diamant Großschwert",
   "item.weaponsexpanded.netherite_greatsword": "Netherit Großschwert",
+  "item.weaponsexpanded.wooden_warhammer": "Hölzerne Warhammer",
+  "item.weaponsexpanded.golden_warhammer": "Goldene Warhammer",
+  "item.weaponsexpanded.stone_warhammer": "Stein Warhammer",
+  "item.weaponsexpanded.copper_warhammer": "Kupfer Warhammer",
+  "item.weaponsexpanded.iron_warhammer": "Eisernes Warhammer",
+  "item.weaponsexpanded.diamond_warhammer": "Diamant Warhammer",
+  "item.weaponsexpanded.netherite_warhammer": "Netherit Warhammer",
 
   "item.weaponsexpanded.heavy_arrow": "Schwerer Pfeil",
   "item.weaponsexpanded.explosive_arrow": "Dynamitpfeil",
@@ -78,6 +85,7 @@
   "enchantment.weaponsexpanded.frostbite": "Erfrierung",
   "enchantment.weaponsexpanded.freeze": "Einfrieren",
   "enchantment.weaponsexpanded.leech": "Blutsauger",
+  "enchantment.weaponsexpanded.cleaving": "Spalten",
 
   "effect.weaponsexpanded.frostbite": "Erfrierung",
 
@@ -90,6 +98,8 @@
 
   "tooltip.weaponsexpanded.twohandedsword": "Zweihändig",
   "tooltip.weaponsexpanded.chain_crossbow_shots": "Rundens: %s/%s",
+  "tooltip.weaponsexpanded.warhammer.blunt_side": "Blunt",
+  "tooltip.weaponsexpanded.warhammer.sharp_side": "Scharf",
 
   "subtitles.weaponsexpanded.item.chain_crossbow.chamber": "Kettenarmbrustkammern",
   "subtitles.weaponsexpanded.item.chain_crossbow.full": "Die Kettenarmbrust ist vollständig geladen",
@@ -107,5 +117,5 @@
   "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "Zusätzlichen Haltbarkeitsschaden für Äxte deaktivieren",
 
   "key.category.weaponsexpanded.general": "Erweiterte Waffen",
-  "key.weaponsexpanded.toggle_bastard_sword_mode": "Zweihand-Kippschalter"
+  "key.weaponsexpanded.toggle_bastard_sword_mode": "Waffenmodus umschalten"
 }
