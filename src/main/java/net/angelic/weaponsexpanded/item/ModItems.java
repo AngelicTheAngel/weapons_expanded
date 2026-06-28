@@ -224,7 +224,7 @@ public class ModItems {
             settings -> new WarhammerItem(ToolMaterial.DIAMOND, 4.0F, -2.9F, 5.0F, -2.7F, "diamond_warhammer", settings));
 
     public static final Item NETHERITE_WARHAMMER = registerItem("netherite_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.NETHERITE, 4.0F, -2.9F, 5.0F, -2.7F, "netherite_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.NETHERITE, 4.0F, -2.9F, 5.0F, -2.7F, "netherite_warhammer", settings.fireproof()));
 
     public static final Item HEAVY_ARROW = registerItem("heavy_arrow",
             settings -> new HeavyArrowItem(settings.maxCount(64)));
