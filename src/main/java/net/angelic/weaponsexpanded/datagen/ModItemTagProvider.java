@@ -255,7 +255,14 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ModItems.COPPER_GREATSWORD)
                 .add(ModItems.IRON_GREATSWORD)
                 .add(ModItems.DIAMOND_GREATSWORD)
-                .add(ModItems.NETHERITE_GREATSWORD);
+                .add(ModItems.NETHERITE_GREATSWORD)
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.COPPER_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER);
         valueLookupBuilder(ItemTags.AXES)
                 .add(ModItems.WOODEN_HATCHET)
                 .add(ModItems.GOLDEN_HATCHET)
