@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "stone_scythe",
+  "key": {
+    "M": "#minecraft:stone_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "MMM",
+    "  S",
+    "  S"
+  ],
+  "result": {
+    "id": "weaponsexpanded:stone_scythe"
+  }
+}

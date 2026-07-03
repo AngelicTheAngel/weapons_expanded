@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "coppernugget",
+  "ingredient": "weaponsexpanded:copper_battleaxe",
+  "result": {
+    "id": "minecraft:copper_nugget"
+  }
+}

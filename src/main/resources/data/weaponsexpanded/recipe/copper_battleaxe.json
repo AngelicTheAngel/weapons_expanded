@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "copper_battleaxe",
+  "key": {
+    "M": "#minecraft:copper_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "MM ",
+    "MSM",
+    " S "
+  ],
+  "result": {
+    "id": "weaponsexpanded:copper_battleaxe"
+  }
+}

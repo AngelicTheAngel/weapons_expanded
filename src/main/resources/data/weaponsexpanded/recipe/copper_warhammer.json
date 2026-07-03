@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "copper_warhammer",
+  "key": {
+    "M": "#minecraft:copper_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "MMM",
+    "MS ",
+    " S "
+  ],
+  "result": {
+    "id": "weaponsexpanded:copper_warhammer"
+  }
+}

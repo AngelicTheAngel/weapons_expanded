@@ -4,15 +4,15 @@
 
 modLoader="javafml"
 loaderVersion="[62,)"
-license="All Rights Reserved"
-#issueTrackerURL="https://github.com/MyOrganization/MyMod/" #optional
+license="MIT"
+issueTrackerURL="https://github.com/AngelicTheAngel/weaponsexpandedforge/issues"
 
 [[mods]]
 modId="weaponsexpanded"
 version="1.9.1"
 displayName="Weapons Expanded"
 displayURL="https://modrinth.com/mod/weaponsexpanded"
-#logoFile="weaponsexpanded.png" #optional
+logoFile="weaponsexpanded.png"
 authors="AngelicThe_Angel"
 #displayTest="MATCH_VERSION" #optional, default=MATCH_VERSION when not clientSideOnly, else IGNORE_ALL_VERSION
 

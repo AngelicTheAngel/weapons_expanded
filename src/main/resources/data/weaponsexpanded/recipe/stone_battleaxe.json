@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "stone_battleaxe",
+  "key": {
+    "M": "#minecraft:stone_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "MM ",
+    "MSM",
+    " S "
+  ],
+  "result": {
+    "id": "weaponsexpanded:stone_battleaxe"
+  }
+}

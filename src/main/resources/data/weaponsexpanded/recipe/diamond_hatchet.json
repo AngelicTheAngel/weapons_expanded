@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "diamond_hatchet",
+  "key": {
+    "M": "#minecraft:diamond_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " M ",
+    "MS ",
+    " S "
+  ],
+  "result": {
+    "id": "weaponsexpanded:diamond_hatchet"
+  }
+}

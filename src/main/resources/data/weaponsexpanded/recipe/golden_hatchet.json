@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "golden_hatchet",
+  "key": {
+    "M": "#minecraft:gold_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " M ",
+    "MS ",
+    " S "
+  ],
+  "result": {
+    "id": "weaponsexpanded:golden_hatchet"
+  }
+}

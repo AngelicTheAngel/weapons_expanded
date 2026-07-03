@@ -9,8 +9,8 @@ plugins {
     id 'net.minecraftforge.gradle' version '[7.0.17,8)'
 }
 
-version = '1.0.0'
-group = 'com.example.examplemod'
+version = '1.9.1'
+group = 'net.angelic.weaponsexpanded'
 
 // Mojang ships Java 25 to end users in 26.1+, so your mod should target Java 25.
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
@@ -24,7 +24,16 @@ minecraft {
             workingDir = layout.projectDirectory.dir('run')
 
             systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
-            systemProperty 'forge.enabledGameTestNamespaces', 'examplemod'
+            systemProperty 'forge.enabledGameTestNamespaces', 'weaponsexpanded'
+
+            // Mixin debug output while porting. These make it much easier to confirm
+            // that your config is loaded and to inspect transformed classes.
+            systemProperty 'mixin.debug.verbose', 'true'
+            systemProperty 'mixin.debug.export', 'true'
+
+            // In Gradle 9, MixinGradle 0.7.x cannot be used.
+            // This loads the mixin config in the dev run instead.
+            args '--mixin', 'weaponsexpanded.mixins.json'
         }
 
         register('client')
@@ -38,7 +47,10 @@ minecraft {
         register('data') {
             workingDir = layout.projectDirectory.dir('run-data')
 
-            args '--mod', 'examplemod', '--all', '--output', layout.projectDirectory.dir('src/generated/resources'), '--existing', layout.projectDirectory.dir('src/main/resources')
+            args '--mod', 'weaponsexpanded',
+                    '--all',
+                    '--output', layout.projectDirectory.dir('src/generated/resources'),
+                    '--existing', layout.projectDirectory.dir('src/main/resources')
         }
     }
 }
@@ -52,11 +64,27 @@ repositories {
 
 dependencies {
     implementation minecraft.dependency('net.minecraftforge:forge:26.1-62.0.9')
+
     annotationProcessor 'net.minecraftforge:eventbus-validator:7.0.1'
 }
 
+jar {
+    manifest {
+        attributes([
+                'Specification-Title'     : 'weaponsexpanded',
+                'Specification-Vendor'    : 'Angelic',
+                'Specification-Version'   : '1',
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.version,
+                'Implementation-Vendor'   : 'Angelic',
+
+                // This is what makes the built mod jar advertise its mixin config.
+                'MixinConfigs'           : 'weaponsexpanded.mixins.json'
+        ])
+    }
+}
+
 tasks.withType(JavaCompile).configureEach {
-    // Use the UTF-8 charset for Java compilation
-    // This is done by default in Java 18+, but this ensures it no matter the Java or Gradle version
+    // Use the UTF-8 charset for Java compilation.
     options.encoding = 'UTF-8'
 }
