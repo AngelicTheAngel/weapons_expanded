@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": {
+    "#weaponsexpanded:wooden_weapons": {
+      "burn_time": 200
+    }
+  }
+}

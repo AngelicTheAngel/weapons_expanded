@@ -1,12 +1,41 @@
 {
   "required": true,
+  "minVersion": "0.8",
   "package": "net.angelic.weaponsexpanded.mixin",
-  "compatibilityLevel": "JAVA_25",
-  "mixins": [],
+  "mixins": [
+    "AxeDurabilityMixin",
+    "CleavingShieldStunMixin",
+    "accessor.CrossbowItemAccessor",
+    "accessor.EntityAccessor",
+    "accessor.PersistentProjectileEntityAccessor",
+    "chain_crossbow.ChainCrossbowFireMixin",
+    "chain_crossbow.ChainCrossbowPullTimeMixin",
+    "enchantment.FrostbiteCleanupMixin",
+    "enchantment.FrostbiteFireMixin",
+    "enchantment.LeechShieldBlockMixin",
+    "enchantment.ProjectileFreezeMixin",
+    "entity_equipment.LivingEntityEquipStackZombieSwapMixin",
+    "entity_equipment.PiglinBruteEquipmentMixin",
+    "entity_equipment.PiglinEquipmentMixin",
+    "entity_equipment.ZombieEquipmentMixin",
+    "entity_equipment.ZombifiedPiglinEquipmentMixin",
+    "explosive_arrow.BowExplosiveArrowBlockMixin",
+    "explosive_arrow.CrossbowExplosiveArrowDurabilityMixin",
+    "explosive_arrow.CrossbowItemExplosiveVisualMixin",
+    "heavy_arrow.CrossbowHeavyArrowMultishotMixin",
+    "heavy_arrow.HeavyArrowSidePickupVanishMixin",
+    "invoker.PersistentProjectileEntityPierceInvoker",
+    "two_handed_sword.TwoHandedSwordMixin",
+    "two_handed_sword.TwoHandedSwordTooltipMixin",
+    "warhammer.WarhammerSweepingMixin"
+  ],
+  "client": [
+    "HeldItemRendererHideOffhandMixin",
+    "LongbowFovMixin",
+    "PlayerEntityRendererArmPoseMixin",
+    "chain_crossbow.MinecraftClientChainCrossbowAttackMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "overwrites": {
-    "requireAnnotations": true
   }
 }

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:stick",
+    "X": "minecraft:feather",
+    "F": "minecraft:flint",
+    "T": "minecraft:tnt",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    "SF ",
+    "T# ",
+    " X "
+  ],
+  "result": {
+    "count": 2,
+    "id": "weaponsexpanded:explosive_arrow"
+  }
+}

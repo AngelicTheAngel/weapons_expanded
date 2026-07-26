@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "wooden_battleaxe",
+  "key": {
+    "M": "#minecraft:wooden_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "MM ",
+    "MSM",
+    " S "
+  ],
+  "result": {
+    "id": "weaponsexpanded:wooden_battleaxe"
+  }
+}

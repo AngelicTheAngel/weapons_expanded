@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_copper_battleaxe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:copper_battleaxe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "weaponsexpanded:smelting/copper_nugget_from_copper_battleaxe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_copper_battleaxe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "weaponsexpanded:smelting/copper_nugget_from_copper_battleaxe"
+    ]
+  }
+}

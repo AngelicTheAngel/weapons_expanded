@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "wooden_hammer",
+  "key": {
+    "M": "#minecraft:wooden_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "MSM",
+    "MSM",
+    " S "
+  ],
+  "result": {
+    "id": "weaponsexpanded:wooden_hammer"
+  }
+}

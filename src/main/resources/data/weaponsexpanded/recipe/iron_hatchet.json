@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "iron_hatchet",
+  "key": {
+    "M": "#minecraft:iron_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " M ",
+    "MS ",
+    " S "
+  ],
+  "result": {
+    "id": "weaponsexpanded:iron_hatchet"
+  }
+}
