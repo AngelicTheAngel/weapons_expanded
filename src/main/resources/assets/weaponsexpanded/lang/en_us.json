@@ -1,0 +1,13 @@
+{
+  "itemGroup.weaponsexpanded": "Example Mod Tab",
+  "block.weaponsexpanded.example_block": "Example Block",
+  "item.weaponsexpanded.example_item": "Example Item",
+
+  "weaponsexpanded.configuration.title": "Weapons Expanded Configs",
+  "weaponsexpanded.configuration.section.weaponsexpanded.common.toml": "Weapons Expanded Configs",
+  "weaponsexpanded.configuration.section.weaponsexpanded.common.toml.title": "Weapons Expanded Configs",
+  "weaponsexpanded.configuration.items": "Item List",
+  "weaponsexpanded.configuration.logDirtBlock": "Log Dirt Block",
+  "weaponsexpanded.configuration.magicNumberIntroduction": "Magic Number Text",
+  "weaponsexpanded.configuration.magicNumber": "Magic Number"
+}
