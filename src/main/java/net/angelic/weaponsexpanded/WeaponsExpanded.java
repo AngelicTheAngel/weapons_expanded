@@ -40,7 +40,7 @@ public final class WeaponsExpanded {
         ModEffects.register(modEventBus);
         ModEnchantmentEffects.register(modEventBus);
         ModPotions.register(modEventBus);
-        ModSounds.register();
+        ModSounds.register(modEventBus);
 
         // Other mod and game event listeners.
         ModPackets.register(modEventBus);
