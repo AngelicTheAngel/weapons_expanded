@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "weaponsexpanded",
+	"version": "${version}",
+	"name": "Weapons Expanded",
+	"description": "This mod adds new weapons, enchantments, effects, advancements, and more.",
+	"authors": [
+		"AngelicThe_Angel"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/weaponsexpanded",
+		"issues": "https://github.com/AngelicTheAngel/weapons_expanded/issues",
+		"sources": "https://github.com/AngelicTheAngel/weapons_expanded"
+	},
+	"license": "MIT",
+	"icon": "assets/weaponsexpanded/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.angelic.weaponsexpanded.WeaponsExpanded"
+		],
+		"client": [
+			"net.angelic.weaponsexpanded.WeaponsExpandedClient"
+		],
+		"fabric-datagen": [
+			"net.angelic.weaponsexpanded.WeaponsExpandedDataGenerator"
+		],
+		"modmenu": [
+			"net.angelic.weaponsexpanded.client.config.WeaponsExpandedModMenu"
+		]
+	},
+	"mixins": [
+		"weaponsexpanded.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
+}
