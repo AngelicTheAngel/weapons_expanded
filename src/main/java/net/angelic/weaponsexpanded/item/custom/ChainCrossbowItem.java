@@ -1,6 +1,7 @@
 package net.angelic.weaponsexpanded.item.custom;
 
 import net.angelic.weaponsexpanded.sound.ModSounds;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.component.type.NbtComponent;
@@ -28,6 +29,7 @@ import java.util.function.Consumer;
 import java.util.List;
 
 import net.angelic.weaponsexpanded.item.ModItems;
+import org.jetbrains.annotations.Nullable;
 
 public class ChainCrossbowItem extends CrossbowItem {
 
@@ -70,8 +72,7 @@ public class ChainCrossbowItem extends CrossbowItem {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent,
-                              Consumer<Text> textConsumer, TooltipType type) {
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         // queued shots (not counting the current chamber)
         int queued = weaponsexpanded$getQueuedChambers(stack);
 
@@ -83,9 +84,9 @@ public class ChainCrossbowItem extends CrossbowItem {
 
         int total = Math.min(WEAPONSEXPANDED$MAX_TOTAL_SHOTS, currentOrSaved + queued);
 
-        textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.chain_crossbow_shots", total, WEAPONSEXPANDED$MAX_TOTAL_SHOTS));
+        tooltip.add(Text.translatable("tooltip.weaponsexpanded.chain_crossbow_shots", total, WEAPONSEXPANDED$MAX_TOTAL_SHOTS));
 
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+        super.appendTooltip(stack, world, tooltip, context);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package net.angelic.weaponsexpanded.item.custom;
 
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -9,15 +11,19 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.Consumer;
 
-public class BastardSwordItem extends Item {
+public class BastardSwordItem extends SwordItem {
 
     private static final String WEAPONSEXPANDED$TWO_HANDED_KEY = "weaponsexpanded:bastard_sword_two_handed";
 
@@ -34,13 +40,13 @@ public class BastardSwordItem extends Item {
 
     public BastardSwordItem(
             ToolMaterial material,
-            float attackDamage,
+            int attackDamage,
             float attackSpeed,
-            float twoHandedAttackDamage,
+            int twoHandedAttackDamage,
             float twoHandedAttackSpeed,
-            Settings settings
+            FabricItemSettings settings
     ) {
-        super(settings.sword(material, attackDamage, attackSpeed));
+        super(material, attackDamage, attackSpeed, settings));
         this.material = material;
 
         this.oneHandedAttackDamage = attackDamage;
@@ -94,11 +100,10 @@ public class BastardSwordItem extends Item {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         if(isTwoHanded(stack)) {
-            textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.twohandedsword").formatted(Formatting.BLUE));
-            super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+            tooltip.add(Text.translatable("tooltip.weaponsexpanded.twohandedsword").formatted(Formatting.BLUE));
+            super.appendTooltip(stack, world, tooltip, context);
         }
     }
 

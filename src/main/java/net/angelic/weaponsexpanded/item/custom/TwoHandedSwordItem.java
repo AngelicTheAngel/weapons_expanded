@@ -1,24 +1,24 @@
 package net.angelic.weaponsexpanded.item.custom;
 
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.item.Item;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Consumer;
+import java.util.List;
 
-public class TwoHandedSwordItem extends Item {
-    public TwoHandedSwordItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
-        super(settings.sword(material, attackDamage, attackSpeed));
+public class TwoHandedSwordItem extends SwordItem {
+    public TwoHandedSwordItem(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
+        super(material, attackDamage, attackSpeed, settings);
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.twohandedsword").formatted(Formatting.BLUE));
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        tooltip.add(Text.translatable("tooltip.weaponsexpanded.twohandedsword").formatted(Formatting.BLUE));
+        super.appendTooltip(stack, world, tooltip, context);
     }
 }

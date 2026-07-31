@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.item.custom;
 
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.*;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -12,7 +13,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class WarhammerItem extends Item {
@@ -113,14 +117,13 @@ public class WarhammerItem extends Item {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         if (isSharpSide(stack)) {
-            textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.warhammer.sharp_side").formatted(Formatting.BLUE));
-            super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+            tooltip.add(Text.translatable("tooltip.weaponsexpanded.warhammer.sharp_side").formatted(Formatting.BLUE));
+            super.appendTooltip(stack, world, tooltip, context);
         } else {
-            textConsumer.accept(Text.translatable("tooltip.weaponsexpanded.warhammer.blunt_side").formatted(Formatting.BLUE));
-            super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+            tooltip.add(Text.translatable("tooltip.weaponsexpanded.warhammer.blunt_side").formatted(Formatting.BLUE));
+            super.appendTooltip(stack, world, tooltip, context);
         }
     }
 
