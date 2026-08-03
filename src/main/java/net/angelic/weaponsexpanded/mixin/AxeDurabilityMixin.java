@@ -1,32 +1,34 @@
 package net.angelic.weaponsexpanded.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.ItemTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ItemStack.class)
-public class AxeDurabilityMixin {
+public abstract class AxeDurabilityMixin {
 
-    @Redirect(
-            method = "postDamageEntity(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/LivingEntity;)V",
+    @ModifyExpressionValue(
+            method = "postDamageEntity("
+                    + "Lnet/minecraft/entity/LivingEntity;"
+                    + "Lnet/minecraft/entity/LivingEntity;)V",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/EquipmentSlot;)V"
-            )
+                    target = "Lnet/minecraft/component/type/WeaponComponent;"
+                            + "itemDamagePerAttack()I"
+            ),
+            require = 1
     )
-    private void weaponsexpanded$axeHitDurabilityCost(ItemStack stack, int amount, LivingEntity entity, EquipmentSlot slot) {
-        // For axes (vanilla + custom items in the AXES tag), force 1 durability per hit.
-        if (WeaponsExpandedConfig.get().disableExtraDurabilityDamageForAxes) {
-            if (stack.isIn(ItemTags.AXES)) {
-                amount = 1;
-            }
+    private int weaponsexpanded$axeHitDurabilityCost(int originalAmount) {
+        ItemStack stack = (ItemStack) (Object) this;
+
+        if (WeaponsExpandedConfig.get().disableExtraDurabilityDamageForAxes
+                && stack.isIn(ItemTags.AXES)) {
+            return 1;
         }
 
-        stack.damage(amount, entity, slot);
+        return originalAmount;
     }
 }

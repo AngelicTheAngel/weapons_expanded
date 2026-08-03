@@ -1,43 +1,36 @@
 package net.angelic.weaponsexpanded.mixin.warhammer;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.angelic.weaponsexpanded.item.custom.WarhammerItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(PlayerEntity.class)
 public abstract class WarhammerSweepingMixin {
 
-    @Invoker("canUseSweepAttack")
-    public abstract boolean weaponsexpanded$callCanUseSweepAttack(
-            boolean cooledDown,
-            boolean criticalHit,
-            boolean sprinting
-    );
-
-    @Redirect(
+    @ModifyExpressionValue(
             method = "attack(Lnet/minecraft/entity/Entity;)V",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/entity/player/PlayerEntity;canUseSweepAttack(ZZZ)Z"
-            )
+                    target = "Lnet/minecraft/entity/player/PlayerEntity;"
+                            + "canUseSweepAttack(ZZZ)Z"
+            ),
+            require = 1
     )
     private boolean weaponsexpanded$disableWarhammerSweepWhenBlunt(
-            PlayerEntity player,
-            boolean cooledDown,
-            boolean criticalHit,
-            boolean sprinting
+            boolean vanillaCanSweep
     ) {
-        ItemStack stack = player.getWeaponStack();
-
-        if (stack.getItem() instanceof WarhammerItem warhammer && !warhammer.isSharpSide(stack)) {
+        if (!vanillaCanSweep) {
             return false;
         }
 
-        return ((WarhammerSweepingMixin) (Object) player)
-                .weaponsexpanded$callCanUseSweepAttack(cooledDown, criticalHit, sprinting);
+        PlayerEntity player = (PlayerEntity) (Object) this;
+        ItemStack weapon = player.getWeaponStack();
+
+        assert weapon != null;
+        return !(weapon.getItem() instanceof WarhammerItem warhammer)
+                || warhammer.isSharpSide(weapon);
     }
 }
