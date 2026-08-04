@@ -96,11 +96,6 @@ public final class ModPackets {
                                 return;
                             }
 
-                            /*
-                             * The client cooldown check improves
-                             * responsiveness, but the server must remain
-                             * authoritative.
-                             */
                             if (player.getItemCooldownManager()
                                     .isCoolingDown(stack.getItem())) {
                                 return;
@@ -115,14 +110,15 @@ public final class ModPackets {
                                             : WEAPONSEXPANDED$ARROW_SPEED;
 
                             /*
-                             * ChainCrossbowFireMixin handles:
-                             *
-                             * - applying the cooldown;
-                             * - loading the next queued chamber;
-                             * - synchronizing the inventory.
-                             *
-                             * Do not manually call loadNextChamber here.
+                             * Vanilla clears the Charged flag before
+                             * calling shootAll(). shootAll() itself only
+                             * clears ChargedProjectiles in 1.20.1.
                              */
+                            CrossbowItem.setCharged(
+                                    stack,
+                                    false
+                            );
+
                             CrossbowItem.shootAll(
                                     player.getWorld(),
                                     player,
