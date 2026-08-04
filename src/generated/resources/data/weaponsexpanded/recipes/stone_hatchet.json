@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "stone_hatchet",
+  "key": {
+    "M": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " M ",
+    "MS ",
+    " S "
+  ],
+  "result": {
+    "item": "weaponsexpanded:stone_hatchet"
+  },
+  "show_notification": true
+}

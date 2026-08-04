@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:story/mine_diamond",
+  "criteria": {
+    "diamond_weapon": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "weaponsexpanded:diamond_weapons"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.weaponsexpanded.diamond_weapon.description"
+    },
+    "icon": {
+      "item": "minecraft:diamond_sword"
+    },
+    "title": {
+      "translate": "advancements.weaponsexpanded.diamond_weapon"
+    }
+  },
+  "requirements": [
+    [
+      "diamond_weapon"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

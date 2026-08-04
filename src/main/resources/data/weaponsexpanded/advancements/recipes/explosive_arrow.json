@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_tnt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:tnt"
+            ]
+          }
+        ]
+      }
+    },
+    "has_flint": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:flint"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "weaponsexpanded:explosive_arrow"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_tnt",
+      "has_flint"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "weaponsexpanded:explosive_arrow"
+    ]
+  }
+}

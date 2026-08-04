@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "golden_warhammer",
+  "key": {
+    "M": {
+      "tag": "weaponsexpanded:gold_tool_materials"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "MMM",
+    "MS ",
+    " S "
+  ],
+  "result": {
+    "item": "weaponsexpanded:golden_warhammer"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,31 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.angelic.weaponsexpanded.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "weaponsexpanded.refmap.json",
+  "mixins": [
+    "AxeDurabilityMixin",
+    "accessor.CrossbowItemAccessor",
+    "chain_crossbow.ChainCrossbowPullTimeMixin",
+    "enchantment.CleavingShieldStunMixin",
+    "enchantment.LeechShieldBlockMixin",
+    "enchantment.ProjectileEntityMixin",
+    "enchantment.ProjectileFreezeMixin",
+    "entity_equipment.PiglinBruteEquipmentMixin",
+    "entity_equipment.PiglinEquipmentMixin",
+    "entity_equipment.ZombieEquipmentMixin",
+    "entity_equipment.ZombifiedPiglinEquipmentMixin",
+    "explosive_arrow.BowExplosiveArrowBlockMixin",
+    "explosive_arrow.CrossbowExplosiveArrowDurabilityMixin",
+    "heavy_arrow.CrossbowHeavyArrowMultishotMixin",
+    "heavy_arrow.HeavyArrowSidePickupVanishMixin",
+    "warhammer.WarhammerSweepingMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "chain_crossbow.HeldItemRendererChainCrossbowMixin"
+  ]
+}
