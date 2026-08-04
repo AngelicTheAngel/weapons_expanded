@@ -4,7 +4,7 @@
   "package": "net.angelic.weaponsexpanded.mixin",
   "mixins": [
     "AxeDurabilityMixin",
-    "CleavingShieldStunMixin",
+    "enchantment.CleavingShieldStunMixin",
     "accessor.CrossbowItemAccessor",
     "accessor.EntityAccessor",
     "accessor.PersistentProjectileEntityAccessor",
