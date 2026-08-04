@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "diamond_greatsword",
+  "key": {
+    "M": {
+      "tag": "weaponsexpanded:diamond_tool_materials"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "  M",
+    "MM ",
+    "SM "
+  ],
+  "result": {
+    "item": "weaponsexpanded:diamond_greatsword"
+  },
+  "show_notification": true
+}

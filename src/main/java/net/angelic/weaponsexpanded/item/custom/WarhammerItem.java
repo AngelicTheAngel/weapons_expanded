@@ -1,27 +1,34 @@
 package net.angelic.weaponsexpanded.item.custom;
 
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.*;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Item;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.function.Consumer;
 
-public class WarhammerItem extends Item {
+public class WarhammerItem extends SwordItem {
+    private static final String SHARP_SIDE_KEY =
+            "weaponsexpanded:warhammer_sharp_side";
 
-    private static final String WEAPONSEXPANDED$SHARP_SIDE_KEY = "weaponsexpanded:warhammer_sharp_side";
+    private static final String ATTRIBUTE_MODIFIERS_KEY =
+            "AttributeModifiers";
+
+    private static final String MODIFIER_NAME =
+            "Weapon modifier";
 
     private final ToolMaterial material;
 
@@ -31,15 +38,14 @@ public class WarhammerItem extends Item {
     private final float sharpSideAttackDamage;
     private final float sharpSideAttackSpeed;
 
-    private final AttributeModifiersComponent weaponsexpanded$bluntSideModifiers;
-    private final AttributeModifiersComponent weaponsexpanded$sharpSideModifiers;
-
-    private final Identifier weaponsexpanded$bluntModel;
-    private final Identifier weaponsexpanded$sharpModel;
-
-    private static Identifier weaponsexpanded$id(String path) {
-        return Identifier.of("weaponsexpanded", path);
-    }
+    /*
+     * These are the default item-level modifiers. ItemStack falls
+     * back to these when it has no custom AttributeModifiers NBT.
+     */
+    private final Multimap<
+            EntityAttribute,
+            EntityAttributeModifier
+            > bluntSideModifiers;
 
     public WarhammerItem(
             ToolMaterial material,
@@ -50,22 +56,16 @@ public class WarhammerItem extends Item {
             String modelName,
             Settings settings
     ) {
-        super(settings
-                .sword(material, attackDamage, attackSpeed)
-                .component(
-                        DataComponentTypes.WEAPON,
-                        new WeaponComponent(1, WeaponComponent.AXE_DISABLE_BLOCKING_FOR_SECONDS)
-                )
-                .component(
-                        DataComponentTypes.ITEM_MODEL,
-                        weaponsexpanded$id(modelName)
-                )
-        );
+        /*
+         * SwordItem gives the warhammer tool durability, repair
+         * behavior, mining behavior, and hit durability loss.
+         *
+         * The zero values are unused because this class overrides
+         * getAttributeModifiers().
+         */
+        super(material, 0, 0.0F, settings);
 
         this.material = material;
-
-        this.weaponsexpanded$bluntModel = weaponsexpanded$id(modelName);
-        this.weaponsexpanded$sharpModel = weaponsexpanded$id(modelName + "_sharp");
 
         this.bluntSideAttackDamage = attackDamage;
         this.bluntSideAttackSpeed = attackSpeed;
@@ -73,58 +73,114 @@ public class WarhammerItem extends Item {
         this.sharpSideAttackDamage = sharpSideAttackDamage;
         this.sharpSideAttackSpeed = sharpSideAttackSpeed;
 
-        this.weaponsexpanded$bluntSideModifiers = AttributeModifiersComponent.builder()
-                .add(
-                        EntityAttributes.ATTACK_DAMAGE,
-                        new EntityAttributeModifier(
-                                Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
-                                (double) material.attackDamageBonus() + (double) attackDamage,
-                                EntityAttributeModifier.Operation.ADD_VALUE
-                        ),
-                        AttributeModifierSlot.MAINHAND
-                )
-                .add(
-                        EntityAttributes.ATTACK_SPEED,
-                        new EntityAttributeModifier(
-                                Item.BASE_ATTACK_SPEED_MODIFIER_ID,
-                                attackSpeed,
-                                EntityAttributeModifier.Operation.ADD_VALUE
-                        ),
-                        AttributeModifierSlot.MAINHAND
-                )
-                .build();
+        this.bluntSideModifiers = createModifiers(
+                attackDamage,
+                attackSpeed
+        );
 
-        this.weaponsexpanded$sharpSideModifiers = AttributeModifiersComponent.builder()
-                .add(
-                        EntityAttributes.ATTACK_DAMAGE,
-                        new EntityAttributeModifier(
-                                Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
-                                (double) material.attackDamageBonus() + (double) sharpSideAttackDamage,
-                                EntityAttributeModifier.Operation.ADD_VALUE
-                        ),
-                        AttributeModifierSlot.MAINHAND
+        /*
+         * modelName is retained in the constructor so existing item
+         * registration calls do not need to change. In 1.20.1, model
+         * switching is handled by a model predicate and model JSON.
+         */
+    }
+
+    private Multimap<
+            EntityAttribute,
+            EntityAttributeModifier
+            > createModifiers(
+            float attackDamage,
+            float attackSpeed
+    ) {
+        ImmutableMultimap.Builder<
+                EntityAttribute,
+                EntityAttributeModifier
+                > builder = ImmutableMultimap.builder();
+
+        builder.put(
+                EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                new EntityAttributeModifier(
+                        ATTACK_DAMAGE_MODIFIER_ID,
+                        MODIFIER_NAME,
+                        material.getAttackDamage() + attackDamage,
+                        EntityAttributeModifier.Operation.ADDITION
                 )
-                .add(
-                        EntityAttributes.ATTACK_SPEED,
-                        new EntityAttributeModifier(
-                                Item.BASE_ATTACK_SPEED_MODIFIER_ID,
-                                sharpSideAttackSpeed,
-                                EntityAttributeModifier.Operation.ADD_VALUE
-                        ),
-                        AttributeModifierSlot.MAINHAND
+        );
+
+        builder.put(
+                EntityAttributes.GENERIC_ATTACK_SPEED,
+                new EntityAttributeModifier(
+                        ATTACK_SPEED_MODIFIER_ID,
+                        MODIFIER_NAME,
+                        attackSpeed,
+                        EntityAttributeModifier.Operation.ADDITION
                 )
-                .build();
+        );
+
+        return builder.build();
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        if (isSharpSide(stack)) {
-            tooltip.add(Text.translatable("tooltip.weaponsexpanded.warhammer.sharp_side").formatted(Formatting.BLUE));
-            super.appendTooltip(stack, world, tooltip, context);
-        } else {
-            tooltip.add(Text.translatable("tooltip.weaponsexpanded.warhammer.blunt_side").formatted(Formatting.BLUE));
-            super.appendTooltip(stack, world, tooltip, context);
+    public Multimap<
+            EntityAttribute,
+            EntityAttributeModifier
+            > getAttributeModifiers(EquipmentSlot slot) {
+        if (slot == EquipmentSlot.MAINHAND) {
+            return bluntSideModifiers;
         }
+
+        return super.getAttributeModifiers(slot);
+    }
+
+    @Override
+    public void appendTooltip(
+            ItemStack stack,
+            @Nullable World world,
+            List<Text> tooltip,
+            TooltipContext context
+    ) {
+        super.appendTooltip(stack, world, tooltip, context);
+
+        if (isSharpSide(stack)) {
+            tooltip.add(
+                    Text.translatable(
+                            "tooltip.weaponsexpanded.warhammer.sharp_side"
+                    ).formatted(Formatting.BLUE)
+            );
+        } else {
+            tooltip.add(
+                    Text.translatable(
+                            "tooltip.weaponsexpanded.warhammer.blunt_side"
+                    ).formatted(Formatting.BLUE)
+            );
+        }
+    }
+
+    @Override
+    public boolean postHit(
+            ItemStack stack,
+            LivingEntity target,
+            LivingEntity attacker
+    ) {
+        /*
+         * The modern WeaponComponent disabled blocking on the blunt
+         * side. In 1.20.1 this behavior must be implemented manually.
+         */
+        if (!isSharpSide(stack)
+                && target instanceof PlayerEntity player
+                && player.isBlocking()) {
+            player.disableShield(true);
+        }
+
+        return super.postHit(stack, target, attacker);
+    }
+
+    public float getBluntSideAttackDamage() {
+        return bluntSideAttackDamage;
+    }
+
+    public float getBluntSideAttackSpeed() {
+        return bluntSideAttackSpeed;
     }
 
     public float getSharpSideAttackDamage() {
@@ -136,68 +192,82 @@ public class WarhammerItem extends Item {
     }
 
     public boolean isSharpSide(ItemStack stack) {
-        NbtComponent custom = stack.get(DataComponentTypes.CUSTOM_DATA);
-        if (custom == null) return false;
-        NbtCompound nbt = custom.copyNbt();
-        return nbt.getBoolean(WEAPONSEXPANDED$SHARP_SIDE_KEY).orElse(false);
+        NbtCompound nbt = stack.getNbt();
+
+        return nbt != null && nbt.getBoolean(SHARP_SIDE_KEY);
     }
 
-    public void setSharpSide(ItemStack stack, boolean sharpSide) {
-        NbtComponent custom = stack.get(DataComponentTypes.CUSTOM_DATA);
-        NbtCompound nbt = (custom != null) ? custom.copyNbt() : new NbtCompound();
+    public void setSharpSide(
+            ItemStack stack,
+            boolean sharpSide
+    ) {
+        /*
+         * Remove the previous stack-specific modifiers.
+         *
+         * In blunt mode, leaving this tag absent makes ItemStack
+         * use getAttributeModifiers(), returning bluntSideModifiers.
+         */
+        stack.removeSubNbt(ATTRIBUTE_MODIFIERS_KEY);
 
         if (sharpSide) {
-            nbt.putBoolean(WEAPONSEXPANDED$SHARP_SIDE_KEY, true);
-        } else {
-            nbt.remove(WEAPONSEXPANDED$SHARP_SIDE_KEY);
-        }
+            stack.getOrCreateNbt().putBoolean(
+                    SHARP_SIDE_KEY,
+                    true
+            );
 
-        if (nbt.isEmpty()) {
-            stack.remove(DataComponentTypes.CUSTOM_DATA);
+            applySharpSideModifiers(stack);
         } else {
-            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
-        }
+            NbtCompound nbt = stack.getNbt();
 
-        // Swap modifiers explicitly, so we always keep weapon stats.
-        stack.set(
-                DataComponentTypes.ATTRIBUTE_MODIFIERS,
-                sharpSide ? this.weaponsexpanded$sharpSideModifiers : this.weaponsexpanded$bluntSideModifiers
+            if (nbt != null) {
+                nbt.remove(SHARP_SIDE_KEY);
+
+                if (nbt.isEmpty()) {
+                    stack.setNbt(null);
+                }
+            }
+        }
+    }
+
+    private void applySharpSideModifiers(ItemStack stack) {
+        double damageModifier =
+                material.getAttackDamage()
+                        + sharpSideAttackDamage;
+
+        stack.addAttributeModifier(
+                EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                new EntityAttributeModifier(
+                        ATTACK_DAMAGE_MODIFIER_ID,
+                        MODIFIER_NAME,
+                        damageModifier,
+                        EntityAttributeModifier.Operation.ADDITION
+                ),
+                EquipmentSlot.MAINHAND
         );
 
-        stack.set(
-                DataComponentTypes.WEAPON,
-                sharpSide
-                        ? new WeaponComponent(1)
-                        : new WeaponComponent(1, WeaponComponent.AXE_DISABLE_BLOCKING_FOR_SECONDS)
-        );
-
-        stack.set(
-                DataComponentTypes.ITEM_MODEL,
-                sharpSide
-                        ? this.weaponsexpanded$sharpModel
-                        : this.weaponsexpanded$bluntModel
+        stack.addAttributeModifier(
+                EntityAttributes.GENERIC_ATTACK_SPEED,
+                new EntityAttributeModifier(
+                        ATTACK_SPEED_MODIFIER_ID,
+                        MODIFIER_NAME,
+                        sharpSideAttackSpeed,
+                        EntityAttributeModifier.Operation.ADDITION
+                ),
+                EquipmentSlot.MAINHAND
         );
     }
 
     public void toggleSharpSide(ItemStack stack) {
-        boolean next = !isSharpSide(stack);
-        setSharpSide(stack, next);
+        setSharpSide(stack, !isSharpSide(stack));
     }
 
-    /**
-     * Matches vanilla tooltip math:
-     * - Attack Damage tooltip shows (1.0 base + damage modifier)
-     * - Damage modifier for weapons is (material bonus + item damage value)
-     */
     public double getSharpSideDisplayedAttackDamage() {
-        return 1.0D + (double) material.attackDamageBonus() + (double) sharpSideAttackDamage;
+        return 1.0D
+                + material.getAttackDamage()
+                + sharpSideAttackDamage;
     }
 
-    /**
-     * Matches vanilla tooltip math:
-     * - Attack Speed tooltip shows (4.0 base + speed modifier)
-     */
     public double getSharpSideDisplayedAttackSpeed() {
-        return 4.0D + (double) sharpSideAttackSpeed;
+        return 4.0D + sharpSideAttackSpeed;
     }
 }

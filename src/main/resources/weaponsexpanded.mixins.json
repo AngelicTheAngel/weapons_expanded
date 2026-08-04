@@ -1,14 +1,49 @@
 {
-	"required": true,
-	"package": "net.angelic.weaponsexpanded.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
-	}
+  "required": true,
+  "package": "net.angelic.weaponsexpanded.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AxeDurabilityMixin",
+    "accessor.CrossbowItemAccessor",
+    "chain_crossbow.ChainCrossbowFireMixin",
+    "chain_crossbow.ChainCrossbowPullTimeMixin",
+    "enchantment.CleavingEnchantingTableMixin",
+    "enchantment.CleavingShieldStunMixin",
+    "enchantment.FrostbiteCleanupMixin",
+    "enchantment.FrostbiteEnchantingTableMixin",
+    "enchantment.FrostbiteFireMixin",
+    "enchantment.LeechEnchantingTableMixin",
+    "enchantment.LeechShieldBlockMixin",
+    "enchantment.PollutingEnchantingTableMixin",
+    "enchantment.ProjectileEntityMixin",
+    "enchantment.ProjectileFreezeMixin",
+    "enchantment.WitheringEnchantingTableMixin",
+    "entity_equipment.LivingEntityEquipStackZombieSwapMixin",
+    "entity_equipment.PiglinBruteEquipmentMixin",
+    "entity_equipment.PiglinEquipmentMixin",
+    "entity_equipment.ZombieEquipmentMixin",
+    "entity_equipment.ZombifiedPiglinEquipmentMixin",
+    "explosive_arrow.BowExplosiveArrowBlockMixin",
+    "explosive_arrow.CrossbowExplosiveArrowDurabilityMixin",
+    "explosive_arrow.CrossbowItemExplosiveVisualMixin",
+    "heavy_arrow.CrossbowHeavyArrowMultishotMixin",
+    "heavy_arrow.HeavyArrowSidePickupVanishMixin",
+    "invoker.PersistentProjectileEntityPierceInvoker",
+    "two_handed_sword.TwoHandedSwordMixin",
+    "two_handed_sword.TwoHandedSwordTooltipMixin",
+    "warhammer.WarhammerSweepingMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  },
+  "client": [
+    "HeldItemRendererHideOffhandMixin",
+    "LongbowFovMixin",
+    "PlayerEntityRendererArmPoseMixin",
+    "chain_crossbow.HeldItemRendererChainCrossbowMixin",
+    "chain_crossbow.MinecraftClientChainCrossbowAttackMixin"
+  ]
 }

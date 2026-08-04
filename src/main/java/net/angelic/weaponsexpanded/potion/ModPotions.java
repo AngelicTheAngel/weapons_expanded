@@ -12,10 +12,10 @@ import net.minecraft.util.Identifier;
 public class ModPotions {
 
     public static final RegistryEntry<Potion> FROSTBITE_POTION = registerPotion("frostbite_potion",
-            new Potion("frostbite", new StatusEffectInstance(ModEffects.FROSTBITE, 600, 0)));
+            new Potion("frostbite", new StatusEffectInstance(ModEffects.FROSTBITE.value(), 600, 0)));
 
     public static final RegistryEntry<Potion> LONG_FROSTBITE_POTION = registerPotion("long_frostbite_potion",
-            new Potion("frostbite", new StatusEffectInstance(ModEffects.FROSTBITE, 1200, 0)));
+            new Potion("frostbite", new StatusEffectInstance(ModEffects.FROSTBITE.value(), 1200, 0)));
 
     private static RegistryEntry<Potion> registerPotion(String name, Potion potion) {
         return Registry.registerReference(Registries.POTION, Identifier.of(WeaponsExpanded.MOD_ID, name), potion);

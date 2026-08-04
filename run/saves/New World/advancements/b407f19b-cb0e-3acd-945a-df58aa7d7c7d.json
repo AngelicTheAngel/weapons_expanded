@@ -1,0 +1,51 @@
+{
+  "weaponsexpanded:diamond_weapon": {
+    "criteria": {
+      "diamond_weapon": "2026-08-03 23:43:48 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2026-08-03 23:43:15 -0400"
+    },
+    "done": true
+  },
+  "minecraft:adventure/root": {
+    "criteria": {
+      "killed_something": "2026-08-03 23:43:34 -0400"
+    },
+    "done": true
+  },
+  "minecraft:adventure/kill_all_mobs": {
+    "criteria": {
+      "minecraft:creeper": "2026-08-03 23:43:34 -0400"
+    },
+    "done": false
+  },
+  "weaponsexpanded:netherite_weapon": {
+    "criteria": {
+      "netherite_weapon": "2026-08-03 23:43:45 -0400"
+    },
+    "done": true
+  },
+  "minecraft:adventure/kill_a_mob": {
+    "criteria": {
+      "minecraft:creeper": "2026-08-03 23:43:34 -0400"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:savanna": "2026-08-03 23:43:16 -0400"
+    },
+    "done": false
+  },
+  "weaponsexpanded:weapons_expanded": {
+    "criteria": {
+      "obtain_netherite_scythe": "2026-08-03 23:43:45 -0400"
+    },
+    "done": false
+  },
+  "DataVersion": 3465
+}

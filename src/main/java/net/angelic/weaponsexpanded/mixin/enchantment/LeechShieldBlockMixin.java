@@ -1,73 +1,107 @@
 package net.angelic.weaponsexpanded.mixin.enchantment;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(LivingEntity.class)
 public abstract class LeechShieldBlockMixin {
 
-    @Redirect(
-            method = "damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z",
+    /*
+     * Your original code used 0.5, meaning 50% extra durability damage,
+     * even though its comment said 25%.
+     *
+     * Change this to 0.25F if 25% was the intended value.
+     */
+    @Unique
+    private static final float WEAPONSEXPANDED$EXTRA_DURABILITY_MULTIPLIER =
+            0.5F;
+
+    @Unique
+    private static final float WEAPONSEXPANDED$HEAL_MULTIPLIER =
+            0.15F;
+
+    @WrapOperation(
+            method = "damage(Lnet/minecraft/entity/damage/DamageSource;F)Z",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/entity/LivingEntity;getDamageBlockedAmount(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)F"
-            )
+                    target = "Lnet/minecraft/entity/LivingEntity;"
+                            + "damageShield(F)V"
+            ),
+            require = 1
     )
-    private float weaponsexpanded$leechAndDisableBlocking(
-            LivingEntity defender, ServerWorld world, DamageSource source, float incomingDamage
+    private void weaponsexpanded$applyLeechShieldEffects(
+            LivingEntity defender,
+            float blockedDamage,
+            Operation<Void> original
     ) {
-        ItemStack blockingItem = defender.getBlockingItem(); // null if not actually blocking
-        int damageBefore = (blockingItem != null && blockingItem.isDamageable()) ? blockingItem.getDamage() : 0;
+        ItemStack blockingItem = defender.getActiveItem();
+        Hand activeHand = defender.getActiveHand();
 
-        float blocked = defender.getDamageBlockedAmount(world, source, incomingDamage);
-        if (blocked <= 0.0F) {
-            return blocked;
+        /*
+         * Read the enchantment before calling vanilla because the shield
+         * could break during the original durability operation.
+         */
+        int leechLevel = blockingItem.isEmpty()
+                ? 0
+                : EnchantmentHelper.getLevel(
+                ModEnchantments.LEECH,
+                blockingItem
+        );
+
+        int damageBefore =
+                blockingItem.isDamageable()
+                        ? blockingItem.getDamage()
+                        : 0;
+
+        /*
+         * Run vanilla shield durability handling first.
+         */
+        original.call(defender, blockedDamage);
+
+        if (leechLevel <= 0 || !blockingItem.isDamageable()) {
+            return;
         }
 
-        // If attacker is using a weapon that disables blocking, only block HALF of this hit
-        // AND do not apply Leech healing / extra durability.
-        Entity attackerEntity = source.getAttacker();
-        if (attackerEntity instanceof LivingEntity attacker) {
-            if (attacker.getWeaponDisableBlockingForSeconds() > 0.0F) {
-                return incomingDamage * 0.75F; // defender takes .75% damage
-            }
+        int damageAfter = blockingItem.getDamage();
+
+        int vanillaDurabilityUsed = Math.max(
+                0,
+                damageAfter - damageBefore
+        );
+
+        if (vanillaDurabilityUsed <= 0) {
+            return;
         }
 
-        // Successful block: if the blocking item has Leech, heal and take 25% more shield durability.
-        if (blockingItem != null) {
-            RegistryEntry.Reference<Enchantment> leechEntry = world.getRegistryManager()
-                    .getOrThrow(RegistryKeys.ENCHANTMENT)
-                    .getOrThrow(ModEnchantments.LEECH);
+        int extraDurabilityDamage = MathHelper.ceil(
+                vanillaDurabilityUsed
+                        * WEAPONSEXPANDED$EXTRA_DURABILITY_MULTIPLIER
+        );
 
-            int lvl = EnchantmentHelper.getLevel(leechEntry, blockingItem);
-            if (lvl > 0) {
-                // Add +25% durability cost compared to what vanilla just consumed for this block.
-                int vanillaUsed = 0;
-                if (blockingItem.isDamageable()) {
-                    vanillaUsed = blockingItem.getDamage() - damageBefore;
-                    if (vanillaUsed > 0) {
-                        int extra = MathHelper.ceil(vanillaUsed * 0.5F);
-                        if (extra > 0) {
-                            blockingItem.damage(extra, defender, defender.getActiveHand().getEquipmentSlot());
-                        }
-                    }
-                }
-                defender.heal(MathHelper.ceil(vanillaUsed * 0.15F));
-            }
+        if (extraDurabilityDamage > 0 && !blockingItem.isEmpty()) {
+            blockingItem.damage(
+                    extraDurabilityDamage,
+                    defender,
+                    entity -> entity.sendToolBreakStatus(activeHand)
+            );
         }
 
-        return blocked;
+        float healing = MathHelper.ceil(
+                vanillaDurabilityUsed
+                        * WEAPONSEXPANDED$HEAL_MULTIPLIER
+        );
+
+        if (healing > 0.0F) {
+            defender.heal(healing);
+        }
     }
 }

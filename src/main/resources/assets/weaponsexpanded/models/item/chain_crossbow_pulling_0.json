@@ -1,0 +1,6 @@
+{
+  "parent": "weaponsexpanded:item/chain_crossbow",
+  "textures": {
+    "layer0": "weaponsexpanded:item/chain_crossbow_pulling_0"
+  }
+}

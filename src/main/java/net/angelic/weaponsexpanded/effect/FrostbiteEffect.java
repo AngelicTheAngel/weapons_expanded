@@ -3,7 +3,6 @@ package net.angelic.weaponsexpanded.effect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.server.world.ServerWorld;
 
 public class FrostbiteEffect extends StatusEffect {
     public FrostbiteEffect(StatusEffectCategory category, int color) {
@@ -11,12 +10,9 @@ public class FrostbiteEffect extends StatusEffect {
     }
 
     @Override
-    public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
-        if (entity.isOnFire()) {
-            return false;
-        } else {
+    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+        if (!entity.isOnFire()) {
             entity.setFrozenTicks(160);
-            return true;
         }
     }
 

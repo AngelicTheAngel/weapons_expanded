@@ -3,41 +3,61 @@ package net.angelic.weaponsexpanded.entity;
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.entity.projectile.ExplosiveArrowEntity;
 import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
-public class ModEntities {
+public final class ModEntities {
 
-    private static final RegistryKey<EntityType<?>> HEAVY_ARROW_KEY =
-            RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(WeaponsExpanded.MOD_ID, "heavy_arrow"));
+    private static final Identifier HEAVY_ARROW_ID =
+            new Identifier(WeaponsExpanded.MOD_ID, "heavy_arrow");
 
-    public static final EntityType<HeavyArrowEntity> HEAVY_ARROW = Registry.register(
-            Registries.ENTITY_TYPE,
-            Identifier.of(WeaponsExpanded.MOD_ID, "heavy_arrow"),
-            EntityType.Builder.<HeavyArrowEntity>create(HeavyArrowEntity::new, SpawnGroup.MISC)
-                    .dimensions(0.5f, 0.5f)
-                    .trackingTickInterval(1)
-                    .maxTrackingRange(64)
-                    .build(HEAVY_ARROW_KEY)
-    );
+    private static final Identifier EXPLOSIVE_ARROW_ID =
+            new Identifier(WeaponsExpanded.MOD_ID, "explosive_arrow");
 
-    private static final RegistryKey<EntityType<?>> EXPLOSIVE_ARROW_KEY =
-            RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(WeaponsExpanded.MOD_ID, "explosive_arrow"));
+    public static final EntityType<HeavyArrowEntity> HEAVY_ARROW =
+            Registry.register(
+                    Registries.ENTITY_TYPE,
+                    HEAVY_ARROW_ID,
+                    FabricEntityTypeBuilder
+                            .<HeavyArrowEntity>create(
+                                    SpawnGroup.MISC,
+                                    HeavyArrowEntity::new
+                            )
+                            .dimensions(EntityDimensions.fixed(0.5F, 0.5F))
+                            .trackRangeBlocks(64)
+                            .trackedUpdateRate(1)
+                            .forceTrackedVelocityUpdates(true)
+                            .build()
+            );
 
-    public static final EntityType<ExplosiveArrowEntity> EXPLOSIVE_ARROW = Registry.register(
-            Registries.ENTITY_TYPE,
-            Identifier.of(WeaponsExpanded.MOD_ID, "explosive_arrow"),
-            EntityType.Builder.<ExplosiveArrowEntity>create(ExplosiveArrowEntity::new, SpawnGroup.MISC)
-                    .dimensions(0.5f, 0.5f)
-                    .trackingTickInterval(1)
-                    .maxTrackingRange(64)
-                    .build(EXPLOSIVE_ARROW_KEY)
-    );
+    public static final EntityType<ExplosiveArrowEntity> EXPLOSIVE_ARROW =
+            Registry.register(
+                    Registries.ENTITY_TYPE,
+                    EXPLOSIVE_ARROW_ID,
+                    FabricEntityTypeBuilder
+                            .<ExplosiveArrowEntity>create(
+                                    SpawnGroup.MISC,
+                                    ExplosiveArrowEntity::new
+                            )
+                            .dimensions(EntityDimensions.fixed(0.5F, 0.5F))
+                            .trackRangeBlocks(64)
+                            .trackedUpdateRate(1)
+                            .forceTrackedVelocityUpdates(true)
+                            .build()
+            );
 
-    public static void registerEntities() {}
+    public static void registerEntities() {
+        WeaponsExpanded.LOGGER.info(
+                "Registering entities for {}",
+                WeaponsExpanded.MOD_ID
+        );
+    }
+
+    private ModEntities() {
+    }
 }

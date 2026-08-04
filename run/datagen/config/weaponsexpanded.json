@@ -1,0 +1,8 @@
+{
+  "enableCustomLootTables": true,
+  "enableEntityMeleeEquipment": true,
+  "enableTrialChamberMeleeEquipment": true,
+  "enableWeaponsmithTrades": true,
+  "altTwoHandedSwordHandling": false,
+  "disableExtraDurabilityDamageForAxes": true
+}

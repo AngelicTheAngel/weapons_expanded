@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "golden_longsword",
+  "key": {
+    "M": {
+      "tag": "weaponsexpanded:gold_tool_materials"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " M ",
+    " M ",
+    "MSM"
+  ],
+  "result": {
+    "item": "weaponsexpanded:golden_longsword"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,39 @@
+{
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2026-08-03 21:16:05 -0400"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:savanna": "2026-08-03 21:16:06 -0400"
+    },
+    "done": false
+  },
+  "weaponsexpanded:recipes/misc/smelting/gold_nugget_from_golden_katana": {
+    "criteria": {
+      "has_golden_katana": "2026-08-03 21:16:57 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/chest": {
+    "criteria": {
+      "has_lots_of_items": "2026-08-03 21:21:31 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/misc/blasting/gold_nugget_from_golden_katana": {
+    "criteria": {
+      "has_golden_katana": "2026-08-03 21:16:57 -0400"
+    },
+    "done": true
+  },
+  "minecraft:adventure/ol_betsy": {
+    "criteria": {
+      "shot_crossbow": "2026-08-03 21:21:41 -0400"
+    },
+    "done": true
+  },
+  "DataVersion": 3465
+}

@@ -1,60 +1,44 @@
 package net.angelic.weaponsexpanded.mixin.explosive_arrow;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.angelic.weaponsexpanded.item.ModItems;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.RangedWeaponItem;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Hand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import java.util.List;
-
-@Mixin(RangedWeaponItem.class)
-public class CrossbowExplosiveArrowDurabilityMixin {
+@Mixin(CrossbowItem.class)
+public abstract class CrossbowExplosiveArrowDurabilityMixin {
 
     @Unique
-    private static final int WEAPONSEXPANDED$DURABILITY_PER_ARROW_FIRED = 4;
+    private static final int WEAPONSEXPANDED$DURABILITY_PER_EXPLOSIVE_ARROW = 4;
 
-    @Redirect(
-            method = "shootAll(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/item/ItemStack;Ljava/util/List;FFZLnet/minecraft/entity/LivingEntity;)V",
+    @ModifyArg(
+            method = "shoot(Lnet/minecraft/world/World;"
+                    + "Lnet/minecraft/entity/LivingEntity;"
+                    + "Lnet/minecraft/util/Hand;"
+                    + "Lnet/minecraft/item/ItemStack;"
+                    + "Lnet/minecraft/item/ItemStack;"
+                    + "FZFFF)V",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/EquipmentSlot;)V"
-            )
+                    target = "Lnet/minecraft/item/ItemStack;"
+                            + "damage(ILnet/minecraft/entity/LivingEntity;"
+                            + "Ljava/util/function/Consumer;)V"
+            ),
+            index = 0,
+            require = 1
     )
-    private void weaponsexpanded$damageWeaponForExplosiveArrows(
-            ItemStack instance,
-            int originalAmount,
-            LivingEntity damageReceiver,
-            EquipmentSlot slot,
-            ServerWorld world,
-            LivingEntity shooter,
-            Hand hand,
-            ItemStack weaponStack,
-            List<ItemStack> projectiles,
-            float speed,
-            float divergence,
-            boolean critical,
-            LivingEntity target
+    private static int weaponsexpanded$getExplosiveArrowDurabilityCost(
+            int vanillaCost,
+            @Local(argsOnly = true, ordinal = 1) ItemStack projectile
     ) {
-        int newAmount = originalAmount;
-
-        if (weaponStack.getItem() instanceof CrossbowItem) {
-            boolean hasExplosive = projectiles.stream()
-                    .anyMatch(s -> !s.isEmpty() && s.getItem() == ModItems.EXPLOSIVE_ARROW);
-
-            if (hasExplosive) {
-                // This redirect is invoked once PER projectile, so set per-arrow cost here.
-                newAmount = WEAPONSEXPANDED$DURABILITY_PER_ARROW_FIRED;
-            }
+        if (projectile.isOf(ModItems.EXPLOSIVE_ARROW)) {
+            return WEAPONSEXPANDED$DURABILITY_PER_EXPLOSIVE_ARROW;
         }
 
-        instance.damage(newAmount, damageReceiver, slot);
+        return vanillaCost;
     }
 }

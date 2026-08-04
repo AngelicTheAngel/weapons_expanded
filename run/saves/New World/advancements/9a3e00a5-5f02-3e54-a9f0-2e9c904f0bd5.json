@@ -1,0 +1,45 @@
+{
+  "weaponsexpanded:recipes/misc/smelting/gold_nugget_from_golden_longsword": {
+    "criteria": {
+      "has_golden_longsword": "2026-08-03 23:10:47 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/gold_nugget_from_smelting": {
+    "criteria": {
+      "has_golden_axe": "2026-08-03 23:10:47 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/misc/blasting/gold_nugget_from_golden_longsword": {
+    "criteria": {
+      "has_golden_longsword": "2026-08-03 23:10:47 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/gold_nugget_from_blasting": {
+    "criteria": {
+      "has_golden_axe": "2026-08-03 23:10:47 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2026-08-03 23:10:47 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/chest": {
+    "criteria": {
+      "has_lots_of_items": "2026-08-03 23:10:47 -0400"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:savanna": "2026-08-03 23:10:49 -0400"
+    },
+    "done": false
+  },
+  "DataVersion": 3465
+}

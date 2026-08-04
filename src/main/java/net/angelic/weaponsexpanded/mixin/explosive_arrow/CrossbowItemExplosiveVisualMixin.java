@@ -1,12 +1,10 @@
 package net.angelic.weaponsexpanded.mixin.explosive_arrow;
 
 import net.angelic.weaponsexpanded.item.ModItems;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ChargedProjectilesComponent;
-import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,15 +14,21 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.List;
-
 @Mixin(CrossbowItem.class)
-public class CrossbowItemExplosiveVisualMixin {
+public abstract class CrossbowItemExplosiveVisualMixin {
 
     @Unique
-    private static final float WEAPONSEXPANDED$CMD_EXPLOSIVE = 1.0F;
+    private static final String WEAPONSEXPANDED$CUSTOM_MODEL_DATA =
+            "CustomModelData";
 
-    @Inject(method = "loadProjectiles", at = @At("RETURN"))
+    @Unique
+    private static final int WEAPONSEXPANDED$CMD_EXPLOSIVE = 1;
+
+    @Inject(
+            method = "loadProjectiles(Lnet/minecraft/entity/LivingEntity;"
+                    + "Lnet/minecraft/item/ItemStack;)Z",
+            at = @At("RETURN")
+    )
     private static void weaponsexpanded$markExplosiveLoaded(
             LivingEntity shooter,
             ItemStack crossbow,
@@ -32,34 +36,49 @@ public class CrossbowItemExplosiveVisualMixin {
     ) {
         if (!cir.getReturnValue()) return;
 
-        ChargedProjectilesComponent charged =
-                crossbow.getOrDefault(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
-
-        boolean hasExplosive = charged.getProjectiles().stream()
-                .anyMatch(s -> !s.isEmpty() && s.getItem() == ModItems.EXPLOSIVE_ARROW);
+        boolean hasExplosive = CrossbowItem.hasProjectile(
+                crossbow,
+                ModItems.EXPLOSIVE_ARROW
+        );
 
         if (hasExplosive) {
-            crossbow.set(
-                    DataComponentTypes.CUSTOM_MODEL_DATA,
-                    new CustomModelDataComponent(List.of(WEAPONSEXPANDED$CMD_EXPLOSIVE), List.of(), List.of(), List.of())
+            crossbow.getOrCreateNbt().putInt(
+                    WEAPONSEXPANDED$CUSTOM_MODEL_DATA,
+                    WEAPONSEXPANDED$CMD_EXPLOSIVE
             );
         } else {
-            crossbow.remove(DataComponentTypes.CUSTOM_MODEL_DATA);
+            weaponsexpanded$removeCustomModelData(crossbow);
         }
     }
 
-    @Inject(method = "shootAll", at = @At("HEAD"))
-    private void weaponsexpanded$clearExplosiveFlagOnFire(
+    @Inject(
+            method = "shootAll(Lnet/minecraft/world/World;"
+                    + "Lnet/minecraft/entity/LivingEntity;"
+                    + "Lnet/minecraft/util/Hand;"
+                    + "Lnet/minecraft/item/ItemStack;FF)V",
+            at = @At("HEAD")
+    )
+    private static void weaponsexpanded$clearExplosiveFlagOnFire(
             World world,
             LivingEntity shooter,
             Hand hand,
-            ItemStack stack,
+            ItemStack crossbow,
             float speed,
             float divergence,
-            LivingEntity target,
             CallbackInfo ci
     ) {
-        // Remove the flag before firing so it doesn't "stick" after the shot.
-        stack.remove(DataComponentTypes.CUSTOM_MODEL_DATA);
+        // Remove the flag before firing so it does not remain after the shot.
+        weaponsexpanded$removeCustomModelData(crossbow);
+    }
+
+    @Unique
+    private static void weaponsexpanded$removeCustomModelData(
+            ItemStack stack
+    ) {
+        NbtCompound nbt = stack.getNbt();
+
+        if (nbt != null) {
+            nbt.remove(WEAPONSEXPANDED$CUSTOM_MODEL_DATA);
+        }
     }
 }

@@ -5,7 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.registry.entry.RegistryEntry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,8 +30,8 @@ public abstract class FrostbiteCleanupMixin {
     }
 
     @Inject(method = "removeStatusEffect", at = @At("HEAD"))
-    private void weaponsexpanded$onRemoveStatusEffect(RegistryEntry<StatusEffect> effect, CallbackInfoReturnable<Boolean> cir) {
-        if (effect == ModEffects.FROSTBITE) {
+    private void weaponsexpanded$onRemoveStatusEffect(StatusEffect effect, CallbackInfoReturnable<Boolean> cir) {
+        if (effect == ModEffects.FROSTBITE.value()) {
             LivingEntity self = (LivingEntity) (Object) this;
             if (weaponsexpanded$shouldClearFrozenTicks(self)) {
                 self.setFrozenTicks(0);
@@ -44,7 +43,7 @@ public abstract class FrostbiteCleanupMixin {
     private void weaponsexpanded$afterTickStatusEffects(CallbackInfo ci) {
         LivingEntity self = (LivingEntity) (Object) this;
 
-        boolean hasFrostbiteNow = self.hasStatusEffect(ModEffects.FROSTBITE);
+        boolean hasFrostbiteNow = self.hasStatusEffect(ModEffects.FROSTBITE.value());
 
         if (weaponsexpanded$hadFrostbiteLastTick && !hasFrostbiteNow) {
             if (weaponsexpanded$shouldClearFrozenTicks(self)) {

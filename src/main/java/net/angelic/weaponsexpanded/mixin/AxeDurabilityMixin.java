@@ -1,32 +1,39 @@
 package net.angelic.weaponsexpanded.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.MiningToolItem;
 import net.minecraft.registry.tag.ItemTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(ItemStack.class)
-public class AxeDurabilityMixin {
+@Mixin(MiningToolItem.class)
+public abstract class AxeDurabilityMixin {
 
-    @Redirect(
-            method = "postDamageEntity(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/LivingEntity;)V",
+    @ModifyArg(
+            method = "postHit(Lnet/minecraft/item/ItemStack;"
+                    + "Lnet/minecraft/entity/LivingEntity;"
+                    + "Lnet/minecraft/entity/LivingEntity;)Z",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/EquipmentSlot;)V"
-            )
+                    target = "Lnet/minecraft/item/ItemStack;"
+                            + "damage(ILnet/minecraft/entity/LivingEntity;"
+                            + "Ljava/util/function/Consumer;)V"
+            ),
+            index = 0,
+            require = 1
     )
-    private void weaponsexpanded$axeHitDurabilityCost(ItemStack stack, int amount, LivingEntity entity, EquipmentSlot slot) {
-        // For axes (vanilla + custom items in the AXES tag), force 1 durability per hit.
-        if (WeaponsExpandedConfig.get().disableExtraDurabilityDamageForAxes) {
-            if (stack.isIn(ItemTags.AXES)) {
-                amount = 1;
-            }
+    private int weaponsexpanded$axeHitDurabilityCost(
+            int originalAmount,
+            @Local(argsOnly = true) ItemStack stack
+    ) {
+        if (WeaponsExpandedConfig.get().disableExtraDurabilityDamageForAxes
+                && stack.isIn(ItemTags.AXES)) {
+            return 1;
         }
 
-        stack.damage(amount, entity, slot);
+        return originalAmount;
     }
 }

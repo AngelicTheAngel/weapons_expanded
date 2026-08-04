@@ -2,8 +2,8 @@ package net.angelic.weaponsexpanded.mixin.entity_equipment;
 
 import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.ModItems;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 import net.minecraft.item.ItemStack;
@@ -15,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Map;
+
 @Mixin(ZombifiedPiglinEntity.class)
 public class ZombifiedPiglinEquipmentMixin {
 
@@ -22,24 +24,36 @@ public class ZombifiedPiglinEquipmentMixin {
             method = "initEquipment(Lnet/minecraft/util/math/random/Random;Lnet/minecraft/world/LocalDifficulty;)V",
             at = @At("TAIL")
     )
-    private void weaponsexpanded$maybeSwapSwordToLongsword(Random random, LocalDifficulty localDifficulty, CallbackInfo ci) {
-        if (WeaponsExpandedConfig.get().enableEntityMeleeEquipment) {
-            ZombifiedPiglinEntity self = (ZombifiedPiglinEntity) (Object) this;
+    private void weaponsexpanded$maybeSwapSwordToLongsword(
+            Random random,
+            LocalDifficulty localDifficulty,
+            CallbackInfo ci
+    ) {
+        if (!WeaponsExpandedConfig.get().enableEntityMeleeEquipment) return;
 
-            ItemStack mainHand = self.getEquippedStack(EquipmentSlot.MAINHAND);
-            if (!mainHand.isOf(Items.GOLDEN_SWORD)) return;
+        ZombifiedPiglinEntity self =
+                (ZombifiedPiglinEntity) (Object) this;
 
-            if (random.nextInt(3) != 0) return;
+        ItemStack mainHand =
+                self.getEquippedStack(EquipmentSlot.MAINHAND);
 
-            ItemStack replacement = new ItemStack(ModItems.GOLDEN_LONGSWORD);
+        // Only replace a golden sword assigned by vanilla.
+        if (!mainHand.isOf(Items.GOLDEN_SWORD)) return;
 
-            ItemEnchantmentsComponent ench =
-                    mainHand.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
-            if (!ench.isEmpty()) {
-                replacement.set(DataComponentTypes.ENCHANTMENTS, ench);
-            }
+        // 1/3 chance to replace it.
+        if (random.nextInt(3) != 0) return;
 
-            self.equipStack(EquipmentSlot.MAINHAND, replacement);
+        ItemStack replacement =
+                new ItemStack(ModItems.GOLDEN_LONGSWORD);
+
+        // Copy the original sword's NBT-backed enchantments.
+        Map<Enchantment, Integer> enchantments =
+                EnchantmentHelper.get(mainHand);
+
+        if (!enchantments.isEmpty()) {
+            EnchantmentHelper.set(enchantments, replacement);
         }
+
+        self.equipStack(EquipmentSlot.MAINHAND, replacement);
     }
 }

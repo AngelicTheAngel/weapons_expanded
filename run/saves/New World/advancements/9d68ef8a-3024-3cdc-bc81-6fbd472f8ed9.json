@@ -1,0 +1,434 @@
+{
+  "minecraft:recipes/combat/iron_sword": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/iron_pickaxe": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/iron_leggings": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/shield": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/hopper": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/iron_katana": {
+    "criteria": {
+      "has_iron_tool_materials": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/iron_hatchet": {
+    "criteria": {
+      "has_iron_tool_materials": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/iron_bars": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/iron_broadsword": {
+    "criteria": {
+      "has_iron_tool_materials": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/diamond_leggings": {
+    "criteria": {
+      "has_diamond": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/iron_hammer": {
+    "criteria": {
+      "has_iron_tool_materials": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/diamond_sickle": {
+    "criteria": {
+      "has_diamond_tool_materials": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/diamond_hatchet": {
+    "criteria": {
+      "has_diamond_tool_materials": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/iron_boots": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/iron_chestplate": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/diamond_greatsword": {
+    "criteria": {
+      "has_diamond_tool_materials": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/lantern": {
+    "criteria": {
+      "has_iron_nugget": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/iron_nugget": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/netherite_scrap_from_blasting": {
+    "criteria": {
+      "has_ancient_debris": "2026-08-03 23:37:47 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/diamond_sword": {
+    "criteria": {
+      "has_diamond": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/jukebox": {
+    "criteria": {
+      "has_diamond": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/bucket": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/iron_sickle": {
+    "criteria": {
+      "has_iron_tool_materials": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/iron_helmet": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/diamond_chestplate": {
+    "criteria": {
+      "has_diamond": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/minecart": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/iron_hoe": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/iron_shovel": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/diamond_helmet": {
+    "criteria": {
+      "has_diamond": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/iron_battleaxe": {
+    "criteria": {
+      "has_iron_tool_materials": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:story/smelt_iron": {
+    "criteria": {
+      "iron": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/chest": {
+    "criteria": {
+      "has_lots_of_items": "2026-08-03 23:37:47 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/shears": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/diamond_battleaxe": {
+    "criteria": {
+      "has_diamond_tool_materials": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/dispenser": {
+    "criteria": {
+      "has_bow": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/diamond_hammer": {
+    "criteria": {
+      "has_diamond_tool_materials": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/trapped_chest": {
+    "criteria": {
+      "has_tripwire_hook": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/heavy_arrow": {
+    "criteria": {
+      "has_iron": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/iron_trapdoor": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/diamond_pickaxe": {
+    "criteria": {
+      "has_diamond": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/netherite_scrap": {
+    "criteria": {
+      "has_ancient_debris": "2026-08-03 23:37:47 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/iron_warhammer": {
+    "criteria": {
+      "has_iron_tool_materials": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/chain": {
+    "criteria": {
+      "has_iron_nugget": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/iron_block": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/iron_axe": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/iron_greatsword": {
+    "criteria": {
+      "has_iron_tool_materials": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/crossbow": {
+    "criteria": {
+      "has_tripwire_hook": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:savanna": "2026-08-03 23:37:24 -0400"
+    },
+    "done": false
+  },
+  "minecraft:recipes/decorations/smithing_table": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/diamond_broadsword": {
+    "criteria": {
+      "has_diamond_tool_materials": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/diamond_block": {
+    "criteria": {
+      "has_diamond": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/diamond_scythe": {
+    "criteria": {
+      "has_diamond_tool_materials": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/diamond_warhammer": {
+    "criteria": {
+      "has_diamond_tool_materials": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:nether/obtain_ancient_debris": {
+    "criteria": {
+      "ancient_debris": "2026-08-03 23:37:47 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/iron_scythe": {
+    "criteria": {
+      "has_iron_tool_materials": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:weapons_expanded": {
+    "criteria": {
+      "obtain_netherite_greatsword": "2026-08-03 23:38:17 -0400",
+      "obtain_netherite_hammer": "2026-08-03 23:38:34 -0400",
+      "obtain_netherite_broadsword": "2026-08-03 23:38:06 -0400",
+      "obtain_netherite_axe": "2026-08-03 23:38:32 -0400",
+      "obtain_netherite_warhammer": "2026-08-03 23:38:30 -0400",
+      "obtain_netherite_scythe": "2026-08-03 23:38:22 -0400",
+      "obtain_netherite_longsword": "2026-08-03 23:38:21 -0400",
+      "obtain_netherite_hatchet": "2026-08-03 23:39:03 -0400",
+      "obtain_netherite_katana": "2026-08-03 23:38:56 -0400",
+      "obtain_netherite_sword": "2026-08-03 23:38:24 -0400",
+      "obtain_netherite_sickle": "2026-08-03 23:38:28 -0400",
+      "obtain_netherite_battleaxe": "2026-08-03 23:38:37 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/diamond_hoe": {
+    "criteria": {
+      "has_diamond": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/diamond_shovel": {
+    "criteria": {
+      "has_diamond": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:story/mine_diamond": {
+    "criteria": {
+      "diamond": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/diamond_axe": {
+    "criteria": {
+      "has_diamond": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "minecraft:story/root": {
+    "criteria": {
+      "crafting_table": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/iron_longsword": {
+    "criteria": {
+      "has_iron_tool_materials": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/iron_door": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/iron_ingot_from_nuggets": {
+    "criteria": {
+      "has_iron_nugget": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/heavy_weighted_pressure_plate": {
+    "criteria": {
+      "has_iron_ingot": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/chain_crossbow": {
+    "criteria": {
+      "has_tripwire_hook": "2026-08-03 23:37:23 -0400"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/diamond_boots": {
+    "criteria": {
+      "has_diamond": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/diamond_longsword": {
+    "criteria": {
+      "has_diamond_tool_materials": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "weaponsexpanded:recipes/combat/diamond_katana": {
+    "criteria": {
+      "has_diamond_tool_materials": "2026-08-03 23:37:41 -0400"
+    },
+    "done": true
+  },
+  "DataVersion": 3465
+}

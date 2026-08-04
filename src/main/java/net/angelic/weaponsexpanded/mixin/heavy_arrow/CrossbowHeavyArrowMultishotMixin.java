@@ -1,42 +1,73 @@
 package net.angelic.weaponsexpanded.mixin.heavy_arrow;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.CrossbowItem;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(CrossbowItem.class)
-public class CrossbowHeavyArrowMultishotMixin {
+public abstract class CrossbowHeavyArrowMultishotMixin {
 
     @Unique
-    private static final String WEAPONSEXPANDED$SIDE_HEAVY_ARROW_TAG = "weaponsexpanded.side_heavy_arrow";
+    private static final String WEAPONSEXPANDED$SIDE_HEAVY_ARROW_TAG =
+            "weaponsexpanded.side_heavy_arrow";
 
-    @Inject(method = "shoot", at = @At("HEAD"))
-    private void weaponsexpanded$multishotPickupRules(LivingEntity shooter, ProjectileEntity projectile, int index, float speed, float divergence, float yaw, @Nullable LivingEntity target, CallbackInfo ci) {
+    @WrapOperation(
+            method = "shoot(Lnet/minecraft/world/World;"
+                    + "Lnet/minecraft/entity/LivingEntity;"
+                    + "Lnet/minecraft/util/Hand;"
+                    + "Lnet/minecraft/item/ItemStack;"
+                    + "Lnet/minecraft/item/ItemStack;"
+                    + "FZFFF)V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/item/CrossbowItem;"
+                            + "createArrow(Lnet/minecraft/world/World;"
+                            + "Lnet/minecraft/entity/LivingEntity;"
+                            + "Lnet/minecraft/item/ItemStack;"
+                            + "Lnet/minecraft/item/ItemStack;)"
+                            + "Lnet/minecraft/entity/projectile/"
+                            + "PersistentProjectileEntity;"
+            ),
+            require = 1
+    )
+    private static PersistentProjectileEntity weaponsexpanded$applyMultishotPickupRules(
+            World world,
+            LivingEntity shooter,
+            ItemStack crossbow,
+            ItemStack projectileStack,
+            Operation<PersistentProjectileEntity> original,
+            @Local(argsOnly = true, ordinal = 3) float simulatedYaw
+    ) {
+        PersistentProjectileEntity projectile =
+                original.call(world, shooter, crossbow, projectileStack);
 
-        if (shooter.getEntityWorld().isClient()) return;
+        // Zero is the center projectile; the side projectiles use ±10 degrees.
+        if (simulatedYaw == 0.0F) {
+            return projectile;
+        }
 
-        // index 0 is the center projectile; side projectiles are 1 and 2
-        if (index == 0) return;
-
-        if (!(projectile instanceof PersistentProjectileEntity persistentProjectile)) return;
-
-        // Mark side heavy arrows so they can vanish on pickup without giving an item
         if (projectile instanceof HeavyArrowEntity) {
-            persistentProjectile.addCommandTag(WEAPONSEXPANDED$SIDE_HEAVY_ARROW_TAG);
+            projectile.addCommandTag(
+                    WEAPONSEXPANDED$SIDE_HEAVY_ARROW_TAG
+            );
         }
 
-        // Only apply to non-creative player shots (matches vanilla intent)
-        if (shooter instanceof PlayerEntity player && !player.getAbilities().creativeMode) {
-            persistentProjectile.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
+        if (shooter instanceof PlayerEntity player
+                && !player.getAbilities().creativeMode) {
+            projectile.pickupType =
+                    PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
         }
+
+        return projectile;
     }
 }

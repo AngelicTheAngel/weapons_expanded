@@ -1,64 +1,48 @@
 package net.angelic.weaponsexpanded.item.custom;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.enchantment.Enchantment;
+import net.angelic.weaponsexpanded.util.ProjectileEnchantmentApplier;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ArrowItem;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-import java.util.Optional;
-
-import net.angelic.weaponsexpanded.util.ProjectileEnchantmentApplier;
-
 public class LongbowItem extends BowItem {
-    // Vanilla bow effectively “full draws” at 20 ticks
-    private static final int FULL_DRAW_TICKS = 32;     // longbow: slower draw
-    private static final float VELOCITY_MULT = 4f;   // vanilla uses 3.0f
+    // Vanilla bows reach full power after 20 ticks.
+    private static final int FULL_DRAW_TICKS = 32;
+
+    // Vanilla bow projectile velocity is 3.0F.
+    private static final float VELOCITY_MULTIPLIER = 4.0F;
 
     public LongbowItem(Settings settings) {
         super(settings);
     }
 
     @Override
-    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        // How long you *can* hold it drawn. This doesn’t define full power,
-        // but it affects client pull animation and how long “using” can last.
+    public int getMaxUseTime(ItemStack stack) {
         return 72000;
     }
 
     private static float getLongbowPullProgress(int useTicks) {
-        float f = (float) useTicks / (float) FULL_DRAW_TICKS;
-        f = (f * f + f * 2.0f) / 3.0f;
-        return Math.min(f, 1.0f);
+        float progress = (float) useTicks / FULL_DRAW_TICKS;
+        progress = (progress * progress + progress * 2.0F) / 3.0F;
+
+        return Math.min(progress, 1.0F);
     }
 
-    private static boolean hasInfinity(ItemStack bowStack, World world) {
-        RegistryKey<Enchantment> infinityKey =
-                RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.ofVanilla("infinity"));
-
-        Optional<RegistryEntry.Reference<Enchantment>> infinityOpt =
-                world.getRegistryManager()
-                        .getOrThrow(RegistryKeys.ENCHANTMENT)
-                        .getOptional(infinityKey);
-
-        if (infinityOpt.isEmpty()) return false;
-
-        RegistryEntry<Enchantment> infinity = infinityOpt.get();
-        return EnchantmentHelper.getLevel(infinity, bowStack) > 0;
+    private static boolean hasInfinity(ItemStack bowStack) {
+        return EnchantmentHelper.getLevel(
+                Enchantments.INFINITY,
+                bowStack
+        ) > 0;
     }
 
     private static boolean isNormalArrow(ItemStack ammo) {
@@ -66,58 +50,133 @@ public class LongbowItem extends BowItem {
     }
 
     @Override
-    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if (!(user instanceof PlayerEntity player)) return false;
+    public void onStoppedUsing(
+            ItemStack stack,
+            World world,
+            LivingEntity user,
+            int remainingUseTicks
+    ) {
+        if (!(user instanceof PlayerEntity player)) {
+            return;
+        }
 
         ItemStack ammo = player.getProjectileType(stack);
 
-        boolean hasInfinity = hasInfinity(stack, world);
+        boolean infinity = hasInfinity(stack);
 
-        // Infinity should only "cover" normal arrows
-        boolean infinityCoversThisShot = hasInfinity && (ammo.isEmpty() || isNormalArrow(ammo));
+        // Infinity only supplies and preserves normal arrows.
+        boolean infinityCoversShot =
+                infinity && (ammo.isEmpty() || isNormalArrow(ammo));
 
-        // Only allow shooting with NO ammo if Infinity is present (and it will shoot a normal arrow)
-        boolean canShootWithoutAmmo = player.getAbilities().creativeMode || infinityCoversThisShot;
+        boolean canShootWithoutAmmo =
+                player.getAbilities().creativeMode
+                        || infinityCoversShot;
 
-        int usedTicks = this.getMaxUseTime(stack, user) - remainingUseTicks;
-        float pull = getLongbowPullProgress(usedTicks);
+        int usedTicks =
+                this.getMaxUseTime(stack) - remainingUseTicks;
 
-        if (pull < 0.1f) return false;
+        float pullProgress =
+                getLongbowPullProgress(usedTicks);
+
+        if (pullProgress < 0.1F) {
+            return;
+        }
 
         if (ammo.isEmpty()) {
-            if (!canShootWithoutAmmo) return false;
+            if (!canShootWithoutAmmo) {
+                return;
+            }
+
             ammo = new ItemStack(Items.ARROW);
         }
 
-        if (!(ammo.getItem() instanceof ArrowItem arrowItem)) return false;
+        if (!(ammo.getItem() instanceof ArrowItem arrowItem)) {
+            return;
+        }
 
-        // Recompute now that ammo is guaranteed non-empty
-        boolean infinityFreeNormalArrow = hasInfinity && isNormalArrow(ammo);
+        boolean infinityFreeNormalArrow =
+                infinity && isNormalArrow(ammo);
 
-        if (!world.isClient()) {
-            PersistentProjectileEntity projectile = arrowItem.createArrow(world, ammo, player, stack);
+        if (!world.isClient) {
+            PersistentProjectileEntity projectile;
+            boolean heavyArrow =
+                    arrowItem instanceof HeavyArrowItem;
 
-            // Apply Freeze/Flame to ANY projectile fired from the longbow
-            ProjectileEnchantmentApplier.applyFreezeAndFlame(world, stack, projectile);
+            if (arrowItem instanceof HeavyArrowItem heavyArrowItem) {
+                /*
+                 * This calls the custom overload that receives the
+                 * firing weapon stack. HeavyArrowItem applies Power
+                 * and Punch itself.
+                 */
+                projectile = heavyArrowItem.createArrow(
+                        world,
+                        ammo,
+                        player,
+                        stack
+                );
+            } else {
+                /*
+                 * Vanilla 1.20.1 ArrowItem only has this
+                 * three-argument method.
+                 */
+                projectile = arrowItem.createArrow(
+                        world,
+                        ammo,
+                        player
+                );
+            }
 
-            // Pickup rules:
-            // - Normal arrow + Infinity: survival cannot pick up (vanilla-ish)
-            // - Other arrows: allow pickup in survival
-            if (!player.getAbilities().creativeMode) {
-                if (infinityFreeNormalArrow) {
-                    projectile.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
-                } else {
-                    projectile.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
-                }
+            if (pullProgress >= 1.0F) {
+                projectile.setCritical(true);
+            }
+
+            /*
+             * HeavyArrowItem applies these itself because it uses a
+             * different base-damage calculation.
+             */
+            if (!heavyArrow) {
+                applyPowerAndPunch(stack, projectile);
+            }
+
+            // Applies the custom Freeze enchantment and vanilla Flame.
+            ProjectileEnchantmentApplier.applyFreezeAndFlame(
+                    world,
+                    stack,
+                    projectile
+            );
+
+            if (player.getAbilities().creativeMode) {
+                projectile.pickupType =
+                        PersistentProjectileEntity
+                                .PickupPermission
+                                .CREATIVE_ONLY;
+            } else if (infinityFreeNormalArrow) {
+                projectile.pickupType =
+                        PersistentProjectileEntity
+                                .PickupPermission
+                                .CREATIVE_ONLY;
+            } else {
+                projectile.pickupType =
+                        PersistentProjectileEntity
+                                .PickupPermission
+                                .ALLOWED;
             }
 
             projectile.setVelocity(
                     player,
                     player.getPitch(),
                     player.getYaw(),
-                    0.0f,
-                    pull * VELOCITY_MULT,
-                    1.0f
+                    0.0F,
+                    pullProgress * VELOCITY_MULTIPLIER,
+                    1.0F
+            );
+
+            stack.damage(
+                    1,
+                    player,
+                    entity -> entity.sendToolBreakStatus(
+                            player.getActiveHand()
+                    )
             );
 
             world.spawnEntity(projectile);
@@ -125,33 +184,61 @@ public class LongbowItem extends BowItem {
 
         world.playSound(
                 null,
-                player.getX(), player.getY(), player.getZ(),
+                player.getX(),
+                player.getY(),
+                player.getZ(),
                 SoundEvents.ENTITY_ARROW_SHOOT,
                 SoundCategory.PLAYERS,
-                1.0f,
-                1.0f / (world.getRandom().nextFloat() * 0.4f + 1.2f) + pull * 0.5f
+                1.0F,
+                1.0F / (
+                        world.getRandom().nextFloat() * 0.4F
+                                + 1.2F
+                ) + pullProgress * 0.5F
         );
 
-        player.incrementStat(Stats.USED.getOrCreateStat(this));
+        player.incrementStat(
+                Stats.USED.getOrCreateStat(this)
+        );
 
-        // Damage bow durability (vanilla behavior). Unbreaking is handled by damage().
-        if (!player.getAbilities().creativeMode) {
-            Hand hand = player.getActiveHand();
-            EquipmentSlot slot = (hand == Hand.MAIN_HAND) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
-            stack.damage(1, player, slot);
-        }
-
-        // Consume ammo:
-        // - Creative: never consume
-        // - Infinity: only prevents consuming normal arrows
-        if (!player.getAbilities().creativeMode && !infinityFreeNormalArrow) {
+        /*
+         * Creative never consumes ammunition.
+         * Infinity only preserves normal arrows.
+         */
+        if (!player.getAbilities().creativeMode
+                && !infinityFreeNormalArrow) {
             ammo.decrement(1);
+
             if (ammo.isEmpty()) {
                 player.getInventory().removeOne(ammo);
             }
         }
+    }
 
-        return true;
+    private static void applyPowerAndPunch(
+            ItemStack weaponStack,
+            PersistentProjectileEntity projectile
+    ) {
+        int powerLevel = EnchantmentHelper.getLevel(
+                Enchantments.POWER,
+                weaponStack
+        );
+
+        if (powerLevel > 0) {
+            projectile.setDamage(
+                    projectile.getDamage()
+                            + powerLevel * 0.5D
+                            + 0.5D
+            );
+        }
+
+        int punchLevel = EnchantmentHelper.getLevel(
+                Enchantments.PUNCH,
+                weaponStack
+        );
+
+        if (punchLevel > 0) {
+            projectile.setPunch(punchLevel);
+        }
     }
 
     public static int getFullDrawTicks() {

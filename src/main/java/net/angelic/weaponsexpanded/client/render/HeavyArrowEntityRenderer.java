@@ -1,21 +1,31 @@
 package net.angelic.weaponsexpanded.client.render;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
-import net.minecraft.client.render.entity.ArrowEntityRenderer;
+import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.state.ArrowEntityRenderState;
+import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.util.Identifier;
 
-public class HeavyArrowEntityRenderer extends ArrowEntityRenderer {
-    private static final Identifier HEAVY_ARROW =
-            Identifier.of(WeaponsExpanded.MOD_ID, "textures/entity/projectiles/heavy_arrow.png");
+@Environment(EnvType.CLIENT)
+public class HeavyArrowEntityRenderer
+        extends ProjectileEntityRenderer<HeavyArrowEntity> {
 
-    public HeavyArrowEntityRenderer(EntityRendererFactory.Context context) {
+    private static final Identifier HEAVY_ARROW_TEXTURE =
+            new Identifier(
+                    WeaponsExpanded.MOD_ID,
+                    "textures/entity/projectiles/heavy_arrow.png"
+            );
+
+    public HeavyArrowEntityRenderer(
+            EntityRendererFactory.Context context
+    ) {
         super(context);
     }
 
     @Override
-    protected Identifier getTexture(ArrowEntityRenderState state) {
-        return HEAVY_ARROW;
+    public Identifier getTexture(HeavyArrowEntity entity) {
+        return HEAVY_ARROW_TEXTURE;
     }
 }

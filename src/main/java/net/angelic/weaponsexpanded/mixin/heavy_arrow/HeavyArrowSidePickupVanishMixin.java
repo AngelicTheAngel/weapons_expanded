@@ -30,7 +30,7 @@ public abstract class HeavyArrowSidePickupVanishMixin {
         if (!markedToVanish) return;
 
         // Only creative players can "vacuum" these arrows
-        if (!player.isInCreativeMode()) {
+        if (!player.getAbilities().creativeMode) {
             cir.setReturnValue(false);
             return;
         }

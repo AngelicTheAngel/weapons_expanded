@@ -1,0 +1,89 @@
+package net.angelic.weaponsexpanded.datagen;
+
+import net.angelic.weaponsexpanded.item.ModItems;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.ItemTags;
+
+import java.util.concurrent.CompletableFuture;
+
+public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
+    public ModItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+        super(output, completableFuture);
+    }
+
+    @Override
+    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        getOrCreateTagBuilder(ItemTags.SWORDS)
+                .add(ModItems.WOODEN_BROADSWORD)
+                .add(ModItems.GOLDEN_BROADSWORD)
+                .add(ModItems.STONE_BROADSWORD)
+                .add(ModItems.IRON_BROADSWORD)
+                .add(ModItems.DIAMOND_BROADSWORD)
+                .add(ModItems.NETHERITE_BROADSWORD)
+                .add(ModItems.WOODEN_SICKLE)
+                .add(ModItems.GOLDEN_SICKLE)
+                .add(ModItems.STONE_SICKLE)
+                .add(ModItems.IRON_SICKLE)
+                .add(ModItems.DIAMOND_SICKLE)
+                .add(ModItems.NETHERITE_SICKLE)
+                .add(ModItems.WOODEN_SCYTHE)
+                .add(ModItems.GOLDEN_SCYTHE)
+                .add(ModItems.STONE_SCYTHE)
+                .add(ModItems.IRON_SCYTHE)
+                .add(ModItems.DIAMOND_SCYTHE)
+                .add(ModItems.NETHERITE_SCYTHE)
+                .add(ModItems.WOODEN_LONGSWORD)
+                .add(ModItems.GOLDEN_LONGSWORD)
+                .add(ModItems.STONE_LONGSWORD)
+                .add(ModItems.IRON_LONGSWORD)
+                .add(ModItems.DIAMOND_LONGSWORD)
+                .add(ModItems.NETHERITE_LONGSWORD)
+                .add(ModItems.WOODEN_KATANA)
+                .add(ModItems.GOLDEN_KATANA)
+                .add(ModItems.STONE_KATANA)
+                .add(ModItems.IRON_KATANA)
+                .add(ModItems.DIAMOND_KATANA)
+                .add(ModItems.NETHERITE_KATANA)
+                .add(ModItems.WOODEN_GREATSWORD)
+                .add(ModItems.GOLDEN_GREATSWORD)
+                .add(ModItems.STONE_GREATSWORD)
+                .add(ModItems.IRON_GREATSWORD)
+                .add(ModItems.DIAMOND_GREATSWORD)
+                .add(ModItems.NETHERITE_GREATSWORD)
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER);
+        getOrCreateTagBuilder(ItemTags.AXES)
+                .add(ModItems.WOODEN_HATCHET)
+                .add(ModItems.GOLDEN_HATCHET)
+                .add(ModItems.STONE_HATCHET)
+                .add(ModItems.IRON_HATCHET)
+                .add(ModItems.DIAMOND_HATCHET)
+                .add(ModItems.NETHERITE_HATCHET)
+                .add(ModItems.WOODEN_BATTLEAXE)
+                .add(ModItems.GOLDEN_BATTLEAXE)
+                .add(ModItems.STONE_BATTLEAXE)
+                .add(ModItems.IRON_BATTLEAXE)
+                .add(ModItems.DIAMOND_BATTLEAXE)
+                .add(ModItems.NETHERITE_BATTLEAXE);
+        getOrCreateTagBuilder(ItemTags.PIGLIN_LOVED)
+                .add(ModItems.GOLDEN_BROADSWORD)
+                .add(ModItems.GOLDEN_SICKLE)
+                .add(ModItems.GOLDEN_SCYTHE)
+                .add(ModItems.GOLDEN_LONGSWORD)
+                .add(ModItems.GOLDEN_KATANA)
+                .add(ModItems.GOLDEN_HATCHET)
+                .add(ModItems.GOLDEN_HAMMER)
+                .add(ModItems.GOLDEN_BATTLEAXE)
+                .add(ModItems.GOLDEN_GREATSWORD)
+                .add(ModItems.GOLDEN_WARHAMMER);
+        getOrCreateTagBuilder(ItemTags.ARROWS)
+                .add(ModItems.HEAVY_ARROW)
+                .add(ModItems.EXPLOSIVE_ARROW);
+    }
+}

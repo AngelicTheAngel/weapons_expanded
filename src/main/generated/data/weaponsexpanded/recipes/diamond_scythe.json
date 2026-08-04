@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "diamond_scythe",
+  "key": {
+    "M": {
+      "tag": "weaponsexpanded:diamond_tool_materials"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "MMM",
+    "  S",
+    "  S"
+  ],
+  "result": {
+    "item": "weaponsexpanded:diamond_scythe"
+  },
+  "show_notification": true
+}

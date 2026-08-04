@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "ironnugget",
+  "ingredient": {
+    "item": "weaponsexpanded:iron_scythe"
+  },
+  "result": "minecraft:iron_nugget"
+}

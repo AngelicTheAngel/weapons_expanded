@@ -1,6 +1,7 @@
 package net.angelic.weaponsexpanded.datagen;
 
 import net.angelic.weaponsexpanded.item.ModItems;
+import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
@@ -20,7 +21,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     private Consumer<RecipeJsonProvider> recipeExporter;
 
-    public ModRecipeProvider(FabricDataOutput output, Consumer<RecipeJsonProvider> exporter) {
+    public ModRecipeProvider(FabricDataOutput output) {
         super(output);
     }
             public void offerBroadswordRecipe(Item output, TagKey<Item> input) {
@@ -32,7 +33,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern(" M ")
                             .pattern("S  ")
                             .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
+                            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                             .offerTo(this.recipeExporter);
                 } else {
                     new ShapedRecipeJsonBuilder(RecipeCategory.COMBAT, output, 1)
@@ -42,7 +43,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern(" M ")
                             .pattern("S  ")
                             .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
+                            .criterion("has_" + input.id().getPath(), conditionsFromTag(input))
                             .offerTo(this.recipeExporter);
                 }
             }
@@ -56,7 +57,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("  M")
                             .pattern(" S ")
                             .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
+                            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                             .offerTo(this.recipeExporter);
                 } else {
                     new ShapedRecipeJsonBuilder(RecipeCategory.COMBAT, output, 1)
@@ -66,7 +67,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("  M")
                             .pattern(" S ")
                             .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
+                            .criterion("has_" + input.id().getPath(), conditionsFromTag(input))
                             .offerTo(this.recipeExporter);
                 }
             }
@@ -80,7 +81,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("  S")
                             .pattern("  S")
                             .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
+                            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                             .offerTo(this.recipeExporter);
                 } else {
                     new ShapedRecipeJsonBuilder(RecipeCategory.COMBAT, output, 1)
@@ -90,7 +91,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("  S")
                             .pattern("  S")
                             .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
+                            .criterion("has_" + input.id().getPath(), conditionsFromTag(input))
                             .offerTo(this.recipeExporter);
                 }
             }
@@ -104,7 +105,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern(" M ")
                             .pattern("MSM")
                             .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
+                            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                             .offerTo(this.recipeExporter);
                 } else {
                     new ShapedRecipeJsonBuilder(RecipeCategory.COMBAT, output, 1)
@@ -114,7 +115,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern(" M ")
                             .pattern("MSM")
                             .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
+                            .criterion("has_" + input.id().getPath(), conditionsFromTag(input))
                             .offerTo(this.recipeExporter);
                 }
             }
@@ -128,7 +129,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern(" M ")
                             .pattern(" S ")
                             .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
+                            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                             .offerTo(this.recipeExporter);
                 } else {
                     new ShapedRecipeJsonBuilder(RecipeCategory.COMBAT, output, 1)
@@ -138,7 +139,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern(" M ")
                             .pattern(" S ")
                             .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
+                            .criterion("has_" + input.id().getPath(), conditionsFromTag(input))
                             .offerTo(this.recipeExporter);
                 }
             }
@@ -152,7 +153,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("MM ")
                             .pattern("SM ")
                             .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
+                            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                             .offerTo(this.recipeExporter);
                 } else {
                     new ShapedRecipeJsonBuilder(RecipeCategory.COMBAT, output, 1)
@@ -162,7 +163,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("MM ")
                             .pattern("SM ")
                             .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
+                            .criterion("has_" + input.id().getPath(), conditionsFromTag(input))
                             .offerTo(this.recipeExporter);
                 }
             }
@@ -176,7 +177,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("MS ")
                             .pattern(" S ")
                             .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
+                            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                             .offerTo(this.recipeExporter);
                 } else {
                     new ShapedRecipeJsonBuilder(RecipeCategory.COMBAT, output, 1)
@@ -186,7 +187,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("MS ")
                             .pattern(" S ")
                             .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
+                            .criterion("has_" + input.id().getPath(), conditionsFromTag(input))
                             .offerTo(this.recipeExporter);
                 }
             }
@@ -200,7 +201,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("MSM")
                             .pattern(" S ")
                             .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
+                            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                             .offerTo(this.recipeExporter);
                 } else {
                     new ShapedRecipeJsonBuilder(RecipeCategory.COMBAT, output, 1)
@@ -210,7 +211,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("MSM")
                             .pattern(" S ")
                             .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
+                            .criterion("has_" + input.id().getPath(), conditionsFromTag(input))
                             .offerTo(this.recipeExporter);
                 }
             }
@@ -224,7 +225,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("MSM")
                             .pattern(" S ")
                             .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
+                            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                             .offerTo(this.recipeExporter);
                 } else {
                     new ShapedRecipeJsonBuilder(RecipeCategory.COMBAT, output, 1)
@@ -234,7 +235,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("MSM")
                             .pattern(" S ")
                             .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
+                            .criterion("has_" + input.id().getPath(), conditionsFromTag(input))
                             .offerTo(this.recipeExporter);
                 }
             }
@@ -248,7 +249,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("MS ")
                             .pattern(" S ")
                             .group(getItemPath(output))
-                            .criterion(hasItem(Items.STICK), this.conditionsFromItem(Items.STICK))
+                            .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
                             .offerTo(this.recipeExporter);
                 } else {
                     new ShapedRecipeJsonBuilder(RecipeCategory.COMBAT, output, 1)
@@ -258,7 +259,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("MS ")
                             .pattern(" S ")
                             .group(getItemPath(output))
-                            .criterion("has_" + input.id().getPath(), this.conditionsFromTag(input))
+                            .criterion("has_" + input.id().getPath(), conditionsFromTag(input))
                             .offerTo(this.recipeExporter);
                 }
             }
@@ -360,63 +361,63 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         offerBroadswordRecipe(ModItems.WOODEN_BROADSWORD, ItemTags.PLANKS);
         offerBroadswordRecipe(ModItems.STONE_BROADSWORD, ItemTags.STONE_TOOL_MATERIALS);
-        offerBroadswordRecipe(ModItems.GOLDEN_BROADSWORD, Items.GOLD_INGOT);
-        offerBroadswordRecipe(ModItems.IRON_BROADSWORD, Items.IRON_TOOL_MATERIALS);
-        offerBroadswordRecipe(ModItems.DIAMOND_BROADSWORD, Items.DIAMOND_TOOL_MATERIALS);
+        offerBroadswordRecipe(ModItems.GOLDEN_BROADSWORD, ModItemTags.GOLD_TOOL_MATERIALS);
+        offerBroadswordRecipe(ModItems.IRON_BROADSWORD, ModItemTags.IRON_TOOL_MATERIALS);
+        offerBroadswordRecipe(ModItems.DIAMOND_BROADSWORD, ModItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerSickleRecipe(ModItems.WOODEN_SICKLE, ItemTags.PLANKS);
         offerSickleRecipe(ModItems.STONE_SICKLE, ItemTags.STONE_TOOL_MATERIALS);
-        offerSickleRecipe(ModItems.GOLDEN_SICKLE, ItemTags.GOLD_TOOL_MATERIALS);
-        offerSickleRecipe(ModItems.IRON_SICKLE, ItemTags.IRON_TOOL_MATERIALS);
-        offerSickleRecipe(ModItems.DIAMOND_SICKLE, ItemTags.DIAMOND_TOOL_MATERIALS);
+        offerSickleRecipe(ModItems.GOLDEN_SICKLE, ModItemTags.GOLD_TOOL_MATERIALS);
+        offerSickleRecipe(ModItems.IRON_SICKLE, ModItemTags.IRON_TOOL_MATERIALS);
+        offerSickleRecipe(ModItems.DIAMOND_SICKLE, ModItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerScytheRecipe(ModItems.WOODEN_SCYTHE, ItemTags.PLANKS);
         offerScytheRecipe(ModItems.STONE_SCYTHE, ItemTags.STONE_TOOL_MATERIALS);
-        offerScytheRecipe(ModItems.GOLDEN_SCYTHE, ItemTags.GOLD_TOOL_MATERIALS);
-        offerScytheRecipe(ModItems.IRON_SCYTHE, ItemTags.IRON_TOOL_MATERIALS);
-        offerScytheRecipe(ModItems.DIAMOND_SCYTHE, ItemTags.DIAMOND_TOOL_MATERIALS);
+        offerScytheRecipe(ModItems.GOLDEN_SCYTHE, ModItemTags.GOLD_TOOL_MATERIALS);
+        offerScytheRecipe(ModItems.IRON_SCYTHE, ModItemTags.IRON_TOOL_MATERIALS);
+        offerScytheRecipe(ModItems.DIAMOND_SCYTHE, ModItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerLongswordRecipe(ModItems.WOODEN_LONGSWORD, ItemTags.PLANKS);
         offerLongswordRecipe(ModItems.STONE_LONGSWORD, ItemTags.STONE_TOOL_MATERIALS);
-        offerLongswordRecipe(ModItems.GOLDEN_LONGSWORD, ItemTags.GOLD_TOOL_MATERIALS);
-        offerLongswordRecipe(ModItems.IRON_LONGSWORD, ItemTags.IRON_TOOL_MATERIALS);
-        offerLongswordRecipe(ModItems.DIAMOND_LONGSWORD, ItemTags.DIAMOND_TOOL_MATERIALS);
+        offerLongswordRecipe(ModItems.GOLDEN_LONGSWORD, ModItemTags.GOLD_TOOL_MATERIALS);
+        offerLongswordRecipe(ModItems.IRON_LONGSWORD, ModItemTags.IRON_TOOL_MATERIALS);
+        offerLongswordRecipe(ModItems.DIAMOND_LONGSWORD, ModItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerKatanaRecipe(ModItems.WOODEN_KATANA, ItemTags.PLANKS);
         offerKatanaRecipe(ModItems.STONE_KATANA, ItemTags.STONE_TOOL_MATERIALS);
-        offerKatanaRecipe(ModItems.GOLDEN_KATANA, ItemTags.GOLD_TOOL_MATERIALS);
-        offerKatanaRecipe(ModItems.IRON_KATANA, ItemTags.IRON_TOOL_MATERIALS);
-        offerKatanaRecipe(ModItems.DIAMOND_KATANA, ItemTags.DIAMOND_TOOL_MATERIALS);
+        offerKatanaRecipe(ModItems.GOLDEN_KATANA, ModItemTags.GOLD_TOOL_MATERIALS);
+        offerKatanaRecipe(ModItems.IRON_KATANA, ModItemTags.IRON_TOOL_MATERIALS);
+        offerKatanaRecipe(ModItems.DIAMOND_KATANA, ModItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerGreatswordRecipe(ModItems.WOODEN_GREATSWORD, ItemTags.PLANKS);
         offerGreatswordRecipe(ModItems.STONE_GREATSWORD, ItemTags.STONE_TOOL_MATERIALS);
-        offerGreatswordRecipe(ModItems.GOLDEN_GREATSWORD, ItemTags.GOLD_TOOL_MATERIALS);
-        offerGreatswordRecipe(ModItems.IRON_GREATSWORD, ItemTags.IRON_TOOL_MATERIALS);
-        offerGreatswordRecipe(ModItems.DIAMOND_GREATSWORD, ItemTags.DIAMOND_TOOL_MATERIALS);
+        offerGreatswordRecipe(ModItems.GOLDEN_GREATSWORD, ModItemTags.GOLD_TOOL_MATERIALS);
+        offerGreatswordRecipe(ModItems.IRON_GREATSWORD, ModItemTags.IRON_TOOL_MATERIALS);
+        offerGreatswordRecipe(ModItems.DIAMOND_GREATSWORD, ModItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerHatchetRecipe(ModItems.WOODEN_HATCHET, ItemTags.PLANKS);
         offerHatchetRecipe(ModItems.STONE_HATCHET, ItemTags.STONE_TOOL_MATERIALS);
-        offerHatchetRecipe(ModItems.GOLDEN_HATCHET, ItemTags.GOLD_TOOL_MATERIALS);
-        offerHatchetRecipe(ModItems.IRON_HATCHET, ItemTags.IRON_TOOL_MATERIALS);
-        offerHatchetRecipe(ModItems.DIAMOND_HATCHET, ItemTags.DIAMOND_TOOL_MATERIALS);
+        offerHatchetRecipe(ModItems.GOLDEN_HATCHET, ModItemTags.GOLD_TOOL_MATERIALS);
+        offerHatchetRecipe(ModItems.IRON_HATCHET, ModItemTags.IRON_TOOL_MATERIALS);
+        offerHatchetRecipe(ModItems.DIAMOND_HATCHET, ModItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerHammerRecipe(ModItems.WOODEN_HAMMER, ItemTags.PLANKS);
         offerHammerRecipe(ModItems.STONE_HAMMER, ItemTags.STONE_TOOL_MATERIALS);
-        offerHammerRecipe(ModItems.GOLDEN_HAMMER, ItemTags.GOLD_TOOL_MATERIALS);
-        offerHammerRecipe(ModItems.IRON_HAMMER, ItemTags.IRON_TOOL_MATERIALS);
-        offerHammerRecipe(ModItems.DIAMOND_HAMMER, ItemTags.DIAMOND_TOOL_MATERIALS);
+        offerHammerRecipe(ModItems.GOLDEN_HAMMER, ModItemTags.GOLD_TOOL_MATERIALS);
+        offerHammerRecipe(ModItems.IRON_HAMMER, ModItemTags.IRON_TOOL_MATERIALS);
+        offerHammerRecipe(ModItems.DIAMOND_HAMMER, ModItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerBattleaxeRecipe(ModItems.WOODEN_BATTLEAXE, ItemTags.PLANKS);
         offerBattleaxeRecipe(ModItems.STONE_BATTLEAXE, ItemTags.STONE_TOOL_MATERIALS);
-        offerBattleaxeRecipe(ModItems.GOLDEN_BATTLEAXE, ItemTags.GOLD_TOOL_MATERIALS);
-        offerBattleaxeRecipe(ModItems.IRON_BATTLEAXE, ItemTags.IRON_TOOL_MATERIALS);
-        offerBattleaxeRecipe(ModItems.DIAMOND_BATTLEAXE, ItemTags.DIAMOND_TOOL_MATERIALS);
+        offerBattleaxeRecipe(ModItems.GOLDEN_BATTLEAXE, ModItemTags.GOLD_TOOL_MATERIALS);
+        offerBattleaxeRecipe(ModItems.IRON_BATTLEAXE, ModItemTags.IRON_TOOL_MATERIALS);
+        offerBattleaxeRecipe(ModItems.DIAMOND_BATTLEAXE, ModItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerWarhammerRecipe(ModItems.WOODEN_WARHAMMER, ItemTags.PLANKS);
         offerWarhammerRecipe(ModItems.STONE_WARHAMMER, ItemTags.STONE_TOOL_MATERIALS);
-        offerWarhammerRecipe(ModItems.GOLDEN_WARHAMMER, ItemTags.GOLD_TOOL_MATERIALS);
-        offerWarhammerRecipe(ModItems.IRON_WARHAMMER, ItemTags.IRON_TOOL_MATERIALS);
-        offerWarhammerRecipe(ModItems.DIAMOND_WARHAMMER, ItemTags.DIAMOND_TOOL_MATERIALS);
+        offerWarhammerRecipe(ModItems.GOLDEN_WARHAMMER, ModItemTags.GOLD_TOOL_MATERIALS);
+        offerWarhammerRecipe(ModItems.IRON_WARHAMMER, ModItemTags.IRON_TOOL_MATERIALS);
+        offerWarhammerRecipe(ModItems.DIAMOND_WARHAMMER, ModItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_BROADSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_BROADSWORD);
         offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_SICKLE, RecipeCategory.COMBAT, ModItems.NETHERITE_SICKLE);

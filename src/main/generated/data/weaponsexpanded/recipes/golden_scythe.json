@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "golden_scythe",
+  "key": {
+    "M": {
+      "tag": "weaponsexpanded:gold_tool_materials"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "MMM",
+    "  S",
+    "  S"
+  ],
+  "result": {
+    "item": "weaponsexpanded:golden_scythe"
+  },
+  "show_notification": true
+}

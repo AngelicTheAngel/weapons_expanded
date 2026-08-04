@@ -4,7 +4,7 @@ import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.CrossbowItem;
@@ -18,52 +18,51 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(HeldItemRenderer.class)
 public abstract class HeldItemRendererHideOffhandMixin {
 
-    @Inject(method = "renderFirstPersonItem", at = @At("HEAD"), cancellable = true)
+    @Inject(
+            method = "renderFirstPersonItem",
+            at = @At("HEAD"),
+            cancellable = true
+    )
     private void weaponsexpanded$hideOffhandForCertainMainhandItems(
             AbstractClientPlayerEntity player,
-            float tickProgress,
+            float tickDelta,
             float pitch,
             Hand hand,
             float swingProgress,
             ItemStack item,
             float equipProgress,
             MatrixStack matrices,
-            OrderedRenderCommandQueue orderedRenderCommandQueue,
+            VertexConsumerProvider vertexConsumers,
             int light,
             CallbackInfo ci
     ) {
         if (hand != Hand.OFF_HAND) return;
 
-        ItemStack main = player.getMainHandStack();
+        ItemStack mainHandStack = player.getMainHandStack();
 
-        boolean isTwoHandedSword =
-                main.getItem() instanceof TwoHandedSwordItem;
-
-        if (isTwoHandedSword) {
+        if (mainHandStack.getItem() instanceof TwoHandedSwordItem) {
             ci.cancel();
             return;
         }
 
-        boolean isTwoHandedBastardSword = false;
-
-        if (main.getItem() instanceof BastardSwordItem bastardSword) {
-            isTwoHandedBastardSword = bastardSword.isTwoHanded(main);
-        } else {
-            isTwoHandedBastardSword = false;
-        }
-
-        if (isTwoHandedBastardSword) {
+        if (mainHandStack.getItem() instanceof BastardSwordItem bastardSword
+                && bastardSword.isTwoHanded(mainHandStack)) {
             ci.cancel();
             return;
         }
 
-        boolean isChainCrossbow = main.getItem() instanceof ChainCrossbowItem;
-        if (!isChainCrossbow) return;
+        if (!(mainHandStack.getItem() instanceof ChainCrossbowItem)) {
+            return;
+        }
 
-        boolean mainIsCharged = CrossbowItem.isCharged(main);
-        boolean mainIsBeingUsed = player.isUsingItem() && player.getActiveHand() == Hand.MAIN_HAND;
+        boolean mainHandCharged =
+                CrossbowItem.isCharged(mainHandStack);
 
-        if (mainIsCharged || mainIsBeingUsed) {
+        boolean usingMainHand =
+                player.isUsingItem()
+                        && player.getActiveHand() == Hand.MAIN_HAND;
+
+        if (mainHandCharged || usingMainHand) {
             ci.cancel();
         }
     }

@@ -7,11 +7,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
-
-import java.util.function.Function;
 
 import static net.minecraft.item.Items.*;
 
@@ -36,22 +32,22 @@ public class ModItems {
             new SwordItem(ToolMaterials.NETHERITE, 2, -2.2F, new FabricItemSettings().fireproof()));
 
     public static final Item WOODEN_SICKLE = registerItem("wooden_sickle",
-            new SwordItem(ToolMaterials.WOOD, (int) 2.5F, -2.3F, new FabricItemSettings()));
+            new SickleItem(ToolMaterials.WOOD, 2.5F, -2.3F, new FabricItemSettings()));
 
     public static final Item GOLDEN_SICKLE = registerItem("golden_sickle",
-            new SwordItem(ToolMaterials.GOLD, (int) 2.5F, -2.3F, new FabricItemSettings()));
+            new SickleItem(ToolMaterials.GOLD, 2.5F, -2.3F, new FabricItemSettings()));
 
     public static final Item STONE_SICKLE = registerItem("stone_sickle",
-            new SwordItem(ToolMaterials.STONE, (int) 2.5F, -2.3F, new FabricItemSettings()));
+            new SickleItem(ToolMaterials.STONE, 2.5F, -2.3F, new FabricItemSettings()));
 
     public static final Item IRON_SICKLE = registerItem("iron_sickle",
-            new SwordItem(ToolMaterials.IRON, (int) 2.5F, -2.3F, new FabricItemSettings()));
+            new SickleItem(ToolMaterials.IRON, 2.5F, -2.3F, new FabricItemSettings()));
 
     public static final Item DIAMOND_SICKLE = registerItem("diamond_sickle",
-            new SwordItem(ToolMaterials.DIAMOND, (int) 2.5F, -2.3F, new FabricItemSettings()));
+            new SickleItem(ToolMaterials.DIAMOND, 2.5F, -2.3F, new FabricItemSettings()));
 
     public static final Item NETHERITE_SICKLE = registerItem("netherite_sickle",
-            new SwordItem(ToolMaterials.NETHERITE, (int) 2.5F, -2.3F, new FabricItemSettings().fireproof()));
+            new SickleItem(ToolMaterials.NETHERITE, 2.5F, -2.3F, new FabricItemSettings().fireproof()));
 
     public static final Item WOODEN_SCYTHE = registerItem("wooden_scythe",
             new SwordItem(ToolMaterials.WOOD, 4, -2.5F, new FabricItemSettings()));
