@@ -1,18 +1,18 @@
 package net.angelic.weaponsexpanded.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.minecraft.client.renderer.ItemInHandRenderer;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ItemInHandRenderer.class)
 public abstract class ChainCrossbowFirstPersonMixin {
 
-    @Redirect(
+    @WrapOperation(
             method = "renderArmWithItem",
             at = @At(
                     value = "INVOKE",
@@ -22,13 +22,14 @@ public abstract class ChainCrossbowFirstPersonMixin {
     )
     private boolean weaponsexpanded$treatChainCrossbowAsCrossbow(
             ItemStack stack,
-            Object item
+            Object item,
+            Operation<Boolean> original
     ) {
         if (item == Items.CROSSBOW) {
-            return stack.is(Items.CROSSBOW)
+            return original.call(stack, item)
                     || stack.is(ModItems.CHAIN_CROSSBOW);
         }
 
-        return item instanceof Item realItem && stack.is(realItem);
+        return original.call(stack, item);
     }
 }
