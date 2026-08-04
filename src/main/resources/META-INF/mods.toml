@@ -5,7 +5,7 @@
 modLoader="javafml"
 loaderVersion="[62,)"
 license="MIT"
-issueTrackerURL="https://github.com/AngelicTheAngel/weaponsexpandedforge/issues"
+issueTrackerURL="https://github.com/AngelicTheAngel/weapons_expanded/issues"
 
 [[mods]]
 modId="weaponsexpanded"
