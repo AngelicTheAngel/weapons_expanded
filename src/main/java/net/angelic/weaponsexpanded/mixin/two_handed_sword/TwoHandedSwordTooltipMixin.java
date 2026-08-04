@@ -22,24 +22,23 @@ public abstract class TwoHandedSwordTooltipMixin {
             method = "addAttributeTooltips(Ljava/util/function/Consumer;Lnet/minecraft/world/item/component/TooltipDisplay;Lnet/minecraft/world/entity/player/Player;)V",
             at = @At("HEAD"),
             argsOnly = true,
-            index = 1
-    )
-    private Consumer<Component> weaponsexpanded$replaceMainHandHeaderForTwoHandedSwords(Consumer<Component> original) {
+            name = "consumer")
+    private Consumer<Component> weaponsexpanded$replaceMainHandHeaderForTwoHandedSwords(Consumer<Component> consumer) {
         ItemStack stack = (ItemStack) (Object) this;
 
         // Only TwoHandedSwordItem should replace the vanilla header
         if (!(stack.getItem() instanceof TwoHandedSwordItem)) {
-            return original;
+            return consumer;
         }
 
         return text -> {
             if (text.getContents() instanceof TranslatableContents translatable
                     && "item.modifiers.mainhand".equals(translatable.getKey())) {
                 // Keep vanilla styling (gray, etc.) by copying the original header's style.
-                original.accept(Component.translatable("item.modifiers.bothhands").setStyle(text.getStyle()));
+                consumer.accept(Component.translatable("item.modifiers.bothhands").setStyle(text.getStyle()));
                 return;
             }
-            original.accept(text);
+            consumer.accept(text);
         };
     }
 
@@ -47,27 +46,26 @@ public abstract class TwoHandedSwordTooltipMixin {
             method = "addAttributeTooltips(Ljava/util/function/Consumer;Lnet/minecraft/world/item/component/TooltipDisplay;Lnet/minecraft/world/entity/player/Player;)V",
             at = @At("HEAD"),
             argsOnly = true,
-            index = 1
-    )
-    private Consumer<Component> weaponsexpanded$appendBothHandsSectionForLongswords(Consumer<Component> original) {
+            name = "consumer")
+    private Consumer<Component> weaponsexpanded$appendBothHandsSectionForLongswords(Consumer<Component> consumer) {
         ItemStack stack = (ItemStack) (Object) this;
 
         if (stack.getItem() instanceof BastardSwordItem) {
             if (!((BastardSwordItem) stack.getItem()).isTwoHanded(stack)) {
-                return original;
+                return consumer;
             }
         } else {
-            return original;
+            return consumer;
         }
 
         return text -> {
             if (text.getContents() instanceof TranslatableContents translatable
                     && "item.modifiers.mainhand".equals(translatable.getKey())) {
                 // Keep vanilla styling (gray, etc.) by copying the original header's style.
-                original.accept(Component.translatable("item.modifiers.bothhands").setStyle(text.getStyle()));
+                consumer.accept(Component.translatable("item.modifiers.bothhands").setStyle(text.getStyle()));
                 return;
             }
-            original.accept(text);
+            consumer.accept(text);
         };
     }
 

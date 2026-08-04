@@ -82,11 +82,17 @@
 
 
   "enchantment.weaponsexpanded.withering": "Withering",
+  "enchantment.weaponsexpanded.withering.desc": "Applies the wither effect when hitting mobs and players",
   "enchantment.weaponsexpanded.polluting": "Polluting",
+  "enchantment.weaponsexpanded.polluting.desc": "Applies the poison effect when hitting mobs and players",
   "enchantment.weaponsexpanded.frostbite": "Frostbite",
+  "enchantment.weaponsexpanded.frostbite.desc": "Applies the frostbite effect when hitting mobs and players",
   "enchantment.weaponsexpanded.freeze": "Freeze",
+  "enchantment.weaponsexpanded.freeze.desc": "Freezes fired arrows, making them inflict frostbite",
   "enchantment.weaponsexpanded.leech": "Leech",
+  "enchantment.weaponsexpanded.leech.desc": "Grants healing when blocking damage, in exchange for extra durability",
   "enchantment.weaponsexpanded.cleaving": "Cleaving",
+  "enchantment.weaponsexpanded.cleaving.desc": "Increases how long shields are stunned when stuck down",
 
   "effect.weaponsexpanded.frostbite": "Frostbite",
 
