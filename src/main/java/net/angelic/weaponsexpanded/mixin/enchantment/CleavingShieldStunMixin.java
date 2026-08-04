@@ -1,4 +1,4 @@
-package net.angelic.weaponsexpanded.mixin;
+package net.angelic.weaponsexpanded.mixin.enchantment;
 
 import net.angelic.weaponsexpanded.enchantment.ModEnchantmentHelper;
 import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
