@@ -4,28 +4,15 @@
     "translate": "enchantment.weaponsexpanded.freeze"
   },
   "effects": {
-    "minecraft:post_attack": [
+    "minecraft:projectile_spawned": [
       {
-        "affected": "victim",
         "effect": {
           "type": "weaponsexpanded:freeze",
-          "duration": {
-            "type": "minecraft:linear",
-            "base": 4.0,
-            "per_level_above_first": 4.0
-          }
-        },
-        "enchanted": "attacker",
-        "requirements": {
-          "condition": "minecraft:damage_source_properties",
-          "predicate": {
-            "is_direct": false
-          }
+          "duration": 100.0
         }
       }
     ]
   },
-  "exclusive_set": "#weaponsexpanded:exclusive_set/bow_effects",
   "max_cost": {
     "base": 50,
     "per_level_above_first": 0
