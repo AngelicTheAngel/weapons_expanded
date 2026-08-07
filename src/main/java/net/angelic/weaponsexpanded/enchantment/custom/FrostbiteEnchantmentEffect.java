@@ -16,13 +16,8 @@ public record FrostbiteEnchantmentEffect() implements EnchantmentEntityEffect {
     @Override
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
         if (user instanceof LivingEntity) {
-            StatusEffectInstance frostbiteEffectL1 = new StatusEffectInstance(ModEffects.FROSTBITE, 80, 0);
-            StatusEffectInstance frostbiteEffectL2 = new StatusEffectInstance(ModEffects.FROSTBITE, 120, 0);
-            if (level == 1) {
-                ((LivingEntity) user).addStatusEffect(frostbiteEffectL1);
-            }
-            if (level == 2) {
-                ((LivingEntity) user).addStatusEffect(frostbiteEffectL2);
+            if (level > 0) {
+                ((LivingEntity) user).addStatusEffect(new StatusEffectInstance(ModEffects.FROSTBITE, 40 + 40 * level, 0));
             }
         }
     }

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "chain_crossbow",
+  "key": {
+    "C": "minecraft:chain",
+    "I": "minecraft:iron_ingot",
+    "N": "minecraft:iron_nugget",
+    "T": "minecraft:tripwire_hook"
+  },
+  "pattern": [
+    "INI",
+    "CTC",
+    " I "
+  ],
+  "result": {
+    "count": 1,
+    "id": "weaponsexpanded:chain_crossbow"
+  }
+}
