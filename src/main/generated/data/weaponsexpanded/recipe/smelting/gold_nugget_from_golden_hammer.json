@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "goldnugget",
+  "ingredient": {
+    "item": "weaponsexpanded:golden_hammer"
+  },
+  "result": {
+    "id": "minecraft:gold_nugget"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:nether/obtain_ancient_debris",
+  "criteria": {
+    "has_netherite_weapon": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#weaponsexpanded:netherite_weapons"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.weaponsexpanded.netherite_weapon.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:netherite_sword"
+    },
+    "title": {
+      "translate": "advancements.weaponsexpanded.netherite_weapon"
+    }
+  },
+  "requirements": [
+    [
+      "has_netherite_weapon"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
