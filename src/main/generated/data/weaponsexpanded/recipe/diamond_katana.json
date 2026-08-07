@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "diamond_katana",
+  "key": {
+    "M": {
+      "tag": "weaponsexpanded:diamond_tool_materials"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "  M",
+    " M ",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "weaponsexpanded:diamond_katana"
+  }
+}

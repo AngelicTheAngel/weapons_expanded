@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "iron_broadsword",
+  "key": {
+    "M": {
+      "tag": "weaponsexpanded:iron_tool_materials"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "  M",
+    " M ",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "weaponsexpanded:iron_broadsword"
+  }
+}

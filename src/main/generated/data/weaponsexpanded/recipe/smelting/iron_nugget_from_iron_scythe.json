@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "ironnugget",
+  "ingredient": {
+    "item": "weaponsexpanded:iron_scythe"
+  },
+  "result": {
+    "id": "minecraft:iron_nugget"
+  }
+}

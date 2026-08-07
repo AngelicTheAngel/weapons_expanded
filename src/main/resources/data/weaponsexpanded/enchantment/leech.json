@@ -1,0 +1,19 @@
+{
+  "description": { "translate": "enchantment.weaponsexpanded.leech" },
+  "anvil_cost": 4,
+
+  "max_cost": {
+    "base": 45,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 15,
+    "per_level_above_first": 0
+  },
+
+  "primary_items": "#minecraft:enchantable/shield",
+  "slots": ["offhand", "mainhand"],
+  "supported_items": "#minecraft:enchantable/shield",
+  "weight": 2
+}
