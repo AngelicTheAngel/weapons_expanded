@@ -6,15 +6,13 @@
   "effects": {
     "minecraft:projectile_spawned": [
       {
-        "affected": "projectile",
         "effect": {
-          "type": "weaponsexpanded:freeze"
-        },
-        "enchanted": "attacker"
+          "type": "weaponsexpanded:freeze",
+          "duration": 100.0
+        }
       }
     ]
   },
-  "exclusive_set": "#weaponsexpanded:exclusive_set/bow_effects",
   "max_cost": {
     "base": 50,
     "per_level_above_first": 0

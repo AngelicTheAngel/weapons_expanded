@@ -9,14 +9,14 @@ import static net.angelic.weaponsexpanded.WeaponsExpanded.MOD_ID;
 
 public record FireChainCrossbowPayload() implements CustomPayload {
 
-    public static final CustomPayload.Id<FireChainCrossbowPayload> ID =
-            new CustomPayload.Id<>(Identifier.of(MOD_ID, "fire_chain_crossbow"));
+    public static final Id<FireChainCrossbowPayload> ID =
+            new Id<>(Identifier.of(MOD_ID, "fire_chain_crossbow"));
 
     public static final PacketCodec<RegistryByteBuf, FireChainCrossbowPayload> CODEC =
             PacketCodec.unit(new FireChainCrossbowPayload());
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> getId() {
+    public Id<? extends CustomPayload> getId() {
         return ID;
     }
 }

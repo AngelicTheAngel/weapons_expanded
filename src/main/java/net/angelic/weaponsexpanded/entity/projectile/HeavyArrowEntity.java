@@ -11,8 +11,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class HeavyArrowEntity extends ArrowEntity {
-    public static final double BASE_DAMAGE = 3.2;
+    public static final double BASE_DAMAGE = 3.6;
     private static final float EXTRA_AIR_DRAG = 0.9f;
+    private static final float GRAVITY = 0.1f;
 
     private ItemStack weaponsexpanded$pickupStack = ItemStack.EMPTY;
 
@@ -49,14 +50,14 @@ public class HeavyArrowEntity extends ArrowEntity {
     public void tick() {
         super.tick();
 
-        if (!this.isInGround()) {
+        if (!this.groundCollision) {
             this.setVelocity(this.getVelocity().multiply(EXTRA_AIR_DRAG));
         }
     }
 
     @Override
     protected double getGravity() {
-        return 0.1;
+        return GRAVITY;
     }
 
     @Override

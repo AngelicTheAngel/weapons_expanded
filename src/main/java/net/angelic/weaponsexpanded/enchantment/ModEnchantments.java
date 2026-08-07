@@ -9,4 +9,6 @@ import net.minecraft.util.Identifier;
 public class ModEnchantments {
     public static final RegistryKey<Enchantment> LEECH =
             RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(WeaponsExpanded.MOD_ID, "leech"));
+    public static final RegistryKey<Enchantment> CLEAVING =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(WeaponsExpanded.MOD_ID, "cleaving"));
 }

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "iron_scythe",
+  "key": {
+    "M": "#minecraft:iron_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "MMM",
+    "  S",
+    "  S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "weaponsexpanded:iron_scythe"
+  }
+}
