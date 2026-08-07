@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "wooden_sickle",
+  "key": {
+    "M": "#minecraft:wooden_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " M ",
+    "  M",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "weaponsexpanded:wooden_sickle"
+  }
+}

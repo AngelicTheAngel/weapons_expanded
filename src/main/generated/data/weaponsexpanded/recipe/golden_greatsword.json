@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "golden_greatsword",
+  "key": {
+    "M": "#minecraft:gold_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "  M",
+    "MM ",
+    "SM "
+  ],
+  "result": {
+    "count": 1,
+    "id": "weaponsexpanded:golden_greatsword"
+  }
+}

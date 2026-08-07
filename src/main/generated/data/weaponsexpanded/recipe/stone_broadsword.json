@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "stone_broadsword",
+  "key": {
+    "M": "#minecraft:stone_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "  M",
+    " M ",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "weaponsexpanded:stone_broadsword"
+  }
+}
