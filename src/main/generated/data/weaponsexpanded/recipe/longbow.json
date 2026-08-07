@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "longbow",
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "S": "minecraft:string",
+    "T": "minecraft:stick"
+  },
+  "pattern": [
+    " TS",
+    "TIS",
+    " TS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "weaponsexpanded:longbow"
+  }
+}

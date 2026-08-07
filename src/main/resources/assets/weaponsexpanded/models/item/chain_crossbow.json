@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:item/crossbow",
+  "textures": {
+    "layer0": "weaponsexpanded:item/chain_crossbow"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "pulling": 1.0
+      },
+      "model": "weaponsexpanded:item/chain_crossbow_pulling_0"
+    },
+    {
+      "predicate": {
+        "pulling": 1.0,
+        "pull": 0.58
+      },
+      "model": "weaponsexpanded:item/chain_crossbow_pulling_1"
+    },
+    {
+      "predicate": {
+        "pulling": 1.0,
+        "pull": 1.0
+      },
+      "model": "weaponsexpanded:item/chain_crossbow_pulling_2"
+    },
+    {
+      "predicate": {
+        "charged": 1.0
+      },
+      "model": "weaponsexpanded:item/chain_crossbow_arrow"
+    },
+    {
+      "predicate": {
+        "charged": 1.0,
+        "firework": 1.0
+      },
+      "model": "weaponsexpanded:item/chain_crossbow_firework"
+    },
+    {
+      "predicate": {
+        "charged": 1.0,
+        "weaponsexpanded:explosive": 1.0
+      },
+      "model": "weaponsexpanded:item/chain_crossbow_explosive_arrow"
+    }
+  ]
+}
