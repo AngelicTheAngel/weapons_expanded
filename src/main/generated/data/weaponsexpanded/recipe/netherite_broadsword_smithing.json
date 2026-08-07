@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#minecraft:netherite_tool_materials",
+  "base": "weaponsexpanded:diamond_broadsword",
+  "result": {
+    "id": "weaponsexpanded:netherite_broadsword"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

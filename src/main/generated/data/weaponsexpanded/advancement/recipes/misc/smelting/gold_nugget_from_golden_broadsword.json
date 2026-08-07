@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_golden_broadsword": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:golden_broadsword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "weaponsexpanded:smelting/gold_nugget_from_golden_broadsword"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_golden_broadsword"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "weaponsexpanded:smelting/gold_nugget_from_golden_broadsword"
+    ]
+  }
+}

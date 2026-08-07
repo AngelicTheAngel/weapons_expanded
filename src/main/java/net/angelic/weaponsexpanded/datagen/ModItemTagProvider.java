@@ -1,8 +1,10 @@
 package net.angelic.weaponsexpanded.datagen;
 
 import net.angelic.weaponsexpanded.item.ModItems;
+import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 
@@ -51,7 +53,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.STONE_GREATSWORD)
                 .add(ModItems.IRON_GREATSWORD)
                 .add(ModItems.DIAMOND_GREATSWORD)
-                .add(ModItems.NETHERITE_GREATSWORD);
+                .add(ModItems.NETHERITE_GREATSWORD)
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER);
         getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(ModItems.WOODEN_BROADSWORD)
                 .add(ModItems.GOLDEN_BROADSWORD)
@@ -106,7 +114,15 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.STONE_GREATSWORD)
                 .add(ModItems.IRON_GREATSWORD)
                 .add(ModItems.DIAMOND_GREATSWORD)
-                .add(ModItems.NETHERITE_GREATSWORD);
+                .add(ModItems.NETHERITE_GREATSWORD)
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER)
+                .add(ModItems.LONGBOW)
+                .add(ModItems.CHAIN_CROSSBOW);
         getOrCreateTagBuilder(ItemTags.WEAPON_ENCHANTABLE)
                 .add(ModItems.WOODEN_HATCHET)
                 .add(ModItems.GOLDEN_HATCHET)
@@ -181,7 +197,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.STONE_GREATSWORD)
                 .add(ModItems.IRON_GREATSWORD)
                 .add(ModItems.DIAMOND_GREATSWORD)
-                .add(ModItems.NETHERITE_GREATSWORD);
+                .add(ModItems.NETHERITE_GREATSWORD)
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER);
         getOrCreateTagBuilder(ItemTags.AXES)
                 .add(ModItems.WOODEN_HATCHET)
                 .add(ModItems.GOLDEN_HATCHET)
@@ -189,12 +211,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.IRON_HATCHET)
                 .add(ModItems.DIAMOND_HATCHET)
                 .add(ModItems.NETHERITE_HATCHET)
-                .add(ModItems.WOODEN_HAMMER)
-                .add(ModItems.GOLDEN_HAMMER)
-                .add(ModItems.STONE_HAMMER)
-                .add(ModItems.IRON_HAMMER)
-                .add(ModItems.DIAMOND_HAMMER)
-                .add(ModItems.NETHERITE_HAMMER)
                 .add(ModItems.WOODEN_BATTLEAXE)
                 .add(ModItems.GOLDEN_BATTLEAXE)
                 .add(ModItems.STONE_BATTLEAXE)
@@ -219,7 +235,44 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.STONE_BATTLEAXE)
                 .add(ModItems.IRON_BATTLEAXE)
                 .add(ModItems.DIAMOND_BATTLEAXE)
-                .add(ModItems.NETHERITE_BATTLEAXE);
+                .add(ModItems.NETHERITE_BATTLEAXE)
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER);
+        getOrCreateTagBuilder(ModItemTags.CLEAVING_ENCHANTABLE)
+                .add(Items.WOODEN_AXE)
+                .add(Items.GOLDEN_AXE)
+                .add(Items.STONE_AXE)
+                .add(Items.IRON_AXE)
+                .add(Items.DIAMOND_AXE)
+                .add(Items.NETHERITE_AXE)
+                .add(ModItems.WOODEN_HATCHET)
+                .add(ModItems.GOLDEN_HATCHET)
+                .add(ModItems.STONE_HATCHET)
+                .add(ModItems.IRON_HATCHET)
+                .add(ModItems.DIAMOND_HATCHET)
+                .add(ModItems.NETHERITE_HATCHET)
+                .add(ModItems.WOODEN_BATTLEAXE)
+                .add(ModItems.GOLDEN_BATTLEAXE)
+                .add(ModItems.STONE_BATTLEAXE)
+                .add(ModItems.IRON_BATTLEAXE)
+                .add(ModItems.DIAMOND_BATTLEAXE)
+                .add(ModItems.NETHERITE_BATTLEAXE)
+                .add(ModItems.WOODEN_HAMMER)
+                .add(ModItems.GOLDEN_HAMMER)
+                .add(ModItems.STONE_HAMMER)
+                .add(ModItems.IRON_HAMMER)
+                .add(ModItems.DIAMOND_HAMMER)
+                .add(ModItems.NETHERITE_HAMMER)
+                .add(ModItems.WOODEN_WARHAMMER)
+                .add(ModItems.GOLDEN_WARHAMMER)
+                .add(ModItems.STONE_WARHAMMER)
+                .add(ModItems.IRON_WARHAMMER)
+                .add(ModItems.DIAMOND_WARHAMMER)
+                .add(ModItems.NETHERITE_WARHAMMER);
         getOrCreateTagBuilder(ItemTags.PIGLIN_LOVED)
                 .add(ModItems.GOLDEN_BROADSWORD)
                 .add(ModItems.GOLDEN_SICKLE)
@@ -229,6 +282,14 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLDEN_HATCHET)
                 .add(ModItems.GOLDEN_HAMMER)
                 .add(ModItems.GOLDEN_BATTLEAXE)
-                .add(ModItems.GOLDEN_GREATSWORD);
+                .add(ModItems.GOLDEN_GREATSWORD)
+                .add(ModItems.GOLDEN_WARHAMMER);
+        getOrCreateTagBuilder(ItemTags.ARROWS)
+                .add(ModItems.HEAVY_ARROW)
+                .add(ModItems.EXPLOSIVE_ARROW);
+        getOrCreateTagBuilder(ItemTags.BOW_ENCHANTABLE)
+                .add(ModItems.LONGBOW);
+        getOrCreateTagBuilder(ItemTags.CROSSBOW_ENCHANTABLE)
+                .add(ModItems.CHAIN_CROSSBOW);
     }
 }
