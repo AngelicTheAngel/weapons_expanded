@@ -16,13 +16,9 @@ public record WitheringEnchantmentEffect() implements EnchantmentEntityEffect {
     @Override
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
         if (user instanceof LivingEntity) {
-            StatusEffectInstance witherEffectL1 = new StatusEffectInstance(StatusEffects.WITHER, 100, 1);
-            StatusEffectInstance witherEffectL2 = new StatusEffectInstance(StatusEffects.WITHER, 160, 1);
-            if (level == 1) {
-                ((LivingEntity) user).addStatusEffect(witherEffectL1);
-            }
-            if (level == 2) {
-                ((LivingEntity) user).addStatusEffect(witherEffectL2);
+            if (level > 0) {
+                ((LivingEntity) user).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 40 + 60 * level, 1));
+                ((LivingEntity) user).removeStatusEffect(StatusEffects.POISON);
             }
         }
     }
