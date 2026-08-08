@@ -52,7 +52,7 @@ public class ProjectileFreezeMixin {
         PersistentProjectileEntity projectile = (PersistentProjectileEntity) (Object) this;
         Entity target = entityHitResult.getEntity();
 
-        if (target instanceof LivingEntity livingTarget && !projectile.getWorld().isClient()) {
+        if (target instanceof LivingEntity livingTarget && !projectile.getEntityWorld().isClient()) {
             for (String tag : projectile.getCommandTags()) {
                 if (tag.startsWith(WEAPONSEXPANDED$FREEZE_TAG_PREFIX)) {
                     try {
@@ -76,7 +76,7 @@ public class ProjectileFreezeMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void spawnFreezeParticles(CallbackInfo ci) {
         PersistentProjectileEntity projectile = (PersistentProjectileEntity) (Object) this;
-        World world = projectile.getWorld();
+        World world = projectile.getEntityWorld();
 
         if (!world.isClient()) {
             ServerWorld serverWorld = (ServerWorld) world;
@@ -105,7 +105,7 @@ public class ProjectileFreezeMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void freezeFreezeWater(CallbackInfo ci) {
         PersistentProjectileEntity projectile = (PersistentProjectileEntity) (Object) this;
-        World world = projectile.getWorld();
+        World world = projectile.getEntityWorld();
 
         if (!world.isClient() && projectile.isTouchingWater()) {
             for (String tag : projectile.getCommandTags()) {
@@ -128,7 +128,7 @@ public class ProjectileFreezeMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void weaponsexpanded$applyFreezeWhenInPowderSnow(CallbackInfo ci) {
         PersistentProjectileEntity projectile = (PersistentProjectileEntity) (Object) this;
-        World world = projectile.getWorld();
+        World world = projectile.getEntityWorld();
 
         if (world.isClient()) return;
 
@@ -147,7 +147,7 @@ public class ProjectileFreezeMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void weaponsexpanded$removeFreezeTagInHeat(CallbackInfo ci) {
         PersistentProjectileEntity projectile = (PersistentProjectileEntity) (Object) this;
-        World world = projectile.getWorld();
+        World world = projectile.getEntityWorld();
 
         if (world.isClient()) return;
 

@@ -22,7 +22,7 @@ public class CrossbowHeavyArrowMultishotMixin {
     @Inject(method = "shoot", at = @At("HEAD"))
     private void weaponsexpanded$multishotPickupRules(LivingEntity shooter, ProjectileEntity projectile, int index, float speed, float divergence, float yaw, @Nullable LivingEntity target, CallbackInfo ci) {
 
-        if (shooter.getWorld().isClient()) return;
+        if (shooter.getEntityWorld().isClient()) return;
 
         // index 0 is the center projectile; side projectiles are 1 and 2
         if (index == 0) return;

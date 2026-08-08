@@ -5,9 +5,10 @@ import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.PlayerLikeEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,37 +19,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class PlayerEntityRendererArmPoseMixin {
 
     @Inject(
-            method =
-                    "getArmPose(Lnet/minecraft/entity/player/PlayerEntity;" +
-                            "Lnet/minecraft/item/ItemStack;" +
-                            "Lnet/minecraft/util/Hand;)" +
-                            "Lnet/minecraft/client/render/entity/model/BipedEntityModel$ArmPose;",
+            method = "getArmPose(Lnet/minecraft/entity/PlayerLikeEntity;Lnet/minecraft/util/Arm;)Lnet/minecraft/client/render/entity/model/BipedEntityModel$ArmPose;",
             at = @At("RETURN"),
             cancellable = true
     )
     private static void weaponsexpanded$overrideArmPose(
-            PlayerEntity player,
-            ItemStack stack,
-            Hand hand,
+            PlayerLikeEntity player,
+            Arm arm,
             CallbackInfoReturnable<BipedEntityModel.ArmPose> cir
     ) {
-        if (hand != Hand.MAIN_HAND) {
-            return;
-        }
+        ItemStack main = player.getStackInHand(Hand.MAIN_HAND);
 
-        if (stack.getItem() instanceof TwoHandedSwordItem) {
+        // Two-handed swords: always force the pose
+        if (main.getItem() instanceof TwoHandedSwordItem) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
             return;
         }
 
-        if (stack.getItem() instanceof BastardSwordItem bastardSword
-                && bastardSword.isTwoHanded(stack)) {
-            cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
-            return;
+        // Bastard swords: force pose when two-handed
+        if (main.getItem() instanceof BastardSwordItem) {
+            if (((BastardSwordItem) main.getItem()).isTwoHanded(main)) {
+                cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
+                return;
+            }
         }
 
-        if (stack.getItem() instanceof ChainCrossbowItem
-                && CrossbowItem.isCharged(stack)) {
+        // Chain crossbow: force pose only when charged
+        if (main.getItem() instanceof ChainCrossbowItem && CrossbowItem.isCharged(main)) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }
     }

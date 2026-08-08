@@ -83,7 +83,7 @@ public abstract class LeechShieldBlockMixin {
                 blockingItem.damage(
                         extraDamage,
                         defender,
-                        LivingEntity.getSlotForHand(defender.getActiveHand())
+                        defender.getActiveHand().getEquipmentSlot()
                 );
             }
 

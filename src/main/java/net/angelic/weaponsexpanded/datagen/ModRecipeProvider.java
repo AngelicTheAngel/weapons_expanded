@@ -43,60 +43,70 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
                 offerBroadswordRecipe(ModItems.WOODEN_BROADSWORD, ItemTags.WOODEN_TOOL_MATERIALS);
                 offerBroadswordRecipe(ModItems.STONE_BROADSWORD, ItemTags.STONE_TOOL_MATERIALS);
+                offerBroadswordRecipe(ModItems.COPPER_BROADSWORD, ItemTags.COPPER_TOOL_MATERIALS);
                 offerBroadswordRecipe(ModItems.GOLDEN_BROADSWORD, ItemTags.GOLD_TOOL_MATERIALS);
                 offerBroadswordRecipe(ModItems.IRON_BROADSWORD, ItemTags.IRON_TOOL_MATERIALS);
                 offerBroadswordRecipe(ModItems.DIAMOND_BROADSWORD, ItemTags.DIAMOND_TOOL_MATERIALS);
 
                 offerSickleRecipe(ModItems.WOODEN_SICKLE, ItemTags.WOODEN_TOOL_MATERIALS);
                 offerSickleRecipe(ModItems.STONE_SICKLE, ItemTags.STONE_TOOL_MATERIALS);
+                offerSickleRecipe(ModItems.COPPER_SICKLE, ItemTags.COPPER_TOOL_MATERIALS);
                 offerSickleRecipe(ModItems.GOLDEN_SICKLE, ItemTags.GOLD_TOOL_MATERIALS);
                 offerSickleRecipe(ModItems.IRON_SICKLE, ItemTags.IRON_TOOL_MATERIALS);
                 offerSickleRecipe(ModItems.DIAMOND_SICKLE, ItemTags.DIAMOND_TOOL_MATERIALS);
 
                 offerScytheRecipe(ModItems.WOODEN_SCYTHE, ItemTags.WOODEN_TOOL_MATERIALS);
                 offerScytheRecipe(ModItems.STONE_SCYTHE, ItemTags.STONE_TOOL_MATERIALS);
+                offerScytheRecipe(ModItems.COPPER_SCYTHE, ItemTags.COPPER_TOOL_MATERIALS);
                 offerScytheRecipe(ModItems.GOLDEN_SCYTHE, ItemTags.GOLD_TOOL_MATERIALS);
                 offerScytheRecipe(ModItems.IRON_SCYTHE, ItemTags.IRON_TOOL_MATERIALS);
                 offerScytheRecipe(ModItems.DIAMOND_SCYTHE, ItemTags.DIAMOND_TOOL_MATERIALS);
 
                 offerLongswordRecipe(ModItems.WOODEN_LONGSWORD, ItemTags.WOODEN_TOOL_MATERIALS);
                 offerLongswordRecipe(ModItems.STONE_LONGSWORD, ItemTags.STONE_TOOL_MATERIALS);
+                offerLongswordRecipe(ModItems.COPPER_LONGSWORD, ItemTags.COPPER_TOOL_MATERIALS);
                 offerLongswordRecipe(ModItems.GOLDEN_LONGSWORD, ItemTags.GOLD_TOOL_MATERIALS);
                 offerLongswordRecipe(ModItems.IRON_LONGSWORD, ItemTags.IRON_TOOL_MATERIALS);
                 offerLongswordRecipe(ModItems.DIAMOND_LONGSWORD, ItemTags.DIAMOND_TOOL_MATERIALS);
 
                 offerKatanaRecipe(ModItems.WOODEN_KATANA, ItemTags.WOODEN_TOOL_MATERIALS);
                 offerKatanaRecipe(ModItems.STONE_KATANA, ItemTags.STONE_TOOL_MATERIALS);
+                offerKatanaRecipe(ModItems.COPPER_KATANA, ItemTags.COPPER_TOOL_MATERIALS);
                 offerKatanaRecipe(ModItems.GOLDEN_KATANA, ItemTags.GOLD_TOOL_MATERIALS);
                 offerKatanaRecipe(ModItems.IRON_KATANA, ItemTags.IRON_TOOL_MATERIALS);
                 offerKatanaRecipe(ModItems.DIAMOND_KATANA, ItemTags.DIAMOND_TOOL_MATERIALS);
 
                 offerGreatswordRecipe(ModItems.WOODEN_GREATSWORD, ItemTags.WOODEN_TOOL_MATERIALS);
                 offerGreatswordRecipe(ModItems.STONE_GREATSWORD, ItemTags.STONE_TOOL_MATERIALS);
+                offerGreatswordRecipe(ModItems.COPPER_GREATSWORD, ItemTags.COPPER_TOOL_MATERIALS);
                 offerGreatswordRecipe(ModItems.GOLDEN_GREATSWORD, ItemTags.GOLD_TOOL_MATERIALS);
                 offerGreatswordRecipe(ModItems.IRON_GREATSWORD, ItemTags.IRON_TOOL_MATERIALS);
                 offerGreatswordRecipe(ModItems.DIAMOND_GREATSWORD, ItemTags.DIAMOND_TOOL_MATERIALS);
 
                 offerHatchetRecipe(ModItems.WOODEN_HATCHET, ItemTags.WOODEN_TOOL_MATERIALS);
                 offerHatchetRecipe(ModItems.STONE_HATCHET, ItemTags.STONE_TOOL_MATERIALS);
+                offerHatchetRecipe(ModItems.COPPER_HATCHET, ItemTags.COPPER_TOOL_MATERIALS);
                 offerHatchetRecipe(ModItems.GOLDEN_HATCHET, ItemTags.GOLD_TOOL_MATERIALS);
                 offerHatchetRecipe(ModItems.IRON_HATCHET, ItemTags.IRON_TOOL_MATERIALS);
                 offerHatchetRecipe(ModItems.DIAMOND_HATCHET, ItemTags.DIAMOND_TOOL_MATERIALS);
 
                 offerHammerRecipe(ModItems.WOODEN_HAMMER, ItemTags.WOODEN_TOOL_MATERIALS);
                 offerHammerRecipe(ModItems.STONE_HAMMER, ItemTags.STONE_TOOL_MATERIALS);
+                offerHammerRecipe(ModItems.COPPER_HAMMER, ItemTags.COPPER_TOOL_MATERIALS);
                 offerHammerRecipe(ModItems.GOLDEN_HAMMER, ItemTags.GOLD_TOOL_MATERIALS);
                 offerHammerRecipe(ModItems.IRON_HAMMER, ItemTags.IRON_TOOL_MATERIALS);
                 offerHammerRecipe(ModItems.DIAMOND_HAMMER, ItemTags.DIAMOND_TOOL_MATERIALS);
 
                 offerBattleaxeRecipe(ModItems.WOODEN_BATTLEAXE, ItemTags.WOODEN_TOOL_MATERIALS);
                 offerBattleaxeRecipe(ModItems.STONE_BATTLEAXE, ItemTags.STONE_TOOL_MATERIALS);
+                offerBattleaxeRecipe(ModItems.COPPER_BATTLEAXE, ItemTags.COPPER_TOOL_MATERIALS);
                 offerBattleaxeRecipe(ModItems.GOLDEN_BATTLEAXE, ItemTags.GOLD_TOOL_MATERIALS);
                 offerBattleaxeRecipe(ModItems.IRON_BATTLEAXE, ItemTags.IRON_TOOL_MATERIALS);
                 offerBattleaxeRecipe(ModItems.DIAMOND_BATTLEAXE, ItemTags.DIAMOND_TOOL_MATERIALS);
 
                 offerWarhammerRecipe(ModItems.WOODEN_WARHAMMER, ItemTags.WOODEN_TOOL_MATERIALS);
                 offerWarhammerRecipe(ModItems.STONE_WARHAMMER, ItemTags.STONE_TOOL_MATERIALS);
+                offerWarhammerRecipe(ModItems.COPPER_WARHAMMER, ItemTags.COPPER_TOOL_MATERIALS);
                 offerWarhammerRecipe(ModItems.GOLDEN_WARHAMMER, ItemTags.GOLD_TOOL_MATERIALS);
                 offerWarhammerRecipe(ModItems.IRON_WARHAMMER, ItemTags.IRON_TOOL_MATERIALS);
                 offerWarhammerRecipe(ModItems.DIAMOND_WARHAMMER, ItemTags.DIAMOND_TOOL_MATERIALS);
@@ -114,7 +124,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
                 createShaped(RecipeCategory.COMBAT, ModItems.CHAIN_CROSSBOW, 1)
                         .input('I', Items.IRON_INGOT)
-                        .input('C', Items.CHAIN)
+                        .input('C', Items.IRON_CHAIN)
                         .input('N', Items.IRON_NUGGET)
                         .input('T', Items.TRIPWIRE_HOOK)
                         .pattern("INI")
@@ -122,7 +132,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .pattern(" I ")
                         .group(getItemPath(ModItems.CHAIN_CROSSBOW))
                         .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
-                        .criterion(hasItem(Items.CHAIN), conditionsFromItem(Items.CHAIN))
+                        .criterion(hasItem(Items.IRON_CHAIN), conditionsFromItem(Items.IRON_CHAIN))
                         .criterion(hasItem(Items.IRON_NUGGET), conditionsFromItem(Items.IRON_NUGGET))
                         .criterion(hasItem(Items.TRIPWIRE_HOOK), conditionsFromItem(Items.TRIPWIRE_HOOK))
                         .offerTo(this.exporter);

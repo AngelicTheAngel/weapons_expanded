@@ -104,7 +104,7 @@ public class WeaponsExpanded implements ModInitializer {
 							random,
 							hammer,
 							enchantLevel,
-							entity.getWorld().getRegistryManager(),
+							entity.getEntityWorld().getRegistryManager(),
 							Optional.empty()
 					);
 					int cost = 17 + enchantLevel;
@@ -121,7 +121,7 @@ public class WeaponsExpanded implements ModInitializer {
 							random,
 							hatchet,
 							enchantLevel,
-							entity.getWorld().getRegistryManager(),
+							entity.getEntityWorld().getRegistryManager(),
 							Optional.empty()
 					);
 					int cost = 17 + enchantLevel;
@@ -138,7 +138,7 @@ public class WeaponsExpanded implements ModInitializer {
 							random,
 							battleaxe,
 							enchantLevel,
-							entity.getWorld().getRegistryManager(),
+							entity.getEntityWorld().getRegistryManager(),
 							Optional.empty()
 					);
 					int cost = 17 + enchantLevel;
@@ -157,7 +157,7 @@ public class WeaponsExpanded implements ModInitializer {
 							random,
 							weapon,
 							enchantLevel,
-							entity.getWorld().getRegistryManager(),
+							entity.getEntityWorld().getRegistryManager(),
 							Optional.empty()
 					);
 					int cost = 13 + enchantLevel;
@@ -174,7 +174,7 @@ public class WeaponsExpanded implements ModInitializer {
 							random,
 							weapon,
 							enchantLevel,
-							entity.getWorld().getRegistryManager(),
+							entity.getEntityWorld().getRegistryManager(),
 							Optional.empty()
 					);
 					int cost = 13 + enchantLevel;
@@ -191,7 +191,7 @@ public class WeaponsExpanded implements ModInitializer {
 							random,
 							weapon,
 							enchantLevel,
-							entity.getWorld().getRegistryManager(),
+							entity.getEntityWorld().getRegistryManager(),
 							Optional.empty()
 					);
 					int cost = 13 + enchantLevel;
@@ -208,7 +208,7 @@ public class WeaponsExpanded implements ModInitializer {
 							random,
 							weapon,
 							enchantLevel,
-							entity.getWorld().getRegistryManager(),
+							entity.getEntityWorld().getRegistryManager(),
 							Optional.empty()
 					);
 					int cost = 13 + enchantLevel;
@@ -225,7 +225,7 @@ public class WeaponsExpanded implements ModInitializer {
 							random,
 							weapon,
 							enchantLevel,
-							entity.getWorld().getRegistryManager(),
+							entity.getEntityWorld().getRegistryManager(),
 							Optional.empty()
 					);
 					int cost = 13 + enchantLevel;
@@ -242,7 +242,7 @@ public class WeaponsExpanded implements ModInitializer {
 							random,
 							weapon,
 							enchantLevel,
-							entity.getWorld().getRegistryManager(),
+							entity.getEntityWorld().getRegistryManager(),
 							Optional.empty()
 					);
 					int cost = 13 + enchantLevel;
@@ -290,7 +290,7 @@ public class WeaponsExpanded implements ModInitializer {
 
 		float speed = charged.contains(net.minecraft.item.Items.FIREWORK_ROCKET) ? 1.6F : 3.15F;
 
-		chainCrossbow.shootAll(player.getWorld(), player, Hand.MAIN_HAND, stack, speed, 1.0F, null);
+		chainCrossbow.shootAll(player.getEntityWorld(), player, Hand.MAIN_HAND, stack, speed, 1.0F, null);
 
 		if (player instanceof ServerPlayerEntity serverPlayer) {
 			ItemStack dummy = new ItemStack(Items.CROSSBOW);

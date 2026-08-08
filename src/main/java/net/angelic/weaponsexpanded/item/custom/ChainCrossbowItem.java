@@ -106,7 +106,7 @@ public class ChainCrossbowItem extends CrossbowItem {
         if (total >= WEAPONSEXPANDED$MAX_TOTAL_SHOTS) {
             // Server plays the sound; client just returns FAIL to avoid clearing CHARGED_PROJECTILES.
             if (!world.isClient()) {
-                user.getWorld().playSound(
+                user.getEntityWorld().playSound(
                         null,
                         user.getX(), user.getY(), user.getZ(),
                         ModSounds.CHAIN_CROSSBOW_FULL,
