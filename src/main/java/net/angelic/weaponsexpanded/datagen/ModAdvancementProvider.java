@@ -78,6 +78,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                 .criterion("has_netherite_warhammer", InventoryChangedCriterion.Conditions.items(ModItems.NETHERITE_WARHAMMER))
                 .criterion("has_netherite_sword", InventoryChangedCriterion.Conditions.items(Items.NETHERITE_SWORD))
                 .criterion("has_netherite_axe", InventoryChangedCriterion.Conditions.items(Items.NETHERITE_AXE))
+                .rewards(new AdvancementRewards.Builder().setExperience(100))
                 .build(consumer, WeaponsExpanded.MOD_ID + "/weapons_expanded");
     }
 }
