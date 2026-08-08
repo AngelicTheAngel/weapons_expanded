@@ -16,15 +16,18 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.entity.ArrowEntityRenderer;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
 import org.lwjgl.glfw.GLFW;
 
+import static net.angelic.weaponsexpanded.WeaponsExpanded.MOD_ID;
+
 public class WeaponsExpandedClient implements ClientModInitializer {
 
-    private static final String WEAPONSEXPANDED$KEY_CATEGORY =
-            "key.category.weaponsexpanded.general";
+    private static final KeyBinding.Category WEAPONSEXPANDED$KEY_CATEGORY =
+            KeyBinding.Category.create(Identifier.of(MOD_ID, "general"));
     private static final String WEAPONSEXPANDED$KEY_TOGGLE_BASTARD_SWORD =
             "key.weaponsexpanded.toggle_bastard_sword_mode";
 
@@ -32,8 +35,8 @@ public class WeaponsExpandedClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        EntityRendererRegistry.register(ModEntities.HEAVY_ARROW, HeavyArrowEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.EXPLOSIVE_ARROW, ArrowEntityRenderer::new);
+        EntityRendererFactories.register(ModEntities.HEAVY_ARROW, HeavyArrowEntityRenderer::new);
+        EntityRendererFactories.register(ModEntities.EXPLOSIVE_ARROW, ArrowEntityRenderer::new);
 
         weaponsexpanded$toggleBastardSwordModeKey = KeyBindingHelper.registerKeyBinding(
                 new KeyBinding(

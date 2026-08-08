@@ -4,7 +4,7 @@ import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.CrossbowItem;
@@ -20,7 +20,17 @@ public abstract class HeldItemRendererHideOffhandMixin {
 
     @Inject(method = "renderFirstPersonItem", at = @At("HEAD"), cancellable = true)
     private void weaponsexpanded$hideOffhandForCertainMainhandItems(
-            AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci
+            AbstractClientPlayerEntity player,
+            float tickProgress,
+            float pitch,
+            Hand hand,
+            float swingProgress,
+            ItemStack item,
+            float equipProgress,
+            MatrixStack matrices,
+            OrderedRenderCommandQueue orderedRenderCommandQueue,
+            int light,
+            CallbackInfo ci
     ) {
         if (hand != Hand.OFF_HAND) return;
 

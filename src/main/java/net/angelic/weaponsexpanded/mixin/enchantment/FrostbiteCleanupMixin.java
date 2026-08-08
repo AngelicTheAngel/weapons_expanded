@@ -21,7 +21,7 @@ public abstract class FrostbiteCleanupMixin {
 
     @Unique
     private static boolean weaponsexpanded$isInPowderSnow(LivingEntity entity) {
-        BlockState state = entity.getWorld().getBlockState(entity.getBlockPos());
+        BlockState state = entity.getEntityWorld().getBlockState(entity.getBlockPos());
         return state.isOf(Blocks.POWDER_SNOW);
     }
 
