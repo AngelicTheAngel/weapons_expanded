@@ -51,13 +51,13 @@ public class ExplosiveArrowEntity extends ArrowEntity {
     }
 
     private void weaponsexpanded$explode() {
-        if (this.getEntityWorld().isClient()) return;
+        if (this.getWorld().isClient()) return;
 
         // Use our own guard; vanilla may discard the arrow during super.onEntityHit(...)
         if (this.weaponsexpanded$exploded) return;
         this.weaponsexpanded$exploded = true;
 
-        World world = this.getEntityWorld();
+        World world = this.getWorld();
 
         world.createExplosion(
                 this,

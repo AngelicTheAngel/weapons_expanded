@@ -290,7 +290,7 @@ public class WeaponsExpanded implements ModInitializer {
 
 		float speed = charged.contains(net.minecraft.item.Items.FIREWORK_ROCKET) ? 1.6F : 3.15F;
 
-		chainCrossbow.shootAll(player.getEntityWorld(), player, Hand.MAIN_HAND, stack, speed, 1.0F, null);
+		chainCrossbow.shootAll(player.getWorld(), player, Hand.MAIN_HAND, stack, speed, 1.0F, null);
 
 		if (player instanceof ServerPlayerEntity serverPlayer) {
 			ItemStack dummy = new ItemStack(Items.CROSSBOW);

@@ -35,7 +35,7 @@ public abstract class CleavingShieldStunMixin {
         }
 
         int cleavingLevel = ModEnchantmentHelper.getLevel(
-                attacker.getEntityWorld(),
+                attacker.getWorld(),
                 weaponStack,
                 ModEnchantments.CLEAVING
         );
