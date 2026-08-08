@@ -6,6 +6,7 @@ import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
+import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,8 +45,7 @@ public abstract class PlayerEntityRendererArmPoseMixin {
             return;
         }
 
-        if (main.getItem() instanceof ChainCrossbowItem
-                && handState.hasChargedCrossbow) {
+        if (main.getItem() instanceof ChainCrossbowItem && CrossbowItem.isCharged(main)) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }
     }
