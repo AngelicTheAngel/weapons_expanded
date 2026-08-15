@@ -11,6 +11,8 @@ public class BluntWeaponItem extends AxeItem {
             float attackSpeed,
             Item.Properties properties
     ) {
-        super(material, attackDamage, attackSpeed, properties);
+        super(material, properties.attributes(
+                AxeItem.createAttributes(material, attackDamage, attackSpeed)
+        ));
     }
 }

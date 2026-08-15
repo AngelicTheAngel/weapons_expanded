@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_iron_longsword": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:iron_longsword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "weaponsexpanded:blasting/iron_nugget_from_iron_longsword"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_iron_longsword"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "weaponsexpanded:blasting/iron_nugget_from_iron_longsword"
+    ]
+  }
+}

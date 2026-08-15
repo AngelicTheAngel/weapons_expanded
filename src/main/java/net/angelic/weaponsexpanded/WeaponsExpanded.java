@@ -5,7 +5,6 @@ import net.angelic.weaponsexpanded.client.ModModelPredicates;
 import net.angelic.weaponsexpanded.client.render.ExplosiveArrowEntityRenderer;
 import net.angelic.weaponsexpanded.client.render.HeavyArrowEntityRenderer;
 import net.angelic.weaponsexpanded.effect.ModEffects;
-import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
 import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
@@ -22,46 +21,43 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.common.brewing.IBrewingRecipe;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
-import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
+import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Optional;
+
 @Mod(WeaponsExpanded.MOD_ID)
 public class WeaponsExpanded {
 
-  public static final String MOD_ID =
-          "weaponsexpanded";
+  public static final String MOD_ID = "weaponsexpanded";
 
-  public static final Logger LOGGER =
-          LoggerFactory.getLogger(MOD_ID);
+  public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
   // Everything in this tag can be used as furnace fuel.
   public static final TagKey<Item> WOODEN_FUEL =
@@ -79,54 +75,50 @@ public class WeaponsExpanded {
                           .toString())
                   .orElse("Unknown");
 
-  public WeaponsExpanded() {
-    IEventBus modEventBus =
-            FMLJavaModLoadingContext.get()
-                    .getModEventBus();
-
+  public WeaponsExpanded(
+          IEventBus modEventBus,
+          ModContainer modContainer,
+          Dist dist
+  ) {
     ModItems.register(modEventBus);
-    ModEnchantments.registerEnchantments(modEventBus);
     ModEffects.registerEffects(modEventBus);
     ModEntities.register(modEventBus);
     ModSounds.register(modEventBus);
     ModPotions.registerPotions(modEventBus);
 
-    modEventBus.addListener(this::commonSetup);
-
-    ModLoadingContext.get().registerConfig(
+    modContainer.registerConfig(
             ModConfig.Type.COMMON,
             WeaponsExpandedConfig.SPEC,
             "weaponsexpanded-common.toml"
     );
 
-    ModPackets.register();
-    ModLootTableModifiers.modifyLootTables();
-
-    MinecraftForge.EVENT_BUS.addListener(
+    NeoForge.EVENT_BUS.addListener(
             this::weaponsexpanded$setFuelBurnTime
     );
 
-    MinecraftForge.EVENT_BUS.addListener(
+    NeoForge.EVENT_BUS.addListener(
             this::weaponsexpanded$addWeaponsmithTrades
     );
+
+    NeoForge.EVENT_BUS.addListener(
+            this::weaponsexpanded$registerBrewingRecipes
+    );
+
+    if (dist == Dist.CLIENT) {
+      WeaponsExpandedConfigScreen.registerConfigScreen(
+              modContainer
+      );
+    }
+
+    modEventBus.addListener(ModPackets::register);
+    modEventBus.addListener(WeaponsExpandedDataGenerator::gatherData);
+
+    ModLootTableModifiers.modifyLootTables();
 
     LOGGER.info(
             "Initializing {} version {}",
             MOD_ID,
             VERSION
-    );
-  }
-
-  private void commonSetup(
-          final FMLCommonSetupEvent event
-  ) {
-    /*
-     * BrewingRecipeRegistry is not thread-safe, so Forge
-     * requires brewing recipes to be added through enqueueWork.
-     */
-    event.enqueueWork(
-            WeaponsExpanded::
-                    weaponsexpanded$registerBrewingRecipes
     );
   }
 
@@ -139,35 +131,30 @@ public class WeaponsExpanded {
     }
   }
 
-  private static void weaponsexpanded$registerBrewingRecipes() {
-    BrewingRecipeRegistry.addRecipe(
-            new PotionMixBrewingRecipe(
-                    Potions.AWKWARD,
-                    Ingredient.of(Items.BLUE_ICE),
-                    ModPotions.FROSTBITE_POTION.get()
-            )
+  private void weaponsexpanded$registerBrewingRecipes(
+          RegisterBrewingRecipesEvent event
+  ) {
+    event.getBuilder().addMix(
+            Potions.AWKWARD,
+            Items.BLUE_ICE,
+            ModPotions.FROSTBITE_POTION
     );
 
-    BrewingRecipeRegistry.addRecipe(
-            new PotionMixBrewingRecipe(
-                    ModPotions.FROSTBITE_POTION.get(),
-                    Ingredient.of(Items.REDSTONE),
-                    ModPotions.LONG_FROSTBITE_POTION.get()
-            )
+    event.getBuilder().addMix(
+            ModPotions.FROSTBITE_POTION,
+            Items.REDSTONE,
+            ModPotions.LONG_FROSTBITE_POTION
     );
   }
 
   private void weaponsexpanded$addWeaponsmithTrades(
           VillagerTradesEvent event
   ) {
-    if (event.getType()
-            != VillagerProfession.WEAPONSMITH) {
+    if (event.getType() != VillagerProfession.WEAPONSMITH) {
       return;
     }
 
-    if (!WeaponsExpandedConfig
-            .ENABLE_WEAPONSMITH_TRADES
-            .get()) {
+    if (!WeaponsExpandedConfig.ENABLE_WEAPONSMITH_TRADES.get()) {
       return;
     }
 
@@ -178,6 +165,7 @@ public class WeaponsExpanded {
                             17,
                             3,
                             15,
+                            entity,
                             random
                     )
     );
@@ -189,6 +177,7 @@ public class WeaponsExpanded {
                             17,
                             3,
                             15,
+                            entity,
                             random
                     )
     );
@@ -200,6 +189,7 @@ public class WeaponsExpanded {
                             17,
                             3,
                             15,
+                            entity,
                             random
                     )
     );
@@ -211,6 +201,7 @@ public class WeaponsExpanded {
                             13,
                             3,
                             30,
+                            entity,
                             random
                     )
     );
@@ -222,6 +213,7 @@ public class WeaponsExpanded {
                             13,
                             3,
                             30,
+                            entity,
                             random
                     )
     );
@@ -233,6 +225,7 @@ public class WeaponsExpanded {
                             13,
                             3,
                             30,
+                            entity,
                             random
                     )
     );
@@ -244,6 +237,7 @@ public class WeaponsExpanded {
                             13,
                             3,
                             30,
+                            entity,
                             random
                     )
     );
@@ -255,6 +249,7 @@ public class WeaponsExpanded {
                             13,
                             3,
                             30,
+                            entity,
                             random
                     )
     );
@@ -266,35 +261,36 @@ public class WeaponsExpanded {
                             13,
                             3,
                             30,
+                            entity,
                             random
                     )
     );
   }
 
-  private static MerchantOffer
-  weaponsexpanded$createEnchantedTrade(
+  private static MerchantOffer weaponsexpanded$createEnchantedTrade(
           Item item,
           int baseEmeraldCost,
           int maxUses,
           int merchantExperience,
+          Entity merchant,
           RandomSource random
   ) {
     int enchantmentLevel =
             random.nextIntBetweenInclusive(5, 19);
 
-    ItemStack weapon =
-            EnchantmentHelper.enchantItem(
-                    random,
-                    new ItemStack(item),
-                    enchantmentLevel,
-                    false
-            );
+    ItemStack weapon = EnchantmentHelper.enchantItem(
+            random,
+            new ItemStack(item),
+            enchantmentLevel,
+            merchant.level().registryAccess(),
+            Optional.empty()
+    );
 
     int emeraldCost =
             baseEmeraldCost + enchantmentLevel;
 
     return new MerchantOffer(
-            new ItemStack(
+            new ItemCost(
                     Items.EMERALD,
                     emeraldCost
             ),
@@ -306,81 +302,19 @@ public class WeaponsExpanded {
   }
 
   public static ResourceLocation id(String path) {
-    return new ResourceLocation(MOD_ID, path);
-  }
-
-  /**
-   * Forge does not expose a direct equivalent of Fabric's
-   * registerPotionRecipe method.
-   * This recipe preserves the original potion container, allowing
-   * normal, splash, and lingering potions to be transformed.
-   */
-  private static final class PotionMixBrewingRecipe
-          implements IBrewingRecipe {
-
-    private final Potion inputPotion;
-    private final Ingredient ingredient;
-    private final Potion outputPotion;
-
-    private PotionMixBrewingRecipe(
-            Potion inputPotion,
-            Ingredient ingredient,
-            Potion outputPotion
-    ) {
-      this.inputPotion = inputPotion;
-      this.ingredient = ingredient;
-      this.outputPotion = outputPotion;
-    }
-
-    @Override
-    public boolean isInput(ItemStack stack) {
-      return weaponsexpanded$isPotionContainer(stack)
-              && PotionUtils.getPotion(stack)
-              == this.inputPotion;
-    }
-
-    @Override
-    public boolean isIngredient(ItemStack stack) {
-      return this.ingredient.test(stack);
-    }
-
-    @Override
-    public ItemStack getOutput(
-            ItemStack input,
-            ItemStack ingredient
-    ) {
-      if (!isInput(input)
-              || !isIngredient(ingredient)) {
-        return ItemStack.EMPTY;
-      }
-
-      ItemStack output = input.copy();
-      output.setCount(1);
-
-      return PotionUtils.setPotion(
-              output,
-              this.outputPotion
-      );
-    }
-
-    private static boolean
-    weaponsexpanded$isPotionContainer(
-            ItemStack stack
-    ) {
-      return stack.is(Items.POTION)
-              || stack.is(Items.SPLASH_POTION)
-              || stack.is(Items.LINGERING_POTION);
-    }
+    return ResourceLocation.fromNamespaceAndPath(
+            MOD_ID,
+            path
+    );
   }
 
   /*
    * These events run only on the physical client. Keeping them in a
-   * nested class prevents client-only classes from loading on a
+   * nested class prevents their handlers from being registered on a
    * dedicated server.
    */
-  @Mod.EventBusSubscriber(
-          modid = MOD_ID,
-          bus = Mod.EventBusSubscriber.Bus.MOD,
+  @EventBusSubscriber(
+          modid = WeaponsExpanded.MOD_ID,
           value = Dist.CLIENT
   )
   public static final class ClientModEvents {
@@ -409,12 +343,7 @@ public class WeaponsExpanded {
     public static void onClientSetup(
             FMLClientSetupEvent event
     ) {
-      event.enqueueWork(() -> {
-        ModModelPredicates.register();
-
-        WeaponsExpandedConfigScreen
-                .registerConfigScreen();
-      });
+      event.enqueueWork(ModModelPredicates::register);
     }
 
     @SubscribeEvent
@@ -442,62 +371,43 @@ public class WeaponsExpanded {
     }
   }
 
-  /*
-   * ClientTickEvent is fired on the normal Forge event bus instead
-   * of the mod event bus.
-   */
-  @Mod.EventBusSubscriber(
+  @EventBusSubscriber(
           modid = MOD_ID,
-          bus = Mod.EventBusSubscriber.Bus.FORGE,
           value = Dist.CLIENT
   )
-  public static final class ClientForgeEvents {
+  public static final class ClientGameEvents {
 
-    private ClientForgeEvents() {
+    private ClientGameEvents() {
     }
 
     @SubscribeEvent
     public static void onClientTick(
-            TickEvent.ClientTickEvent event
+            ClientTickEvent.Post event
     ) {
-      if (event.phase != TickEvent.Phase.END) {
-        return;
-      }
-
-      Minecraft client =
-              Minecraft.getInstance();
+      Minecraft client = Minecraft.getInstance();
 
       if (client.player == null) {
         return;
       }
 
-      /*
-       * Do not register a chain-crossbow attack tick handler
-       * here. The converted Forge handler or mixin should
-       * continue handling chain-crossbow firing.
-       */
       while (ClientModEvents
               .WEAPONSEXPANDED$TOGGLE_WEAPON_MODE_KEY
               .consumeClick()) {
         ItemStack stack =
                 client.player.getMainHandItem();
 
-        if (stack.getItem()
-                instanceof BastardSwordItem) {
+        if (stack.getItem() instanceof BastardSwordItem) {
           ModPackets.sendToServer(
                   new ToggleBastardSwordModePayload()
           );
 
-          client.player
-                  .resetAttackStrengthTicker();
-        } else if (stack.getItem()
-                instanceof WarhammerItem) {
+          client.player.resetAttackStrengthTicker();
+        } else if (stack.getItem() instanceof WarhammerItem) {
           ModPackets.sendToServer(
                   new ToggleWarhammerModePayload()
           );
 
-          client.player
-                  .resetAttackStrengthTicker();
+          client.player.resetAttackStrengthTicker();
         }
       }
     }

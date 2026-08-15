@@ -12,9 +12,6 @@ import net.minecraft.world.phys.EntityHitResult;
 public class ExplosiveArrowEntity extends Arrow {
     private static final float EXPLOSION_POWER = 2.0F;
 
-    private ItemStack weaponsexpanded$pickupStack =
-            ItemStack.EMPTY;
-
     private boolean weaponsexpanded$exploded;
 
     public ExplosiveArrowEntity(
@@ -27,7 +24,8 @@ public class ExplosiveArrowEntity extends Arrow {
     public ExplosiveArrowEntity(
             Level level,
             LivingEntity owner,
-            ItemStack pickupStack
+            ItemStack pickupStack,
+            ItemStack weaponStack
     ) {
         this(
                 ModEntities.EXPLOSIVE_ARROW.get(),
@@ -44,14 +42,7 @@ public class ExplosiveArrowEntity extends Arrow {
         ItemStack singleArrow = pickupStack.copy();
         singleArrow.setCount(1);
 
-        this.weaponsexpanded$pickupStack = singleArrow;
-    }
-
-    @Override
-    protected ItemStack getPickupItem() {
-        return this.weaponsexpanded$pickupStack.isEmpty()
-                ? super.getPickupItem()
-                : this.weaponsexpanded$pickupStack.copy();
+        this.setPickupItemStack(singleArrow);
     }
 
     @Override

@@ -2,6 +2,7 @@ package net.angelic.weaponsexpanded.item.custom;
 
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.angelic.weaponsexpanded.sound.ModSounds;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -18,33 +19,24 @@ import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ChargedProjectiles;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChainCrossbowItem extends CrossbowItem {
-    private static final String WEAPONSEXPANDED$QUEUE_KEY =
+    private static final String QUEUE_KEY =
             "weaponsexpanded:chain_crossbow_queue";
-
-    private static final String WEAPONSEXPANDED$SAVED_CHAMBER_KEY =
+    private static final String SAVED_CHAMBER_KEY =
             "weaponsexpanded:chain_crossbow_saved_chamber";
-
-    /*
-     * Vanilla 1.20.1 crossbow NBT keys.
-     */
-    private static final String WEAPONSEXPANDED$CHARGED_PROJECTILES_KEY =
-            "ChargedProjectiles";
-
-    private static final String WEAPONSEXPANDED$CUSTOM_MODEL_DATA_KEY =
-            "CustomModelData";
-
-    private static final String WEAPONSEXPANDED$CHAMBER_PROJECTILES_KEY =
+    private static final String CHAMBER_PROJECTILES_KEY =
             "projectiles";
 
-    private static final int WEAPONSEXPANDED$MAX_TOTAL_SHOTS = 4;
-    private static final int WEAPONSEXPANDED$CMD_EXPLOSIVE_LOADED = 1;
+    private static final int MAX_TOTAL_SHOTS = 4;
+    private static final int CMD_EXPLOSIVE_LOADED = 1;
 
     public ChainCrossbowItem(Item.Properties properties) {
         super(properties);
@@ -53,38 +45,29 @@ public class ChainCrossbowItem extends CrossbowItem {
     @Override
     public void appendHoverText(
             ItemStack stack,
-            @Nullable Level level,
-            List<Component> tooltip,
-            TooltipFlag flag
+            TooltipContext context,
+            List<Component> tooltipComponents,
+            TooltipFlag tooltipFlag
     ) {
-        int queued = weaponsexpanded$getQueuedChambers(stack);
-
-        CompoundTag root = stack.getTag();
-
+        CompoundTag root = readCustomData(stack);
         boolean hasSavedChamber =
-                root != null
-                        && root.contains(
-                        WEAPONSEXPANDED$SAVED_CHAMBER_KEY,
-                        Tag.TAG_COMPOUND
-                );
-
-        boolean isCharged = CrossbowItem.isCharged(stack);
-        int currentOrSaved = isCharged || hasSavedChamber ? 1 : 0;
-
+                root.contains(SAVED_CHAMBER_KEY, Tag.TAG_COMPOUND);
+        int currentOrSaved =
+                CrossbowItem.isCharged(stack) || hasSavedChamber ? 1 : 0;
         int total = Math.min(
-                WEAPONSEXPANDED$MAX_TOTAL_SHOTS,
-                currentOrSaved + queued
+                MAX_TOTAL_SHOTS,
+                currentOrSaved + getQueuedChambers(stack)
         );
 
-        tooltip.add(
+        tooltipComponents.add(
                 Component.translatable(
                         "tooltip.weaponsexpanded.chain_crossbow_shots",
                         total,
-                        WEAPONSEXPANDED$MAX_TOTAL_SHOTS
+                        MAX_TOTAL_SHOTS
                 )
         );
 
-        super.appendHoverText(stack, level, tooltip, flag);
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 
     @Override
@@ -94,31 +77,27 @@ public class ChainCrossbowItem extends CrossbowItem {
             InteractionHand hand
     ) {
         ItemStack crossbow = user.getItemInHand(hand);
-        CompoundTag root = crossbow.getOrCreateTag();
+        CompoundTag root = readCustomData(crossbow);
 
-        weaponsexpanded$trimQueueToMax(root);
+        trimQueueToMax(root);
+        writeCustomData(crossbow, root);
 
-        boolean hasSavedChamber = root.contains(
-                WEAPONSEXPANDED$SAVED_CHAMBER_KEY,
-                Tag.TAG_COMPOUND
-        );
+        boolean hasSavedChamber =
+                root.contains(
+                        SAVED_CHAMBER_KEY,
+                        Tag.TAG_COMPOUND
+                );
 
-        boolean isChargedNow = CrossbowItem.isCharged(crossbow);
+        boolean charged =
+                CrossbowItem.isCharged(crossbow);
 
-        int queued = root.getList(
-                WEAPONSEXPANDED$QUEUE_KEY,
-                Tag.TAG_COMPOUND
-        ).size();
+        int queued = getQueue(root).size();
 
-        int currentOrSaved =
-                isChargedNow || hasSavedChamber ? 1 : 0;
+        int total =
+                (charged || hasSavedChamber ? 1 : 0)
+                        + queued;
 
-        int total = currentOrSaved + queued;
-
-        /*
-         * The weapon already contains all four shots.
-         */
-        if (total >= WEAPONSEXPANDED$MAX_TOTAL_SHOTS) {
+        if (total >= MAX_TOTAL_SHOTS) {
             if (!level.isClientSide) {
                 level.playSound(
                         null,
@@ -130,123 +109,69 @@ public class ChainCrossbowItem extends CrossbowItem {
                         1.0F,
                         1.0F
                 );
-
-                weaponsexpanded$refreshLoadedVisual(crossbow);
             }
 
+            refreshLoadedVisual(crossbow);
             return InteractionResultHolder.fail(crossbow);
         }
 
         /*
-         * Let vanilla handle the client-side use animation.
+         * Recover a stored or queued chamber before attempting
+         * to load ammunition from the player's inventory.
          */
-        if (level.isClientSide) {
+        if (!charged) {
+            if (hasSavedChamber) {
+                CompoundTag saved =
+                        root.getCompound(
+                                SAVED_CHAMBER_KEY
+                        ).copy();
+
+                root.remove(SAVED_CHAMBER_KEY);
+                writeCustomData(crossbow, root);
+                applyChamber(level, crossbow, saved);
+                syncPlayerInventory(user);
+
+                return InteractionResultHolder.consume(
+                        crossbow
+                );
+            }
+
+            if (queued > 0
+                    && loadNextChamber(level, crossbow)) {
+                syncPlayerInventory(user);
+
+                return InteractionResultHolder.consume(
+                        crossbow
+                );
+            }
+
             return super.use(level, user, hand);
         }
 
         /*
-         * Recover a chamber if the crossbow's Charged flag was lost.
-         */
-        if (!isChargedNow) {
-            /*
-             * Restore the temporarily saved current chamber first.
-             */
-            if (hasSavedChamber) {
-                CompoundTag saved = root
-                        .getCompound(
-                                WEAPONSEXPANDED$SAVED_CHAMBER_KEY
-                        )
-                        .copy();
-
-                root.remove(
-                        WEAPONSEXPANDED$SAVED_CHAMBER_KEY
-                );
-
-                weaponsexpanded$applyChamberToCrossbow(
-                        crossbow,
-                        saved
-                );
-
-                weaponsexpanded$syncPlayerInventory(user);
-
-                return InteractionResultHolder.consume(crossbow);
-            }
-
-            /*
-             * Otherwise load the next queued chamber.
-             */
-            if (queued > 0) {
-                List<ItemStack> next =
-                        weaponsexpanded$popNextChamber(
-                                level,
-                                crossbow
-                        );
-
-                if (!next.isEmpty()) {
-                    weaponsexpanded$setChargedProjectiles(
-                            crossbow,
-                            next
-                    );
-
-                    weaponsexpanded$syncPlayerInventory(user);
-
-                    return InteractionResultHolder.consume(crossbow);
-                }
-            }
-        }
-
-        /*
-         * The current chamber is loaded, but the queue is not full.
+         * Temporarily remove the current chamber so vanilla sees an
+         * uncharged crossbow and begins another loading cycle.
          *
-         * Save the current chamber, clear it, and let vanilla begin
-         * loading another chamber from the player's inventory.
+         * This must happen on both the client and server. Previously
+         * the client called super.use() while still charged, causing
+         * it to fire instead of entering the loading animation.
          */
-        if (isChargedNow) {
-            root.put(
-                    WEAPONSEXPANDED$SAVED_CHAMBER_KEY,
-                    weaponsexpanded$encodeChamber(crossbow)
-            );
+        root.put(
+                SAVED_CHAMBER_KEY,
+                encodeChamber(level, crossbow)
+        );
 
-            weaponsexpanded$setChargedProjectiles(
-                    crossbow,
-                    List.of()
-            );
+        writeCustomData(crossbow, root);
+        setChargedProjectiles(crossbow, List.of());
 
-            InteractionResultHolder<ItemStack> vanillaResult =
-                    super.use(level, user, hand);
+        InteractionResultHolder<ItemStack> result =
+                super.use(level, user, hand);
 
-            /*
-             * If vanilla cannot begin loading, restore the chamber.
-             */
-            if (vanillaResult.getResult() == InteractionResult.FAIL) {
-                CompoundTag restoreRoot =
-                        crossbow.getOrCreateTag();
-
-                if (restoreRoot.contains(
-                        WEAPONSEXPANDED$SAVED_CHAMBER_KEY,
-                        Tag.TAG_COMPOUND
-                )) {
-                    CompoundTag saved = restoreRoot
-                            .getCompound(
-                                    WEAPONSEXPANDED$SAVED_CHAMBER_KEY
-                            )
-                            .copy();
-
-                    restoreRoot.remove(
-                            WEAPONSEXPANDED$SAVED_CHAMBER_KEY
-                    );
-
-                    weaponsexpanded$applyChamberToCrossbow(
-                            crossbow,
-                            saved
-                    );
-                }
-            }
-
-            return vanillaResult;
+        if (result.getResult() == InteractionResult.FAIL) {
+            restoreSavedChamber(level, crossbow);
         }
 
-        return super.use(level, user, hand);
+        return result;
     }
 
     @Override
@@ -256,68 +181,36 @@ public class ChainCrossbowItem extends CrossbowItem {
             LivingEntity user,
             int remainingUseTicks
     ) {
-        super.releaseUsing(
-                crossbow,
-                level,
-                user,
-                remainingUseTicks
-        );
+        super.releaseUsing(crossbow, level, user, remainingUseTicks);
 
         if (level.isClientSide) {
             return;
         }
 
-        CompoundTag root = crossbow.getOrCreateTag();
-        weaponsexpanded$trimQueueToMax(root);
+        CompoundTag root = readCustomData(crossbow);
+        trimQueueToMax(root);
 
-        boolean toppingUp = root.contains(
-                WEAPONSEXPANDED$SAVED_CHAMBER_KEY,
-                Tag.TAG_COMPOUND
-        );
+        if (root.contains(SAVED_CHAMBER_KEY, Tag.TAG_COMPOUND)) {
+            if (CrossbowItem.isCharged(crossbow)) {
+                appendCurrentChamberToQueue(level, crossbow, root);
+            }
 
-        /*
-         * If vanilla successfully loaded the new chamber, move it
-         * into our queued chamber list.
-         */
-        if (toppingUp && CrossbowItem.isCharged(crossbow)) {
-            weaponsexpanded$appendCurrentChamberToQueue(
-                    crossbow,
-                    root
-            );
+            CompoundTag saved =
+                    root.getCompound(SAVED_CHAMBER_KEY).copy();
+            root.remove(SAVED_CHAMBER_KEY);
+            writeCustomData(crossbow, root);
+            applyChamber(level, crossbow, saved);
+        } else {
+            writeCustomData(crossbow, root);
         }
 
-        /*
-         * Restore the original chamber as the active chamber.
-         */
-        if (toppingUp) {
-            CompoundTag saved = root
-                    .getCompound(
-                            WEAPONSEXPANDED$SAVED_CHAMBER_KEY
-                    )
-                    .copy();
-
-            root.remove(
-                    WEAPONSEXPANDED$SAVED_CHAMBER_KEY
-            );
-
-            weaponsexpanded$applyChamberToCrossbow(
-                    crossbow,
-                    saved
-            );
-        }
-
-        weaponsexpanded$refreshLoadedVisual(crossbow);
+        refreshLoadedVisual(crossbow);
 
         if (user instanceof ServerPlayer serverPlayer) {
             serverPlayer.containerMenu.broadcastChanges();
         }
     }
 
-    /*
-     * CrossbowItem.performShooting is static in Minecraft 1.20.1
-     * and therefore cannot be overridden. This tick refresh removes
-     * CustomModelData after vanilla clears the charged projectiles.
-     */
     @Override
     public void inventoryTick(
             ItemStack stack,
@@ -326,127 +219,140 @@ public class ChainCrossbowItem extends CrossbowItem {
             int slot,
             boolean selected
     ) {
-        super.inventoryTick(
-                stack,
-                level,
-                entity,
-                slot,
-                selected
-        );
+        super.inventoryTick(stack, level, entity, slot, selected);
 
         if (level.isClientSide) {
             return;
         }
 
-        boolean repaired =
-                weaponsexpanded$repairInvalidLoadedState(
-                        stack,
-                        entity
-                );
+        boolean changed = repairLoadedState(level, stack, entity);
+        updateLoadedVisual(stack);
 
-        weaponsexpanded$updateLoadedVisual(stack);
-
-        if (repaired
-                && entity instanceof ServerPlayer serverPlayer) {
+        if (changed && entity instanceof ServerPlayer serverPlayer) {
             serverPlayer.containerMenu.broadcastChanges();
         }
     }
 
-    private static boolean weaponsexpanded$repairInvalidLoadedState(
+    private static boolean repairLoadedState(
+            Level level,
             ItemStack stack,
             Entity holder
     ) {
-        CompoundTag root = stack.getTag();
+        CompoundTag root = readCustomData(stack);
 
-        if (root == null) {
-            return false;
-        }
-
+        /*
+         * Do not restore the saved chamber while the entity is using a
+         * chain crossbow. Comparing ItemStack references with == is not
+         * reliable after data-component updates and inventory syncing.
+         */
         boolean activelyLoading =
                 holder instanceof LivingEntity livingEntity
                         && livingEntity.isUsingItem()
-                        && livingEntity.getUseItem() == stack;
+                        && livingEntity.getUseItem().getItem()
+                        instanceof ChainCrossbowItem;
 
-        /*
-         * A saved chamber is valid while the player is loading another
-         * round. If loading has ended but the chamber remains saved,
-         * restore it.
-         */
-        if (!activelyLoading
-                && root.contains(
-                WEAPONSEXPANDED$SAVED_CHAMBER_KEY,
+        if (root.contains(
+                SAVED_CHAMBER_KEY,
                 Tag.TAG_COMPOUND
         )) {
+            if (activelyLoading) {
+                return false;
+            }
+
             /*
-             * If loading completed before the state became stuck,
-             * preserve the newly loaded chamber by moving it into
-             * the queue.
+             * Loading was genuinely interrupted. Restore the chamber
+             * that was temporarily removed by use().
              */
-            if (CrossbowItem.isCharged(stack)
-                    && !weaponsexpanded$getChargedProjectiles(stack)
-                    .isEmpty()) {
-                weaponsexpanded$appendCurrentChamberToQueue(
+            if (CrossbowItem.isCharged(stack)) {
+                appendCurrentChamberToQueue(
+                        level,
                         stack,
                         root
                 );
             }
 
-            CompoundTag savedChamber = root
-                    .getCompound(
-                            WEAPONSEXPANDED$SAVED_CHAMBER_KEY
-                    )
-                    .copy();
+            CompoundTag saved =
+                    root.getCompound(
+                            SAVED_CHAMBER_KEY
+                    ).copy();
 
-            root.remove(
-                    WEAPONSEXPANDED$SAVED_CHAMBER_KEY
-            );
-
-            weaponsexpanded$applyChamberToCrossbow(
-                    stack,
-                    savedChamber
-            );
+            root.remove(SAVED_CHAMBER_KEY);
+            writeCustomData(stack, root);
+            applyChamber(level, stack, saved);
 
             return true;
         }
 
         /*
-         * Repair the impossible state where the Charged flag is true
-         * but ChargedProjectiles contains no projectile.
+         * After firing, automatically move the next queued chamber
+         * into the active chamber.
          */
-        if (CrossbowItem.isCharged(stack)
-                && weaponsexpanded$getChargedProjectiles(stack)
-                .isEmpty()) {
-            CrossbowItem.setCharged(stack, false);
-
-            root.remove(
-                    WEAPONSEXPANDED$CHARGED_PROJECTILES_KEY
-            );
-
-            /*
-             * Recover the next valid queued chamber, if one exists.
-             * Otherwise the crossbow becomes normally loadable again.
-             */
-            weaponsexpanded$loadNextChamber(
-                    holder.level(),
-                    stack
-            );
-
-            return true;
+        if (!CrossbowItem.isCharged(stack)
+                && !getQueue(root).isEmpty()) {
+            return loadNextChamber(level, stack);
         }
 
         return false;
     }
 
-    public static List<ItemStack> weaponsexpanded$popNextChamber(
+    private static void restoreSavedChamber(
             Level level,
             ItemStack crossbow
     ) {
-        CompoundTag root = crossbow.getOrCreateTag();
+        CompoundTag root = readCustomData(crossbow);
 
-        ListTag queue = root.getList(
-                WEAPONSEXPANDED$QUEUE_KEY,
-                Tag.TAG_COMPOUND
-        );
+        if (!root.contains(SAVED_CHAMBER_KEY, Tag.TAG_COMPOUND)) {
+            return;
+        }
+
+        CompoundTag saved = root.getCompound(SAVED_CHAMBER_KEY).copy();
+        root.remove(SAVED_CHAMBER_KEY);
+        writeCustomData(crossbow, root);
+        applyChamber(level, crossbow, saved);
+    }
+
+    public static boolean loadNextChamber(
+            Level level,
+            ItemStack crossbow
+    ) {
+        List<ItemStack> next = popNextChamber(level, crossbow);
+        setChargedProjectiles(crossbow, next);
+        return !next.isEmpty();
+    }
+
+    public static boolean weaponsexpanded$loadNextChamber(
+            Level level,
+            ItemStack crossbow
+    ) {
+        return loadNextChamber(level, crossbow);
+    }
+
+    public static int getQueuedChambers(ItemStack crossbow) {
+        return getQueue(readCustomData(crossbow)).size();
+    }
+
+    public static int weaponsexpanded$getQueuedChambers(
+            ItemStack crossbow
+    ) {
+        return getQueuedChambers(crossbow);
+    }
+
+    public static void refreshLoadedVisual(ItemStack stack) {
+        updateLoadedVisual(stack);
+    }
+
+    public static void weaponsexpanded$refreshLoadedVisual(
+            ItemStack stack
+    ) {
+        refreshLoadedVisual(stack);
+    }
+
+    private static List<ItemStack> popNextChamber(
+            Level level,
+            ItemStack crossbow
+    ) {
+        CompoundTag root = readCustomData(crossbow);
+        ListTag queue = getQueue(root);
 
         if (queue.isEmpty()) {
             return List.of();
@@ -456,272 +362,181 @@ public class ChainCrossbowItem extends CrossbowItem {
         queue.remove(0);
 
         if (queue.isEmpty()) {
-            root.remove(WEAPONSEXPANDED$QUEUE_KEY);
+            root.remove(QUEUE_KEY);
         } else {
-            root.put(WEAPONSEXPANDED$QUEUE_KEY, queue);
+            root.put(QUEUE_KEY, queue);
         }
 
-        return weaponsexpanded$decodeChamber(chamber);
+        writeCustomData(crossbow, root);
+        return decodeChamber(level, chamber);
     }
 
-    /**
-     * Convenience method for the server packet handler after firing.
-     *
-     * @return true if another chamber was loaded
-     */
-    public static boolean weaponsexpanded$loadNextChamber(
+    public static List<ItemStack> weaponsexpanded$popNextChamber(
             Level level,
             ItemStack crossbow
     ) {
-        List<ItemStack> next =
-                weaponsexpanded$popNextChamber(
-                        level,
-                        crossbow
-                );
-
-        if (next.isEmpty()) {
-            weaponsexpanded$setChargedProjectiles(
-                    crossbow,
-                    List.of()
-            );
-
-            return false;
-        }
-
-        weaponsexpanded$setChargedProjectiles(
-                crossbow,
-                next
-        );
-
-        return true;
+        return popNextChamber(level, crossbow);
     }
 
-    public static int weaponsexpanded$getQueuedChambers(
-            ItemStack crossbow
-    ) {
-        CompoundTag root = crossbow.getTag();
-
-        if (root == null) {
-            return 0;
-        }
-
-        return root.getList(
-                WEAPONSEXPANDED$QUEUE_KEY,
-                Tag.TAG_COMPOUND
-        ).size();
-    }
-
-    public static void weaponsexpanded$refreshLoadedVisual(
-            ItemStack stack
-    ) {
-        weaponsexpanded$updateLoadedVisual(stack);
-    }
-
-    private static void weaponsexpanded$updateLoadedVisual(
-            ItemStack stack
-    ) {
-        boolean hasExplosive =
-                CrossbowItem.containsChargedProjectile(
-                        stack,
-                        ModItems.EXPLOSIVE_ARROW.get()
-                );
-
-        if (hasExplosive) {
-            stack.getOrCreateTag().putInt(
-                    WEAPONSEXPANDED$CUSTOM_MODEL_DATA_KEY,
-                    WEAPONSEXPANDED$CMD_EXPLOSIVE_LOADED
-            );
-
-            return;
-        }
-
-        CompoundTag root = stack.getTag();
-
-        if (root != null) {
-            root.remove(
-                    WEAPONSEXPANDED$CUSTOM_MODEL_DATA_KEY
-            );
-
-            if (root.isEmpty()) {
-                stack.setTag(null);
-            }
-        }
-    }
-
-    private static void weaponsexpanded$trimQueueToMax(
-            CompoundTag root
-    ) {
-        ListTag queue = root.getList(
-                WEAPONSEXPANDED$QUEUE_KEY,
-                Tag.TAG_COMPOUND
-        );
-
-        int maximumQueued =
-                WEAPONSEXPANDED$MAX_TOTAL_SHOTS - 1;
-
-        while (queue.size() > maximumQueued) {
-            queue.remove(queue.size() - 1);
-        }
-
-        if (queue.isEmpty()) {
-            root.remove(WEAPONSEXPANDED$QUEUE_KEY);
-        } else {
-            root.put(WEAPONSEXPANDED$QUEUE_KEY, queue);
-        }
-    }
-
-    private static void weaponsexpanded$appendCurrentChamberToQueue(
+    private static void appendCurrentChamberToQueue(
+            Level level,
             ItemStack crossbow,
             CompoundTag root
     ) {
-        ListTag queue = root.getList(
-                WEAPONSEXPANDED$QUEUE_KEY,
-                Tag.TAG_COMPOUND
-        );
+        ListTag queue = getQueue(root);
 
-        int maximumQueued =
-                WEAPONSEXPANDED$MAX_TOTAL_SHOTS - 1;
-
-        if (queue.size() >= maximumQueued) {
+        if (queue.size() >= MAX_TOTAL_SHOTS - 1) {
             return;
         }
 
-        queue.add(
-                weaponsexpanded$encodeChamber(crossbow)
-        );
-
-        root.put(WEAPONSEXPANDED$QUEUE_KEY, queue);
+        queue.add(encodeChamber(level, crossbow));
+        root.put(QUEUE_KEY, queue);
+        writeCustomData(crossbow, root);
     }
 
-    private static CompoundTag weaponsexpanded$encodeChamber(
+    private static CompoundTag encodeChamber(
+            Level level,
             ItemStack crossbow
     ) {
         CompoundTag chamber = new CompoundTag();
         ListTag serializedProjectiles = new ListTag();
 
-        for (ItemStack projectile :
-                weaponsexpanded$getChargedProjectiles(crossbow)) {
-            ItemStack oneProjectile = projectile.copy();
-            oneProjectile.setCount(1);
+        for (ItemStack projectile : getChargedProjectiles(crossbow)) {
+            Tag saved = projectile.copyWithCount(1)
+                    .save(level.registryAccess());
 
-            serializedProjectiles.add(
-                    oneProjectile.save(new CompoundTag())
-            );
+            if (saved instanceof CompoundTag compound) {
+                serializedProjectiles.add(compound);
+            }
         }
 
-        chamber.put(
-                WEAPONSEXPANDED$CHAMBER_PROJECTILES_KEY,
-                serializedProjectiles
-        );
-
+        chamber.put(CHAMBER_PROJECTILES_KEY, serializedProjectiles);
         return chamber;
     }
 
-    private static List<ItemStack> weaponsexpanded$decodeChamber(
+    private static List<ItemStack> decodeChamber(
+            Level level,
             CompoundTag chamber
     ) {
         List<ItemStack> projectiles = new ArrayList<>();
-
         ListTag serializedProjectiles = chamber.getList(
-                WEAPONSEXPANDED$CHAMBER_PROJECTILES_KEY,
+                CHAMBER_PROJECTILES_KEY,
                 Tag.TAG_COMPOUND
         );
 
-        for (int index = 0;
-             index < serializedProjectiles.size();
-             index++) {
-            ItemStack projectile = ItemStack.of(
+        for (int index = 0; index < serializedProjectiles.size(); index++) {
+            ItemStack projectile = ItemStack.parseOptional(
+                    level.registryAccess(),
                     serializedProjectiles.getCompound(index)
             );
 
             if (!projectile.isEmpty()) {
-                projectile.setCount(1);
-                projectiles.add(projectile);
+                projectiles.add(projectile.copyWithCount(1));
             }
         }
 
         return projectiles;
     }
 
-    private static List<ItemStack>
-    weaponsexpanded$getChargedProjectiles(
-            ItemStack crossbow
-    ) {
-        List<ItemStack> projectiles = new ArrayList<>();
-        CompoundTag root = crossbow.getTag();
-
-        if (root == null) {
-            return projectiles;
-        }
-
-        ListTag serializedProjectiles = root.getList(
-                WEAPONSEXPANDED$CHARGED_PROJECTILES_KEY,
-                Tag.TAG_COMPOUND
-        );
-
-        for (int index = 0;
-             index < serializedProjectiles.size();
-             index++) {
-            ItemStack projectile = ItemStack.of(
-                    serializedProjectiles.getCompound(index)
-            );
-
-            if (!projectile.isEmpty()) {
-                projectiles.add(projectile);
-            }
-        }
-
-        return projectiles;
-    }
-
-    private static void weaponsexpanded$applyChamberToCrossbow(
+    private static void applyChamber(
+            Level level,
             ItemStack crossbow,
             CompoundTag chamber
     ) {
-        weaponsexpanded$setChargedProjectiles(
+        setChargedProjectiles(
                 crossbow,
-                weaponsexpanded$decodeChamber(chamber)
+                decodeChamber(level, chamber)
         );
     }
 
-    /**
-     * Sets the vanilla 1.20.1 ChargedProjectiles NBT list.
-     */
+    public static void setChargedProjectiles(
+            ItemStack crossbow,
+            List<ItemStack> projectiles
+    ) {
+        List<ItemStack> copies = projectiles.stream()
+                .filter(projectile -> !projectile.isEmpty())
+                .map(projectile -> projectile.copyWithCount(1))
+                .toList();
+
+        crossbow.set(
+                DataComponents.CHARGED_PROJECTILES,
+                copies.isEmpty()
+                        ? ChargedProjectiles.EMPTY
+                        : ChargedProjectiles.of(copies)
+        );
+
+        refreshLoadedVisual(crossbow);
+    }
+
     public static void weaponsexpanded$setChargedProjectiles(
             ItemStack crossbow,
             List<ItemStack> projectiles
     ) {
-        ListTag serializedProjectiles = new ListTag();
-
-        for (ItemStack projectile : projectiles) {
-            if (projectile.isEmpty()) {
-                continue;
-            }
-
-            ItemStack oneProjectile = projectile.copy();
-            oneProjectile.setCount(1);
-
-            serializedProjectiles.add(
-                    oneProjectile.save(new CompoundTag())
-            );
-        }
-
-        crossbow.getOrCreateTag().put(
-                WEAPONSEXPANDED$CHARGED_PROJECTILES_KEY,
-                serializedProjectiles
-        );
-
-        CrossbowItem.setCharged(
-                crossbow,
-                !serializedProjectiles.isEmpty()
-        );
-
-        weaponsexpanded$refreshLoadedVisual(crossbow);
+        setChargedProjectiles(crossbow, projectiles);
     }
 
-    private static void weaponsexpanded$syncPlayerInventory(
-            Player player
+    private static List<ItemStack> getChargedProjectiles(
+            ItemStack crossbow
     ) {
+        return crossbow.getOrDefault(
+                DataComponents.CHARGED_PROJECTILES,
+                ChargedProjectiles.EMPTY
+        ).getItems();
+    }
+
+    private static void updateLoadedVisual(ItemStack stack) {
+        boolean hasExplosive = stack.getOrDefault(
+                DataComponents.CHARGED_PROJECTILES,
+                ChargedProjectiles.EMPTY
+        ).contains(ModItems.EXPLOSIVE_ARROW.get());
+
+        if (hasExplosive) {
+            stack.set(
+                    DataComponents.CUSTOM_MODEL_DATA,
+                    new CustomModelData(CMD_EXPLOSIVE_LOADED)
+            );
+        } else {
+            stack.remove(DataComponents.CUSTOM_MODEL_DATA);
+        }
+    }
+
+    private static void trimQueueToMax(CompoundTag root) {
+        ListTag queue = getQueue(root);
+
+        while (queue.size() > MAX_TOTAL_SHOTS - 1) {
+            queue.remove(queue.size() - 1);
+        }
+
+        if (queue.isEmpty()) {
+            root.remove(QUEUE_KEY);
+        } else {
+            root.put(QUEUE_KEY, queue);
+        }
+    }
+
+    private static ListTag getQueue(CompoundTag root) {
+        return root.getList(QUEUE_KEY, Tag.TAG_COMPOUND).copy();
+    }
+
+    private static CompoundTag readCustomData(ItemStack stack) {
+        return stack.getOrDefault(
+                DataComponents.CUSTOM_DATA,
+                CustomData.EMPTY
+        ).copyTag();
+    }
+
+    private static void writeCustomData(
+            ItemStack stack,
+            CompoundTag root
+    ) {
+        if (root.isEmpty()) {
+            stack.remove(DataComponents.CUSTOM_DATA);
+        } else {
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(root));
+        }
+    }
+
+    private static void syncPlayerInventory(Player player) {
         if (player instanceof ServerPlayer serverPlayer) {
             serverPlayer.containerMenu.broadcastChanges();
         }

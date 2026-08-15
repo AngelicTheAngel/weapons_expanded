@@ -10,14 +10,11 @@ public class FrostbiteEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         if (!entity.isOnFire()) {
             entity.setTicksFrozen(160);
+            return true;
         }
-    }
-
-    @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
-        return true;
+        return false;
     }
 }

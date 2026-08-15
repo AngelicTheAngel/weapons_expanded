@@ -17,7 +17,8 @@ public class ExplosiveArrowItem extends ArrowItem {
     public AbstractArrow createArrow(
             Level level,
             ItemStack stack,
-            LivingEntity shooter
+            LivingEntity shooter,
+            ItemStack weaponStack
     ) {
         ItemStack singleArrow = stack.copy();
         singleArrow.setCount(1);
@@ -25,7 +26,8 @@ public class ExplosiveArrowItem extends ArrowItem {
         return new ExplosiveArrowEntity(
                 level,
                 shooter,
-                singleArrow
+                singleArrow,
+                weaponStack
         );
     }
 }

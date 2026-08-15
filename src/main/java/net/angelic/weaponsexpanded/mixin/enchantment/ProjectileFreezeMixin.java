@@ -90,7 +90,8 @@ public abstract class ProjectileFreezeMixin {
             return;
         }
 
-        int safeLevel = Math.max(1, level);
+        int safeLevel =
+                Math.max(1, level);
 
         projectile.addTag(
                 WEAPONSEXPANDED$FREEZE_TAG_PREFIX
@@ -142,17 +143,18 @@ public abstract class ProjectileFreezeMixin {
                                     .length()
                     );
 
-            int level = Math.max(
-                    1,
-                    Integer.parseInt(levelText)
-            );
+            int level =
+                    Math.max(
+                            1,
+                            Integer.parseInt(levelText)
+                    );
 
             int duration =
                     60 + level * 40;
 
             livingTarget.addEffect(
                     new MobEffectInstance(
-                            ModEffects.FROSTBITE.get(),
+                            ModEffects.FROSTBITE,
                             duration,
                             0
                     )
@@ -162,10 +164,6 @@ public abstract class ProjectileFreezeMixin {
                     projectile
             );
         } catch (NumberFormatException ignored) {
-            /*
-             * Remove malformed Freeze tags so they do not remain
-             * attached to the projectile indefinitely.
-             */
             weaponsexpanded$removeFreezeTags(
                     projectile
             );
@@ -264,14 +262,9 @@ public abstract class ProjectileFreezeMixin {
 
         serverLevel.setBlockAndUpdate(
                 projectilePos,
-                Blocks.FROSTED_ICE
-                        .defaultBlockState()
+                Blocks.FROSTED_ICE.defaultBlockState()
         );
 
-        /*
-         * Use a valid positive delay instead of an unbounded random
-         * integer, which could produce a negative tick delay.
-         */
         int meltDelay =
                 60 + serverLevel
                         .getRandom()

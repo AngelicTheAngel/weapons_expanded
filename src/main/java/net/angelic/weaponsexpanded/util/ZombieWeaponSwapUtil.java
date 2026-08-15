@@ -6,10 +6,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-
-import java.util.Map;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 
 public final class ZombieWeaponSwapUtil {
 
@@ -51,13 +49,13 @@ public final class ZombieWeaponSwapUtil {
                     : new ItemStack(ModItems.IRON_SCYTHE.get());
         }
 
-        Map<Enchantment, Integer> enchantments =
-                EnchantmentHelper.getEnchantments(mainHand);
+        ItemEnchantments enchantments =
+                EnchantmentHelper.getEnchantmentsForCrafting(mainHand);
 
         if (!enchantments.isEmpty()) {
             EnchantmentHelper.setEnchantments(
-                    enchantments,
-                    replacement
+                    replacement,
+                    enchantments
             );
         }
 

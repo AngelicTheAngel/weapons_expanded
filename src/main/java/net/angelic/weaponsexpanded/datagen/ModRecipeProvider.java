@@ -3,8 +3,9 @@ package net.angelic.weaponsexpanded.datagen;
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.angelic.weaponsexpanded.util.ModItemTags;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
@@ -19,14 +20,17 @@ import net.minecraft.data.recipes.RecipeCategory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
-public class ModRecipeProvider extends RecipeProvider {
+public final class ModRecipeProvider extends RecipeProvider {
 
-    private Consumer<FinishedRecipe> recipeExporter;
+    private RecipeOutput recipeExporter;
 
-    public ModRecipeProvider(PackOutput output) {
-        super(output);
+    public ModRecipeProvider(
+            PackOutput output,
+            CompletableFuture<HolderLookup.Provider> lookupProvider
+    ) {
+        super(output, lookupProvider);
     }
 
     public void offerBroadswordRecipe(Item output, TagKey<Item> input) {
@@ -290,7 +294,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(input), has(input))
                     .save(
                             recipeExporter,
-                            new ResourceLocation(
+                            ResourceLocation.fromNamespaceAndPath(
                                     WeaponsExpanded.MOD_ID,
                                     "smelting/"
                                             + materialName
@@ -322,7 +326,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(input), has(input))
                     .save(
                             recipeExporter,
-                            new ResourceLocation(
+                            ResourceLocation.fromNamespaceAndPath(
                                     WeaponsExpanded.MOD_ID,
                                     "blasting/"
                                             + materialName
@@ -362,7 +366,7 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     private void offerNetheriteUpgradeRecipe(
-            Consumer<FinishedRecipe> exporter,
+            RecipeOutput exporter,
             Item input,
             RecipeCategory category,
             Item result
@@ -382,7 +386,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 )
                 .save(
                         exporter,
-                        new ResourceLocation(
+                        ResourceLocation.fromNamespaceAndPath(
                                 WeaponsExpanded.MOD_ID,
                                 getItemName(result) + "_smithing"
                         )
@@ -391,7 +395,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(
-            @NotNull Consumer<FinishedRecipe> exporter
+            @NotNull RecipeOutput exporter
     ) {
         float xp = 0.1f;
 
@@ -494,74 +498,66 @@ public class ModRecipeProvider extends RecipeProvider {
         offerWarhammerRecipe(ModItems.IRON_WARHAMMER.get(), ModItemTags.IRON_TOOL_MATERIALS);
         offerWarhammerRecipe(ModItems.DIAMOND_WARHAMMER.get(), ModItemTags.DIAMOND_TOOL_MATERIALS);
 
-        offerNetheriteUpgradeRecipe(
-                exporter,
-                ModItems.DIAMOND_BROADSWORD.get(),
-                RecipeCategory.COMBAT,
-                ModItems.NETHERITE_BROADSWORD.get()
-        );
+        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_BROADSWORD.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_BROADSWORD.get());
+        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_SICKLE.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_SICKLE.get());
+        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_SCYTHE.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_SCYTHE.get());
+        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_LONGSWORD.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_LONGSWORD.get());
+        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_KATANA.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_KATANA.get());
+        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_GREATSWORD.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_GREATSWORD.get());
+        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_HATCHET.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_HATCHET.get());
+        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_HAMMER.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_HAMMER.get());
+        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_BATTLEAXE.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_BATTLEAXE.get());
+        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_WARHAMMER.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_WARHAMMER.get());
 
-        offerNetheriteUpgradeRecipe(
-                exporter,
-                ModItems.DIAMOND_SICKLE.get(),
-                RecipeCategory.COMBAT,
-                ModItems.NETHERITE_SICKLE.get()
-        );
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.CHAIN_CROSSBOW.get(), 1)
+                .define('I', Items.IRON_INGOT)
+                .define('C', Items.CHAIN)
+                .define('N', Items.IRON_NUGGET)
+                .define('T', Items.TRIPWIRE_HOOK)
+                .pattern("INI")
+                .pattern("CTC")
+                .pattern(" I ")
+                .group(getItemName(ModItems.CHAIN_CROSSBOW.get()))
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .unlockedBy("has_chain", has(Items.CHAIN))
+                .unlockedBy("has_iron_nugget", has(Items.IRON_NUGGET))
+                .unlockedBy("has_tripwire_hook", has(Items.TRIPWIRE_HOOK))
+                .save(this.recipeExporter);
 
-        offerNetheriteUpgradeRecipe(
-                exporter,
-                ModItems.DIAMOND_SCYTHE.get(),
-                RecipeCategory.COMBAT,
-                ModItems.NETHERITE_SCYTHE.get()
-        );
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.LONGBOW.get(), 1)
+                .define('I', Items.IRON_INGOT)
+                .define('S', Items.STRING)
+                .define('T', Items.STICK)
+                .pattern(" TS")
+                .pattern("TIS")
+                .pattern(" TS")
+                .group(getItemName(ModItems.LONGBOW.get()))
+                .unlockedBy("has_string", has(Items.STRING))
+                .unlockedBy("has_stick", has(Items.STICK))
+                .save(this.recipeExporter);
 
-        offerNetheriteUpgradeRecipe(
-                exporter,
-                ModItems.DIAMOND_LONGSWORD.get(),
-                RecipeCategory.COMBAT,
-                ModItems.NETHERITE_LONGSWORD.get()
-        );
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EXPLOSIVE_ARROW.get(), 2)
+                .define('S', Items.STICK)
+                .define('F', Items.FLINT)
+                .define('E', Items.FEATHER)
+                .define('T', Items.STRING)
+                .define('N', Items.TNT)
+                .pattern("TF ")
+                .pattern("NS ")
+                .pattern(" E ")
+                .group(getItemName(ModItems.EXPLOSIVE_ARROW.get()))
+                .unlockedBy("has_stick", has(Items.STICK))
+                .save(this.recipeExporter);
 
-        offerNetheriteUpgradeRecipe(
-                exporter,
-                ModItems.DIAMOND_KATANA.get(),
-                RecipeCategory.COMBAT,
-                ModItems.NETHERITE_KATANA.get()
-        );
-
-        offerNetheriteUpgradeRecipe(
-                exporter,
-                ModItems.DIAMOND_GREATSWORD.get(),
-                RecipeCategory.COMBAT,
-                ModItems.NETHERITE_GREATSWORD.get()
-        );
-
-        offerNetheriteUpgradeRecipe(
-                exporter,
-                ModItems.DIAMOND_HATCHET.get(),
-                RecipeCategory.COMBAT,
-                ModItems.NETHERITE_HATCHET.get()
-        );
-
-        offerNetheriteUpgradeRecipe(
-                exporter,
-                ModItems.DIAMOND_HAMMER.get(),
-                RecipeCategory.COMBAT,
-                ModItems.NETHERITE_HAMMER.get()
-        );
-
-        offerNetheriteUpgradeRecipe(
-                exporter,
-                ModItems.DIAMOND_BATTLEAXE.get(),
-                RecipeCategory.COMBAT,
-                ModItems.NETHERITE_BATTLEAXE.get()
-        );
-
-        offerNetheriteUpgradeRecipe(
-                exporter,
-                ModItems.DIAMOND_WARHAMMER.get(),
-                RecipeCategory.COMBAT,
-                ModItems.NETHERITE_WARHAMMER.get()
-        );
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.HEAVY_ARROW.get(), 4)
+                .define('S', Items.STICK)
+                .define('I', Items.IRON_INGOT)
+                .define('F', Items.FEATHER)
+                .pattern(" I ")
+                .pattern(" S ")
+                .pattern(" F ")
+                .group(getItemName(ModItems.HEAVY_ARROW.get()))
+                .unlockedBy("has_stick", has(Items.STICK))
+                .save(this.recipeExporter);
     }
 }

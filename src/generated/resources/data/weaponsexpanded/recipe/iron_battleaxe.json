@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "iron_battleaxe",
+  "key": {
+    "M": {
+      "tag": "weaponsexpanded:iron_tool_materials"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "MM ",
+    "MSM",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "weaponsexpanded:iron_battleaxe"
+  }
+}

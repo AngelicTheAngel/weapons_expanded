@@ -4,7 +4,7 @@ import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
 import net.angelic.weaponsexpanded.util.ProjectileEnchantmentApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,12 +23,12 @@ public class HeavyArrowItem extends ArrowItem {
      * so only the custom Freeze enchantment is applied here.
      */
     @Override
-    public AbstractArrow createArrow(
+    public Arrow createArrow(
             Level level,
             ItemStack stack,
-            LivingEntity shooter
+            LivingEntity shooter,
+            ItemStack weaponStack
     ) {
-        ItemStack weaponStack = shooter.getUseItem();
 
         HeavyArrowEntity arrow = createHeavyArrow(
                 level,
@@ -39,33 +39,6 @@ public class HeavyArrowItem extends ArrowItem {
 
         if (!level.isClientSide && !weaponStack.isEmpty()) {
             ProjectileEnchantmentApplier.applyFreeze(
-                    level,
-                    weaponStack,
-                    arrow
-            );
-        }
-
-        return arrow;
-    }
-
-    /**
-     * Custom overload used by LongbowItem, which supplies the weapon stack.
-     */
-    public HeavyArrowEntity createArrow(
-            Level level,
-            ItemStack stack,
-            LivingEntity shooter,
-            ItemStack weaponStack
-    ) {
-        HeavyArrowEntity arrow = createHeavyArrow(
-                level,
-                stack,
-                shooter,
-                weaponStack
-        );
-
-        if (!level.isClientSide) {
-            ProjectileEnchantmentApplier.applyPowerAndPunchForHeavyArrow(
                     level,
                     weaponStack,
                     arrow

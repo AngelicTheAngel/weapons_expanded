@@ -1,0 +1,49 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.weaponsexpanded.frostbite"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "minecraft:apply_mob_effect",
+          "max_amplifier": 0.0,
+          "max_duration": {
+            "type": "minecraft:linear",
+            "base": 4.0,
+            "per_level_above_first": 2.0
+          },
+          "min_amplifier": 0.0,
+          "min_duration": {
+            "type": "minecraft:linear",
+            "base": 4.0,
+            "per_level_above_first": 2.0
+          },
+          "to_apply": "weaponsexpanded:frostbite"
+        },
+        "enchanted": "attacker"
+      }
+    ]
+  },
+  "exclusive_set": [
+    "minecraft:fire_aspect",
+    "weaponsexpanded:polluting",
+    "weaponsexpanded:withering"
+  ],
+  "max_cost": {
+    "base": 60,
+    "per_level_above_first": 20
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 20
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#weaponsexpanded:melee_effect_enchantable",
+  "weight": 2
+}

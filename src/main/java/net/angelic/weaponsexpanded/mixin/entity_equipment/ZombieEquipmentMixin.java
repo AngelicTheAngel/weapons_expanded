@@ -2,7 +2,6 @@ package net.angelic.weaponsexpanded.mixin.entity_equipment;
 
 import net.angelic.weaponsexpanded.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.util.ZombieWeaponSwapUtil;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -49,12 +48,7 @@ public class ZombieEquipmentMixin {
     )
     private void
     weaponsexpanded$swapSwordAfterFinalizeSpawn(
-            ServerLevelAccessor level,
-            DifficultyInstance difficulty,
-            MobSpawnType spawnType,
-            SpawnGroupData spawnData,
-            CompoundTag entityTag,
-            CallbackInfoReturnable<SpawnGroupData> cir
+            ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, SpawnGroupData spawnGroupData, CallbackInfoReturnable<SpawnGroupData> cir
     ) {
         if (!WeaponsExpandedConfig
                 .ENABLE_ENTITY_MELEE_EQUIPMENT

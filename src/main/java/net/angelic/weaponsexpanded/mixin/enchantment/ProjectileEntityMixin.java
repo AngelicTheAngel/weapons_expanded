@@ -1,11 +1,13 @@
 package net.angelic.weaponsexpanded.mixin.enchantment;
 
 import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantment;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,17 +41,19 @@ public abstract class ProjectileEntityMixin {
             return;
         }
 
+        Holder<Enchantment> freeze =
+                livingOwner.level()
+                        .registryAccess()
+                        .lookupOrThrow(Registries.ENCHANTMENT)
+                        .getOrThrow(ModEnchantments.FREEZE);
+
         int mainHandLevel =
-                EnchantmentHelper.getTagEnchantmentLevel(
-                        ModEnchantments.FREEZE.get(),
-                        livingOwner.getMainHandItem()
-                );
+                livingOwner.getMainHandItem()
+                        .getEnchantmentLevel(freeze);
 
         int offHandLevel =
-                EnchantmentHelper.getTagEnchantmentLevel(
-                        ModEnchantments.FREEZE.get(),
-                        livingOwner.getOffhandItem()
-                );
+                livingOwner.getOffhandItem()
+                        .getEnchantmentLevel(freeze);
 
         int level = Math.max(
                 mainHandLevel,

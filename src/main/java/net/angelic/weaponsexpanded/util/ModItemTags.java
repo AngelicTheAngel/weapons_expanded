@@ -17,10 +17,25 @@ public final class ModItemTags {
     public static final TagKey<Item> DIAMOND_TOOL_MATERIALS =
             create("diamond_tool_materials");
 
+    public static final TagKey<Item> DIAMOND_WEAPONS =
+            create("diamond_weapons");
+
+    public static final TagKey<Item> NETHERITE_WEAPONS =
+            create("netherite_weapons");
+
+    public static final TagKey<Item> LEECH_ENCHANTABLE =
+            create("leech_enchantable");
+
+    public static final TagKey<Item> CLEAVING_ENCHANTABLE =
+            create("cleaving_enchantable");
+
+    public static final TagKey<Item> MELEE_EFFECT_ENCHANTABLE =
+            create("melee_effect_enchantable");
+
     private static TagKey<Item> create(String path) {
         return TagKey.create(
                 Registries.ITEM,
-                new ResourceLocation(WeaponsExpanded.MOD_ID, path)
+                ResourceLocation.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, path)
         );
     }
 

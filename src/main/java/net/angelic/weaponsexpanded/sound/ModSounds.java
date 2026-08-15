@@ -1,28 +1,37 @@
 package net.angelic.weaponsexpanded.sound;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class ModSounds {
     private ModSounds() {}
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
-            DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, WeaponsExpanded.MOD_ID);
+            DeferredRegister.create(
+                    BuiltInRegistries.SOUND_EVENT,
+                    WeaponsExpanded.MOD_ID
+            );
 
-    public static final RegistryObject<SoundEvent> CHAIN_CROSSBOW_CHAMBER =
+    public static final DeferredHolder<SoundEvent, SoundEvent>
+            CHAIN_CROSSBOW_CHAMBER =
             registerSoundEvent("item.chain_crossbow.chamber");
 
-    public static final RegistryObject<SoundEvent> CHAIN_CROSSBOW_FULL =
+    public static final DeferredHolder<SoundEvent, SoundEvent>
+            CHAIN_CROSSBOW_FULL =
             registerSoundEvent("item.chain_crossbow.full");
 
-    private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
+    private static DeferredHolder<SoundEvent, SoundEvent>
+    registerSoundEvent(String name) {
         ResourceLocation id =
-                new ResourceLocation(WeaponsExpanded.MOD_ID, name);
+                ResourceLocation.fromNamespaceAndPath(
+                        WeaponsExpanded.MOD_ID,
+                        name
+                );
 
         return SOUND_EVENTS.register(
                 name,

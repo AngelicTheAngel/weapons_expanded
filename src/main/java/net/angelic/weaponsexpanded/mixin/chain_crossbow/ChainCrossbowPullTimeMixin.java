@@ -1,10 +1,11 @@
 package net.angelic.weaponsexpanded.mixin.chain_crossbow;
 
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,13 +17,13 @@ public abstract class ChainCrossbowPullTimeMixin {
 
     @Unique
     private static final int
-            WEAPONSEXPANDED$BASE_PULL_TICKS =
-            38;
+            WEAPONSEXPANDED$BASE_PULL_TICKS = 38;
 
     @Inject(
             method =
                     "getChargeDuration("
                             + "Lnet/minecraft/world/item/ItemStack;"
+                            + "Lnet/minecraft/world/entity/LivingEntity;"
                             + ")I",
             at = @At("HEAD"),
             cancellable = true,
@@ -31,6 +32,7 @@ public abstract class ChainCrossbowPullTimeMixin {
     private static void
     weaponsexpanded$fixedPullTimeWithQuickCharge(
             ItemStack stack,
+            LivingEntity shooter,
             CallbackInfoReturnable<Integer> cir
     ) {
         if (!(stack.getItem()
@@ -38,18 +40,21 @@ public abstract class ChainCrossbowPullTimeMixin {
             return;
         }
 
-        int quickChargeLevel =
-                EnchantmentHelper.getTagEnchantmentLevel(
-                        Enchantments.QUICK_CHARGE,
-                        stack
+        float basePullSeconds =
+                WEAPONSEXPANDED$BASE_PULL_TICKS / 20.0F;
+
+        float modifiedPullSeconds =
+                EnchantmentHelper.modifyCrossbowChargingTime(
+                        stack,
+                        shooter,
+                        basePullSeconds
                 );
 
-        int pullTicks =
-                WEAPONSEXPANDED$BASE_PULL_TICKS
-                        - quickChargeLevel * 5;
+        int modifiedPullTicks =
+                Mth.floor(modifiedPullSeconds * 20.0F);
 
         cir.setReturnValue(
-                Math.max(1, pullTicks)
+                Math.max(1, modifiedPullTicks)
         );
     }
 }

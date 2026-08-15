@@ -2,14 +2,18 @@ package net.angelic.weaponsexpanded.util;
 
 import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
 import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
 public final class ProjectileEnchantmentApplier {
-    private ProjectileEnchantmentApplier() {}
+    private ProjectileEnchantmentApplier() {
+    }
 
     public static void applyFreezeAndFlame(
             Level level,
@@ -29,34 +33,29 @@ public final class ProjectileEnchantmentApplier {
             ItemStack weaponStack,
             HeavyArrowEntity arrow
     ) {
-        if (level.isClientSide) {
+        if (level.isClientSide || weaponStack.isEmpty()) {
             return;
         }
 
-        int powerLevel =
-                EnchantmentHelper.getTagEnchantmentLevel(
-                        Enchantments.POWER_ARROWS,
-                        weaponStack
-                );
+        int powerLevel = getEnchantmentLevel(
+                level,
+                weaponStack,
+                Enchantments.POWER
+        );
 
-        int punchLevel =
-                EnchantmentHelper.getTagEnchantmentLevel(
-                        Enchantments.PUNCH_ARROWS,
-                        weaponStack
-                );
+        int punchLevel = getEnchantmentLevel(
+                level,
+                weaponStack,
+                Enchantments.PUNCH
+        );
 
-        if (powerLevel > 0) {
-            double bonusDamage =
-                    powerLevel * 0.5D + 0.5D;
+        double bonusDamage = powerLevel > 0
+                ? powerLevel * 0.5D + 0.5D
+                : 0.0D;
 
-            arrow.setBaseDamage(
-                    HeavyArrowEntity.BASE_DAMAGE + bonusDamage
-            );
-        } else {
-            arrow.setBaseDamage(
-                    HeavyArrowEntity.BASE_DAMAGE
-            );
-        }
+        arrow.setBaseDamage(
+                HeavyArrowEntity.BASE_DAMAGE + bonusDamage
+        );
 
         arrow.weaponsexpanded$setPunchLevel(punchLevel);
     }
@@ -70,11 +69,11 @@ public final class ProjectileEnchantmentApplier {
             return;
         }
 
-        int enchantmentLevel =
-                EnchantmentHelper.getTagEnchantmentLevel(
-                        ModEnchantments.FREEZE.get(),
-                        weaponStack
-                );
+        int enchantmentLevel = getEnchantmentLevel(
+                level,
+                weaponStack,
+                ModEnchantments.FREEZE
+        );
 
         if (enchantmentLevel <= 0) {
             return;
@@ -84,9 +83,7 @@ public final class ProjectileEnchantmentApplier {
                 "weaponsexpanded.freeze.level."
                         + enchantmentLevel;
 
-        if (!projectile.getTags().contains(tag)) {
-            projectile.addTag(tag);
-        }
+        projectile.addTag(tag);
     }
 
     private static void applyFlame(
@@ -98,14 +95,26 @@ public final class ProjectileEnchantmentApplier {
             return;
         }
 
-        int enchantmentLevel =
-                EnchantmentHelper.getTagEnchantmentLevel(
-                        Enchantments.FLAMING_ARROWS,
-                        weaponStack
-                );
+        int enchantmentLevel = getEnchantmentLevel(
+                level,
+                weaponStack,
+                Enchantments.FLAME
+        );
 
         if (enchantmentLevel > 0) {
-            projectile.setSecondsOnFire(5);
+            projectile.igniteForSeconds(5.0F);
         }
+    }
+
+    private static int getEnchantmentLevel(
+            Level level,
+            ItemStack stack,
+            ResourceKey<Enchantment> enchantmentKey
+    ) {
+        Holder<Enchantment> enchantment = level.registryAccess()
+                .lookupOrThrow(Registries.ENCHANTMENT)
+                .getOrThrow(enchantmentKey);
+
+        return stack.getEnchantmentLevel(enchantment);
     }
 }

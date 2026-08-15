@@ -1,0 +1,5 @@
+// 1.21.1	2026-08-14T16:52:40.909529604	Tags for minecraft:enchantment mod id weaponsexpanded
+c72588e8a7d0dfde264cf7037047f7d0247b8c61 data/minecraft/tags/enchantment/in_enchanting_table.json
+c72588e8a7d0dfde264cf7037047f7d0247b8c61 data/minecraft/tags/enchantment/non_treasure.json
+d111dbb781764af6db4d11fbcb89d855db112499 data/minecraft/tags/enchantment/tradeable.json
+48d43080a27ada7dcb6ad7d4574f539d7d043429 data/minecraft/tags/enchantment/treasure.json

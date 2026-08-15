@@ -1,13 +1,10 @@
 package net.angelic.weaponsexpanded.item.custom;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -16,8 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 import java.util.List;
 
@@ -25,26 +22,12 @@ public class WarhammerItem extends SwordItem {
     private static final String SHARP_SIDE_KEY =
             "weaponsexpanded:warhammer_sharp_side";
 
-    private static final String ATTRIBUTE_MODIFIERS_KEY =
-            "AttributeModifiers";
-
-    private static final String MODIFIER_NAME =
-            "Weapon modifier";
-
     private final Tier material;
-
     private final float bluntSideAttackDamage;
     private final float bluntSideAttackSpeed;
-
     private final float sharpSideAttackDamage;
     private final float sharpSideAttackSpeed;
-
-    /*
-     * These are the default item-level modifiers. ItemStack falls
-     * back to these when it has no custom AttributeModifiers NBT.
-     */
-    private final Multimap<Attribute, AttributeModifier>
-            bluntSideModifiers;
+    private final ItemAttributeModifiers bluntSideModifiers;
 
     public WarhammerItem(
             Tier material,
@@ -55,90 +38,66 @@ public class WarhammerItem extends SwordItem {
             String modelName,
             Item.Properties properties
     ) {
-        /*
-         * SwordItem supplies tool durability, repair behavior,
-         * mining behavior, and durability loss when attacking.
-         *
-         * The zero values are unused because this class overrides
-         * getDefaultAttributeModifiers().
-         */
-        super(material, 0, 0.0F, properties);
+        super(material, properties.attributes(createModifiers(
+                material,
+                attackDamage,
+                attackSpeed
+        )));
 
         this.material = material;
-
         this.bluntSideAttackDamage = attackDamage;
         this.bluntSideAttackSpeed = attackSpeed;
-
         this.sharpSideAttackDamage = sharpSideAttackDamage;
         this.sharpSideAttackSpeed = sharpSideAttackSpeed;
-
         this.bluntSideModifiers = createModifiers(
+                material,
                 attackDamage,
                 attackSpeed
         );
-
-        /*
-         * modelName remains in the constructor so existing item
-         * registration calls do not need to change. Model switching
-         * is handled by an item property and model JSON.
-         */
     }
 
-    private Multimap<Attribute, AttributeModifier> createModifiers(
+    private static ItemAttributeModifiers createModifiers(
+            Tier material,
             float attackDamage,
             float attackSpeed
     ) {
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder =
-                ImmutableMultimap.builder();
-
-        builder.put(
-                Attributes.ATTACK_DAMAGE,
-                new AttributeModifier(
-                        BASE_ATTACK_DAMAGE_UUID,
-                        MODIFIER_NAME,
-                        material.getAttackDamageBonus()
-                                + attackDamage,
-                        AttributeModifier.Operation.ADDITION
+        return ItemAttributeModifiers.builder()
+                .add(
+                        Attributes.ATTACK_DAMAGE,
+                        new AttributeModifier(
+                                Item.BASE_ATTACK_DAMAGE_ID,
+                                material.getAttackDamageBonus()
+                                        + attackDamage,
+                                AttributeModifier.Operation.ADD_VALUE
+                        ),
+                        EquipmentSlotGroup.MAINHAND
                 )
-        );
-
-        builder.put(
-                Attributes.ATTACK_SPEED,
-                new AttributeModifier(
-                        BASE_ATTACK_SPEED_UUID,
-                        MODIFIER_NAME,
-                        attackSpeed,
-                        AttributeModifier.Operation.ADDITION
+                .add(
+                        Attributes.ATTACK_SPEED,
+                        new AttributeModifier(
+                                Item.BASE_ATTACK_SPEED_ID,
+                                attackSpeed,
+                                AttributeModifier.Operation.ADD_VALUE
+                        ),
+                        EquipmentSlotGroup.MAINHAND
                 )
-        );
-
-        return builder.build();
-    }
-
-    @Override
-    public Multimap<Attribute, AttributeModifier>
-    getDefaultAttributeModifiers(EquipmentSlot slot) {
-        if (slot == EquipmentSlot.MAINHAND) {
-            return bluntSideModifiers;
-        }
-
-        return super.getDefaultAttributeModifiers(slot);
+                .build();
     }
 
     @Override
     public void appendHoverText(
             ItemStack stack,
-            @Nullable Level level,
-            List<Component> tooltip,
-            TooltipFlag flag
+            TooltipContext context,
+            List<Component> tooltipComponents,
+            TooltipFlag tooltipFlag
     ) {
-        super.appendHoverText(stack, level, tooltip, flag);
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 
         String translationKey = isSharpSide(stack)
                 ? "tooltip.weaponsexpanded.warhammer.sharp_side"
                 : "tooltip.weaponsexpanded.warhammer.blunt_side";
 
-        tooltip.add(
+        tooltipComponents.add(
                 Component.translatable(translationKey)
                         .withStyle(ChatFormatting.BLUE)
         );
@@ -150,14 +109,10 @@ public class WarhammerItem extends SwordItem {
             LivingEntity target,
             LivingEntity attacker
     ) {
-        /*
-         * Shield disabling for the blunt side is implemented
-         * manually in 1.20.1.
-         */
         if (!isSharpSide(stack)
                 && target instanceof Player player
                 && player.isBlocking()) {
-            player.disableShield(true);
+            player.disableShield();
         }
 
         return super.hurtEnemy(stack, target, attacker);
@@ -180,68 +135,32 @@ public class WarhammerItem extends SwordItem {
     }
 
     public boolean isSharpSide(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-
-        return tag != null && tag.getBoolean(SHARP_SIDE_KEY);
+        return stack.getOrDefault(
+                DataComponents.CUSTOM_DATA,
+                CustomData.EMPTY
+        ).copyTag().getBoolean(SHARP_SIDE_KEY);
     }
 
-    public void setSharpSide(
-            ItemStack stack,
-            boolean sharpSide
-    ) {
-        /*
-         * Remove the previous stack-specific modifiers.
-         *
-         * In blunt mode, leaving this tag absent makes ItemStack use
-         * getDefaultAttributeModifiers(), returning bluntSideModifiers.
-         */
-        stack.removeTagKey(ATTRIBUTE_MODIFIERS_KEY);
-
-        if (sharpSide) {
-            stack.getOrCreateTag().putBoolean(
-                    SHARP_SIDE_KEY,
-                    true
-            );
-
-            applySharpSideModifiers(stack);
-        } else {
-            CompoundTag tag = stack.getTag();
-
-            if (tag != null) {
+    public void setSharpSide(ItemStack stack, boolean sharpSide) {
+        CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> {
+            if (sharpSide) {
+                tag.putBoolean(SHARP_SIDE_KEY, true);
+            } else {
                 tag.remove(SHARP_SIDE_KEY);
-
-                if (tag.isEmpty()) {
-                    stack.setTag(null);
-                }
             }
-        }
+        });
+
+        stack.set(
+                DataComponents.ATTRIBUTE_MODIFIERS,
+                sharpSide ? createSharpSideModifiers() : bluntSideModifiers
+        );
     }
 
-    private void applySharpSideModifiers(ItemStack stack) {
-        double damageModifier =
-                material.getAttackDamageBonus()
-                        + sharpSideAttackDamage;
-
-        stack.addAttributeModifier(
-                Attributes.ATTACK_DAMAGE,
-                new AttributeModifier(
-                        BASE_ATTACK_DAMAGE_UUID,
-                        MODIFIER_NAME,
-                        damageModifier,
-                        AttributeModifier.Operation.ADDITION
-                ),
-                EquipmentSlot.MAINHAND
-        );
-
-        stack.addAttributeModifier(
-                Attributes.ATTACK_SPEED,
-                new AttributeModifier(
-                        BASE_ATTACK_SPEED_UUID,
-                        MODIFIER_NAME,
-                        sharpSideAttackSpeed,
-                        AttributeModifier.Operation.ADDITION
-                ),
-                EquipmentSlot.MAINHAND
+    private ItemAttributeModifiers createSharpSideModifiers() {
+        return createModifiers(
+                material,
+                sharpSideAttackDamage,
+                sharpSideAttackSpeed
         );
     }
 

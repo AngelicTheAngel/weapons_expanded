@@ -1,41 +1,26 @@
 package net.angelic.weaponsexpanded.network;
 
-import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.item.custom.WarhammerItem;
 import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
-
-import java.util.function.Supplier;
+import net.minecraft.world.item.component.ChargedProjectiles;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 public final class ModPackets {
 
-    private static final String PROTOCOL_VERSION =
-            "1";
-
-    public static final SimpleChannel CHANNEL =
-            NetworkRegistry.newSimpleChannel(
-                    new ResourceLocation(
-                            WeaponsExpanded.MOD_ID,
-                            "main"
-                    ),
-                    () -> PROTOCOL_VERSION,
-                    PROTOCOL_VERSION::equals,
-                    PROTOCOL_VERSION::equals
-            );
+    private static final String PROTOCOL_VERSION = "1";
 
     private static final float
             WEAPONSEXPANDED$ARROW_SPEED =
@@ -53,242 +38,104 @@ public final class ModPackets {
             WEAPONSEXPANDED$FIRE_COOLDOWN =
             8;
 
-    private static final String
-            WEAPONSEXPANDED$CHARGED_PROJECTILES_KEY =
-            "ChargedProjectiles";
-
-    private static int packetId;
-    private static boolean registered;
-
     private ModPackets() {
     }
 
-    public static void register() {
-        if (registered) {
-            return;
-        }
+    public static void register(
+            RegisterPayloadHandlersEvent event
+    ) {
+        PayloadRegistrar registrar =
+                event.registrar(PROTOCOL_VERSION);
 
-        registered = true;
-
-        registerBastardSwordReceiver();
-        registerWarhammerReceiver();
-        registerChainCrossbowReceiver();
-    }
-
-    private static void registerBastardSwordReceiver() {
-        CHANNEL.registerMessage(
-                packetId++,
-                ToggleBastardSwordModePayload.class,
-                (message, buffer) -> {
-                },
-                buffer ->
-                        new ToggleBastardSwordModePayload(),
+        registrar.playToServer(
+                ToggleBastardSwordModePayload.TYPE,
+                ToggleBastardSwordModePayload.STREAM_CODEC,
                 ModPackets::handleBastardSwordPacket
         );
-    }
 
-    private static void handleBastardSwordPacket(
-            ToggleBastardSwordModePayload message,
-            Supplier<NetworkEvent.Context> contextSupplier
-    ) {
-        NetworkEvent.Context context =
-                contextSupplier.get();
-
-        context.enqueueWork(() -> {
-            ServerPlayer player =
-                    context.getSender();
-
-            if (player == null) {
-                return;
-            }
-
-            ItemStack stack =
-                    player.getMainHandItem();
-
-            if (!(stack.getItem()
-                    instanceof BastardSwordItem sword)) {
-                return;
-            }
-
-            sword.toggleTwoHanded(stack);
-
-            player.containerMenu.broadcastChanges();
-        });
-
-        context.setPacketHandled(true);
-    }
-
-    private static void registerWarhammerReceiver() {
-        CHANNEL.registerMessage(
-                packetId++,
-                ToggleWarhammerModePayload.class,
-                (message, buffer) -> {
-                },
-                buffer ->
-                        new ToggleWarhammerModePayload(),
+        registrar.playToServer(
+                ToggleWarhammerModePayload.TYPE,
+                ToggleWarhammerModePayload.STREAM_CODEC,
                 ModPackets::handleWarhammerPacket
         );
-    }
 
-    private static void handleWarhammerPacket(
-            ToggleWarhammerModePayload message,
-            Supplier<NetworkEvent.Context> contextSupplier
-    ) {
-        NetworkEvent.Context context =
-                contextSupplier.get();
-
-        context.enqueueWork(() -> {
-            ServerPlayer player =
-                    context.getSender();
-
-            if (player == null) {
-                return;
-            }
-
-            ItemStack stack =
-                    player.getMainHandItem();
-
-            if (!(stack.getItem()
-                    instanceof WarhammerItem warhammer)) {
-                return;
-            }
-
-            warhammer.toggleSharpSide(stack);
-
-            player.containerMenu.broadcastChanges();
-        });
-
-        context.setPacketHandled(true);
-    }
-
-    private static void registerChainCrossbowReceiver() {
-        CHANNEL.registerMessage(
-                packetId++,
-                FireChainCrossbowPayload.class,
-                (message, buffer) -> {
-                },
-                buffer ->
-                        new FireChainCrossbowPayload(),
+        registrar.playToServer(
+                FireChainCrossbowPayload.TYPE,
+                FireChainCrossbowPayload.STREAM_CODEC,
                 ModPackets::handleChainCrossbowPacket
         );
     }
 
-    private static void handleChainCrossbowPacket(
-            FireChainCrossbowPayload message,
-            Supplier<NetworkEvent.Context> contextSupplier
+    private static void handleBastardSwordPacket(
+            ToggleBastardSwordModePayload payload,
+            IPayloadContext context
     ) {
-        NetworkEvent.Context context =
-                contextSupplier.get();
+        if (!(context.player()
+                instanceof ServerPlayer player)) {
+            return;
+        }
 
-        context.enqueueWork(() -> {
-            ServerPlayer player =
-                    context.getSender();
+        ItemStack stack =
+                player.getMainHandItem();
 
-            if (player == null) {
-                return;
-            }
+        if (!(stack.getItem()
+                instanceof BastardSwordItem sword)) {
+            return;
+        }
 
-            ItemStack stack =
-                    player.getMainHandItem();
+        sword.toggleTwoHanded(stack);
 
-            if (!(stack.getItem()
-                    instanceof ChainCrossbowItem)) {
-                return;
-            }
+        player.containerMenu.broadcastChanges();
+        player.inventoryMenu.broadcastChanges();
+    }
 
-            if (!CrossbowItem.isCharged(stack)) {
-                return;
-            }
+    private static void handleWarhammerPacket(
+            ToggleWarhammerModePayload payload,
+            IPayloadContext context
+    ) {
+        if (!(context.player()
+                instanceof ServerPlayer player)) {
+            return;
+        }
 
-            if (!weaponsexpanded$hasLoadedProjectiles(stack)) {
-                /*
-                 * Repair an invalid state where Charged is true but
-                 * no projectile is actually loaded.
-                 */
-                CrossbowItem.setCharged(
-                        stack,
-                        false
+        ItemStack stack =
+                player.getMainHandItem();
+
+        if (!(stack.getItem()
+                instanceof WarhammerItem warhammer)) {
+            return;
+        }
+
+        warhammer.toggleSharpSide(stack);
+
+        player.containerMenu.broadcastChanges();
+        player.inventoryMenu.broadcastChanges();
+    }
+
+    private static void handleChainCrossbowPacket(
+            FireChainCrossbowPayload payload,
+            IPayloadContext context
+    ) {
+        if (!(context.player()
+                instanceof ServerPlayer player)) {
+            return;
+        }
+
+        ItemStack stack =
+                player.getMainHandItem();
+
+        if (!(stack.getItem()
+                instanceof ChainCrossbowItem chainCrossbow)) {
+            return;
+        }
+
+        ChargedProjectiles chargedProjectiles =
+                stack.getOrDefault(
+                        DataComponents.CHARGED_PROJECTILES,
+                        ChargedProjectiles.EMPTY
                 );
 
-                ChainCrossbowItem
-                        .weaponsexpanded$refreshLoadedVisual(
-                                stack
-                        );
-
-                player.containerMenu.broadcastChanges();
-                player.inventoryMenu.broadcastChanges();
-                return;
-            }
-
-            if (player.getCooldowns()
-                    .isOnCooldown(stack.getItem())) {
-                return;
-            }
-
-            float speed =
-                    CrossbowItem.containsChargedProjectile(
-                            stack,
-                            Items.FIREWORK_ROCKET
-                    )
-                            ? WEAPONSEXPANDED$FIREWORK_SPEED
-                            : WEAPONSEXPANDED$ARROW_SPEED;
-
-            CrossbowItem.performShooting(
-                    player.level(),
-                    player,
-                    InteractionHand.MAIN_HAND,
-                    stack,
-                    speed,
-                    WEAPONSEXPANDED$DIVERGENCE
-            );
-
-            /*
-             * A successful shot clears ChargedProjectiles. If the list
-             * still contains something, a Forge event cancelled it.
-             */
-            if (weaponsexpanded$hasLoadedProjectiles(stack)) {
-                return;
-            }
-
-            /*
-             * performShooting clears the projectiles but does not clear
-             * vanilla's Charged boolean.
-             */
-            CrossbowItem.setCharged(
-                    stack,
-                    false
-            );
-
-            player.getCooldowns().addCooldown(
-                    stack.getItem(),
-                    WEAPONSEXPANDED$FIRE_COOLDOWN
-            );
-
-            CriteriaTriggers.SHOT_CROSSBOW.trigger(
-                    player,
-                    new ItemStack(Items.CROSSBOW)
-            );
-
-            boolean loadedNextChamber =
-                    ChainCrossbowItem
-                            .weaponsexpanded$loadNextChamber(
-                                    player.level(),
-                                    stack
-                            );
-
-            if (loadedNextChamber) {
-                player.level().playSound(
-                        null,
-                        player.getX(),
-                        player.getY(),
-                        player.getZ(),
-                        ModSounds.CHAIN_CROSSBOW_CHAMBER.get(),
-                        SoundSource.PLAYERS,
-                        0.7F,
-                        1.0F
-                );
-            }
-
+        if (chargedProjectiles.isEmpty()) {
             ChainCrossbowItem
                     .weaponsexpanded$refreshLoadedVisual(
                             stack
@@ -296,33 +143,103 @@ public final class ModPackets {
 
             player.containerMenu.broadcastChanges();
             player.inventoryMenu.broadcastChanges();
-        });
+            return;
+        }
 
-        context.setPacketHandled(true);
+        if (player.getCooldowns()
+                .isOnCooldown(stack.getItem())) {
+            return;
+        }
+
+        float speed =
+                chargedProjectiles.contains(
+                        Items.FIREWORK_ROCKET
+                )
+                        ? WEAPONSEXPANDED$FIREWORK_SPEED
+                        : WEAPONSEXPANDED$ARROW_SPEED;
+
+        /*
+         * performShooting is an instance method in 1.21.1.
+         * The final argument is an optional target used by mobs.
+         */
+        chainCrossbow.performShooting(
+                player.level(),
+                player,
+                InteractionHand.MAIN_HAND,
+                stack,
+                speed,
+                WEAPONSEXPANDED$DIVERGENCE,
+                null
+        );
+
+        /*
+         * If projectiles remain, shooting was prevented or did not
+         * complete successfully.
+         */
+        if (weaponsexpanded$hasLoadedProjectiles(stack)) {
+            return;
+        }
+
+        player.getCooldowns().addCooldown(
+                stack.getItem(),
+                WEAPONSEXPANDED$FIRE_COOLDOWN
+        );
+
+        CriteriaTriggers.SHOT_CROSSBOW.trigger(
+                player,
+                new ItemStack(Items.CROSSBOW)
+        );
+
+        boolean loadedNextChamber =
+                ChainCrossbowItem
+                        .weaponsexpanded$loadNextChamber(
+                                player.level(),
+                                stack
+                        );
+
+        if (loadedNextChamber) {
+            player.level().playSound(
+                    null,
+                    player.getX(),
+                    player.getY(),
+                    player.getZ(),
+                    ModSounds.CHAIN_CROSSBOW_CHAMBER.get(),
+                    SoundSource.PLAYERS,
+                    0.7F,
+                    1.0F
+            );
+        }
+
+        ChainCrossbowItem
+                .weaponsexpanded$refreshLoadedVisual(
+                        stack
+                );
+
+        player.containerMenu.broadcastChanges();
+        player.inventoryMenu.broadcastChanges();
     }
 
     private static boolean weaponsexpanded$hasLoadedProjectiles(
             ItemStack stack
     ) {
-        CompoundTag tag = stack.getTag();
+        ChargedProjectiles projectiles =
+                stack.getOrDefault(
+                        DataComponents.CHARGED_PROJECTILES,
+                        ChargedProjectiles.EMPTY
+                );
 
-        if (tag == null) {
-            return false;
-        }
-
-        return !tag.getList(
-                WEAPONSEXPANDED$CHARGED_PROJECTILES_KEY,
-                Tag.TAG_COMPOUND
-        ).isEmpty();
+        return !projectiles.isEmpty();
     }
 
     public static void sendFireChainCrossbow() {
-        CHANNEL.sendToServer(
+        sendToServer(
                 new FireChainCrossbowPayload()
         );
     }
 
-    public static void sendToServer(Object message) {
-        CHANNEL.sendToServer(message);
+    public static void sendToServer(
+            CustomPacketPayload payload
+    ) {
+        PacketDistributor.sendToServer(payload);
     }
 }

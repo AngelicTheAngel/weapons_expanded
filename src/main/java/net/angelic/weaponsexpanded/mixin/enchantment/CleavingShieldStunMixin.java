@@ -1,10 +1,12 @@
 package net.angelic.weaponsexpanded.mixin.enchantment;
 
 import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,7 +21,7 @@ public abstract class CleavingShieldStunMixin {
             20;
 
     @ModifyArg(
-            method = "disableShield",
+            method = "disableShield()V",
             at = @At(
                     value = "INVOKE",
                     target =
@@ -49,10 +51,19 @@ public abstract class CleavingShieldStunMixin {
         ItemStack weaponStack =
                 attacker.getMainHandItem();
 
+        Holder<Enchantment> cleaving =
+                shieldUser.level()
+                        .registryAccess()
+                        .lookupOrThrow(
+                                Registries.ENCHANTMENT
+                        )
+                        .getOrThrow(
+                                ModEnchantments.CLEAVING
+                        );
+
         int cleavingLevel =
-                EnchantmentHelper.getTagEnchantmentLevel(
-                        ModEnchantments.CLEAVING.get(),
-                        weaponStack
+                weaponStack.getEnchantmentLevel(
+                        cleaving
                 );
 
         if (cleavingLevel <= 0) {

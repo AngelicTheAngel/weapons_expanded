@@ -1,9 +1,13 @@
 package net.angelic.weaponsexpanded.item.custom;
 
 import net.angelic.weaponsexpanded.util.ProjectileEnchantmentApplier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -13,6 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
@@ -34,10 +39,26 @@ public class LongbowItem extends BowItem {
         return Math.min(progress, 1.0F);
     }
 
-    private static boolean hasInfinity(ItemStack bowStack) {
-        return EnchantmentHelper.getTagEnchantmentLevel(
-                Enchantments.INFINITY_ARROWS,
-                bowStack
+    private static int getEnchantmentLevel(
+            Level level,
+            ItemStack stack,
+            ResourceKey<Enchantment> enchantment
+    ) {
+        return stack.getEnchantmentLevel(
+                level.registryAccess()
+                        .lookupOrThrow(Registries.ENCHANTMENT)
+                        .getOrThrow(enchantment)
+        );
+    }
+
+    private static boolean hasInfinity(
+            Level level,
+            ItemStack bowStack
+    ) {
+        return getEnchantmentLevel(
+                level,
+                bowStack,
+                Enchantments.INFINITY
         ) > 0;
     }
 
@@ -57,7 +78,7 @@ public class LongbowItem extends BowItem {
         }
 
         ItemStack ammo = player.getProjectile(stack);
-        boolean infinity = hasInfinity(stack);
+        boolean infinity = hasInfinity(level, stack);
 
         // Infinity only supplies and preserves normal arrows.
         boolean infinityCoversShot =
@@ -68,7 +89,7 @@ public class LongbowItem extends BowItem {
                         || infinityCoversShot;
 
         int usedTicks =
-                this.getUseDuration(stack) - remainingUseTicks;
+                this.getUseDuration(stack, user) - remainingUseTicks;
 
         float pullProgress =
                 getLongbowPullProgress(usedTicks);
@@ -113,7 +134,8 @@ public class LongbowItem extends BowItem {
                 projectile = arrowItem.createArrow(
                         level,
                         ammo,
-                        player
+                        player,
+                        stack
                 );
             }
 
@@ -125,8 +147,16 @@ public class LongbowItem extends BowItem {
              * HeavyArrowItem applies these itself because it uses a
              * different base-damage calculation.
              */
-            if (!heavyArrow) {
-                applyPowerAndPunch(stack, projectile);
+            if (!heavyArrow && level instanceof ServerLevel serverLevel) {
+                EnchantmentHelper.onProjectileSpawned(
+                        serverLevel,
+                        stack,
+                        projectile,
+                        brokenItem -> player.onEquippedItemBroken(
+                                brokenItem,
+                                EquipmentSlot.MAINHAND
+                        )
+                );
             }
 
             // Applies the custom Freeze enchantment and vanilla Flame.
@@ -154,13 +184,7 @@ public class LongbowItem extends BowItem {
                     1.0F
             );
 
-            stack.hurtAndBreak(
-                    1,
-                    player,
-                    entity -> entity.broadcastBreakEvent(
-                            player.getUsedItemHand()
-                    )
-            );
+            stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
 
             level.addFreshEntity(projectile);
         }
@@ -175,7 +199,7 @@ public class LongbowItem extends BowItem {
                 1.0F,
                 1.0F / (
                         level.getRandom().nextFloat() * 0.4F
-                + 1.2F
+                                + 1.2F
                 ) + pullProgress * 0.5F
         );
 
@@ -194,35 +218,6 @@ public class LongbowItem extends BowItem {
             if (ammo.isEmpty()) {
                 player.getInventory().removeItem(ammo);
             }
-        }
-    }
-
-    private static void applyPowerAndPunch(
-            ItemStack weaponStack,
-            AbstractArrow projectile
-    ) {
-        int powerLevel =
-                EnchantmentHelper.getTagEnchantmentLevel(
-                        Enchantments.POWER_ARROWS,
-                        weaponStack
-                );
-
-        if (powerLevel > 0) {
-            projectile.setBaseDamage(
-                    projectile.getBaseDamage()
-                            + powerLevel * 0.5D
-                            + 0.5D
-            );
-        }
-
-        int punchLevel =
-                EnchantmentHelper.getTagEnchantmentLevel(
-                        Enchantments.PUNCH_ARROWS,
-                        weaponStack
-                );
-
-        if (punchLevel > 0) {
-            projectile.setKnockback(punchLevel);
         }
     }
 

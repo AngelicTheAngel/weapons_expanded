@@ -1,9 +1,10 @@
 package net.angelic.weaponsexpanded.item.custom;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
@@ -11,8 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 import java.util.List;
 
@@ -20,14 +21,15 @@ public class BastardSwordItem extends SwordItem {
     private static final String TWO_HANDED_KEY =
             "weaponsexpanded:bastard_sword_two_handed";
 
-    private static final String ATTRIBUTE_MODIFIERS_KEY =
-            "AttributeModifiers";
-
-    private static final String MODIFIER_NAME =
-            "Weapon modifier";
+    private static final ResourceLocation TWO_HANDED_DAMAGE_ID =
+            ResourceLocation.fromNamespaceAndPath(
+                    "weaponsexpanded", "bastard_sword_two_handed_damage");
+    private static final ResourceLocation TWO_HANDED_SPEED_ID =
+            ResourceLocation.fromNamespaceAndPath(
+                    "weaponsexpanded", "bastard_sword_two_handed_speed");
 
     private final Tier material;
-
+    private final ItemAttributeModifiers oneHandedModifiers;
     private final float twoHandedAttackDamage;
     private final float twoHandedAttackSpeed;
 
@@ -39,14 +41,13 @@ public class BastardSwordItem extends SwordItem {
             float twoHandedAttackSpeed,
             Item.Properties properties
     ) {
-        super(
-                material,
-                attackDamage,
-                attackSpeed,
-                properties
-        );
+        super(material, properties.attributes(
+                SwordItem.createAttributes(material, attackDamage, attackSpeed)
+        ));
 
         this.material = material;
+        this.oneHandedModifiers =
+                SwordItem.createAttributes(material, attackDamage, attackSpeed);
         this.twoHandedAttackDamage = twoHandedAttackDamage;
         this.twoHandedAttackSpeed = twoHandedAttackSpeed;
     }
@@ -54,14 +55,14 @@ public class BastardSwordItem extends SwordItem {
     @Override
     public void appendHoverText(
             ItemStack stack,
-            @Nullable Level level,
-            List<Component> tooltip,
-            TooltipFlag flag
+            TooltipContext context,
+            List<Component> tooltipComponents,
+            TooltipFlag tooltipFlag
     ) {
-        super.appendHoverText(stack, level, tooltip, flag);
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 
         if (isTwoHanded(stack)) {
-            tooltip.add(
+            tooltipComponents.add(
                     Component.translatable(
                             "tooltip.weaponsexpanded.twohandedsword"
                     ).withStyle(ChatFormatting.BLUE)
@@ -78,85 +79,61 @@ public class BastardSwordItem extends SwordItem {
     }
 
     public boolean isTwoHanded(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-
-        return tag != null && tag.getBoolean(TWO_HANDED_KEY);
+        return stack.getOrDefault(
+                DataComponents.CUSTOM_DATA,
+                CustomData.EMPTY
+        ).copyTag().getBoolean(TWO_HANDED_KEY);
     }
 
-    public void setTwoHanded(
-            ItemStack stack,
-            boolean twoHanded
-    ) {
-        /*
-         * Removing this tag makes the stack fall back to the
-         * default modifiers supplied by SwordItem.
-         */
-        stack.removeTagKey(ATTRIBUTE_MODIFIERS_KEY);
-
-        if (twoHanded) {
-            stack.getOrCreateTag().putBoolean(
-                    TWO_HANDED_KEY,
-                    true
-            );
-
-            applyTwoHandedModifiers(stack);
-        } else {
-            CompoundTag tag = stack.getTag();
-
-            if (tag != null) {
+    public void setTwoHanded(ItemStack stack, boolean twoHanded) {
+        CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> {
+            if (twoHanded) {
+                tag.putBoolean(TWO_HANDED_KEY, true);
+            } else {
                 tag.remove(TWO_HANDED_KEY);
-
-                if (tag.isEmpty()) {
-                    stack.setTag(null);
-                }
             }
-        }
+        });
+
+        stack.set(
+                DataComponents.ATTRIBUTE_MODIFIERS,
+                twoHanded ? createTwoHandedModifiers() : oneHandedModifiers
+        );
     }
 
-    private void applyTwoHandedModifiers(ItemStack stack) {
-        double damageModifier =
-                material.getAttackDamageBonus()
-                        + twoHandedAttackDamage;
-
-        stack.addAttributeModifier(
-                Attributes.ATTACK_DAMAGE,
-                new AttributeModifier(
-                        BASE_ATTACK_DAMAGE_UUID,
-                        MODIFIER_NAME,
-                        damageModifier,
-                        AttributeModifier.Operation.ADDITION
-                ),
-                EquipmentSlot.MAINHAND
-        );
-
-        stack.addAttributeModifier(
-                Attributes.ATTACK_SPEED,
-                new AttributeModifier(
-                        BASE_ATTACK_SPEED_UUID,
-                        MODIFIER_NAME,
-                        twoHandedAttackSpeed,
-                        AttributeModifier.Operation.ADDITION
-                ),
-                EquipmentSlot.MAINHAND
-        );
+    private ItemAttributeModifiers createTwoHandedModifiers() {
+        return ItemAttributeModifiers.builder()
+                .add(
+                        Attributes.ATTACK_DAMAGE,
+                        new AttributeModifier(
+                                TWO_HANDED_DAMAGE_ID,
+                                material.getAttackDamageBonus()
+                                        + twoHandedAttackDamage,
+                                AttributeModifier.Operation.ADD_VALUE
+                        ),
+                        EquipmentSlotGroup.MAINHAND
+                )
+                .add(
+                        Attributes.ATTACK_SPEED,
+                        new AttributeModifier(
+                                TWO_HANDED_SPEED_ID,
+                                twoHandedAttackSpeed,
+                                AttributeModifier.Operation.ADD_VALUE
+                        ),
+                        EquipmentSlotGroup.MAINHAND
+                )
+                .build();
     }
 
     public void toggleTwoHanded(ItemStack stack) {
         setTwoHanded(stack, !isTwoHanded(stack));
     }
 
-    /**
-     * The displayed damage includes the player's base 1.0 damage.
-     */
     public double getTwoHandedDisplayedAttackDamage() {
         return 1.0D
                 + material.getAttackDamageBonus()
                 + twoHandedAttackDamage;
     }
 
-    /**
-     * The displayed speed includes the player's base 4.0 speed.
-     */
     public double getTwoHandedDisplayedAttackSpeed() {
         return 4.0D + twoHandedAttackSpeed;
     }

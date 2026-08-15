@@ -7,14 +7,11 @@ import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
-@Mod.EventBusSubscriber(
-        modid = WeaponsExpanded.MOD_ID,
-        bus = Mod.EventBusSubscriber.Bus.FORGE
-)
+@EventBusSubscriber(modid = WeaponsExpanded.MOD_ID)
 public final class TwoHandedSwordHandlingEvents {
 
     private TwoHandedSwordHandlingEvents() {
@@ -22,13 +19,9 @@ public final class TwoHandedSwordHandlingEvents {
 
     @SubscribeEvent
     public static void weaponsexpanded$twoHandedSwordTick(
-            TickEvent.PlayerTickEvent event
+            PlayerTickEvent.Post event
     ) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
-
-        Player player = event.player;
+        Player player = event.getEntity();
 
         ItemStack mainHandStack =
                 player.getMainHandItem();

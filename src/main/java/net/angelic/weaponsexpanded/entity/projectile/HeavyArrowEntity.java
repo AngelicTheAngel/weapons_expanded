@@ -1,6 +1,7 @@
 package net.angelic.weaponsexpanded.entity.projectile;
 
 import net.angelic.weaponsexpanded.entity.ModEntities;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Arrow;
@@ -13,10 +14,7 @@ public class HeavyArrowEntity extends Arrow {
 
     private static final double EXTRA_AIR_DRAG = 0.9D;
     private static final double GRAVITY = 0.1D;
-    private static final double VANILLA_ARROW_GRAVITY = 0.05D;
-
-    private ItemStack weaponsexpanded$pickupStack =
-            ItemStack.EMPTY;
+    private int weaponsexpanded$punchLevel;
 
     public HeavyArrowEntity(
             EntityType<? extends Arrow> type,
@@ -46,42 +44,43 @@ public class HeavyArrowEntity extends Arrow {
 
         this.setBaseDamage(BASE_DAMAGE);
 
-        this.weaponsexpanded$pickupStack =
-                pickupItemStack.copy();
+        ItemStack singleArrow = pickupItemStack.copy();
+        singleArrow.setCount(1);
+        this.setPickupItemStack(singleArrow);
     }
 
     public void weaponsexpanded$setPunchLevel(int level) {
-        this.setKnockback(Math.max(0, level));
+        this.weaponsexpanded$punchLevel = Math.max(0, level);
     }
 
     @Override
-    protected ItemStack getPickupItem() {
-        return this.weaponsexpanded$pickupStack.isEmpty()
-                ? super.getPickupItem()
-                : this.weaponsexpanded$pickupStack.copy();
+    protected void doKnockback(
+            LivingEntity target,
+            DamageSource damageSource
+    ) {
+        super.doKnockback(target, damageSource);
+
+        if (this.weaponsexpanded$punchLevel > 0) {
+            target.knockback(
+                    this.weaponsexpanded$punchLevel * 0.6D,
+                    this.getX() - target.getX(),
+                    this.getZ() - target.getZ()
+            );
+        }
+    }
+
+    @Override
+    protected double getDefaultGravity() {
+        return GRAVITY;
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        /*
-         * In Minecraft 1.20.1, inGround remains a protected field.
-         */
+        // inGround is still protected in Minecraft 1.21.1.
         if (!this.inGround) {
             Vec3 velocity = this.getDeltaMovement();
-
-            /*
-             * Vanilla has already applied 0.05 gravity. Apply only
-             * the difference needed to reach 0.1 gravity.
-             */
-            if (!this.isNoGravity()) {
-                velocity = velocity.add(
-                        0.0D,
-                        -(GRAVITY - VANILLA_ARROW_GRAVITY),
-                        0.0D
-                );
-            }
 
             this.setDeltaMovement(
                     velocity.scale(EXTRA_AIR_DRAG)

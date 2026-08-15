@@ -5,22 +5,26 @@ import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.angelic.weaponsexpanded.item.custom.WarhammerItem;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.List;
 import java.util.Locale;
 
-@Mod.EventBusSubscriber(
+@EventBusSubscriber(
         modid = WeaponsExpanded.MOD_ID,
-        bus = Mod.EventBusSubscriber.Bus.FORGE
+        value = Dist.CLIENT
 )
 public final class TwoHandedSwordTooltipEvents {
 
@@ -83,9 +87,9 @@ public final class TwoHandedSwordTooltipEvents {
          */
         if (replaceAttributeLines) {
             displayedDamage +=
-                    EnchantmentHelper.getDamageBonus(
-                            stack,
-                            MobType.UNDEFINED
+                    weaponsexpanded$getSharpnessBonus(
+                            event,
+                            stack
                     );
         }
 
@@ -173,6 +177,33 @@ public final class TwoHandedSwordTooltipEvents {
                 && translationKey.equals(
                 translatable.getKey()
         );
+    }
+
+    private static double weaponsexpanded$getSharpnessBonus(
+            ItemTooltipEvent event,
+            ItemStack stack
+    ) {
+        HolderLookup.Provider registries =
+                event.getContext().registries();
+
+        if (registries == null) {
+            return 0.0D;
+        }
+
+        Holder.Reference<Enchantment> sharpness =
+                registries.lookupOrThrow(
+                        Registries.ENCHANTMENT
+                ).getOrThrow(
+                        Enchantments.SHARPNESS
+                );
+
+        int level = stack.getEnchantmentLevel(
+                sharpness
+        );
+
+        return level > 0
+                ? 0.5D * level + 0.5D
+                : 0.0D;
     }
 
     private static boolean weaponsexpanded$isAttributeLine(

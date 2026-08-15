@@ -6,8 +6,8 @@ import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.client.ConfigScreenHandler;
-import net.minecraftforge.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import org.jetbrains.annotations.NotNull;
 
 public final class WeaponsExpandedConfigScreen extends Screen {
@@ -21,13 +21,11 @@ public final class WeaponsExpandedConfigScreen extends Screen {
         this.parent = parent;
     }
 
-    public static void registerConfigScreen() {
-        ModLoadingContext.get().registerExtensionPoint(
-                ConfigScreenHandler.ConfigScreenFactory.class,
-                () -> new ConfigScreenHandler.ConfigScreenFactory(
-                        (minecraft, parent) ->
-                                new WeaponsExpandedConfigScreen(parent)
-                )
+    public static void registerConfigScreen(ModContainer modContainer) {
+        modContainer.registerExtensionPoint(
+                IConfigScreenFactory.class,
+                (minecraft, parent) ->
+                        new WeaponsExpandedConfigScreen(parent)
         );
     }
 
@@ -37,104 +35,55 @@ public final class WeaponsExpandedConfigScreen extends Screen {
         int top = 40;
         int spacing = 24;
 
-        this.addRenderableWidget(
-                CycleButton.onOffBuilder(
-                        WeaponsExpandedConfig
-                                .ENABLE_CUSTOM_LOOT_TABLES
-                                .get()
-                ).create(
-                        left,
-                        top,
-                        200,
-                        20,
-                        Component.translatable(
-                                "config.weaponsexpanded.option.enableCustomLootTables"
-                        ),
-                        (button, value) ->
-                                WeaponsExpandedConfig
-                                        .ENABLE_CUSTOM_LOOT_TABLES
-                                        .set(value)
-                )
+        addBooleanOption(
+                left,
+                top,
+                "config.weaponsexpanded.option.enableCustomLootTables",
+                WeaponsExpandedConfig.ENABLE_CUSTOM_LOOT_TABLES.get(),
+                WeaponsExpandedConfig.ENABLE_CUSTOM_LOOT_TABLES::set
         );
 
-        this.addRenderableWidget(
-                CycleButton.onOffBuilder(
-                        WeaponsExpandedConfig
-                                .ENABLE_ENTITY_MELEE_EQUIPMENT
-                                .get()
-                ).create(
-                        left,
-                        top + spacing,
-                        200,
-                        20,
-                        Component.translatable(
-                                "config.weaponsexpanded.option.enableEntityMeleeEquipment"
-                        ),
-                        (button, value) ->
-                                WeaponsExpandedConfig
-                                        .ENABLE_ENTITY_MELEE_EQUIPMENT
-                                        .set(value)
-                )
+        addBooleanOption(
+                left,
+                top + spacing,
+                "config.weaponsexpanded.option.enableEntityMeleeEquipment",
+                WeaponsExpandedConfig.ENABLE_ENTITY_MELEE_EQUIPMENT.get(),
+                WeaponsExpandedConfig.ENABLE_ENTITY_MELEE_EQUIPMENT::set
         );
 
-        this.addRenderableWidget(
-                CycleButton.onOffBuilder(
-                        WeaponsExpandedConfig
-                                .ENABLE_WEAPONSMITH_TRADES
-                                .get()
-                ).create(
-                        left,
-                        top + spacing * 2,
-                        200,
-                        20,
-                        Component.translatable(
-                                "config.weaponsexpanded.option.enableWeaponsmithTrades"
-                        ),
-                        (button, value) ->
-                                WeaponsExpandedConfig
-                                        .ENABLE_WEAPONSMITH_TRADES
-                                        .set(value)
-                )
+        addBooleanOption(
+                left,
+                top + spacing * 2,
+                "config.weaponsexpanded.option.enableTrialChamberMeleeEquipment",
+                WeaponsExpandedConfig.ENABLE_TRIAL_CHAMBER_MELEE_EQUIPMENT.get(),
+                WeaponsExpandedConfig.ENABLE_TRIAL_CHAMBER_MELEE_EQUIPMENT::set
         );
 
-        this.addRenderableWidget(
-                CycleButton.onOffBuilder(
-                        WeaponsExpandedConfig
-                                .ALT_TWO_HANDED_SWORD_HANDLING
-                                .get()
-                ).create(
-                        left,
-                        top + spacing * 3,
-                        200,
-                        20,
-                        Component.translatable(
-                                "config.weaponsexpanded.option.altTwoHandedSwordHandling"
-                        ),
-                        (button, value) ->
-                                WeaponsExpandedConfig
-                                        .ALT_TWO_HANDED_SWORD_HANDLING
-                                        .set(value)
-                )
+        addBooleanOption(
+                left,
+                top + spacing * 3,
+                "config.weaponsexpanded.option.enableWeaponsmithTrades",
+                WeaponsExpandedConfig.ENABLE_WEAPONSMITH_TRADES.get(),
+                WeaponsExpandedConfig.ENABLE_WEAPONSMITH_TRADES::set
         );
 
-        this.addRenderableWidget(
-                CycleButton.onOffBuilder(
-                        WeaponsExpandedConfig
-                                .DISABLE_EXTRA_DURABILITY_DAMAGE_FOR_AXES
-                                .get()
-                ).create(
-                        left,
-                        top + spacing * 4,
-                        200,
-                        20,
-                        Component.translatable(
-                                "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes"
-                        ),
-                        (button, value) ->
-                                WeaponsExpandedConfig
-                                        .DISABLE_EXTRA_DURABILITY_DAMAGE_FOR_AXES
-                                        .set(value)
-                )
+        addBooleanOption(
+                left,
+                top + spacing * 4,
+                "config.weaponsexpanded.option.altTwoHandedSwordHandling",
+                WeaponsExpandedConfig.ALT_TWO_HANDED_SWORD_HANDLING.get(),
+                WeaponsExpandedConfig.ALT_TWO_HANDED_SWORD_HANDLING::set
+        );
+
+        addBooleanOption(
+                left,
+                top + spacing * 5,
+                "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes",
+                WeaponsExpandedConfig
+                        .DISABLE_EXTRA_DURABILITY_DAMAGE_FOR_AXES
+                        .get(),
+                WeaponsExpandedConfig
+                        .DISABLE_EXTRA_DURABILITY_DAMAGE_FOR_AXES::set
         );
 
         this.addRenderableWidget(
@@ -150,12 +99,31 @@ public final class WeaponsExpandedConfigScreen extends Screen {
         );
     }
 
+    private void addBooleanOption(
+            int x,
+            int y,
+            String translationKey,
+            boolean initialValue,
+            java.util.function.Consumer<Boolean> setter
+    ) {
+        this.addRenderableWidget(
+                CycleButton.onOffBuilder(initialValue).create(
+                        x,
+                        y,
+                        200,
+                        20,
+                        Component.translatable(translationKey),
+                        (button, value) -> setter.accept(value)
+                )
+        );
+    }
+
     @Override
     public void onClose() {
         WeaponsExpandedConfig.SPEC.save();
 
         if (this.minecraft != null) {
-            this.minecraft.setScreen(parent);
+            this.minecraft.setScreen(this.parent);
         }
     }
 
@@ -166,14 +134,11 @@ public final class WeaponsExpandedConfigScreen extends Screen {
             int mouseY,
             float partialTick
     ) {
-        this.renderBackground(graphics);
-
-        graphics.drawCenteredString(
-                this.font,
-                this.title,
-                this.width / 2,
-                20,
-                0xFFFFFF
+        this.renderBackground(
+                graphics,
+                mouseX,
+                mouseY,
+                partialTick
         );
 
         super.render(
@@ -181,6 +146,14 @@ public final class WeaponsExpandedConfigScreen extends Screen {
                 mouseX,
                 mouseY,
                 partialTick
+        );
+
+        graphics.drawCenteredString(
+                this.font,
+                this.title,
+                this.width / 2,
+                20,
+                0xFFFFFF
         );
     }
 }

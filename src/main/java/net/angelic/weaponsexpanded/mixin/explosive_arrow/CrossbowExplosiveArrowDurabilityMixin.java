@@ -1,13 +1,13 @@
 package net.angelic.weaponsexpanded.mixin.explosive_arrow;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CrossbowItem.class)
 public abstract class CrossbowExplosiveArrowDurabilityMixin {
@@ -17,42 +17,25 @@ public abstract class CrossbowExplosiveArrowDurabilityMixin {
             WEAPONSEXPANDED$DURABILITY_PER_EXPLOSIVE_ARROW =
             4;
 
-    @ModifyArg(
+    @Inject(
             method =
-                    "shootProjectile("
-                            + "Lnet/minecraft/world/level/Level;"
-                            + "Lnet/minecraft/world/entity/LivingEntity;"
-                            + "Lnet/minecraft/world/InteractionHand;"
+                    "getDurabilityUse("
                             + "Lnet/minecraft/world/item/ItemStack;"
-                            + "Lnet/minecraft/world/item/ItemStack;"
-                            + "FZFFF)V",
-            at = @At(
-                    value = "INVOKE",
-                    target =
-                            "Lnet/minecraft/world/item/ItemStack;"
-                                    + "hurtAndBreak("
-                                    + "I"
-                                    + "Lnet/minecraft/world/entity/LivingEntity;"
-                                    + "Ljava/util/function/Consumer;"
-                                    + ")V"
-            ),
-            index = 0,
+                            + ")I",
+            at = @At("HEAD"),
+            cancellable = true,
             require = 1
     )
-    private static int weaponsexpanded$getExplosiveArrowDurabilityCost(
-            int vanillaCost,
-            @Local(
-                    argsOnly = true,
-                    ordinal = 1
-            )
-            ItemStack projectile
+    private void weaponsexpanded$getExplosiveArrowDurabilityCost(
+            ItemStack projectile,
+            CallbackInfoReturnable<Integer> cir
     ) {
         if (projectile.is(
                 ModItems.EXPLOSIVE_ARROW.get()
         )) {
-            return WEAPONSEXPANDED$DURABILITY_PER_EXPLOSIVE_ARROW;
+            cir.setReturnValue(
+                    WEAPONSEXPANDED$DURABILITY_PER_EXPLOSIVE_ARROW
+            );
         }
-
-        return vanillaCost;
     }
 }

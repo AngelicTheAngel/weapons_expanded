@@ -6,15 +6,12 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 
-@Mod.EventBusSubscriber(
-        modid = WeaponsExpanded.MOD_ID,
-        bus = Mod.EventBusSubscriber.Bus.FORGE
-)
+@EventBusSubscriber(modid = WeaponsExpanded.MOD_ID)
 public final class FrostbiteEvents {
 
     private FrostbiteEvents() {
@@ -28,8 +25,9 @@ public final class FrostbiteEvents {
     public static void onEffectRemoved(
             MobEffectEvent.Remove event
     ) {
-        if (event.getEffect()
-                != ModEffects.FROSTBITE.get()) {
+        if (!event.getEffect().is(
+                ModEffects.FROSTBITE.getKey()
+        )) {
             return;
         }
 
@@ -50,8 +48,9 @@ public final class FrostbiteEvents {
                 event.getEffectInstance();
 
         if (effect == null
-                || effect.getEffect()
-                != ModEffects.FROSTBITE.get()) {
+                || !effect.getEffect().is(
+                ModEffects.FROSTBITE.getKey()
+        )) {
             return;
         }
 
@@ -61,24 +60,17 @@ public final class FrostbiteEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingHurt(
-            LivingHurtEvent event
+    public static void onLivingDamage(
+            LivingDamageEvent.Post event
     ) {
-        if (!event.getSource().is(
-                DamageTypeTags.IS_FIRE
-        )) {
+        if (!event.getSource().is(DamageTypeTags.IS_FIRE)) {
             return;
         }
 
-        LivingEntity entity =
-                event.getEntity();
+        LivingEntity entity = event.getEntity();
 
-        if (entity.hasEffect(
-                ModEffects.FROSTBITE.get()
-        )) {
-            entity.removeEffect(
-                    ModEffects.FROSTBITE.get()
-            );
+        if (entity.hasEffect(ModEffects.FROSTBITE)) {
+            entity.removeEffect(ModEffects.FROSTBITE);
         }
     }
 

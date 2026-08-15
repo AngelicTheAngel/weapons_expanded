@@ -2,14 +2,19 @@ package net.angelic.weaponsexpanded.datagen;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.item.ModItems;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-public class ModModelProvider extends ItemModelProvider {
+import java.util.function.Supplier;
+
+public final class ModModelProvider
+        extends ItemModelProvider {
+
     public ModModelProvider(
             PackOutput output,
             ExistingFileHelper existingFileHelper
@@ -91,15 +96,21 @@ public class ModModelProvider extends ItemModelProvider {
     }
 
     private ItemModelBuilder handheldItem(
-            RegistryObject<Item> item
+            Supplier<? extends Item> itemSupplier
     ) {
-        assert item.getId() != null;
+        Item item = itemSupplier.get();
+
+        ResourceLocation itemId =
+                BuiltInRegistries.ITEM.getKey(item);
+
         return withExistingParent(
-                item.getId().getPath(),
+                itemId.getPath(),
                 mcLoc("item/handheld")
         ).texture(
                 "layer0",
-                modLoc("item/" + item.getId().getPath())
+                modLoc(
+                        "item/" + itemId.getPath()
+                )
         );
     }
 }

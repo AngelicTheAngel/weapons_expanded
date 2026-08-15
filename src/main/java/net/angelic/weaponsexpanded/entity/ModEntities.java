@@ -3,21 +3,21 @@ package net.angelic.weaponsexpanded.entity;
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.entity.projectile.ExplosiveArrowEntity;
 import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(
-                    ForgeRegistries.ENTITY_TYPES,
+                    Registries.ENTITY_TYPE,
                     WeaponsExpanded.MOD_ID
             );
 
-    public static final RegistryObject<EntityType<HeavyArrowEntity>>
+    public static final DeferredHolder<EntityType<?>, EntityType<HeavyArrowEntity>>
             HEAVY_ARROW = ENTITY_TYPES.register(
             "heavy_arrow",
             () -> EntityType.Builder
@@ -35,7 +35,7 @@ public final class ModEntities {
                     )
     );
 
-    public static final RegistryObject<EntityType<ExplosiveArrowEntity>>
+    public static final DeferredHolder<EntityType<?>, EntityType<ExplosiveArrowEntity>>
             EXPLOSIVE_ARROW = ENTITY_TYPES.register(
             "explosive_arrow",
             () -> EntityType.Builder

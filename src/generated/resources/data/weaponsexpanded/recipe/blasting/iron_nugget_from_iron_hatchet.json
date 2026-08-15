@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "group": "ironnugget",
+  "ingredient": {
+    "item": "weaponsexpanded:iron_hatchet"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:iron_nugget"
+  }
+}
