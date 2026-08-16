@@ -3,12 +3,8 @@
   "category": "equipment",
   "group": "diamond_katana",
   "key": {
-    "M": {
-      "tag": "weaponsexpanded:diamond_tool_materials"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "M": "#minecraft:diamond_tool_materials",
+    "S": "minecraft:stick"
   },
   "pattern": [
     "  M",

@@ -4,6 +4,8 @@ import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.entity.projectile.ExplosiveArrowEntity;
 import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.bus.api.IEventBus;
@@ -29,9 +31,13 @@ public final class ModEntities {
                     .setTrackingRange(64)
                     .setUpdateInterval(1)
                     .setShouldReceiveVelocityUpdates(true)
-                    .build(
-                            WeaponsExpanded.MOD_ID
-                                    + ":heavy_arrow"
+                    .build(ResourceKey.create(
+                                    Registries.ENTITY_TYPE,
+                                    Identifier.fromNamespaceAndPath(
+                                            WeaponsExpanded.MOD_ID,
+                                            "heavy_arrow"
+                                    )
+                            )
                     )
     );
 
@@ -47,9 +53,13 @@ public final class ModEntities {
                     .setTrackingRange(64)
                     .setUpdateInterval(1)
                     .setShouldReceiveVelocityUpdates(true)
-                    .build(
-                            WeaponsExpanded.MOD_ID
-                                    + ":explosive_arrow"
+                    .build(ResourceKey.create(
+                                    Registries.ENTITY_TYPE,
+                                    Identifier.fromNamespaceAndPath(
+                                            WeaponsExpanded.MOD_ID,
+                                            "explosive_arrow"
+                                    )
+                            )
                     )
     );
 

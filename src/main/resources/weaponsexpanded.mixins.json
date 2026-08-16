@@ -19,6 +19,7 @@
     "entity_equipment.ZombifiedPiglinEquipmentMixin",
     "explosive_arrow.BowExplosiveArrowBlockMixin",
     "explosive_arrow.CrossbowExplosiveArrowDurabilityMixin",
+    "explosive_arrow.CrossbowItemExplosiveVisualMixin",
     "heavy_arrow.CrossbowHeavyArrowMultishotMixin",
     "heavy_arrow.HeavyArrowSidePickupVanishMixin",
     "warhammer.WarhammerSweepingMixin"

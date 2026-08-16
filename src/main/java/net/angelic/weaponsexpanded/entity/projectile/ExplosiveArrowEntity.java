@@ -3,7 +3,7 @@ package net.angelic.weaponsexpanded.entity.projectile;
 import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -62,7 +62,7 @@ public class ExplosiveArrowEntity extends Arrow {
     }
 
     private void weaponsexpanded$explode() {
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             return;
         }
 

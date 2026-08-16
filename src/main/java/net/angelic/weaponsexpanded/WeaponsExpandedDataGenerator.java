@@ -2,95 +2,37 @@ package net.angelic.weaponsexpanded;
 
 import net.angelic.weaponsexpanded.datagen.*;
 import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraft.data.advancements.AdvancementProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
+import java.util.List;
 
 public final class WeaponsExpandedDataGenerator {
 
-	public static void gatherData(GatherDataEvent event) {
-		DataGenerator generator = event.getGenerator();
-		PackOutput output = generator.getPackOutput();
+	public static void gatherData(GatherDataEvent.Client event) {
+		RegistrySetBuilder registryBuilder = new RegistrySetBuilder().add(Registries.ENCHANTMENT, ModEnchantments::bootstrap);
 
-		ExistingFileHelper existingFileHelper =
-				event.getExistingFileHelper();
+		event.createDatapackRegistryObjects(registryBuilder);
 
-		RegistrySetBuilder registryBuilder =
-				new RegistrySetBuilder()
-						.add(
-								Registries.ENCHANTMENT,
-								ModEnchantments::bootstrap
-						);
-
-		/*
-		 * Construct this separately. Passing a lambda directly to
-		 * DataGenerator#addProvider causes an ambiguous overload.
-		 */
-		DatapackBuiltinEntriesProvider datapackProvider =
-				new DatapackBuiltinEntriesProvider(
-						output,
-						event.getLookupProvider(),
-						registryBuilder,
-						Set.of(WeaponsExpanded.MOD_ID)
-				);
-
-		generator.addProvider(
-				event.includeServer(),
-				datapackProvider
+		event.createProvider(
+				(output, registries) ->
+						new ModItemTagProvider(output, registries)
 		);
 
-		/*
-		 * This lookup includes the enchantments generated above.
-		 */
-		CompletableFuture<HolderLookup.Provider> registryProvider =
-				datapackProvider.getRegistryProvider();
-
-		generator.addProvider(
-				event.includeServer(),
-				new ModItemTagProvider(
-						output,
-						registryProvider,
-						existingFileHelper
-				)
+		event.createProvider(
+				(output, registries) ->
+						new ModEnchantmentTagProvider(output, registries)
 		);
 
-		generator.addProvider(
-				event.includeServer(),
-				new ModEnchantmentTagProvider(
-						output,
-						registryProvider,
-						existingFileHelper
-				)
-		);
+		event.createProvider(ModRecipeProvider.Runner::new);
 
-		generator.addProvider(
-				event.includeServer(),
-				new ModRecipeProvider(output, registryProvider)
-		);
+		event.createProvider(ModModelProvider::new);
 
-		generator.addProvider(
-				event.includeClient(),
-				new ModModelProvider(
-						output,
-						existingFileHelper
-				)
-		);
-
-		generator.addProvider(
-				event.includeServer(),
-				new ModAdvancementProvider(
-						output,
-						event.getLookupProvider(),
-						existingFileHelper
-				)
+		event.createProvider(
+				(output, registries) ->
+						new AdvancementProvider(output, registries, List.of(new ModAdvancementProvider()))
 		);
 	}
 

@@ -5,8 +5,7 @@ import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
@@ -28,16 +27,10 @@ public final class PlayerArmPoseEvents {
     @SubscribeEvent(
             priority = EventPriority.LOWEST
     )
-    public static void weaponsexpanded$overrideArmPose(
-            RenderPlayerEvent.Pre event
-    ) {
-        if (!(event.getEntity()
-                instanceof AbstractClientPlayer player)) {
-            return;
-        }
+    public static void weaponsexpanded$overrideArmPose(RenderPlayerEvent.Pre event) {
+        AvatarRenderState renderState = (AvatarRenderState) event.getRenderState();
 
-        ItemStack mainHandStack =
-                player.getMainHandItem();
+        ItemStack mainHandStack = renderState.getMainHandItemStack();
 
         if (!weaponsexpanded$usesTwoHandedPose(
                 mainHandStack
@@ -45,15 +38,11 @@ public final class PlayerArmPoseEvents {
             return;
         }
 
-        PlayerModel<AbstractClientPlayer> model =
-                event.getRenderer().getModel();
-
-        if (player.getMainArm()
-                == HumanoidArm.RIGHT) {
-            model.rightArmPose =
+        if (renderState.mainArm == HumanoidArm.RIGHT) {
+            renderState.rightArmPose =
                     HumanoidModel.ArmPose.CROSSBOW_HOLD;
         } else {
-            model.leftArmPose =
+            renderState.leftArmPose =
                     HumanoidModel.ArmPose.CROSSBOW_HOLD;
         }
     }

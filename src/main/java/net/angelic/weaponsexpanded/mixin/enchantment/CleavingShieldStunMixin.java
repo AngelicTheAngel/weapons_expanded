@@ -1,77 +1,67 @@
 package net.angelic.weaponsexpanded.mixin.enchantment;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(Player.class)
+@Mixin(LivingEntity.class)
 public abstract class CleavingShieldStunMixin {
 
-    @Unique
-    private static final int
-            WEAPONSEXPANDED$CLEAVING_TICKS_PER_LEVEL =
-            20;
+    /*
+     * The old value was 20 ticks, which equals one second.
+     * getSecondsToDisableBlocking() uses seconds.
+     */
+    private static final float
+            WEAPONSEXPANDED$CLEAVING_SECONDS_PER_LEVEL =
+            1.0F;
 
-    @ModifyArg(
-            method = "disableShield()V",
-            at = @At(
-                    value = "INVOKE",
-                    target =
-                            "Lnet/minecraft/world/item/"
-                                    + "ItemCooldowns;"
-                                    + "addCooldown("
-                                    + "Lnet/minecraft/world/item/Item;"
-                                    + "I)V"
-            ),
-            index = 1,
-            require = 1
+    @ModifyReturnValue(
+            method = "getSecondsToDisableBlocking()F",
+            at = @At("RETURN")
     )
-    private int
-    weaponsexpanded$cleavingIncreasesShieldStunTime(
-            int baseStunTicks
+    private float weaponsexpanded$increaseBlockingDisableTime(
+            float baseDisableSeconds
     ) {
-        Player shieldUser =
-                (Player) (Object) this;
+        /*
+         * Preserve the old behavior: Cleaving only extends an existing
+         * blocking-disable effect. It does not make every weapon capable
+         * of disabling blocking.
+         */
+        if (baseDisableSeconds <= 0.0F) {
+            return baseDisableSeconds;
+        }
 
         LivingEntity attacker =
-                shieldUser.getLastHurtByMob();
-
-        if (attacker == null) {
-            return baseStunTicks;
-        }
+                (LivingEntity) (Object) this;
 
         ItemStack weaponStack =
-                attacker.getMainHandItem();
+                attacker.getWeaponItem();
 
-        Holder<Enchantment> cleaving =
-                shieldUser.level()
-                        .registryAccess()
-                        .lookupOrThrow(
-                                Registries.ENCHANTMENT
-                        )
-                        .getOrThrow(
-                                ModEnchantments.CLEAVING
-                        );
-
-        int cleavingLevel =
-                weaponStack.getEnchantmentLevel(
-                        cleaving
-                );
-
-        if (cleavingLevel <= 0) {
-            return baseStunTicks;
+        if (weaponStack.isEmpty()) {
+            return baseDisableSeconds;
         }
 
-        return baseStunTicks
-                + WEAPONSEXPANDED$CLEAVING_TICKS_PER_LEVEL
+        Holder<Enchantment> cleaving =
+                attacker.level()
+                        .registryAccess()
+                        .lookupOrThrow(Registries.ENCHANTMENT)
+                        .getOrThrow(ModEnchantments.CLEAVING);
+
+        int cleavingLevel =
+                weaponStack.getEnchantmentLevel(cleaving);
+
+        if (cleavingLevel <= 0) {
+            return baseDisableSeconds;
+        }
+
+        return baseDisableSeconds
+                + WEAPONSEXPANDED$CLEAVING_SECONDS_PER_LEVEL
                 * cleavingLevel;
     }
 }

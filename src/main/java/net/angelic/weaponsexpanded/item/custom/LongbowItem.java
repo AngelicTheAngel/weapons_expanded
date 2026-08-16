@@ -10,7 +10,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
@@ -67,14 +67,14 @@ public class LongbowItem extends BowItem {
     }
 
     @Override
-    public void releaseUsing(
+    public boolean releaseUsing(
             ItemStack stack,
             Level level,
             LivingEntity user,
             int remainingUseTicks
     ) {
         if (!(user instanceof Player player)) {
-            return;
+            return false;
         }
 
         ItemStack ammo = player.getProjectile(stack);
@@ -95,25 +95,25 @@ public class LongbowItem extends BowItem {
                 getLongbowPullProgress(usedTicks);
 
         if (pullProgress < 0.1F) {
-            return;
+            return infinity;
         }
 
         if (ammo.isEmpty()) {
             if (!canShootWithoutAmmo) {
-                return;
+                return infinity;
             }
 
             ammo = new ItemStack(Items.ARROW);
         }
 
         if (!(ammo.getItem() instanceof ArrowItem arrowItem)) {
-            return;
+            return infinity;
         }
 
         boolean infinityFreeNormalArrow =
                 infinity && isNormalArrow(ammo);
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             AbstractArrow projectile;
             boolean heavyArrow =
                     arrowItem instanceof HeavyArrowItem;
@@ -219,6 +219,7 @@ public class LongbowItem extends BowItem {
                 player.getInventory().removeItem(ammo);
             }
         }
+        return infinity;
     }
 
     public static int getFullDrawTicks() {

@@ -1,48 +1,28 @@
 package net.angelic.weaponsexpanded.datagen;
 
-import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.common.data.AdvancementProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public class ModAdvancementProvider
-        extends AdvancementProvider {
+public class ModAdvancementProvider implements AdvancementSubProvider {
 
-    public ModAdvancementProvider(
-            PackOutput output,
-            CompletableFuture<HolderLookup.Provider> lookupProvider,
-            ExistingFileHelper existingFileHelper
-    ) {
-        super(
-                output,
-                lookupProvider,
-                existingFileHelper,
-                List.of(ModAdvancementProvider::generate)
-        );
+    public ModAdvancementProvider() {
     }
 
-    private static void generate(
-            HolderLookup.Provider registries,
-            Consumer<AdvancementHolder> saver,
-            ExistingFileHelper existingFileHelper
-    ) {
+    @Override
+    public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer) {
         Advancement.Builder.advancement()
                 .parent(
                         AdvancementSubProvider.createPlaceholder(
@@ -59,8 +39,8 @@ public class ModAdvancementProvider
                         true,
                         false
                 )
-                .addCriterion("has_diamond_weapon", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ModItemTags.DIAMOND_WEAPONS)))
-                .save(saver, id("diamond_weapon"), existingFileHelper);
+                .addCriterion("has_diamond_weapon", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ModItemTags.DIAMOND_WEAPONS)))
+                .save(consumer, "diamond_weapon");
 
         AdvancementHolder netheriteWeapon =
                 Advancement.Builder.advancement()
@@ -75,8 +55,8 @@ public class ModAdvancementProvider
                                 true,
                                 false
                         )
-                        .addCriterion("has_netherite_weapon", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ModItemTags.NETHERITE_WEAPONS)))
-                        .save(saver, id("netherite_weapon"), existingFileHelper);
+                        .addCriterion("has_netherite_weapon", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ModItemTags.NETHERITE_WEAPONS)))
+                        .save(consumer, "netherite_weapon");
 
         Advancement.Builder.advancement()
                 .parent(netheriteWeapon)
@@ -102,14 +82,8 @@ public class ModAdvancementProvider
                 .addCriterion("has_netherite_warhammer", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.NETHERITE_WARHAMMER.get()))
                 .addCriterion("has_netherite_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_SWORD))
                 .addCriterion("has_netherite_axe", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_AXE))
+                .addCriterion("has_netherite_spear", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_SPEAR))
                 .rewards(AdvancementRewards.Builder.experience(100))
-                .save(saver, id("weapons_expanded"), existingFileHelper);
-    }
-
-    private static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(
-                WeaponsExpanded.MOD_ID,
-                path
-        );
+                .save(consumer, "weapons_expanded");
     }
 }

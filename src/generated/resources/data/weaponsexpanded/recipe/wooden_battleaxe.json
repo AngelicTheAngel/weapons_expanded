@@ -3,12 +3,8 @@
   "category": "equipment",
   "group": "wooden_battleaxe",
   "key": {
-    "M": {
-      "tag": "minecraft:planks"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "M": "#minecraft:planks",
+    "S": "minecraft:stick"
   },
   "pattern": [
     "MM ",

@@ -3,21 +3,11 @@
   "category": "equipment",
   "group": "explosive_arrow",
   "key": {
-    "E": {
-      "item": "minecraft:feather"
-    },
-    "F": {
-      "item": "minecraft:flint"
-    },
-    "N": {
-      "item": "minecraft:tnt"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    },
-    "T": {
-      "item": "minecraft:string"
-    }
+    "E": "minecraft:feather",
+    "F": "minecraft:flint",
+    "N": "minecraft:tnt",
+    "S": "minecraft:stick",
+    "T": "minecraft:string"
   },
   "pattern": [
     "TF ",

@@ -3,71 +3,72 @@ package net.angelic.weaponsexpanded.item.custom;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.TooltipDisplay;
 
-import java.util.List;
+import java.util.function.Consumer;
 
-public class BastardSwordItem extends SwordItem {
+public class BastardSwordItem extends Item {
     private static final String TWO_HANDED_KEY =
             "weaponsexpanded:bastard_sword_two_handed";
 
-    private static final ResourceLocation TWO_HANDED_DAMAGE_ID =
-            ResourceLocation.fromNamespaceAndPath(
-                    "weaponsexpanded", "bastard_sword_two_handed_damage");
-    private static final ResourceLocation TWO_HANDED_SPEED_ID =
-            ResourceLocation.fromNamespaceAndPath(
-                    "weaponsexpanded", "bastard_sword_two_handed_speed");
-
-    private final Tier material;
+    private final ToolMaterial material;
     private final ItemAttributeModifiers oneHandedModifiers;
     private final float twoHandedAttackDamage;
     private final float twoHandedAttackSpeed;
 
     public BastardSwordItem(
-            Tier material,
+            ToolMaterial material,
             int attackDamage,
             float attackSpeed,
             int twoHandedAttackDamage,
             float twoHandedAttackSpeed,
             Item.Properties properties
     ) {
-        super(material, properties.attributes(
-                SwordItem.createAttributes(material, attackDamage, attackSpeed)
-        ));
+        super(properties.sword(material, attackDamage, attackSpeed));
 
         this.material = material;
         this.oneHandedModifiers =
-                SwordItem.createAttributes(material, attackDamage, attackSpeed);
+                createModifiers(material, attackDamage, attackSpeed);
         this.twoHandedAttackDamage = twoHandedAttackDamage;
         this.twoHandedAttackSpeed = twoHandedAttackSpeed;
     }
 
     @Override
-    public void appendHoverText(
-            ItemStack stack,
-            TooltipContext context,
-            List<Component> tooltipComponents,
-            TooltipFlag tooltipFlag
-    ) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-
+    @SuppressWarnings("deprecation")
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
         if (isTwoHanded(stack)) {
-            tooltipComponents.add(
+            tooltipAdder.accept(
                     Component.translatable(
                             "tooltip.weaponsexpanded.twohandedsword"
                     ).withStyle(ChatFormatting.BLUE)
             );
         }
+
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
+    }
+
+    private static ItemAttributeModifiers createModifiers(
+            ToolMaterial material,
+            float attackDamage,
+            float attackSpeed
+    ) {
+        return ItemAttributeModifiers.builder()
+                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(
+                                Item.BASE_ATTACK_DAMAGE_ID,
+                                material.attackDamageBonus() + attackDamage,
+                                AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND
+                ).add(Attributes.ATTACK_SPEED, new AttributeModifier(
+                                Item.BASE_ATTACK_SPEED_ID,
+                                attackSpeed,
+                                AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND).build();
     }
 
     public float getTwoHandedAttackDamage() {
@@ -82,7 +83,7 @@ public class BastardSwordItem extends SwordItem {
         return stack.getOrDefault(
                 DataComponents.CUSTOM_DATA,
                 CustomData.EMPTY
-        ).copyTag().getBoolean(TWO_HANDED_KEY);
+        ).copyTag().getBooleanOr(TWO_HANDED_KEY, false);
     }
 
     public void setTwoHanded(ItemStack stack, boolean twoHanded) {
@@ -96,32 +97,20 @@ public class BastardSwordItem extends SwordItem {
 
         stack.set(
                 DataComponents.ATTRIBUTE_MODIFIERS,
-                twoHanded ? createTwoHandedModifiers() : oneHandedModifiers
+                twoHanded ? createTwoHandedModifiers(material, twoHandedAttackDamage, twoHandedAttackSpeed) : oneHandedModifiers
         );
     }
 
-    private ItemAttributeModifiers createTwoHandedModifiers() {
-        return ItemAttributeModifiers.builder()
-                .add(
-                        Attributes.ATTACK_DAMAGE,
-                        new AttributeModifier(
-                                TWO_HANDED_DAMAGE_ID,
-                                material.getAttackDamageBonus()
-                                        + twoHandedAttackDamage,
-                                AttributeModifier.Operation.ADD_VALUE
-                        ),
-                        EquipmentSlotGroup.MAINHAND
-                )
-                .add(
-                        Attributes.ATTACK_SPEED,
-                        new AttributeModifier(
-                                TWO_HANDED_SPEED_ID,
-                                twoHandedAttackSpeed,
-                                AttributeModifier.Operation.ADD_VALUE
-                        ),
-                        EquipmentSlotGroup.MAINHAND
-                )
-                .build();
+    private static ItemAttributeModifiers createTwoHandedModifiers(
+            ToolMaterial material,
+            float attackDamage,
+            float attackSpeed
+    ) {
+        return createModifiers(
+                material,
+                attackDamage,
+                attackSpeed
+        );
     }
 
     public void toggleTwoHanded(ItemStack stack) {
@@ -130,7 +119,7 @@ public class BastardSwordItem extends SwordItem {
 
     public double getTwoHandedDisplayedAttackDamage() {
         return 1.0D
-                + material.getAttackDamageBonus()
+                + material.attackDamageBonus()
                 + twoHandedAttackDamage;
     }
 

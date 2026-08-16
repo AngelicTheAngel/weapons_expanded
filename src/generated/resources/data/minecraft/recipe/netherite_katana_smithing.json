@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#minecraft:netherite_tool_materials",
+  "base": "weaponsexpanded:diamond_katana",
+  "result": {
+    "id": "weaponsexpanded:netherite_katana"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

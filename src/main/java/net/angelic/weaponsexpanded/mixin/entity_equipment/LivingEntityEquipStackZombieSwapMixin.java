@@ -5,7 +5,7 @@ import net.angelic.weaponsexpanded.util.ZombieWeaponSwapUtil;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +21,7 @@ public abstract class LivingEntityEquipStackZombieSwapMixin {
     private boolean weaponsexpanded$replacingMainhand;
 
     @Inject(
-            method = "setItemSlot",
+            method = "setItemSlotAndDropWhenKilled",
             at = @At("TAIL")
     )
     private void weaponsexpanded$swapZombieSwordWhenEquipped(

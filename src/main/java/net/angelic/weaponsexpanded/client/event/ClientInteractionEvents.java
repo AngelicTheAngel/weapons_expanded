@@ -82,7 +82,7 @@ public final class ClientInteractionEvents {
         event.setSwingHand(false);
 
         if (player.getCooldowns().isOnCooldown(
-                mainHandStack.getItem()
+                mainHandStack
         )) {
             return;
         }

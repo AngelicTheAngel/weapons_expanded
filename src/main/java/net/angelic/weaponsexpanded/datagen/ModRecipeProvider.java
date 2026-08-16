@@ -2,40 +2,39 @@ package net.angelic.weaponsexpanded.datagen;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.item.ModItems;
-import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
-import net.minecraft.data.recipes.SmithingTransformRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.data.recipes.RecipeCategory;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public final class ModRecipeProvider extends RecipeProvider {
 
-    private RecipeOutput recipeExporter;
+    private final RecipeOutput recipeExporter;
 
     public ModRecipeProvider(
-            PackOutput output,
-            CompletableFuture<HolderLookup.Provider> lookupProvider
+            HolderLookup.Provider registries,
+            RecipeOutput recipeExporter
     ) {
-        super(output, lookupProvider);
+        super(registries, recipeExporter);
+        this.recipeExporter = recipeExporter;
     }
 
     public void offerBroadswordRecipe(Item output, TagKey<Item> input) {
         if (input == ItemTags.PLANKS) {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("  M")
@@ -45,7 +44,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
                     .save(this.recipeExporter);
         } else {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("  M")
@@ -59,7 +58,7 @@ public final class ModRecipeProvider extends RecipeProvider {
 
     public void offerSickleRecipe(Item output, TagKey<Item> input) {
         if (input == ItemTags.PLANKS) {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern(" M ")
@@ -69,7 +68,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
                     .save(this.recipeExporter);
         } else {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern(" M ")
@@ -83,7 +82,7 @@ public final class ModRecipeProvider extends RecipeProvider {
 
     public void offerScytheRecipe(Item output, TagKey<Item> input) {
         if (input == ItemTags.PLANKS) {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("MMM")
@@ -93,7 +92,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
                     .save(this.recipeExporter);
         } else {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("MMM")
@@ -107,7 +106,7 @@ public final class ModRecipeProvider extends RecipeProvider {
 
     public void offerLongswordRecipe(Item output, TagKey<Item> input) {
         if (input == ItemTags.PLANKS) {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern(" M ")
@@ -117,7 +116,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
                     .save(this.recipeExporter);
         } else {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern(" M ")
@@ -131,7 +130,7 @@ public final class ModRecipeProvider extends RecipeProvider {
 
     public void offerKatanaRecipe(Item output, TagKey<Item> input) {
         if (input == ItemTags.PLANKS) {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("  M")
@@ -141,7 +140,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
                     .save(this.recipeExporter);
         } else {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("  M")
@@ -155,7 +154,7 @@ public final class ModRecipeProvider extends RecipeProvider {
 
     public void offerGreatswordRecipe(Item output, TagKey<Item> input) {
         if (input == ItemTags.PLANKS) {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("  M")
@@ -165,7 +164,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
                     .save(this.recipeExporter);
         } else {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("  M")
@@ -179,7 +178,7 @@ public final class ModRecipeProvider extends RecipeProvider {
 
     public void offerHatchetRecipe(Item output, TagKey<Item> input) {
         if (input == ItemTags.PLANKS) {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern(" M ")
@@ -189,7 +188,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
                     .save(this.recipeExporter);
         } else {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern(" M ")
@@ -203,7 +202,7 @@ public final class ModRecipeProvider extends RecipeProvider {
 
     public void offerHammerRecipe(Item output, TagKey<Item> input) {
         if (input == ItemTags.PLANKS) {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("MSM")
@@ -213,7 +212,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
                     .save(this.recipeExporter);
         } else {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("MSM")
@@ -227,7 +226,7 @@ public final class ModRecipeProvider extends RecipeProvider {
 
     public void offerBattleaxeRecipe(Item output, TagKey<Item> input) {
         if (input == ItemTags.PLANKS) {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("MM ")
@@ -237,7 +236,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
                     .save(this.recipeExporter);
         } else {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("MM ")
@@ -251,7 +250,7 @@ public final class ModRecipeProvider extends RecipeProvider {
 
     public void offerWarhammerRecipe(Item output, TagKey<Item> input) {
         if (input == ItemTags.PLANKS) {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("MMM")
@@ -261,7 +260,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
                     .save(this.recipeExporter);
         } else {
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output, 1)
+            ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, output, 1)
                     .define('M', input)
                     .define('S', Items.STICK)
                     .pattern("MMM")
@@ -294,13 +293,13 @@ public final class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(input), has(input))
                     .save(
                             recipeExporter,
-                            ResourceLocation.fromNamespaceAndPath(
+                            Identifier.fromNamespaceAndPath(
                                     WeaponsExpanded.MOD_ID,
                                     "smelting/"
                                             + materialName
                                             + "_nugget_from_"
                                             + inputIdPath
-                            )
+                            ).toString()
                     );
         }
     }
@@ -326,13 +325,13 @@ public final class ModRecipeProvider extends RecipeProvider {
                     .unlockedBy(getHasName(input), has(input))
                     .save(
                             recipeExporter,
-                            ResourceLocation.fromNamespaceAndPath(
+                            Identifier.fromNamespaceAndPath(
                                     WeaponsExpanded.MOD_ID,
                                     "blasting/"
                                             + materialName
                                             + "_nugget_from_"
                                             + inputIdPath
-                            )
+                            ).toString()
                     );
         }
     }
@@ -365,44 +364,12 @@ public final class ModRecipeProvider extends RecipeProvider {
         );
     }
 
-    private void offerNetheriteUpgradeRecipe(
-            RecipeOutput exporter,
-            Item input,
-            RecipeCategory category,
-            Item result
-    ) {
-        SmithingTransformRecipeBuilder.smithing(
-                        Ingredient.of(
-                                Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE
-                        ),
-                        Ingredient.of(input),
-                        Ingredient.of(Items.NETHERITE_INGOT),
-                        category,
-                        result
-                )
-                .unlocks(
-                        getHasName(Items.NETHERITE_INGOT),
-                        has(Items.NETHERITE_INGOT)
-                )
-                .save(
-                        exporter,
-                        ResourceLocation.fromNamespaceAndPath(
-                                WeaponsExpanded.MOD_ID,
-                                getItemName(result) + "_smithing"
-                        )
-                );
-    }
-
     @Override
-    protected void buildRecipes(
-            @NotNull RecipeOutput exporter
-    ) {
+    protected void buildRecipes() {
         float xp = 0.1f;
 
         int smeltTime = 200;
         int blastTime = 100;
-
-        recipeExporter = exporter;
 
         // Gold weapons -> gold nugget
         offerSmeltingNuggetRecipes(
@@ -440,78 +407,78 @@ public final class ModRecipeProvider extends RecipeProvider {
 
         offerBroadswordRecipe(ModItems.WOODEN_BROADSWORD.get(), ItemTags.PLANKS);
         offerBroadswordRecipe(ModItems.STONE_BROADSWORD.get(), ItemTags.STONE_TOOL_MATERIALS);
-        offerBroadswordRecipe(ModItems.GOLDEN_BROADSWORD.get(), ModItemTags.GOLD_TOOL_MATERIALS);
-        offerBroadswordRecipe(ModItems.IRON_BROADSWORD.get(), ModItemTags.IRON_TOOL_MATERIALS);
-        offerBroadswordRecipe(ModItems.DIAMOND_BROADSWORD.get(), ModItemTags.DIAMOND_TOOL_MATERIALS);
+        offerBroadswordRecipe(ModItems.GOLDEN_BROADSWORD.get(), ItemTags.GOLD_TOOL_MATERIALS);
+        offerBroadswordRecipe(ModItems.IRON_BROADSWORD.get(), ItemTags.IRON_TOOL_MATERIALS);
+        offerBroadswordRecipe(ModItems.DIAMOND_BROADSWORD.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerSickleRecipe(ModItems.WOODEN_SICKLE.get(), ItemTags.PLANKS);
         offerSickleRecipe(ModItems.STONE_SICKLE.get(), ItemTags.STONE_TOOL_MATERIALS);
-        offerSickleRecipe(ModItems.GOLDEN_SICKLE.get(), ModItemTags.GOLD_TOOL_MATERIALS);
-        offerSickleRecipe(ModItems.IRON_SICKLE.get(), ModItemTags.IRON_TOOL_MATERIALS);
-        offerSickleRecipe(ModItems.DIAMOND_SICKLE.get(), ModItemTags.DIAMOND_TOOL_MATERIALS);
+        offerSickleRecipe(ModItems.GOLDEN_SICKLE.get(), ItemTags.GOLD_TOOL_MATERIALS);
+        offerSickleRecipe(ModItems.IRON_SICKLE.get(), ItemTags.IRON_TOOL_MATERIALS);
+        offerSickleRecipe(ModItems.DIAMOND_SICKLE.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerScytheRecipe(ModItems.WOODEN_SCYTHE.get(), ItemTags.PLANKS);
         offerScytheRecipe(ModItems.STONE_SCYTHE.get(), ItemTags.STONE_TOOL_MATERIALS);
-        offerScytheRecipe(ModItems.GOLDEN_SCYTHE.get(), ModItemTags.GOLD_TOOL_MATERIALS);
-        offerScytheRecipe(ModItems.IRON_SCYTHE.get(), ModItemTags.IRON_TOOL_MATERIALS);
-        offerScytheRecipe(ModItems.DIAMOND_SCYTHE.get(), ModItemTags.DIAMOND_TOOL_MATERIALS);
+        offerScytheRecipe(ModItems.GOLDEN_SCYTHE.get(), ItemTags.GOLD_TOOL_MATERIALS);
+        offerScytheRecipe(ModItems.IRON_SCYTHE.get(), ItemTags.IRON_TOOL_MATERIALS);
+        offerScytheRecipe(ModItems.DIAMOND_SCYTHE.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerLongswordRecipe(ModItems.WOODEN_LONGSWORD.get(), ItemTags.PLANKS);
         offerLongswordRecipe(ModItems.STONE_LONGSWORD.get(), ItemTags.STONE_TOOL_MATERIALS);
-        offerLongswordRecipe(ModItems.GOLDEN_LONGSWORD.get(), ModItemTags.GOLD_TOOL_MATERIALS);
-        offerLongswordRecipe(ModItems.IRON_LONGSWORD.get(), ModItemTags.IRON_TOOL_MATERIALS);
-        offerLongswordRecipe(ModItems.DIAMOND_LONGSWORD.get(), ModItemTags.DIAMOND_TOOL_MATERIALS);
+        offerLongswordRecipe(ModItems.GOLDEN_LONGSWORD.get(), ItemTags.GOLD_TOOL_MATERIALS);
+        offerLongswordRecipe(ModItems.IRON_LONGSWORD.get(), ItemTags.IRON_TOOL_MATERIALS);
+        offerLongswordRecipe(ModItems.DIAMOND_LONGSWORD.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerKatanaRecipe(ModItems.WOODEN_KATANA.get(), ItemTags.PLANKS);
         offerKatanaRecipe(ModItems.STONE_KATANA.get(), ItemTags.STONE_TOOL_MATERIALS);
-        offerKatanaRecipe(ModItems.GOLDEN_KATANA.get(), ModItemTags.GOLD_TOOL_MATERIALS);
-        offerKatanaRecipe(ModItems.IRON_KATANA.get(), ModItemTags.IRON_TOOL_MATERIALS);
-        offerKatanaRecipe(ModItems.DIAMOND_KATANA.get(), ModItemTags.DIAMOND_TOOL_MATERIALS);
+        offerKatanaRecipe(ModItems.GOLDEN_KATANA.get(), ItemTags.GOLD_TOOL_MATERIALS);
+        offerKatanaRecipe(ModItems.IRON_KATANA.get(), ItemTags.IRON_TOOL_MATERIALS);
+        offerKatanaRecipe(ModItems.DIAMOND_KATANA.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerGreatswordRecipe(ModItems.WOODEN_GREATSWORD.get(), ItemTags.PLANKS);
         offerGreatswordRecipe(ModItems.STONE_GREATSWORD.get(), ItemTags.STONE_TOOL_MATERIALS);
-        offerGreatswordRecipe(ModItems.GOLDEN_GREATSWORD.get(), ModItemTags.GOLD_TOOL_MATERIALS);
-        offerGreatswordRecipe(ModItems.IRON_GREATSWORD.get(), ModItemTags.IRON_TOOL_MATERIALS);
-        offerGreatswordRecipe(ModItems.DIAMOND_GREATSWORD.get(), ModItemTags.DIAMOND_TOOL_MATERIALS);
+        offerGreatswordRecipe(ModItems.GOLDEN_GREATSWORD.get(), ItemTags.GOLD_TOOL_MATERIALS);
+        offerGreatswordRecipe(ModItems.IRON_GREATSWORD.get(), ItemTags.IRON_TOOL_MATERIALS);
+        offerGreatswordRecipe(ModItems.DIAMOND_GREATSWORD.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerHatchetRecipe(ModItems.WOODEN_HATCHET.get(), ItemTags.PLANKS);
         offerHatchetRecipe(ModItems.STONE_HATCHET.get(), ItemTags.STONE_TOOL_MATERIALS);
-        offerHatchetRecipe(ModItems.GOLDEN_HATCHET.get(), ModItemTags.GOLD_TOOL_MATERIALS);
-        offerHatchetRecipe(ModItems.IRON_HATCHET.get(), ModItemTags.IRON_TOOL_MATERIALS);
-        offerHatchetRecipe(ModItems.DIAMOND_HATCHET.get(), ModItemTags.DIAMOND_TOOL_MATERIALS);
+        offerHatchetRecipe(ModItems.GOLDEN_HATCHET.get(), ItemTags.GOLD_TOOL_MATERIALS);
+        offerHatchetRecipe(ModItems.IRON_HATCHET.get(), ItemTags.IRON_TOOL_MATERIALS);
+        offerHatchetRecipe(ModItems.DIAMOND_HATCHET.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerHammerRecipe(ModItems.WOODEN_HAMMER.get(), ItemTags.PLANKS);
         offerHammerRecipe(ModItems.STONE_HAMMER.get(), ItemTags.STONE_TOOL_MATERIALS);
-        offerHammerRecipe(ModItems.GOLDEN_HAMMER.get(), ModItemTags.GOLD_TOOL_MATERIALS);
-        offerHammerRecipe(ModItems.IRON_HAMMER.get(), ModItemTags.IRON_TOOL_MATERIALS);
-        offerHammerRecipe(ModItems.DIAMOND_HAMMER.get(), ModItemTags.DIAMOND_TOOL_MATERIALS);
+        offerHammerRecipe(ModItems.GOLDEN_HAMMER.get(), ItemTags.GOLD_TOOL_MATERIALS);
+        offerHammerRecipe(ModItems.IRON_HAMMER.get(), ItemTags.IRON_TOOL_MATERIALS);
+        offerHammerRecipe(ModItems.DIAMOND_HAMMER.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerBattleaxeRecipe(ModItems.WOODEN_BATTLEAXE.get(), ItemTags.PLANKS);
         offerBattleaxeRecipe(ModItems.STONE_BATTLEAXE.get(), ItemTags.STONE_TOOL_MATERIALS);
-        offerBattleaxeRecipe(ModItems.GOLDEN_BATTLEAXE.get(), ModItemTags.GOLD_TOOL_MATERIALS);
-        offerBattleaxeRecipe(ModItems.IRON_BATTLEAXE.get(), ModItemTags.IRON_TOOL_MATERIALS);
-        offerBattleaxeRecipe(ModItems.DIAMOND_BATTLEAXE.get(), ModItemTags.DIAMOND_TOOL_MATERIALS);
+        offerBattleaxeRecipe(ModItems.GOLDEN_BATTLEAXE.get(), ItemTags.GOLD_TOOL_MATERIALS);
+        offerBattleaxeRecipe(ModItems.IRON_BATTLEAXE.get(), ItemTags.IRON_TOOL_MATERIALS);
+        offerBattleaxeRecipe(ModItems.DIAMOND_BATTLEAXE.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerWarhammerRecipe(ModItems.WOODEN_WARHAMMER.get(), ItemTags.PLANKS);
         offerWarhammerRecipe(ModItems.STONE_WARHAMMER.get(), ItemTags.STONE_TOOL_MATERIALS);
-        offerWarhammerRecipe(ModItems.GOLDEN_WARHAMMER.get(), ModItemTags.GOLD_TOOL_MATERIALS);
-        offerWarhammerRecipe(ModItems.IRON_WARHAMMER.get(), ModItemTags.IRON_TOOL_MATERIALS);
-        offerWarhammerRecipe(ModItems.DIAMOND_WARHAMMER.get(), ModItemTags.DIAMOND_TOOL_MATERIALS);
+        offerWarhammerRecipe(ModItems.GOLDEN_WARHAMMER.get(), ItemTags.GOLD_TOOL_MATERIALS);
+        offerWarhammerRecipe(ModItems.IRON_WARHAMMER.get(), ItemTags.IRON_TOOL_MATERIALS);
+        offerWarhammerRecipe(ModItems.DIAMOND_WARHAMMER.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
-        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_BROADSWORD.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_BROADSWORD.get());
-        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_SICKLE.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_SICKLE.get());
-        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_SCYTHE.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_SCYTHE.get());
-        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_LONGSWORD.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_LONGSWORD.get());
-        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_KATANA.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_KATANA.get());
-        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_GREATSWORD.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_GREATSWORD.get());
-        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_HATCHET.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_HATCHET.get());
-        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_HAMMER.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_HAMMER.get());
-        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_BATTLEAXE.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_BATTLEAXE.get());
-        offerNetheriteUpgradeRecipe(exporter, ModItems.DIAMOND_WARHAMMER.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_WARHAMMER.get());
+        netheriteSmithing(ModItems.DIAMOND_BROADSWORD.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_BROADSWORD.get());
+        netheriteSmithing(ModItems.DIAMOND_SICKLE.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_SICKLE.get());
+        netheriteSmithing(ModItems.DIAMOND_SCYTHE.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_SCYTHE.get());
+        netheriteSmithing(ModItems.DIAMOND_LONGSWORD.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_LONGSWORD.get());
+        netheriteSmithing(ModItems.DIAMOND_KATANA.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_KATANA.get());
+        netheriteSmithing(ModItems.DIAMOND_GREATSWORD.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_GREATSWORD.get());
+        netheriteSmithing(ModItems.DIAMOND_HATCHET.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_HATCHET.get());
+        netheriteSmithing(ModItems.DIAMOND_HAMMER.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_HAMMER.get());
+        netheriteSmithing(ModItems.DIAMOND_BATTLEAXE.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_BATTLEAXE.get());
+        netheriteSmithing(ModItems.DIAMOND_WARHAMMER.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_WARHAMMER.get());
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.CHAIN_CROSSBOW.get(), 1)
+        ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, ModItems.CHAIN_CROSSBOW.get(), 1)
                 .define('I', Items.IRON_INGOT)
-                .define('C', Items.CHAIN)
+                .define('C', Items.IRON_CHAIN)
                 .define('N', Items.IRON_NUGGET)
                 .define('T', Items.TRIPWIRE_HOOK)
                 .pattern("INI")
@@ -519,12 +486,12 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .pattern(" I ")
                 .group(getItemName(ModItems.CHAIN_CROSSBOW.get()))
                 .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
-                .unlockedBy("has_chain", has(Items.CHAIN))
+                .unlockedBy("has_chain", has(Items.IRON_CHAIN))
                 .unlockedBy("has_iron_nugget", has(Items.IRON_NUGGET))
                 .unlockedBy("has_tripwire_hook", has(Items.TRIPWIRE_HOOK))
                 .save(this.recipeExporter);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.LONGBOW.get(), 1)
+        ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, ModItems.LONGBOW.get(), 1)
                 .define('I', Items.IRON_INGOT)
                 .define('S', Items.STRING)
                 .define('T', Items.STICK)
@@ -536,7 +503,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_stick", has(Items.STICK))
                 .save(this.recipeExporter);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EXPLOSIVE_ARROW.get(), 2)
+        ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, ModItems.EXPLOSIVE_ARROW.get(), 2)
                 .define('S', Items.STICK)
                 .define('F', Items.FLINT)
                 .define('E', Items.FEATHER)
@@ -549,7 +516,7 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_stick", has(Items.STICK))
                 .save(this.recipeExporter);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.HEAVY_ARROW.get(), 4)
+        ShapedRecipeBuilder.shaped(this.registries.lookupOrThrow(Registries.ITEM), RecipeCategory.COMBAT, ModItems.HEAVY_ARROW.get(), 4)
                 .define('S', Items.STICK)
                 .define('I', Items.IRON_INGOT)
                 .define('F', Items.FEATHER)
@@ -559,5 +526,28 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .group(getItemName(ModItems.HEAVY_ARROW.get()))
                 .unlockedBy("has_stick", has(Items.STICK))
                 .save(this.recipeExporter);
+    }
+
+    public static final class Runner extends RecipeProvider.Runner {
+
+        public Runner(
+                PackOutput output,
+                CompletableFuture<HolderLookup.Provider> registries
+        ) {
+            super(output, registries);
+        }
+
+        @Override
+        protected RecipeProvider createRecipeProvider(
+                HolderLookup.Provider registries,
+                RecipeOutput recipeOutput
+        ) {
+            return new ModRecipeProvider(registries, recipeOutput);
+        }
+
+        @Override
+        public String getName() {
+            return "";
+        }
     }
 }

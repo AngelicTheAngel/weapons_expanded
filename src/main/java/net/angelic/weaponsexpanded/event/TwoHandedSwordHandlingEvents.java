@@ -49,7 +49,7 @@ public final class TwoHandedSwordHandlingEvents {
         /*
          * Inventory changes must only happen on the server.
          */
-        if (player.level().isClientSide) {
+        if (player.level().isClientSide()) {
             return;
         }
 

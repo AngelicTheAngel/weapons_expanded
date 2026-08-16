@@ -3,15 +3,9 @@
   "category": "equipment",
   "group": "heavy_arrow",
   "key": {
-    "F": {
-      "item": "minecraft:feather"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "F": "minecraft:feather",
+    "I": "minecraft:iron_ingot",
+    "S": "minecraft:stick"
   },
   "pattern": [
     " I ",

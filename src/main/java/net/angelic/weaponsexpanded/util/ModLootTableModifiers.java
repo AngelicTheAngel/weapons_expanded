@@ -44,7 +44,7 @@ public final class ModLootTableModifiers {
         /*
          * Igloo
          */
-        if (BuiltInLootTables.IGLOO_CHEST.location().equals(event.getName())) {
+        if (BuiltInLootTables.IGLOO_CHEST.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
@@ -56,7 +56,7 @@ public final class ModLootTableModifiers {
         /*
          * Village weaponsmith
          */
-        if (BuiltInLootTables.VILLAGE_WEAPONSMITH.location().equals(event.getName())) {
+        if (BuiltInLootTables.VILLAGE_WEAPONSMITH.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
@@ -69,7 +69,7 @@ public final class ModLootTableModifiers {
         /*
          * Pillager outpost
          */
-        if (BuiltInLootTables.PILLAGER_OUTPOST.location().equals(event.getName())) {
+        if (BuiltInLootTables.PILLAGER_OUTPOST.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
@@ -81,7 +81,7 @@ public final class ModLootTableModifiers {
         /*
          * Ruined portal
          */
-        if (BuiltInLootTables.RUINED_PORTAL.location().equals(event.getName())) {
+        if (BuiltInLootTables.RUINED_PORTAL.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL_HIGH))
@@ -104,7 +104,7 @@ public final class ModLootTableModifiers {
         /*
          * Nether fortress
          */
-        if (BuiltInLootTables.NETHER_BRIDGE.location().equals(event.getName())) {
+        if (BuiltInLootTables.NETHER_BRIDGE.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
@@ -117,7 +117,7 @@ public final class ModLootTableModifiers {
         /*
          * Small underwater ruin
          */
-        if (BuiltInLootTables.UNDERWATER_RUIN_SMALL.location().equals(event.getName())) {
+        if (BuiltInLootTables.UNDERWATER_RUIN_SMALL.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
@@ -129,7 +129,7 @@ public final class ModLootTableModifiers {
         /*
          * Stronghold corridor
          */
-        if (BuiltInLootTables.STRONGHOLD_CORRIDOR.location().equals(event.getName())) {
+        if (BuiltInLootTables.STRONGHOLD_CORRIDOR.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
@@ -142,7 +142,7 @@ public final class ModLootTableModifiers {
         /*
          * Buried treasure
          */
-        if (BuiltInLootTables.BURIED_TREASURE.location().equals(event.getName())) {
+        if (BuiltInLootTables.BURIED_TREASURE.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
@@ -156,7 +156,7 @@ public final class ModLootTableModifiers {
         /*
          * Bastion bridge
          */
-        if (BuiltInLootTables.BASTION_BRIDGE.location().equals(event.getName())) {
+        if (BuiltInLootTables.BASTION_BRIDGE.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL_HIGH))
@@ -174,7 +174,7 @@ public final class ModLootTableModifiers {
         /*
          * Bastion hoglin stable
          */
-        if (BuiltInLootTables.BASTION_HOGLIN_STABLE.location().equals(event.getName())) {
+        if (BuiltInLootTables.BASTION_HOGLIN_STABLE.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL_HIGH))
@@ -188,7 +188,7 @@ public final class ModLootTableModifiers {
         /*
          * General bastion chest
          */
-        if (BuiltInLootTables.BASTION_OTHER.location().equals(event.getName())) {
+        if (BuiltInLootTables.BASTION_OTHER.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL_HIGH))
@@ -211,7 +211,7 @@ public final class ModLootTableModifiers {
         /*
          * Bastion treasure
          */
-        if (BuiltInLootTables.BASTION_TREASURE.location().equals(event.getName())) {
+        if (BuiltInLootTables.BASTION_TREASURE.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL))
@@ -238,7 +238,7 @@ public final class ModLootTableModifiers {
         /*
          * End city treasure
          */
-        if (BuiltInLootTables.END_CITY_TREASURE.location().equals(event.getName())) {
+        if (BuiltInLootTables.END_CITY_TREASURE.registry().equals(event.getName())) {
             LootPool.Builder pool = LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1))
                     .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL))

@@ -1,6 +1,6 @@
 package net.angelic.weaponsexpanded.mixin.warhammer;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.angelic.weaponsexpanded.item.custom.WarhammerItem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -10,25 +10,15 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(Player.class)
 public abstract class WarhammerSweepingMixin {
 
-    @ModifyExpressionValue(
-            method =
-                    "attack("
-                            + "Lnet/minecraft/world/entity/Entity;"
-                            + ")V",
-            at = @At(
-                    value = "INVOKE",
-                    target =
-                            "Lnet/minecraft/world/entity/player/Player;"
-                                    + "onGround()Z",
-                    ordinal = 1
-            ),
+    @ModifyReturnValue(
+            method = "isSweepAttack(ZZZ)Z",
+            at = @At("RETURN"),
             require = 1
     )
-    private boolean
-    weaponsexpanded$disableWarhammerSweepWhenBlunt(
-            boolean vanillaOnGround
+    private boolean weaponsexpanded$disableWarhammerSweepWhenBlunt(
+            boolean vanillaCanSweep
     ) {
-        if (!vanillaOnGround) {
+        if (!vanillaCanSweep) {
             return false;
         }
 
@@ -36,7 +26,7 @@ public abstract class WarhammerSweepingMixin {
                 (Player) (Object) this;
 
         ItemStack weapon =
-                player.getMainHandItem();
+                player.getWeaponItem();
 
         if (weapon.getItem()
                 instanceof WarhammerItem warhammer) {

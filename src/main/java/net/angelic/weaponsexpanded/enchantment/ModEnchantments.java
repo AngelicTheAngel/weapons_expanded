@@ -6,8 +6,8 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
@@ -49,7 +49,7 @@ public final class ModEnchantments {
     private static ResourceKey<Enchantment> createKey(String path) {
         return ResourceKey.create(
                 Registries.ENCHANTMENT,
-                ResourceLocation.fromNamespaceAndPath(
+                Identifier.fromNamespaceAndPath(
                         WeaponsExpanded.MOD_ID,
                         path
                 )
@@ -128,7 +128,7 @@ public final class ModEnchantments {
         ResourceKey<MobEffect> frostbiteEffectKey =
                 ResourceKey.create(
                         Registries.MOB_EFFECT,
-                        ResourceLocation.fromNamespaceAndPath(
+                        Identifier.fromNamespaceAndPath(
                                 WeaponsExpanded.MOD_ID,
                                 "frostbite"
                         )
@@ -233,7 +233,7 @@ public final class ModEnchantments {
     ) {
         return createBuilder(
                 items.getOrThrow(
-                        ModItemTags.MELEE_EFFECT_ENCHANTABLE
+                        ItemTags.MELEE_WEAPON_ENCHANTABLE
                 ),
                 2,
                 Enchantment.dynamicCost(10, 20),
@@ -281,7 +281,7 @@ public final class ModEnchantments {
     ) {
         context.register(
                 key,
-                builder.build(key.location())
+                builder.build(key.identifier())
         );
     }
 

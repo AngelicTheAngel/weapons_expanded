@@ -1,4 +1,4 @@
-// 1.21.1	2026-08-14T16:40:43.384417207	Advancements
-825c7711fe1f0d3978651c8a1cb5587771b57eb1 data/weaponsexpanded/advancement/diamond_weapon.json
-4f2190f404f0bdb4d2320f4466f74ef7e3c0bd5a data/weaponsexpanded/advancement/netherite_weapon.json
-096247db973ca4cce850964c65ea9061b2ccb099 data/weaponsexpanded/advancement/weapons_expanded.json
+// 1.21.11	2026-08-15T22:07:04.313594558	Advancements
+825c7711fe1f0d3978651c8a1cb5587771b57eb1 data/minecraft/advancement/diamond_weapon.json
+4f2190f404f0bdb4d2320f4466f74ef7e3c0bd5a data/minecraft/advancement/netherite_weapon.json
+ac6aa8deb6ca66cc68d930b8784e5ab3cc248018 data/minecraft/advancement/weapons_expanded.json

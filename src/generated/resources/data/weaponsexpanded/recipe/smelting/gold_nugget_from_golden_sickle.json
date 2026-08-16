@@ -4,9 +4,7 @@
   "cookingtime": 200,
   "experience": 0.1,
   "group": "goldnugget",
-  "ingredient": {
-    "item": "weaponsexpanded:golden_sickle"
-  },
+  "ingredient": "weaponsexpanded:golden_sickle",
   "result": {
     "count": 1,
     "id": "minecraft:gold_nugget"

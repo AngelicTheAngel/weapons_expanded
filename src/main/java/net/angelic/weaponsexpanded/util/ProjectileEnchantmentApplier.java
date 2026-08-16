@@ -5,7 +5,7 @@ import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -20,7 +20,7 @@ public final class ProjectileEnchantmentApplier {
             ItemStack weaponStack,
             AbstractArrow projectile
     ) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
 
@@ -33,7 +33,7 @@ public final class ProjectileEnchantmentApplier {
             ItemStack weaponStack,
             HeavyArrowEntity arrow
     ) {
-        if (level.isClientSide || weaponStack.isEmpty()) {
+        if (level.isClientSide() || weaponStack.isEmpty()) {
             return;
         }
 
@@ -65,7 +65,7 @@ public final class ProjectileEnchantmentApplier {
             ItemStack weaponStack,
             AbstractArrow projectile
     ) {
-        if (level.isClientSide || weaponStack.isEmpty()) {
+        if (level.isClientSide() || weaponStack.isEmpty()) {
             return;
         }
 
@@ -91,7 +91,7 @@ public final class ProjectileEnchantmentApplier {
             ItemStack weaponStack,
             AbstractArrow projectile
     ) {
-        if (level.isClientSide || weaponStack.isEmpty()) {
+        if (level.isClientSide() || weaponStack.isEmpty()) {
             return;
         }
 

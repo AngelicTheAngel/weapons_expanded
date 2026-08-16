@@ -1,7 +1,6 @@
 package net.angelic.weaponsexpanded;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.angelic.weaponsexpanded.client.ModModelPredicates;
 import net.angelic.weaponsexpanded.client.render.ExplosiveArrowEntityRenderer;
 import net.angelic.weaponsexpanded.client.render.HeavyArrowEntityRenderer;
 import net.angelic.weaponsexpanded.effect.ModEffects;
@@ -18,11 +17,11 @@ import net.angelic.weaponsexpanded.util.ModLootTableModifiers;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -159,7 +158,7 @@ public class WeaponsExpanded {
     }
 
     event.getTrades().get(4).add(
-            (entity, random) ->
+            (level, entity, random) ->
                     weaponsexpanded$createEnchantedTrade(
                             ModItems.DIAMOND_HAMMER.get(),
                             17,
@@ -171,7 +170,7 @@ public class WeaponsExpanded {
     );
 
     event.getTrades().get(4).add(
-            (entity, random) ->
+            (level, entity, random) ->
                     weaponsexpanded$createEnchantedTrade(
                             ModItems.DIAMOND_HATCHET.get(),
                             17,
@@ -183,7 +182,7 @@ public class WeaponsExpanded {
     );
 
     event.getTrades().get(4).add(
-            (entity, random) ->
+            (level, entity, random) ->
                     weaponsexpanded$createEnchantedTrade(
                             ModItems.DIAMOND_BATTLEAXE.get(),
                             17,
@@ -195,7 +194,7 @@ public class WeaponsExpanded {
     );
 
     event.getTrades().get(5).add(
-            (entity, random) ->
+            (level, entity, random) ->
                     weaponsexpanded$createEnchantedTrade(
                             ModItems.DIAMOND_BROADSWORD.get(),
                             13,
@@ -207,7 +206,7 @@ public class WeaponsExpanded {
     );
 
     event.getTrades().get(5).add(
-            (entity, random) ->
+            (level, entity, random) ->
                     weaponsexpanded$createEnchantedTrade(
                             ModItems.DIAMOND_SICKLE.get(),
                             13,
@@ -219,7 +218,7 @@ public class WeaponsExpanded {
     );
 
     event.getTrades().get(5).add(
-            (entity, random) ->
+            (level, entity, random) ->
                     weaponsexpanded$createEnchantedTrade(
                             ModItems.DIAMOND_SCYTHE.get(),
                             13,
@@ -231,7 +230,7 @@ public class WeaponsExpanded {
     );
 
     event.getTrades().get(5).add(
-            (entity, random) ->
+            (level, entity, random) ->
                     weaponsexpanded$createEnchantedTrade(
                             ModItems.DIAMOND_LONGSWORD.get(),
                             13,
@@ -243,7 +242,7 @@ public class WeaponsExpanded {
     );
 
     event.getTrades().get(5).add(
-            (entity, random) ->
+            (level, entity, random) ->
                     weaponsexpanded$createEnchantedTrade(
                             ModItems.DIAMOND_KATANA.get(),
                             13,
@@ -255,7 +254,7 @@ public class WeaponsExpanded {
     );
 
     event.getTrades().get(5).add(
-            (entity, random) ->
+            (level, entity, random) ->
                     weaponsexpanded$createEnchantedTrade(
                             ModItems.DIAMOND_GREATSWORD.get(),
                             13,
@@ -301,8 +300,8 @@ public class WeaponsExpanded {
     );
   }
 
-  public static ResourceLocation id(String path) {
-    return ResourceLocation.fromNamespaceAndPath(
+  public static Identifier id(String path) {
+    return Identifier.fromNamespaceAndPath(
             MOD_ID,
             path
     );
@@ -319,10 +318,9 @@ public class WeaponsExpanded {
   )
   public static final class ClientModEvents {
 
-    private static final String
+    private static final KeyMapping.Category
             WEAPONSEXPANDED$KEY_CATEGORY =
-            "key.category.weaponsexpanded.general";
-
+            KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MOD_ID, "general"));
     private static final String
             WEAPONSEXPANDED$KEY_TOGGLE_WEAPON_MODE =
             "key.weaponsexpanded.toggle_bastard_sword_mode";
@@ -340,11 +338,7 @@ public class WeaponsExpanded {
     }
 
     @SubscribeEvent
-    public static void onClientSetup(
-            FMLClientSetupEvent event
-    ) {
-      event.enqueueWork(ModModelPredicates::register);
-    }
+    public static void onClientSetup(FMLClientSetupEvent event) {}
 
     @SubscribeEvent
     public static void registerKeyMappings(

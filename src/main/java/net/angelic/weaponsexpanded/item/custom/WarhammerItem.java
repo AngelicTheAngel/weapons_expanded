@@ -8,21 +8,20 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 import java.util.List;
+import java.util.function.Consumer;
 
-public class WarhammerItem extends SwordItem {
+public class WarhammerItem extends Item {
     private static final String SHARP_SIDE_KEY =
             "weaponsexpanded:warhammer_sharp_side";
 
-    private final Tier material;
+    private final ToolMaterial material;
     private final float bluntSideAttackDamage;
     private final float bluntSideAttackSpeed;
     private final float sharpSideAttackDamage;
@@ -30,7 +29,7 @@ public class WarhammerItem extends SwordItem {
     private final ItemAttributeModifiers bluntSideModifiers;
 
     public WarhammerItem(
-            Tier material,
+            ToolMaterial material,
             float attackDamage,
             float attackSpeed,
             float sharpSideAttackDamage,
@@ -38,11 +37,7 @@ public class WarhammerItem extends SwordItem {
             String modelName,
             Item.Properties properties
     ) {
-        super(material, properties.attributes(createModifiers(
-                material,
-                attackDamage,
-                attackSpeed
-        )));
+        super(properties.sword(material, attackDamage, attackSpeed));
 
         this.material = material;
         this.bluntSideAttackDamage = attackDamage;
@@ -57,7 +52,7 @@ public class WarhammerItem extends SwordItem {
     }
 
     private static ItemAttributeModifiers createModifiers(
-            Tier material,
+            ToolMaterial material,
             float attackDamage,
             float attackSpeed
     ) {
@@ -66,7 +61,7 @@ public class WarhammerItem extends SwordItem {
                         Attributes.ATTACK_DAMAGE,
                         new AttributeModifier(
                                 Item.BASE_ATTACK_DAMAGE_ID,
-                                material.getAttackDamageBonus()
+                                material.attackDamageBonus()
                                         + attackDamage,
                                 AttributeModifier.Operation.ADD_VALUE
                         ),
@@ -85,26 +80,21 @@ public class WarhammerItem extends SwordItem {
     }
 
     @Override
-    public void appendHoverText(
-            ItemStack stack,
-            TooltipContext context,
-            List<Component> tooltipComponents,
-            TooltipFlag tooltipFlag
-    ) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-
+    @SuppressWarnings("deprecation")
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
         String translationKey = isSharpSide(stack)
                 ? "tooltip.weaponsexpanded.warhammer.sharp_side"
                 : "tooltip.weaponsexpanded.warhammer.blunt_side";
 
-        tooltipComponents.add(
+        tooltipAdder.accept(
                 Component.translatable(translationKey)
                         .withStyle(ChatFormatting.BLUE)
         );
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
     }
 
     @Override
-    public boolean hurtEnemy(
+    public void hurtEnemy(
             ItemStack stack,
             LivingEntity target,
             LivingEntity attacker
@@ -112,10 +102,10 @@ public class WarhammerItem extends SwordItem {
         if (!isSharpSide(stack)
                 && target instanceof Player player
                 && player.isBlocking()) {
-            player.disableShield();
+            player.getSecondsToDisableBlocking();
         }
 
-        return super.hurtEnemy(stack, target, attacker);
+        super.hurtEnemy(stack, target, attacker);
     }
 
     public float getBluntSideAttackDamage() {
@@ -138,7 +128,7 @@ public class WarhammerItem extends SwordItem {
         return stack.getOrDefault(
                 DataComponents.CUSTOM_DATA,
                 CustomData.EMPTY
-        ).copyTag().getBoolean(SHARP_SIDE_KEY);
+        ).copyTag().getBooleanOr(SHARP_SIDE_KEY, false);
     }
 
     public void setSharpSide(ItemStack stack, boolean sharpSide) {
@@ -154,6 +144,15 @@ public class WarhammerItem extends SwordItem {
                 DataComponents.ATTRIBUTE_MODIFIERS,
                 sharpSide ? createSharpSideModifiers() : bluntSideModifiers
         );
+
+        if (sharpSide) {
+            stack.set(
+                    DataComponents.CUSTOM_MODEL_DATA,
+                    new CustomModelData(List.of(1.0F), List.of(), List.of(), List.of())
+            );
+        } else {
+            stack.remove(DataComponents.CUSTOM_MODEL_DATA);
+        }
     }
 
     private ItemAttributeModifiers createSharpSideModifiers() {
@@ -170,7 +169,7 @@ public class WarhammerItem extends SwordItem {
 
     public double getSharpSideDisplayedAttackDamage() {
         return 1.0D
-                + material.getAttackDamageBonus()
+                + material.attackDamageBonus()
                 + sharpSideAttackDamage;
     }
 

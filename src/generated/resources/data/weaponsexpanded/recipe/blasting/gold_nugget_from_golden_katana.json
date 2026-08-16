@@ -4,9 +4,7 @@
   "cookingtime": 100,
   "experience": 0.1,
   "group": "goldnugget",
-  "ingredient": {
-    "item": "weaponsexpanded:golden_katana"
-  },
+  "ingredient": "weaponsexpanded:golden_katana",
   "result": {
     "count": 1,
     "id": "minecraft:gold_nugget"

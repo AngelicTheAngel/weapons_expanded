@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "weaponsexpanded:item/copper_warhammer_sharp"
+        },
+        "threshold": 1.0
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "weaponsexpanded:item/copper_warhammer"
+    },
+    "property": "minecraft:custom_model_data"
+  }
+}

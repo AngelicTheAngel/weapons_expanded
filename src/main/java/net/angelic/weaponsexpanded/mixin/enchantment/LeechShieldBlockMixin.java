@@ -1,24 +1,24 @@
 package net.angelic.weaponsexpanded.mixin.enchantment;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(LivingEntity.class)
 public abstract class LeechShieldBlockMixin {
 
-    // 50% extra durability damage.
     @Unique
     private static final float
             WEAPONSEXPANDED$EXTRA_DURABILITY_MULTIPLIER =
@@ -29,23 +29,41 @@ public abstract class LeechShieldBlockMixin {
             WEAPONSEXPANDED$HEAL_MULTIPLIER =
             0.15F;
 
-    @WrapOperation(
-            method = "hurt",
-            at = @At(
-                    value = "INVOKE",
-                    target =
-                            "Lnet/minecraft/world/entity/"
-                                    + "LivingEntity;"
-                                    + "hurtCurrentlyUsedShield(F)V"
-            )
+    @WrapMethod(
+            method =
+                    "applyItemBlocking("
+                            + "Lnet/minecraft/server/level/ServerLevel;"
+                            + "Lnet/minecraft/world/damagesource/DamageSource;"
+                            + "F)F"
     )
-    private void weaponsexpanded$applyLeechShieldEffects(
-            LivingEntity defender,
-            float blockedDamage,
-            Operation<Void> original
+    private float weaponsexpanded$applyLeechShieldEffects(
+            ServerLevel level,
+            DamageSource damageSource,
+            float incomingDamage,
+            Operation<Float> original
     ) {
+        LivingEntity defender =
+                (LivingEntity) (Object) this;
+
+        /*
+         * In 1.21.11, this identifies the stack that is actively
+         * responsible for blocking.
+         */
         ItemStack blockingItem =
-                defender.getUseItem();
+                defender.getItemBlockingWith();
+
+        /*
+         * getItemBlockingWith() is nullable. applyItemBlocking() is also
+         * reached for damage that is not blocked, so preserve vanilla and
+         * leave immediately when no blocking stack exists.
+         */
+        if (blockingItem == null || blockingItem.isEmpty()) {
+            return original.call(
+                    level,
+                    damageSource,
+                    incomingDamage
+            );
+        }
 
         InteractionHand activeHand =
                 defender.getUsedItemHand();
@@ -55,30 +73,13 @@ public abstract class LeechShieldBlockMixin {
                         ? EquipmentSlot.MAINHAND
                         : EquipmentSlot.OFFHAND;
 
-        /*
-         * ResourceKey<Enchantment> must be resolved through the
-         * current world's dynamic enchantment registry.
-         */
         Holder<Enchantment> leech =
-                defender.level()
-                        .registryAccess()
-                        .lookupOrThrow(
-                                Registries.ENCHANTMENT
-                        )
-                        .getOrThrow(
-                                ModEnchantments.LEECH
-                        );
+                level.registryAccess()
+                        .lookupOrThrow(Registries.ENCHANTMENT)
+                        .getOrThrow(ModEnchantments.LEECH);
 
-        /*
-         * Read the enchantment before vanilla damages the shield,
-         * because vanilla may break and empty the stack.
-         */
         int leechLevel =
-                blockingItem.isEmpty()
-                        ? 0
-                        : blockingItem.getEnchantmentLevel(
-                        leech
-                );
+                blockingItem.getEnchantmentLevel(leech);
 
         int damageBefore =
                 blockingItem.isDamageableItem()
@@ -91,23 +92,21 @@ public abstract class LeechShieldBlockMixin {
                         : 0;
 
         /*
-         * Continue the operation chain and eventually invoke
-         * LivingEntity#hurtCurrentlyUsedShield.
+         * Runs vanilla blocking, including the normal durability damage.
+         * The returned float is the amount of incoming damage blocked.
          */
-        original.call(
-                defender,
-                blockedDamage
+        float blockedDamage = original.call(
+                level,
+                damageSource,
+                incomingDamage
         );
 
-        if (leechLevel <= 0
+        if (blockedDamage <= 0.0F
+                || leechLevel <= 0
                 || maximumDamageBefore <= 0) {
-            return;
+            return blockedDamage;
         }
 
-        /*
-         * If vanilla broke the shield, the ItemStack may now be empty.
-         * In that case, all remaining durability was consumed.
-         */
         int vanillaDurabilityUsed;
 
         if (blockingItem.isEmpty()) {
@@ -117,13 +116,12 @@ public abstract class LeechShieldBlockMixin {
             vanillaDurabilityUsed =
                     Math.max(
                             0,
-                            blockingItem.getDamageValue()
-                                    - damageBefore
+                            blockingItem.getDamageValue() - damageBefore
                     );
         }
 
         if (vanillaDurabilityUsed <= 0) {
-            return;
+            return blockedDamage;
         }
 
         int extraDurabilityDamage =
@@ -150,5 +148,7 @@ public abstract class LeechShieldBlockMixin {
         if (healing > 0.0F) {
             defender.heal(healing);
         }
+
+        return blockedDamage;
     }
 }

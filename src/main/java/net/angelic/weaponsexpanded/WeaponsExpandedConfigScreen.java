@@ -134,13 +134,6 @@ public final class WeaponsExpandedConfigScreen extends Screen {
             int mouseY,
             float partialTick
     ) {
-        this.renderBackground(
-                graphics,
-                mouseX,
-                mouseY,
-                partialTick
-        );
-
         super.render(
                 graphics,
                 mouseX,

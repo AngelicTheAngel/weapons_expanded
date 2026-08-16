@@ -13,7 +13,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ChargedProjectiles;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -147,7 +147,7 @@ public final class ModPackets {
         }
 
         if (player.getCooldowns()
-                .isOnCooldown(stack.getItem())) {
+                .isOnCooldown(stack)) {
             return;
         }
 
@@ -180,10 +180,7 @@ public final class ModPackets {
             return;
         }
 
-        player.getCooldowns().addCooldown(
-                stack.getItem(),
-                WEAPONSEXPANDED$FIRE_COOLDOWN
-        );
+        player.getCooldowns().addCooldown(stack, WEAPONSEXPANDED$FIRE_COOLDOWN);
 
         CriteriaTriggers.SHOT_CROSSBOW.trigger(
                 player,
@@ -240,6 +237,6 @@ public final class ModPackets {
     public static void sendToServer(
             CustomPacketPayload payload
     ) {
-        PacketDistributor.sendToServer(payload);
+        ClientPacketDistributor.sendToServer(payload);
     }
 }

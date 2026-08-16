@@ -4,7 +4,7 @@ import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -79,7 +79,7 @@ public class HeavyArrowEntity extends Arrow {
         super.tick();
 
         // inGround is still protected in Minecraft 1.21.1.
-        if (!this.inGround) {
+        if (!this.isInGround()) {
             Vec3 velocity = this.getDeltaMovement();
 
             this.setDeltaMovement(

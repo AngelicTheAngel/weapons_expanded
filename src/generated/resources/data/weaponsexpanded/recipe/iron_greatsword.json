@@ -3,12 +3,8 @@
   "category": "equipment",
   "group": "iron_greatsword",
   "key": {
-    "M": {
-      "tag": "weaponsexpanded:iron_tool_materials"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "M": "#minecraft:iron_tool_materials",
+    "S": "minecraft:stick"
   },
   "pattern": [
     "  M",

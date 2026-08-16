@@ -5,10 +5,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.enchantment.Enchantment;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,21 +17,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ProjectileEntityMixin {
 
     @Inject(
-            method = "setOwner",
-            at = @At("TAIL")
+            method =
+                    "setOwner("
+                            + "Lnet/minecraft/world/entity/Entity;"
+                            + ")V",
+            at = @At("TAIL"),
+            require = 1
     )
     private void weaponsexpanded$copyFreezeLevel(
-            @Nullable Entity owner,
+            Entity owner,
             CallbackInfo ci
     ) {
-        Entity projectile =
-                (Entity) (Object) this;
-
-        if (projectile.level().isClientSide) {
+        if (!((Object) this
+                instanceof AbstractArrow projectile)) {
             return;
         }
 
-        if (!(projectile instanceof AbstractArrow)) {
+        if (projectile.level().isClientSide()) {
             return;
         }
 
@@ -44,8 +45,12 @@ public abstract class ProjectileEntityMixin {
         Holder<Enchantment> freeze =
                 livingOwner.level()
                         .registryAccess()
-                        .lookupOrThrow(Registries.ENCHANTMENT)
-                        .getOrThrow(ModEnchantments.FREEZE);
+                        .lookupOrThrow(
+                                Registries.ENCHANTMENT
+                        )
+                        .getOrThrow(
+                                ModEnchantments.FREEZE
+                        );
 
         int mainHandLevel =
                 livingOwner.getMainHandItem()
@@ -55,15 +60,16 @@ public abstract class ProjectileEntityMixin {
                 livingOwner.getOffhandItem()
                         .getEnchantmentLevel(freeze);
 
-        int level = Math.max(
-                mainHandLevel,
-                offHandLevel
-        );
+        int freezeLevel =
+                Math.max(
+                        mainHandLevel,
+                        offHandLevel
+                );
 
-        if (level > 0) {
+        if (freezeLevel > 0) {
             projectile.addTag(
                     "weaponsexpanded.freeze.level."
-                            + level
+                            + freezeLevel
             );
         }
     }

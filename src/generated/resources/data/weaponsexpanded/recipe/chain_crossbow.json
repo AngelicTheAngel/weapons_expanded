@@ -3,18 +3,10 @@
   "category": "equipment",
   "group": "chain_crossbow",
   "key": {
-    "C": {
-      "item": "minecraft:chain"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "N": {
-      "item": "minecraft:iron_nugget"
-    },
-    "T": {
-      "item": "minecraft:tripwire_hook"
-    }
+    "C": "minecraft:iron_chain",
+    "I": "minecraft:iron_ingot",
+    "N": "minecraft:iron_nugget",
+    "T": "minecraft:tripwire_hook"
   },
   "pattern": [
     "INI",

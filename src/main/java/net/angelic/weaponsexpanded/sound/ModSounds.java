@@ -2,7 +2,7 @@ package net.angelic.weaponsexpanded.sound;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -27,8 +27,8 @@ public final class ModSounds {
 
     private static DeferredHolder<SoundEvent, SoundEvent>
     registerSoundEvent(String name) {
-        ResourceLocation id =
-                ResourceLocation.fromNamespaceAndPath(
+        Identifier id =
+                Identifier.fromNamespaceAndPath(
                         WeaponsExpanded.MOD_ID,
                         name
                 );

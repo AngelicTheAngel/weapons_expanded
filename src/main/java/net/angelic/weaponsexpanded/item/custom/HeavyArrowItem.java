@@ -4,7 +4,7 @@ import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
 import net.angelic.weaponsexpanded.util.ProjectileEnchantmentApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +37,7 @@ public class HeavyArrowItem extends ArrowItem {
                 weaponStack
         );
 
-        if (!level.isClientSide && !weaponStack.isEmpty()) {
+        if (!level.isClientSide() && !weaponStack.isEmpty()) {
             ProjectileEnchantmentApplier.applyFreeze(
                     level,
                     weaponStack,
@@ -64,7 +64,7 @@ public class HeavyArrowItem extends ArrowItem {
                 weaponStack
         );
 
-        if (!level.isClientSide
+        if (!level.isClientSide()
                 && shooter instanceof Player player
                 && player.getAbilities().instabuild) {
             arrow.addTag(CREATIVE_FIRED_TAG);

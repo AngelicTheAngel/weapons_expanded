@@ -3,12 +3,8 @@
   "category": "equipment",
   "group": "golden_battleaxe",
   "key": {
-    "M": {
-      "tag": "weaponsexpanded:gold_tool_materials"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "M": "#minecraft:gold_tool_materials",
+    "S": "minecraft:stick"
   },
   "pattern": [
     "MM ",

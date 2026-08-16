@@ -5,14 +5,16 @@ import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CrossbowItem;
@@ -22,10 +24,13 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.CustomModelData;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ChainCrossbowItem extends CrossbowItem {
     private static final String QUEUE_KEY =
@@ -43,39 +48,22 @@ public class ChainCrossbowItem extends CrossbowItem {
     }
 
     @Override
-    public void appendHoverText(
-            ItemStack stack,
-            TooltipContext context,
-            List<Component> tooltipComponents,
-            TooltipFlag tooltipFlag
-    ) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
         CompoundTag root = readCustomData(stack);
-        boolean hasSavedChamber =
-                root.contains(SAVED_CHAMBER_KEY, Tag.TAG_COMPOUND);
-        int currentOrSaved =
-                CrossbowItem.isCharged(stack) || hasSavedChamber ? 1 : 0;
-        int total = Math.min(
-                MAX_TOTAL_SHOTS,
-                currentOrSaved + getQueuedChambers(stack)
-        );
+        boolean hasSavedChamber = root.contains(SAVED_CHAMBER_KEY);
+        int currentOrSaved = CrossbowItem.isCharged(stack) || hasSavedChamber ? 1 : 0;
+        int total = Math.min(MAX_TOTAL_SHOTS, currentOrSaved + getQueuedChambers(stack));
 
-        tooltipComponents.add(
+        tooltipAdder.accept(
                 Component.translatable(
-                        "tooltip.weaponsexpanded.chain_crossbow_shots",
-                        total,
-                        MAX_TOTAL_SHOTS
-                )
+                        "tooltip.weaponsexpanded.chain_crossbow_shots", total, MAX_TOTAL_SHOTS)
         );
 
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(
-            Level level,
-            Player user,
-            InteractionHand hand
-    ) {
+    public InteractionResult use(Level level, Player user, InteractionHand hand) {
         ItemStack crossbow = user.getItemInHand(hand);
         CompoundTag root = readCustomData(crossbow);
 
@@ -83,22 +71,16 @@ public class ChainCrossbowItem extends CrossbowItem {
         writeCustomData(crossbow, root);
 
         boolean hasSavedChamber =
-                root.contains(
-                        SAVED_CHAMBER_KEY,
-                        Tag.TAG_COMPOUND
-                );
+                root.contains(SAVED_CHAMBER_KEY);
 
-        boolean charged =
-                CrossbowItem.isCharged(crossbow);
+        boolean charged = CrossbowItem.isCharged(crossbow);
 
         int queued = getQueue(root).size();
 
-        int total =
-                (charged || hasSavedChamber ? 1 : 0)
-                        + queued;
+        int total = (charged || hasSavedChamber ? 1 : 0) + queued;
 
         if (total >= MAX_TOTAL_SHOTS) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 level.playSound(
                         null,
                         user.getX(),
@@ -112,7 +94,7 @@ public class ChainCrossbowItem extends CrossbowItem {
             }
 
             refreshLoadedVisual(crossbow);
-            return InteractionResultHolder.fail(crossbow);
+            return InteractionResult.FAIL;
         }
 
         /*
@@ -122,7 +104,7 @@ public class ChainCrossbowItem extends CrossbowItem {
         if (!charged) {
             if (hasSavedChamber) {
                 CompoundTag saved =
-                        root.getCompound(
+                        root.getCompoundOrEmpty(
                                 SAVED_CHAMBER_KEY
                         ).copy();
 
@@ -131,18 +113,14 @@ public class ChainCrossbowItem extends CrossbowItem {
                 applyChamber(level, crossbow, saved);
                 syncPlayerInventory(user);
 
-                return InteractionResultHolder.consume(
-                        crossbow
-                );
+                return InteractionResult.CONSUME;
             }
 
             if (queued > 0
                     && loadNextChamber(level, crossbow)) {
                 syncPlayerInventory(user);
 
-                return InteractionResultHolder.consume(
-                        crossbow
-                );
+                return InteractionResult.CONSUME;
             }
 
             return super.use(level, user, hand);
@@ -164,10 +142,9 @@ public class ChainCrossbowItem extends CrossbowItem {
         writeCustomData(crossbow, root);
         setChargedProjectiles(crossbow, List.of());
 
-        InteractionResultHolder<ItemStack> result =
-                super.use(level, user, hand);
+        InteractionResult result = super.use(level, user, hand);
 
-        if (result.getResult() == InteractionResult.FAIL) {
+        if (result == InteractionResult.FAIL) {
             restoreSavedChamber(level, crossbow);
         }
 
@@ -175,29 +152,26 @@ public class ChainCrossbowItem extends CrossbowItem {
     }
 
     @Override
-    public void releaseUsing(
-            ItemStack crossbow,
-            Level level,
-            LivingEntity user,
-            int remainingUseTicks
-    ) {
-        super.releaseUsing(crossbow, level, user, remainingUseTicks);
+    public boolean releaseUsing(ItemStack crossbow, Level level, LivingEntity user, int remainingUseTicks) {
+        boolean result = super.releaseUsing(crossbow, level, user, remainingUseTicks);
 
-        if (level.isClientSide) {
-            return;
+        if (level.isClientSide()) {
+            return result;
         }
 
         CompoundTag root = readCustomData(crossbow);
         trimQueueToMax(root);
 
-        if (root.contains(SAVED_CHAMBER_KEY, Tag.TAG_COMPOUND)) {
-            if (CrossbowItem.isCharged(crossbow)) {
-                appendCurrentChamberToQueue(level, crossbow, root);
-            }
+        boolean toppingUp = root.contains(SAVED_CHAMBER_KEY);
 
-            CompoundTag saved =
-                    root.getCompound(SAVED_CHAMBER_KEY).copy();
+        if (result && toppingUp && CrossbowItem.isCharged(crossbow)) {
+                appendCurrentChamberToQueue(level, crossbow, root);
+        }
+
+        if (toppingUp) {
+            CompoundTag saved = root.getCompoundOrEmpty(SAVED_CHAMBER_KEY).copy();
             root.remove(SAVED_CHAMBER_KEY);
+
             writeCustomData(crossbow, root);
             applyChamber(level, crossbow, saved);
         } else {
@@ -209,19 +183,14 @@ public class ChainCrossbowItem extends CrossbowItem {
         if (user instanceof ServerPlayer serverPlayer) {
             serverPlayer.containerMenu.broadcastChanges();
         }
+        return result;
     }
 
     @Override
-    public void inventoryTick(
-            ItemStack stack,
-            Level level,
-            Entity entity,
-            int slot,
-            boolean selected
-    ) {
-        super.inventoryTick(stack, level, entity, slot, selected);
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
+        super.inventoryTick(stack, level, entity, slot);
 
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
 
@@ -251,28 +220,21 @@ public class ChainCrossbowItem extends CrossbowItem {
                         && livingEntity.getUseItem().getItem()
                         instanceof ChainCrossbowItem;
 
-        if (root.contains(
-                SAVED_CHAMBER_KEY,
-                Tag.TAG_COMPOUND
-        )) {
+        if (root.contains(SAVED_CHAMBER_KEY)) {
             if (activelyLoading) {
                 return false;
             }
 
             /*
-             * Loading was genuinely interrupted. Restore the chamber
+             * Loading was interrupted. Restore the chamber
              * that was temporarily removed by use().
              */
             if (CrossbowItem.isCharged(stack)) {
-                appendCurrentChamberToQueue(
-                        level,
-                        stack,
-                        root
-                );
+                appendCurrentChamberToQueue(level, stack, root);
             }
 
             CompoundTag saved =
-                    root.getCompound(
+                    root.getCompoundOrEmpty(
                             SAVED_CHAMBER_KEY
                     ).copy();
 
@@ -301,11 +263,11 @@ public class ChainCrossbowItem extends CrossbowItem {
     ) {
         CompoundTag root = readCustomData(crossbow);
 
-        if (!root.contains(SAVED_CHAMBER_KEY, Tag.TAG_COMPOUND)) {
+        if (!root.contains(SAVED_CHAMBER_KEY)) {
             return;
         }
 
-        CompoundTag saved = root.getCompound(SAVED_CHAMBER_KEY).copy();
+        CompoundTag saved = root.getCompoundOrEmpty(SAVED_CHAMBER_KEY).copy();
         root.remove(SAVED_CHAMBER_KEY);
         writeCustomData(crossbow, root);
         applyChamber(level, crossbow, saved);
@@ -358,7 +320,7 @@ public class ChainCrossbowItem extends CrossbowItem {
             return List.of();
         }
 
-        CompoundTag chamber = queue.getCompound(0).copy();
+        CompoundTag chamber = queue.getCompoundOrEmpty(0).copy();
         queue.remove(0);
 
         if (queue.isEmpty()) {
@@ -394,44 +356,47 @@ public class ChainCrossbowItem extends CrossbowItem {
         writeCustomData(crossbow, root);
     }
 
-    private static CompoundTag encodeChamber(
-            Level level,
-            ItemStack crossbow
-    ) {
+    private static CompoundTag encodeChamber(Level level, ItemStack crossbow) {
         CompoundTag chamber = new CompoundTag();
         ListTag serializedProjectiles = new ListTag();
 
-        for (ItemStack projectile : getChargedProjectiles(crossbow)) {
-            Tag saved = projectile.copyWithCount(1)
-                    .save(level.registryAccess());
+        var ops = level.registryAccess()
+                .createSerializationContext(NbtOps.INSTANCE);
 
-            if (saved instanceof CompoundTag compound) {
-                serializedProjectiles.add(compound);
-            }
+        for (ItemStack projectile : getChargedProjectiles(crossbow)) {
+            ItemStack.CODEC
+                    .encodeStart(ops, projectile.copyWithCount(1))
+                    .result()
+                    .filter(CompoundTag.class::isInstance)
+                    .map(CompoundTag.class::cast)
+                    .ifPresent(serializedProjectiles::add);
         }
 
         chamber.put(CHAMBER_PROJECTILES_KEY, serializedProjectiles);
+
         return chamber;
     }
 
-    private static List<ItemStack> decodeChamber(
-            Level level,
-            CompoundTag chamber
-    ) {
+    private static List<ItemStack> decodeChamber(Level level, CompoundTag chamber) {
         List<ItemStack> projectiles = new ArrayList<>();
-        ListTag serializedProjectiles = chamber.getList(
-                CHAMBER_PROJECTILES_KEY,
-                Tag.TAG_COMPOUND
-        );
 
-        for (int index = 0; index < serializedProjectiles.size(); index++) {
-            ItemStack projectile = ItemStack.parseOptional(
-                    level.registryAccess(),
-                    serializedProjectiles.getCompound(index)
-            );
+        ListTag serializedProjectiles = chamber.getListOrEmpty(CHAMBER_PROJECTILES_KEY);
+
+        var ops = level.registryAccess().createSerializationContext(NbtOps.INSTANCE);
+
+        for (int index = 0;
+             index < serializedProjectiles.size();
+             index++) {
+
+            CompoundTag projectileTag = serializedProjectiles.getCompoundOrEmpty(index);
+
+            ItemStack projectile = ItemStack.CODEC
+                    .parse(ops, projectileTag)
+                    .result()
+                    .orElse(ItemStack.EMPTY);
 
             if (!projectile.isEmpty()) {
-                projectiles.add(projectile.copyWithCount(1));
+                projectiles.add(projectile);
             }
         }
 
@@ -493,7 +458,7 @@ public class ChainCrossbowItem extends CrossbowItem {
         if (hasExplosive) {
             stack.set(
                     DataComponents.CUSTOM_MODEL_DATA,
-                    new CustomModelData(CMD_EXPLOSIVE_LOADED)
+                    new CustomModelData(List.of((float) CMD_EXPLOSIVE_LOADED), List.of(), List.of(), List.of())
             );
         } else {
             stack.remove(DataComponents.CUSTOM_MODEL_DATA);
@@ -515,7 +480,7 @@ public class ChainCrossbowItem extends CrossbowItem {
     }
 
     private static ListTag getQueue(CompoundTag root) {
-        return root.getList(QUEUE_KEY, Tag.TAG_COMPOUND).copy();
+        return root.getListOrEmpty(QUEUE_KEY).copy();
     }
 
     private static CompoundTag readCustomData(ItemStack stack) {

@@ -4,9 +4,7 @@
   "cookingtime": 200,
   "experience": 0.1,
   "group": "ironnugget",
-  "ingredient": {
-    "item": "weaponsexpanded:iron_scythe"
-  },
+  "ingredient": "weaponsexpanded:iron_scythe",
   "result": {
     "count": 1,
     "id": "minecraft:iron_nugget"

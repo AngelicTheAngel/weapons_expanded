@@ -3,12 +3,8 @@
   "category": "equipment",
   "group": "stone_katana",
   "key": {
-    "M": {
-      "tag": "minecraft:stone_tool_materials"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
+    "M": "#minecraft:stone_tool_materials",
+    "S": "minecraft:stick"
   },
   "pattern": [
     "  M",

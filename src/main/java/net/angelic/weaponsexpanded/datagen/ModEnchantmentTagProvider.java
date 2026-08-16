@@ -6,32 +6,19 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.tags.EnchantmentTags;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ModEnchantmentTagProvider
         extends EnchantmentTagsProvider {
 
-    public ModEnchantmentTagProvider(
-            PackOutput output,
-            CompletableFuture<HolderLookup.Provider> lookupProvider,
-            @Nullable ExistingFileHelper existingFileHelper
-    ) {
-        super(
-                output,
-                lookupProvider,
-                WeaponsExpanded.MOD_ID,
-                existingFileHelper
-        );
+    public ModEnchantmentTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, WeaponsExpanded.MOD_ID);
     }
 
     @Override
-    protected void addTags(
-            HolderLookup.@NotNull Provider provider
-    ) {
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
         tag(EnchantmentTags.IN_ENCHANTING_TABLE)
                 .add(
                         ModEnchantments.WITHERING,
