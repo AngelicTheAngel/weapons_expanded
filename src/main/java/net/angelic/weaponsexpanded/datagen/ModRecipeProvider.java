@@ -407,60 +407,70 @@ public final class ModRecipeProvider extends RecipeProvider {
 
         offerBroadswordRecipe(ModItems.WOODEN_BROADSWORD.get(), ItemTags.PLANKS);
         offerBroadswordRecipe(ModItems.STONE_BROADSWORD.get(), ItemTags.STONE_TOOL_MATERIALS);
+        offerBroadswordRecipe(ModItems.COPPER_BROADSWORD.get(), ItemTags.COPPER_TOOL_MATERIALS);
         offerBroadswordRecipe(ModItems.GOLDEN_BROADSWORD.get(), ItemTags.GOLD_TOOL_MATERIALS);
         offerBroadswordRecipe(ModItems.IRON_BROADSWORD.get(), ItemTags.IRON_TOOL_MATERIALS);
         offerBroadswordRecipe(ModItems.DIAMOND_BROADSWORD.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerSickleRecipe(ModItems.WOODEN_SICKLE.get(), ItemTags.PLANKS);
         offerSickleRecipe(ModItems.STONE_SICKLE.get(), ItemTags.STONE_TOOL_MATERIALS);
+        offerSickleRecipe(ModItems.COPPER_SICKLE.get(), ItemTags.COPPER_TOOL_MATERIALS);
         offerSickleRecipe(ModItems.GOLDEN_SICKLE.get(), ItemTags.GOLD_TOOL_MATERIALS);
         offerSickleRecipe(ModItems.IRON_SICKLE.get(), ItemTags.IRON_TOOL_MATERIALS);
         offerSickleRecipe(ModItems.DIAMOND_SICKLE.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerScytheRecipe(ModItems.WOODEN_SCYTHE.get(), ItemTags.PLANKS);
         offerScytheRecipe(ModItems.STONE_SCYTHE.get(), ItemTags.STONE_TOOL_MATERIALS);
+        offerScytheRecipe(ModItems.COPPER_SCYTHE.get(), ItemTags.COPPER_TOOL_MATERIALS);
         offerScytheRecipe(ModItems.GOLDEN_SCYTHE.get(), ItemTags.GOLD_TOOL_MATERIALS);
         offerScytheRecipe(ModItems.IRON_SCYTHE.get(), ItemTags.IRON_TOOL_MATERIALS);
         offerScytheRecipe(ModItems.DIAMOND_SCYTHE.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerLongswordRecipe(ModItems.WOODEN_LONGSWORD.get(), ItemTags.PLANKS);
         offerLongswordRecipe(ModItems.STONE_LONGSWORD.get(), ItemTags.STONE_TOOL_MATERIALS);
+        offerLongswordRecipe(ModItems.COPPER_LONGSWORD.get(), ItemTags.COPPER_TOOL_MATERIALS);
         offerLongswordRecipe(ModItems.GOLDEN_LONGSWORD.get(), ItemTags.GOLD_TOOL_MATERIALS);
         offerLongswordRecipe(ModItems.IRON_LONGSWORD.get(), ItemTags.IRON_TOOL_MATERIALS);
         offerLongswordRecipe(ModItems.DIAMOND_LONGSWORD.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerKatanaRecipe(ModItems.WOODEN_KATANA.get(), ItemTags.PLANKS);
         offerKatanaRecipe(ModItems.STONE_KATANA.get(), ItemTags.STONE_TOOL_MATERIALS);
+        offerKatanaRecipe(ModItems.COPPER_KATANA.get(), ItemTags.COPPER_TOOL_MATERIALS);
         offerKatanaRecipe(ModItems.GOLDEN_KATANA.get(), ItemTags.GOLD_TOOL_MATERIALS);
         offerKatanaRecipe(ModItems.IRON_KATANA.get(), ItemTags.IRON_TOOL_MATERIALS);
         offerKatanaRecipe(ModItems.DIAMOND_KATANA.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerGreatswordRecipe(ModItems.WOODEN_GREATSWORD.get(), ItemTags.PLANKS);
         offerGreatswordRecipe(ModItems.STONE_GREATSWORD.get(), ItemTags.STONE_TOOL_MATERIALS);
+        offerGreatswordRecipe(ModItems.COPPER_GREATSWORD.get(), ItemTags.COPPER_TOOL_MATERIALS);
         offerGreatswordRecipe(ModItems.GOLDEN_GREATSWORD.get(), ItemTags.GOLD_TOOL_MATERIALS);
         offerGreatswordRecipe(ModItems.IRON_GREATSWORD.get(), ItemTags.IRON_TOOL_MATERIALS);
         offerGreatswordRecipe(ModItems.DIAMOND_GREATSWORD.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerHatchetRecipe(ModItems.WOODEN_HATCHET.get(), ItemTags.PLANKS);
         offerHatchetRecipe(ModItems.STONE_HATCHET.get(), ItemTags.STONE_TOOL_MATERIALS);
+        offerHatchetRecipe(ModItems.COPPER_HATCHET.get(), ItemTags.COPPER_TOOL_MATERIALS);
         offerHatchetRecipe(ModItems.GOLDEN_HATCHET.get(), ItemTags.GOLD_TOOL_MATERIALS);
         offerHatchetRecipe(ModItems.IRON_HATCHET.get(), ItemTags.IRON_TOOL_MATERIALS);
         offerHatchetRecipe(ModItems.DIAMOND_HATCHET.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerHammerRecipe(ModItems.WOODEN_HAMMER.get(), ItemTags.PLANKS);
         offerHammerRecipe(ModItems.STONE_HAMMER.get(), ItemTags.STONE_TOOL_MATERIALS);
+        offerHammerRecipe(ModItems.COPPER_HAMMER.get(), ItemTags.COPPER_TOOL_MATERIALS);
         offerHammerRecipe(ModItems.GOLDEN_HAMMER.get(), ItemTags.GOLD_TOOL_MATERIALS);
         offerHammerRecipe(ModItems.IRON_HAMMER.get(), ItemTags.IRON_TOOL_MATERIALS);
         offerHammerRecipe(ModItems.DIAMOND_HAMMER.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerBattleaxeRecipe(ModItems.WOODEN_BATTLEAXE.get(), ItemTags.PLANKS);
         offerBattleaxeRecipe(ModItems.STONE_BATTLEAXE.get(), ItemTags.STONE_TOOL_MATERIALS);
+        offerBattleaxeRecipe(ModItems.COPPER_BATTLEAXE.get(), ItemTags.COPPER_TOOL_MATERIALS);
         offerBattleaxeRecipe(ModItems.GOLDEN_BATTLEAXE.get(), ItemTags.GOLD_TOOL_MATERIALS);
         offerBattleaxeRecipe(ModItems.IRON_BATTLEAXE.get(), ItemTags.IRON_TOOL_MATERIALS);
         offerBattleaxeRecipe(ModItems.DIAMOND_BATTLEAXE.get(), ItemTags.DIAMOND_TOOL_MATERIALS);
 
         offerWarhammerRecipe(ModItems.WOODEN_WARHAMMER.get(), ItemTags.PLANKS);
         offerWarhammerRecipe(ModItems.STONE_WARHAMMER.get(), ItemTags.STONE_TOOL_MATERIALS);
+        offerWarhammerRecipe(ModItems.COPPER_WARHAMMER.get(), ItemTags.COPPER_TOOL_MATERIALS);
         offerWarhammerRecipe(ModItems.GOLDEN_WARHAMMER.get(), ItemTags.GOLD_TOOL_MATERIALS);
         offerWarhammerRecipe(ModItems.IRON_WARHAMMER.get(), ItemTags.IRON_TOOL_MATERIALS);
         offerWarhammerRecipe(ModItems.DIAMOND_WARHAMMER.get(), ItemTags.DIAMOND_TOOL_MATERIALS);

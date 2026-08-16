@@ -1,13 +1,13 @@
-// 1.21.11	2026-08-15T22:36:20.377840207	Tags for minecraft:item mod id weaponsexpanded
+// 1.21.11	2026-08-16T11:32:08.536032907	Tags for minecraft:item mod id weaponsexpanded
 3dc59f4f3a7d480cdf07fafd554a21fb26f86fa2 data/minecraft/tags/item/arrows.json
-dca9d204de62c259b57565ecb9df45c1340993a1 data/minecraft/tags/item/axes.json
+47148f548e7150b0f826016fc0d05675f69939bc data/minecraft/tags/item/axes.json
 f3cfd4baa044bb19a6f422d91ec15d6321bd6d71 data/minecraft/tags/item/enchantable/bow.json
 25f9f224421c38040fd27f91b433a834886df9db data/minecraft/tags/item/enchantable/crossbow.json
-788eced07533568fbc17b4630058c71d8e1ccd51 data/minecraft/tags/item/enchantable/durability.json
-366f3932a8bfcb081212072a08b7e9ecb082cc1c data/minecraft/tags/item/enchantable/melee_weapon.json
-408c16d7dae426b7387e08ac47d160b377d14fe9 data/minecraft/tags/item/enchantable/mining.json
-f7e1b802da28fc6b9222cc19fad43636b466f519 data/minecraft/tags/item/enchantable/sweeping.json
+3bffbec1c185d709f3bcecbde299a278b288ea8d data/minecraft/tags/item/enchantable/durability.json
+9b132f8deaae9ec7acebe498c8de42713b7184b5 data/minecraft/tags/item/enchantable/melee_weapon.json
+7757ade6c4e36d58fdbefbb45c35b00b417a4bf0 data/minecraft/tags/item/enchantable/mining.json
+4beb7c076aafd61e95ce4ab86a7e456b42f4760b data/minecraft/tags/item/enchantable/sweeping.json
 b6610075849cadde28f568cf2693af229e844914 data/minecraft/tags/item/piglin_loved.json
-f7e1b802da28fc6b9222cc19fad43636b466f519 data/minecraft/tags/item/swords.json
-93a28835eb9715cc254eb926a10756bc99d21435 data/weaponsexpanded/tags/item/cleaving_enchantable.json
+4beb7c076aafd61e95ce4ab86a7e456b42f4760b data/minecraft/tags/item/swords.json
+019bd4c559503e94789d4c73d338a68a27b0d02a data/weaponsexpanded/tags/item/cleaving_enchantable.json
 ea404a0ab7a6f867ef91e88ed35fb7429c480842 data/weaponsexpanded/tags/item/leech_enchantable.json
