@@ -9,7 +9,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '[7.0.17,8)'
 }
 
-version = '1.9.3'
+version = '1.9.3.1'
 group = 'net.angelic.weaponsexpanded'
 
 // Mojang ships Java 25 to end users in 26.1+, so your mod should target Java 25.
