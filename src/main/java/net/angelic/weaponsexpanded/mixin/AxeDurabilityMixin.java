@@ -2,6 +2,7 @@ package net.angelic.weaponsexpanded.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
+import net.angelic.weaponsexpanded.item.custom.BluntWeaponItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.ItemTags;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +26,7 @@ public abstract class AxeDurabilityMixin {
         ItemStack stack = (ItemStack) (Object) this;
 
         if (WeaponsExpandedConfig.get().disableExtraDurabilityDamageForAxes
-                && stack.isIn(ItemTags.AXES)) {
+                && stack.isIn(ItemTags.AXES) || stack.getItem() instanceof BluntWeaponItem) {
             return 1;
         }
 

@@ -3,7 +3,7 @@
 47148f548e7150b0f826016fc0d05675f69939bc data/minecraft/tags/item/axes.json
 f3cfd4baa044bb19a6f422d91ec15d6321bd6d71 data/minecraft/tags/item/enchantable/bow.json
 25f9f224421c38040fd27f91b433a834886df9db data/minecraft/tags/item/enchantable/crossbow.json
-7873fbe6e494f50b890678b72315a0ff4ba18b88 data/minecraft/tags/item/enchantable/durability.json
+98fa566c0d113dd444505205986cd0fee22e59d3 data/minecraft/tags/item/enchantable/durability.json
 b4ca768b4eed9ecef48ea05e19bbc70d899f4878 data/minecraft/tags/item/enchantable/melee_weapon.json
 b520037f2d415d64923299e6b7b8f6c9645b8588 data/minecraft/tags/item/enchantable/mining.json
 4beb7c076aafd61e95ce4ab86a7e456b42f4760b data/minecraft/tags/item/enchantable/sweeping.json
