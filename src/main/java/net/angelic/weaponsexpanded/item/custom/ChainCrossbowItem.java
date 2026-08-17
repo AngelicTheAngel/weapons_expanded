@@ -190,9 +190,6 @@ public class ChainCrossbowItem extends CrossbowItem {
 
     @Override
     public void performShooting(Level world, LivingEntity shooter, InteractionHand hand, ItemStack stack, float speed, float divergence, LivingEntity target) {
-        // We’re about to consume the charged projectiles; clear the flag so the model returns to normal.
-        stack.remove(DataComponents.CUSTOM_MODEL_DATA);
-
         super.performShooting(world, shooter, hand, stack, speed, divergence, target);
     }
 
