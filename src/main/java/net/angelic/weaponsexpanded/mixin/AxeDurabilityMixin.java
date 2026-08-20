@@ -2,7 +2,7 @@ package net.angelic.weaponsexpanded.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.angelic.weaponsexpanded.Config;
+import net.angelic.weaponsexpanded.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.custom.BluntWeaponItem;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -29,7 +29,7 @@ public class AxeDurabilityMixin {
             Operation<Void> original
     ) {
         // For axes (vanilla + custom items in the AXES tag), force 1 durability per hit.
-        if (Config.axeDamage) {
+        if (WeaponsExpandedConfig.axeDamage) {
             if (stack.is(ItemTags.AXES) || stack.getItem() instanceof BluntWeaponItem) {
                 amount = 1;
             }

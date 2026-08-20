@@ -1,6 +1,6 @@
 package net.angelic.weaponsexpanded.mixin.entity_equipment;
 
-import net.angelic.weaponsexpanded.Config;
+import net.angelic.weaponsexpanded.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.RandomSource;
@@ -23,7 +23,7 @@ public class ZombifiedPiglinEquipmentMixin {
             at = @At("TAIL")
     )
     private void weaponsexpanded$maybeSwapSwordToLongsword(RandomSource random, DifficultyInstance localDifficulty, CallbackInfo ci) {
-        if (Config.meleeEquip) {
+        if (WeaponsExpandedConfig.meleeEquip) {
             ZombifiedPiglin self = (ZombifiedPiglin) (Object) this;
 
             ItemStack mainHand = self.getItemBySlot(EquipmentSlot.MAINHAND);
