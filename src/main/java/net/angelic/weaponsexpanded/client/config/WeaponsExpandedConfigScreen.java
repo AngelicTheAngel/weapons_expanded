@@ -41,10 +41,10 @@ public final class WeaponsExpandedConfigScreen {
                 .setSaveConsumer(v -> cfg.enableTrialChamberMeleeEquipment = v)
                 .build());
 
-         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableWeaponsmithTrades"), cfg.enableWeaponsmithTrades)
-                .setDefaultValue(true)
-                .setSaveConsumer(v -> cfg.enableWeaponsmithTrades = v)
-                .build());
+         //general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableWeaponsmithTrades"), cfg.enableWeaponsmithTrades)
+         //       .setDefaultValue(true)
+         //       .setSaveConsumer(v -> cfg.enableWeaponsmithTrades = v)
+         //       .build());
 
         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.altTwoHandedSwordHandling"), cfg.altTwoHandedSwordHandling)
                 .setDefaultValue(false)
