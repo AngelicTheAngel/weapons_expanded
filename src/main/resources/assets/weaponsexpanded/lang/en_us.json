@@ -117,6 +117,7 @@
   "weaponsexpanded.configuration.enable_trial_chamber_melee_equipment": "Trial Chamber Melee Equipment",
   "weaponsexpanded.configuration.alternate_two_handed_sword": "Alternate Two-Handed Sword Handling",
   "weaponsexpanded.configuration.disable_extra_axe_damage": "Disable Extra Axe Durability Loss",
+  "weaponsexpanded.configuration.dynamite_arrows_destroy_blocks": "Dynamite Arrows Destroy Blocks",
 
   "key.category.weaponsexpanded.general": "Weapons Expanded",
   "key.weaponsexpanded.toggle_bastard_sword_mode": "Toggle Weapon Mode"
