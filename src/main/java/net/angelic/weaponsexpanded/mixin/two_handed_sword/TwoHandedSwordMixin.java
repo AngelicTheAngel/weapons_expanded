@@ -1,6 +1,6 @@
 package net.angelic.weaponsexpanded.mixin.two_handed_sword;
 
-import net.angelic.weaponsexpanded.WeaponsExpandedConfig;
+import net.angelic.weaponsexpanded.Config;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
 import net.minecraft.world.InteractionHand;
@@ -33,7 +33,7 @@ public abstract class TwoHandedSwordMixin {
         ItemStack mainHandStack = player.getMainHandItem();
         if (!weaponsexpanded$isEffectivelyTwoHanded(mainHandStack)) return;
 
-        if (!WeaponsExpandedConfig.twohandedSword) {
+        if (!Config.twohandedSword) {
             if (player.isUsingItem()) {
                 player.releaseUsingItem();
             }
@@ -48,7 +48,7 @@ public abstract class TwoHandedSwordMixin {
 
     @Inject(method = "startUsingItem(Lnet/minecraft/world/InteractionHand;)V", at = @At("HEAD"), cancellable = true)
     private void weaponsexpanded$preventOffhandUseWhileTwoHanded(InteractionHand hand, CallbackInfo ci) {
-        if (WeaponsExpandedConfig.twohandedSword) return;
+        if (Config.twohandedSword) return;
 
         LivingEntity entity = (LivingEntity) (Object) this;
         if (!(entity instanceof Player player)) return;

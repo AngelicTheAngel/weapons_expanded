@@ -1,6 +1,6 @@
 package net.angelic.weaponsexpanded.util;
 
-import net.angelic.weaponsexpanded.WeaponsExpandedConfig;
+import net.angelic.weaponsexpanded.Config;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -40,7 +40,7 @@ public class ModLootTableModifiers {
     }
 
     private static void modifyLootTable(LootTableLoadEvent event) {
-        if (WeaponsExpandedConfig.lootTables) {
+        if (Config.lootTables) {
             LootTable table = event.getTable();
             if (table == null) return;
 

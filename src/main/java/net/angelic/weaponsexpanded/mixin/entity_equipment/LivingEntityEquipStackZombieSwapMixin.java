@@ -1,6 +1,6 @@
 package net.angelic.weaponsexpanded.mixin.entity_equipment;
 
-import net.angelic.weaponsexpanded.WeaponsExpandedConfig;
+import net.angelic.weaponsexpanded.Config;
 import net.angelic.weaponsexpanded.util.ZombieWeaponSwapUtil;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,7 +24,7 @@ public abstract class LivingEntityEquipStackZombieSwapMixin {
             at = @At("TAIL")
     )
     private void weaponsexpanded$swapZombieSwordWhenEquipped(EquipmentSlot slot, ItemStack stack, CallbackInfo ci) {
-        if (WeaponsExpandedConfig.trialEquip) {
+        if (Config.trialEquip) {
             if (slot != EquipmentSlot.MAINHAND) return;
             if (weaponsexpanded$replacingMainhand) return;
 
