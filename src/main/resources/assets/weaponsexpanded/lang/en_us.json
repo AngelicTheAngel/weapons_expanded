@@ -121,6 +121,7 @@
   "config.weaponsexpanded.option.enableWeaponsmithTrades": "Enable Weaponsmith Trades",
   "config.weaponsexpanded.option.altTwoHandedSwordHandling": "Alt Two-Handed Sword Handling",
   "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "Disable Extra Durability Damage for Axes",
+  "config.weaponsexpanded.option.dynamiteArrowsDestroyBlocks": "Dynamite Arrows Destroy Blocks",
 
   "key.category.weaponsexpanded.general": "Weapons Expanded",
   "key.weaponsexpanded.toggle_bastard_sword_mode": "Toggle Weapon Mode"

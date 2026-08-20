@@ -26,6 +26,11 @@ public final class WeaponsExpandedConfigScreen {
                 .setSaveConsumer(v -> cfg.enableCustomLootTables = v)
                 .build());
 
+        general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.dynamiteArrowsDestroyBlocks"), cfg.dynamiteArrowsDestroyBlocks)
+                .setDefaultValue(true)
+                .setSaveConsumer(v -> cfg.dynamiteArrowsDestroyBlocks = v)
+                .build());
+
         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableEntityMeleeEquipment"), cfg.enableEntityMeleeEquipment)
                 .setDefaultValue(true)
                 .setSaveConsumer(v -> cfg.enableEntityMeleeEquipment = v)
@@ -36,7 +41,7 @@ public final class WeaponsExpandedConfigScreen {
                 .setSaveConsumer(v -> cfg.enableTrialChamberMeleeEquipment = v)
                 .build());
 
-        general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableWeaponsmithTrades"), cfg.enableWeaponsmithTrades)
+         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableWeaponsmithTrades"), cfg.enableWeaponsmithTrades)
                 .setDefaultValue(true)
                 .setSaveConsumer(v -> cfg.enableWeaponsmithTrades = v)
                 .build());
