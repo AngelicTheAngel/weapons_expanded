@@ -1,6 +1,6 @@
 package net.angelic.weaponsexpanded.mixin.entity_equipment;
 
-import net.angelic.weaponsexpanded.Config;
+import net.angelic.weaponsexpanded.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.util.ZombieWeaponSwapUtil;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -22,7 +22,7 @@ public class ZombieEquipmentMixin {
             at = @At("TAIL")
     )
     private void weaponsexpanded$swapSwordToSickleOrScythe(RandomSource random, DifficultyInstance localDifficulty, CallbackInfo ci) {
-        if (Config.meleeEquip) {
+        if (WeaponsExpandedConfig.meleeEquip) {
             Zombie self = (Zombie) (Object) this;
             ZombieWeaponSwapUtil.maybeSwapSword(self, random);
         }
@@ -39,7 +39,7 @@ public class ZombieEquipmentMixin {
             SpawnGroupData entityData,
             CallbackInfoReturnable<SpawnGroupData> cir
     ) {
-        if (Config.meleeEquip) {
+        if (WeaponsExpandedConfig.meleeEquip) {
             Zombie self = (Zombie) (Object) this;
             ZombieWeaponSwapUtil.maybeSwapSword(self, self.getRandom());
         }
