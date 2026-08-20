@@ -53,7 +53,7 @@ public final class WeaponsExpanded {
         // Register the common configuration.
         modContainer.registerConfig(
                 ModConfig.Type.COMMON,
-                Config.SPEC
+                WeaponsExpandedConfig.SPEC
         );
     }
 

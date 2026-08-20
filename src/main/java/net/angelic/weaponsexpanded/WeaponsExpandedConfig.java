@@ -1,12 +1,13 @@
 package net.angelic.weaponsexpanded;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-public class Config {
+@EventBusSubscriber(modid = WeaponsExpanded.MODID)
+
+public class WeaponsExpandedConfig {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     private static final ModConfigSpec.BooleanValue ENABLE_CUSTOM_LOOT_TABLES = BUILDER
@@ -42,12 +43,22 @@ public class Config {
     public static boolean axeDamage;
     public static boolean dynamiteArrow;
 
-    private static boolean validateItemName(final Object obj) {
-        return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(Identifier.parse(itemName));
+    @SubscribeEvent
+    static void onLoad(final ModConfigEvent event) {
+        lootTables = ENABLE_CUSTOM_LOOT_TABLES.get();
+        meleeEquip = ENABLE_ENTITY_MELEE_EQUIPMENT.get();
+        trialEquip = ENABLE_TRIAL_CHAMBER_MELEE_EQUIPMENT.get();
+        twohandedSword = ALTERNATE_TWO_HANDED_SWORD_HANDLING.get();
+        axeDamage = DISABLE_EXTRA_AXE_DAMAGE.get();
+        dynamiteArrow = DYNAMITE_ARROWS_DESTROY_BLOCKS.get();
     }
 
     @SubscribeEvent
-    static void onLoad(final ModConfigEvent event) {
+    static void onConfigChanged(final ModConfigEvent event) {
+        if (event.getConfig().getSpec() != SPEC) {
+            return;
+        }
+
         lootTables = ENABLE_CUSTOM_LOOT_TABLES.get();
         meleeEquip = ENABLE_ENTITY_MELEE_EQUIPMENT.get();
         trialEquip = ENABLE_TRIAL_CHAMBER_MELEE_EQUIPMENT.get();

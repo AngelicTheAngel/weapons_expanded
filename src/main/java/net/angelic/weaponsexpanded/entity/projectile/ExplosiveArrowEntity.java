@@ -1,6 +1,6 @@
 package net.angelic.weaponsexpanded.entity.projectile;
 
-import net.angelic.weaponsexpanded.Config;
+import net.angelic.weaponsexpanded.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -60,7 +60,7 @@ public class ExplosiveArrowEntity extends Arrow {
         Level world = this.level();
         Level.ExplosionInteraction explosionType;
 
-        if (Config.dynamiteArrow) {
+        if (WeaponsExpandedConfig.dynamiteArrow) {
             explosionType = Level.ExplosionInteraction.TNT;
         } else {
             explosionType = Level.ExplosionInteraction.NONE;

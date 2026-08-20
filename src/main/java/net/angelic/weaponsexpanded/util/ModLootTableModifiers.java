@@ -1,6 +1,6 @@
 package net.angelic.weaponsexpanded.util;
 
-import net.angelic.weaponsexpanded.Config;
+import net.angelic.weaponsexpanded.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.Identifier;
@@ -44,7 +44,7 @@ public class ModLootTableModifiers {
     }
 
     private static void modifyLootTable(LootTableLoadEvent event) {
-        if (!Config.lootTables) {
+        if (!WeaponsExpandedConfig.lootTables) {
             return;
         }
 
