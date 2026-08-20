@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.entity.projectile;
 
+import net.angelic.weaponsexpanded.Config;
 import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -53,18 +54,24 @@ public class ExplosiveArrowEntity extends Arrow {
     private void weaponsexpanded$explode() {
         if (this.level().isClientSide()) return;
 
-        // Use our own guard; vanilla may discard the arrow during super.onEntityHit(...)
         if (this.weaponsexpanded$exploded) return;
         this.weaponsexpanded$exploded = true;
 
         Level world = this.level();
+        Level.ExplosionInteraction explosionType;
+
+        if (Config.dynamiteArrow) {
+            explosionType = Level.ExplosionInteraction.TNT;
+        } else {
+            explosionType = Level.ExplosionInteraction.NONE;
+        }
 
         world.explode(
                 this,
                 this.getX(), this.getY(), this.getZ(),
                 EXPLOSION_POWER,
                 false,
-                Level.ExplosionInteraction.TNT
+                explosionType
         );
 
         this.discard();

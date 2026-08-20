@@ -29,6 +29,10 @@ public class Config {
             .comment("Disables the extra durability damage on axes")
             .define("disable_extra_axe_damage", true);
 
+    private static final ModConfigSpec.BooleanValue DYNAMITE_ARROWS_DESTROY_BLOCKS = BUILDER
+            .comment("Determines if Dynamite Arrows destroy blocks")
+            .define("dynamite_arrows_destroy_blocks", true);
+
     static final ModConfigSpec SPEC = BUILDER.build();
 
     public static boolean lootTables;
@@ -36,6 +40,7 @@ public class Config {
     public static boolean trialEquip;
     public static boolean twohandedSword;
     public static boolean axeDamage;
+    public static boolean dynamiteArrow;
 
     private static boolean validateItemName(final Object obj) {
         return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(Identifier.parse(itemName));
@@ -48,5 +53,6 @@ public class Config {
         trialEquip = ENABLE_TRIAL_CHAMBER_MELEE_EQUIPMENT.get();
         twohandedSword = ALTERNATE_TWO_HANDED_SWORD_HANDLING.get();
         axeDamage = DISABLE_EXTRA_AXE_DAMAGE.get();
+        dynamiteArrow = DYNAMITE_ARROWS_DESTROY_BLOCKS.get();
     }
 }
