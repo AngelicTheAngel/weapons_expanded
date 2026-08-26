@@ -4,12 +4,12 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AxeDurabilityMixin",
-    "CleavingShieldStunMixin",
     "accessor.CrossbowItemAccessor",
     "accessor.EntityAccessor",
     "accessor.PersistentProjectileEntityAccessor",
     "chain_crossbow.ChainCrossbowFireMixin",
     "chain_crossbow.ChainCrossbowPullTimeMixin",
+    "enchantment.CleavingShieldStunMixin",
     "enchantment.FrostbiteCleanupMixin",
     "enchantment.FrostbiteFireMixin",
     "enchantment.LeechShieldBlockMixin",

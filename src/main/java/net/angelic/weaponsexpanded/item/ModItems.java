@@ -84,25 +84,25 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 2.5F, -2.3F).fireResistant()));
 
     public static final Item WOODEN_SCYTHE = registerItem("wooden_scythe",
-            settings -> new Item(settings.sword(ToolMaterial.WOOD, 4.0F, -2.5F)));
+            settings -> new ScytheItem(ToolMaterial.WOOD, 4.0F, -2.5F, settings));
 
     public static final Item GOLDEN_SCYTHE = registerItem("golden_scythe",
-            settings -> new Item(settings.sword(ToolMaterial.GOLD, 4.0F, -2.5F)));
+            settings -> new ScytheItem(ToolMaterial.GOLD, 4.0F, -2.5F, settings));
 
     public static final Item STONE_SCYTHE = registerItem("stone_scythe",
-            settings -> new Item(settings.sword(ToolMaterial.STONE, 4.0F, -2.5F)));
+            settings -> new ScytheItem(ToolMaterial.STONE, 4.0F, -2.5F, settings));
 
     public static final Item COPPER_SCYTHE = registerItem("copper_scythe",
-            settings -> new Item(settings.sword(ToolMaterial.COPPER, 4.0F, -2.5F)));
+            settings -> new ScytheItem(ToolMaterial.COPPER, 4.0F, -2.5F, settings));
 
     public static final Item IRON_SCYTHE = registerItem("iron_scythe",
-            settings -> new Item(settings.sword(ToolMaterial.IRON, 4.0F, -2.5F)));
+            settings -> new ScytheItem(ToolMaterial.IRON, 4.0F, -2.5F, settings));
 
     public static final Item DIAMOND_SCYTHE = registerItem("diamond_scythe",
-            settings -> new Item(settings.sword(ToolMaterial.DIAMOND, 4.5F, -2.5F)));
+            settings -> new ScytheItem(ToolMaterial.DIAMOND, 4.5F, -2.5F, settings));
 
     public static final Item NETHERITE_SCYTHE = registerItem("netherite_scythe",
-            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 4.5F, -2.5F).fireResistant()));
+            settings -> new ScytheItem(ToolMaterial.NETHERITE, 4.5F, -2.5F, settings.fireResistant()));
 
     public static final Item WOODEN_LONGSWORD = registerItem("wooden_longsword",
             settings -> new BastardSwordItem(ToolMaterial.WOOD, 6.0F, -2.9F, 7.0F, -2.9F, settings));
