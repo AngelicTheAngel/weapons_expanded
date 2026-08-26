@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "experience": 0.1,
+  "group": "goldnugget",
+  "ingredient": "weaponsexpanded:golden_rapier",
+  "result": {
+    "id": "minecraft:gold_nugget"
+  }
+}

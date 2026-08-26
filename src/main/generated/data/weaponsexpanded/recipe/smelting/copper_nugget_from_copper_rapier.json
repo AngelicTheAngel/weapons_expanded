@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "experience": 0.1,
+  "group": "coppernugget",
+  "ingredient": "weaponsexpanded:copper_rapier",
+  "result": {
+    "id": "minecraft:copper_nugget"
+  }
+}

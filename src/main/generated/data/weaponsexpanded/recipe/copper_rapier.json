@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "copper_rapier",
+  "key": {
+    "M": "#minecraft:copper_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " M ",
+    " M ",
+    "MS "
+  ],
+  "result": {
+    "id": "weaponsexpanded:copper_rapier"
+  }
+}

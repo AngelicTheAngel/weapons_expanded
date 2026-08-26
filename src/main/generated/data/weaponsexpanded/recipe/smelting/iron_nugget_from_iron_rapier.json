@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "experience": 0.1,
+  "group": "ironnugget",
+  "ingredient": "weaponsexpanded:iron_rapier",
+  "result": {
+    "id": "minecraft:iron_nugget"
+  }
+}

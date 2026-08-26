@@ -31,21 +31,24 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             @Override
             public void buildRecipes() {
                 float xp = 0.1f;
-
                 int smeltTime = 200;
                 int blastTime = 100;
 
-                // Gold weapons -> gold nugget
                 offerSmeltingNuggetRecipes("gold", goldItems(), Items.GOLD_NUGGET, xp, smeltTime);
                 offerBlastingNuggetRecipes("gold", goldItems(), Items.GOLD_NUGGET, xp, blastTime);
 
-                // Iron weapons -> iron nugget
                 offerSmeltingNuggetRecipes("iron", ironItems(), Items.IRON_NUGGET, xp, smeltTime);
                 offerBlastingNuggetRecipes("iron", ironItems(), Items.IRON_NUGGET, xp, blastTime);
 
-                // Copper weapons -> copper nugget
                 offerSmeltingNuggetRecipes("copper", copperItems(), Items.COPPER_NUGGET, xp, smeltTime);
                 offerBlastingNuggetRecipes("copper", copperItems(), Items.COPPER_NUGGET, xp, blastTime);
+
+                offerRapierRecipe(ModItems.WOODEN_RAPIER, ItemTags.WOODEN_TOOL_MATERIALS);
+                offerRapierRecipe(ModItems.GOLDEN_RAPIER, ItemTags.GOLD_TOOL_MATERIALS);
+                offerRapierRecipe(ModItems.STONE_RAPIER, ItemTags.STONE_TOOL_MATERIALS);
+                offerRapierRecipe(ModItems.COPPER_RAPIER, ItemTags.COPPER_TOOL_MATERIALS);
+                offerRapierRecipe(ModItems.IRON_RAPIER, ItemTags.IRON_TOOL_MATERIALS);
+                offerRapierRecipe(ModItems.DIAMOND_RAPIER, ItemTags.DIAMOND_TOOL_MATERIALS);
 
                 offerBroadswordRecipe(ModItems.WOODEN_BROADSWORD, ItemTags.WOODEN_TOOL_MATERIALS);
                 offerBroadswordRecipe(ModItems.STONE_BROADSWORD, ItemTags.STONE_TOOL_MATERIALS);
@@ -127,6 +130,89 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 netheriteSmithing(ModItems.DIAMOND_HAMMER, RecipeCategory.COMBAT, ModItems.NETHERITE_HAMMER);
                 netheriteSmithing(ModItems.DIAMOND_BATTLEAXE, RecipeCategory.COMBAT, ModItems.NETHERITE_BATTLEAXE);
                 netheriteSmithing(ModItems.DIAMOND_WARHAMMER, RecipeCategory.COMBAT, ModItems.NETHERITE_WARHAMMER);
+
+                this.shaped(RecipeCategory.COMBAT, ModItems.CHAIN_CROSSBOW, 1)
+                        .define('I', Items.IRON_INGOT)
+                        .define('C', Items.IRON_CHAIN)
+                        .define('N', Items.IRON_NUGGET)
+                        .define('T', Items.TRIPWIRE_HOOK)
+                        .pattern("INI")
+                        .pattern("CTC")
+                        .pattern(" I ")
+                        .group(getItemName(ModItems.CHAIN_CROSSBOW))
+                        .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+                        .unlockedBy(getHasName(Items.IRON_CHAIN), has(Items.IRON_CHAIN))
+                        .unlockedBy(getHasName(Items.IRON_NUGGET), has(Items.IRON_NUGGET))
+                        .unlockedBy(getHasName(Items.TRIPWIRE_HOOK), has(Items.TRIPWIRE_HOOK))
+                        .save(this.output);
+
+                this.shaped(RecipeCategory.COMBAT, ModItems.LONGBOW, 1)
+                        .define('I', Items.IRON_INGOT)
+                        .define('S', Items.STRING)
+                        .define('T', Items.STICK)
+                        .pattern(" TS")
+                        .pattern("TIS")
+                        .pattern(" TS")
+                        .group(getItemName(ModItems.LONGBOW))
+                        .unlockedBy(getHasName(Items.STRING), has(Items.STRING))
+                        .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
+                        .save(this.output);
+
+                this.shaped(RecipeCategory.COMBAT, ModItems.EXPLOSIVE_ARROW, 4)
+                        .define('S', Items.STICK)
+                        .define('F', Items.FLINT)
+                        .define('E', Items.FEATHER)
+                        .define('T', Items.STRING)
+                        .define('N', Items.TNT)
+                        .pattern("TF ")
+                        .pattern("NS ")
+                        .pattern(" E ")
+                        .group(getItemName(ModItems.EXPLOSIVE_ARROW))
+                        .unlockedBy(getHasName(Items.TNT), has(Items.TNT))
+                        .save(this.output, "explosive_arrow_from_arrow_recipe");
+
+                shapeless(RecipeCategory.COMBAT, ModItems.EXPLOSIVE_ARROW, 2)
+                        .requires(Items.ARROW)
+                        .requires(Items.ARROW)
+                        .requires(Items.TNT)
+                        .group(getItemName(ModItems.EXPLOSIVE_ARROW))
+                        .unlockedBy(getHasName(Items.TNT), has(Items.TNT))
+                        .save(this.output, "explosive_arrow_from_arrow");
+
+                this.shaped(RecipeCategory.COMBAT, ModItems.HEAVY_ARROW, 4)
+                        .define('S', Items.STICK)
+                        .define('I', Items.IRON_INGOT)
+                        .define('F', Items.FEATHER)
+                        .pattern(" I ")
+                        .pattern(" S ")
+                        .pattern(" F ")
+                        .group(getItemName(ModItems.HEAVY_ARROW))
+                        .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+                        .save(this.output);
+            }
+
+            public void offerRapierRecipe(Item output, TagKey<Item> input) {
+                if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
+                            .pattern(" M ")
+                            .pattern(" M ")
+                            .pattern("MS ")
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
+                } else {
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
+                            .pattern(" M ")
+                            .pattern(" M ")
+                            .pattern("MS ")
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
+                }
             }
 
             public void offerBroadswordRecipe(Item output, TagKey<Item> input) {
@@ -419,6 +505,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
             private List<Item> goldItems() {
                 return List.of(
+                        ModItems.GOLDEN_RAPIER,
                         ModItems.GOLDEN_BROADSWORD,
                         ModItems.GOLDEN_SICKLE,
                         ModItems.GOLDEN_SCYTHE,
@@ -433,6 +520,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
             private List<Item> ironItems() {
                 return List.of(
+                        ModItems.IRON_RAPIER,
                         ModItems.IRON_BROADSWORD,
                         ModItems.IRON_SICKLE,
                         ModItems.IRON_SCYTHE,
@@ -447,6 +535,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
             private List<Item> copperItems() {
                 return List.of(
+                        ModItems.COPPER_RAPIER,
                         ModItems.COPPER_BROADSWORD,
                         ModItems.COPPER_SICKLE,
                         ModItems.COPPER_SCYTHE,

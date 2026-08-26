@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "wooden_rapier",
+  "key": {
+    "M": "#minecraft:wooden_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " M ",
+    " M ",
+    "MS "
+  ],
+  "result": {
+    "id": "weaponsexpanded:wooden_rapier"
+  }
+}

@@ -20,11 +20,32 @@ import static net.minecraft.world.item.Items.*;
 
 public class ModItems {
 
+    public static final Item WOODEN_RAPIER = registerItem("wooden_rapier",
+            setting -> new PierceWeaponItem(ToolMaterial.WOOD, 1.5F, -2.2F, setting));
+
+    public static final Item GOLDEN_RAPIER = registerItem("golden_rapier",
+            setting -> new PierceWeaponItem(ToolMaterial.GOLD, 1.5F, -2.2F, setting));
+
+    public static final Item STONE_RAPIER = registerItem("stone_rapier",
+            setting -> new PierceWeaponItem(ToolMaterial.STONE, 1.5F, -2.2F, setting));
+
+    public static final Item COPPER_RAPIER = registerItem("copper_rapier",
+            setting -> new PierceWeaponItem(ToolMaterial.COPPER, 1.5F, -2.2F, setting));
+
+    public static final Item IRON_RAPIER = registerItem("iron_rapier",
+            setting -> new PierceWeaponItem(ToolMaterial.IRON, 1.5F, -2.2F, setting));
+
+    public static final Item DIAMOND_RAPIER = registerItem("diamond_rapier",
+            setting -> new PierceWeaponItem(ToolMaterial.DIAMOND, 1.5F, -2.2F, setting));
+
+    public static final Item NETHERITE_RAPIER = registerItem("netherite_rapier",
+            setting -> new PierceWeaponItem(ToolMaterial.NETHERITE, 1.5F, -2.2F, setting.fireResistant()));
+
     public static final Item WOODEN_BROADSWORD = registerItem("wooden_broadsword",
-            setting -> new Item(setting.sword(ToolMaterial.WOOD, 2, -2.1f)));
+            setting -> new Item(setting.sword(ToolMaterial.WOOD, 2, -2.1F)));
 
     public static final Item GOLDEN_BROADSWORD = registerItem("golden_broadsword",
-            setting -> new Item(setting.sword(ToolMaterial.GOLD, 2, -2.1f)));
+            setting -> new Item(setting.sword(ToolMaterial.GOLD, 2, -2.1F)));
 
     public static final Item STONE_BROADSWORD = registerItem("stone_broadsword",
             setting -> new Item(setting.sword(ToolMaterial.STONE, 2, -2.1F)));
