@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.AttackRange;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -137,6 +138,10 @@ public class BastardSwordItem extends Item {
                 DataComponents.ATTRIBUTE_MODIFIERS,
                 twoHanded ? this.weaponsexpanded$twoHandedModifiers : this.weaponsexpanded$oneHandedModifiers
         );
+
+        stack.set(DataComponents.ATTACK_RANGE,
+                twoHanded ? new AttackRange(1.0F, 3.5F, 1.0F, 5.5F, 0.0F, 0.5F)
+                        : new AttackRange(0.0F, 3.0F, 0.0F, 5.0F, 0.0F, 0.5F));
     }
 
     public void toggleTwoHanded(ItemStack stack) {
