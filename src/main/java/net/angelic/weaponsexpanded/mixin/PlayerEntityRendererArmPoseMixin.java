@@ -23,27 +23,24 @@ public abstract class PlayerEntityRendererArmPoseMixin {
             cancellable = true
     )
     private static void weaponsexpanded$overrideArmPose(Avatar player, ItemStack itemInHand, InteractionHand hand, CallbackInfoReturnable<HumanoidModel.ArmPose> cir) {
-        // Two-handed swords: always force the pose
-        if (itemInHand.is(ModItemTags.TWOHANDED)) {
+        if (itemInHand.is(ModItemTags.TWOHANDED) && hand == InteractionHand.MAIN_HAND) {
             cir.setReturnValue(HumanoidModel.ArmPose.CROSSBOW_HOLD);
             return;
         }
 
-        // Bastard swords: force pose when two-handed
-        if (itemInHand.getItem() instanceof BastardSwordItem && ((BastardSwordItem) itemInHand.getItem()).isTwoHanded(itemInHand)) {
+        if (itemInHand.is(ModItemTags.PIERCE) && hand == InteractionHand.MAIN_HAND) {
+            cir.setReturnValue(HumanoidModel.ArmPose.SPEAR);
+        }
+
+        if (itemInHand.getItem() instanceof BastardSwordItem && ((BastardSwordItem) itemInHand.getItem()).isTwoHanded(itemInHand) && hand == InteractionHand.MAIN_HAND) {
             if (((BastardSwordItem) itemInHand.getItem()).isTwoHanded(itemInHand)) {
                 cir.setReturnValue(HumanoidModel.ArmPose.CROSSBOW_HOLD);
                 return;
             }
         }
 
-        // Chain crossbow: force pose only when charged
-        if (itemInHand.getItem() instanceof ChainCrossbowItem && CrossbowItem.isCharged(itemInHand)) {
+        if (itemInHand.getItem() instanceof ChainCrossbowItem && CrossbowItem.isCharged(itemInHand) && hand == InteractionHand.MAIN_HAND) {
             cir.setReturnValue(HumanoidModel.ArmPose.CROSSBOW_HOLD);
-        }
-
-        if (itemInHand.is(ModItemTags.PIERCE)) {
-            cir.setReturnValue(HumanoidModel.ArmPose.SPEAR);
         }
     }
 }

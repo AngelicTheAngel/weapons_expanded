@@ -9,14 +9,18 @@ import net.angelic.weaponsexpanded.network.FireChainCrossbowPayload;
 import net.angelic.weaponsexpanded.network.ModPackets;
 import net.angelic.weaponsexpanded.network.ToggleBastardSwordModePayload;
 import net.angelic.weaponsexpanded.network.ToggleWarhammerModePayload;
+import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.TippableArrowRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.HitResult;
@@ -37,6 +41,20 @@ public class WeaponsExpandedClient implements ClientModInitializer {
     public void onInitializeClient() {
         EntityRenderers.register(ModEntities.HEAVY_ARROW, HeavyArrowEntityRenderer::new);
         EntityRenderers.register(ModEntities.EXPLOSIVE_ARROW, TippableArrowRenderer::new);
+
+        ItemTooltipCallback.EVENT.register((stack, context, flag, tooltip) -> {
+            if(stack.is(ModItemTags.TWOHANDED)) {
+                Component twoHanded = Component.translatable("tooltip.weaponsexpanded.twohandedsword").withStyle(ChatFormatting.BLUE);
+                int i = 1;
+
+                while (i < tooltip.size()
+                        && !tooltip.get(i).getString().isBlank()) {
+                    i++;
+                }
+
+                tooltip.add(i, twoHanded);
+            }
+        });
 
         weaponsexpanded$toggleBastardSwordModeKey = KeyMappingHelper.registerKeyMapping(
                 new KeyMapping(

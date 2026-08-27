@@ -3,7 +3,7 @@ package net.angelic.weaponsexpanded.mixin;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
-import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
+import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -36,10 +36,10 @@ public abstract class HeldItemRendererHideOffhandMixin {
 
         ItemStack main = player.getMainHandItem();
 
-        boolean isTwoHandedSword =
-                main.getItem() instanceof TwoHandedSwordItem;
+        boolean isTwoHanded =
+                main.is(ModItemTags.TWOHANDED);
 
-        if (isTwoHandedSword) {
+        if (isTwoHanded) {
             ci.cancel();
             return;
         }
