@@ -1,8 +1,8 @@
-package net.angelic.weaponsexpanded.mixin.two_handed_sword;
+package net.angelic.weaponsexpanded.mixin.two_handed_weapon;
 
 import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
-import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
+import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -14,11 +14,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
-public abstract class TwoHandedSwordMixin {
+public abstract class TwoHandedWeaponMixin {
 
     @Unique
     private static boolean weaponsexpanded$isEffectivelyTwoHanded(ItemStack mainHandStack) {
-        if (mainHandStack.getItem() instanceof TwoHandedSwordItem) return true;
+        if (mainHandStack.is(ModItemTags.TWOHANDED)) return true;
         if (mainHandStack.getItem() instanceof BastardSwordItem bastardSword) {
             return bastardSword.isTwoHanded(mainHandStack);
         }

@@ -106,6 +106,31 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.NETHERITE_WARHAMMER))
                 .add(key(ModItems.NETHERITE_BATTLEAXE));
 
+        builder(ModItemTags.TWOHANDED)
+                .add(key(ModItems.WOODEN_SCYTHE))
+                .add(key(ModItems.GOLDEN_SCYTHE))
+                .add(key(ModItems.STONE_SCYTHE))
+                .add(key(ModItems.COPPER_SCYTHE))
+                .add(key(ModItems.IRON_SCYTHE))
+                .add(key(ModItems.DIAMOND_SCYTHE))
+                .add(key(ModItems.NETHERITE_SCYTHE))
+
+                .add(key(ModItems.WOODEN_KATANA))
+                .add(key(ModItems.GOLDEN_KATANA))
+                .add(key(ModItems.STONE_KATANA))
+                .add(key(ModItems.COPPER_KATANA))
+                .add(key(ModItems.IRON_KATANA))
+                .add(key(ModItems.DIAMOND_KATANA))
+                .add(key(ModItems.NETHERITE_KATANA))
+
+                .add(key(ModItems.WOODEN_GREATSWORD))
+                .add(key(ModItems.GOLDEN_GREATSWORD))
+                .add(key(ModItems.STONE_GREATSWORD))
+                .add(key(ModItems.COPPER_GREATSWORD))
+                .add(key(ModItems.IRON_GREATSWORD))
+                .add(key(ModItems.DIAMOND_GREATSWORD))
+                .add(key(ModItems.NETHERITE_GREATSWORD));
+
         builder(ItemTags.ARROWS)
                 .add(key(ModItems.HEAVY_ARROW))
                 .add(key(ModItems.EXPLOSIVE_ARROW));

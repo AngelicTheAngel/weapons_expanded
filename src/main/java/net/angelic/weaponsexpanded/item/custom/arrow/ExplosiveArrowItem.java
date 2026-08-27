@@ -1,4 +1,4 @@
-package net.angelic.weaponsexpanded.item.custom;
+package net.angelic.weaponsexpanded.item.custom.arrow;
 
 import net.angelic.weaponsexpanded.entity.projectile.ExplosiveArrowEntity;
 import net.minecraft.world.entity.LivingEntity;

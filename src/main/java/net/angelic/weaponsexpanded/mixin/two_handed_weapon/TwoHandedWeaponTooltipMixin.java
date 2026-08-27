@@ -1,7 +1,7 @@
-package net.angelic.weaponsexpanded.mixin.two_handed_sword;
+package net.angelic.weaponsexpanded.mixin.two_handed_weapon;
 
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
-import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
+import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -16,7 +16,7 @@ import java.util.Locale;
 import java.util.function.Consumer;
 
 @Mixin(ItemStack.class)
-public abstract class TwoHandedSwordTooltipMixin {
+public abstract class TwoHandedWeaponTooltipMixin {
 
     @ModifyVariable(
             method = "addAttributeTooltips(Ljava/util/function/Consumer;Lnet/minecraft/world/item/component/TooltipDisplay;Lnet/minecraft/world/entity/player/Player;)V",
@@ -30,7 +30,7 @@ public abstract class TwoHandedSwordTooltipMixin {
         if (stack.getItem() instanceof BastardSwordItem bastardSword) {
             usesBothHands = bastardSword.isTwoHanded(stack);
         } else {
-            usesBothHands = stack.getItem() instanceof TwoHandedSwordItem;
+            usesBothHands = stack.is(ModItemTags.TWOHANDED);
         }
 
         if (!usesBothHands) {

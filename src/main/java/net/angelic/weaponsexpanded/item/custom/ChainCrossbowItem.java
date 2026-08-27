@@ -128,7 +128,7 @@ public class ChainCrossbowItem extends CrossbowItem {
         }
 
         // Force-recovery logic:
-        // If vanilla says "not charged", but our custom NBT indicates we still have a shot,
+        // If vanilla says "not charged", but custom NBT indicates we still have a shot,
         // force-load it into CHARGED_PROJECTILES.
         if (!isChargedNow) {
             // 1) Restore from saved chamber first (this represents the "current" shot)
@@ -151,6 +151,7 @@ public class ChainCrossbowItem extends CrossbowItem {
                 List<ItemStackTemplate> next = weaponsexpanded$popNextChamber(world, crossbow);
                 if (!next.isEmpty()) {
                     crossbow.set(DataComponents.CHARGED_PROJECTILES, new ChargedProjectiles(next));
+                    weaponsexpanded$refreshLoadedVisual(crossbow);
                     if (user instanceof ServerPlayer serverPlayer) {
                         serverPlayer.containerMenu.sendAllDataToRemote();
                     }
@@ -178,6 +179,7 @@ public class ChainCrossbowItem extends CrossbowItem {
 
                 if (saved != null) {
                     weaponsexpanded$applyChamberToCrossbow(world, crossbow, saved);
+                    weaponsexpanded$refreshLoadedVisual(crossbow);
                 }
             }
 
@@ -220,7 +222,7 @@ public class ChainCrossbowItem extends CrossbowItem {
         weaponsexpanded$setCustomNbt(crossbow, root);
 
         // Refresh model flag after charging/restoring chambers
-        weaponsexpanded$updateLoadedVisual(crossbow);
+        //weaponsexpanded$updateLoadedVisual(crossbow);
 
         return result;
     }
@@ -314,6 +316,7 @@ public class ChainCrossbowItem extends CrossbowItem {
         } else {
             crossbow.set(DataComponents.CHARGED_PROJECTILES, new ChargedProjectiles(projectiles));
         }
+        weaponsexpanded$refreshLoadedVisual(crossbow);
     }
 
     private static CompoundTag weaponsexpanded$getOrCreateCustomNbt(ItemStack stack) {

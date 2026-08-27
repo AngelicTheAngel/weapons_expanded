@@ -1,4 +1,4 @@
-package net.angelic.weaponsexpanded.item.custom;
+package net.angelic.weaponsexpanded.item.custom.arrow;
 
 import net.angelic.weaponsexpanded.entity.projectile.HeavyArrowEntity;
 import net.angelic.weaponsexpanded.mixin.accessor.PersistentProjectileEntityAccessor;

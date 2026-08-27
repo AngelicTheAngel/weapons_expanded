@@ -2,8 +2,7 @@ package net.angelic.weaponsexpanded.mixin;
 
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
-import net.angelic.weaponsexpanded.item.custom.PierceWeaponItem;
-import net.angelic.weaponsexpanded.item.custom.TwoHandedSwordItem;
+import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.world.InteractionHand;
@@ -25,7 +24,7 @@ public abstract class PlayerEntityRendererArmPoseMixin {
     )
     private static void weaponsexpanded$overrideArmPose(Avatar player, ItemStack itemInHand, InteractionHand hand, CallbackInfoReturnable<HumanoidModel.ArmPose> cir) {
         // Two-handed swords: always force the pose
-        if (itemInHand.getItem() instanceof TwoHandedSwordItem) {
+        if (itemInHand.is(ModItemTags.TWOHANDED)) {
             cir.setReturnValue(HumanoidModel.ArmPose.CROSSBOW_HOLD);
             return;
         }
@@ -43,7 +42,7 @@ public abstract class PlayerEntityRendererArmPoseMixin {
             cir.setReturnValue(HumanoidModel.ArmPose.CROSSBOW_HOLD);
         }
 
-        if (itemInHand.getItem() instanceof PierceWeaponItem) {
+        if (itemInHand.is(ModItemTags.PIERCE)) {
             cir.setReturnValue(HumanoidModel.ArmPose.SPEAR);
         }
     }

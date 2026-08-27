@@ -2,11 +2,12 @@ package net.angelic.weaponsexpanded.item;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.item.custom.*;
+import net.angelic.weaponsexpanded.item.custom.arrow.ExplosiveArrowItem;
+import net.angelic.weaponsexpanded.item.custom.arrow.HeavyArrowItem;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.AxeItem;
@@ -21,109 +22,109 @@ import static net.minecraft.world.item.Items.*;
 public class ModItems {
 
     public static final Item WOODEN_RAPIER = registerItem("wooden_rapier",
-            setting -> new PierceWeaponItem(ToolMaterial.WOOD, 1.5F, -2.2F, setting));
+            setting -> new Item(ModItemProperties.pierce(ToolMaterial.WOOD, 1.5F, -2.2F, setting)));
 
     public static final Item GOLDEN_RAPIER = registerItem("golden_rapier",
-            setting -> new PierceWeaponItem(ToolMaterial.GOLD, 1.5F, -2.2F, setting));
+            setting -> new Item(ModItemProperties.pierce(ToolMaterial.GOLD, 1.5F, -2.2F, setting)));
 
     public static final Item STONE_RAPIER = registerItem("stone_rapier",
-            setting -> new PierceWeaponItem(ToolMaterial.STONE, 1.5F, -2.2F, setting));
+            setting -> new Item(ModItemProperties.pierce(ToolMaterial.STONE, 1.5F, -2.2F, setting)));
 
     public static final Item COPPER_RAPIER = registerItem("copper_rapier",
-            setting -> new PierceWeaponItem(ToolMaterial.COPPER, 1.5F, -2.2F, setting));
+            setting -> new Item(ModItemProperties.pierce(ToolMaterial.COPPER, 1.5F, -2.2F, setting)));
 
     public static final Item IRON_RAPIER = registerItem("iron_rapier",
-            setting -> new PierceWeaponItem(ToolMaterial.IRON, 1.5F, -2.2F, setting));
+            setting -> new Item(ModItemProperties.pierce(ToolMaterial.IRON, 1.5F, -2.2F, setting)));
 
     public static final Item DIAMOND_RAPIER = registerItem("diamond_rapier",
-            setting -> new PierceWeaponItem(ToolMaterial.DIAMOND, 1.5F, -2.2F, setting));
+            setting -> new Item(ModItemProperties.pierce(ToolMaterial.DIAMOND, 1.5F, -2.2F, setting)));
 
     public static final Item NETHERITE_RAPIER = registerItem("netherite_rapier",
-            setting -> new PierceWeaponItem(ToolMaterial.NETHERITE, 1.5F, -2.2F, setting.fireResistant()));
+            setting -> new Item(ModItemProperties.pierce(ToolMaterial.NETHERITE, 1.5F, -2.2F, setting.fireResistant())));
 
     public static final Item WOODEN_BROADSWORD = registerItem("wooden_broadsword",
-            setting -> new Item(setting.sword(ToolMaterial.WOOD, 2, -2.1F)));
+            setting -> new Item(setting.sword(ToolMaterial.WOOD, 2.5F, -2.3F)));
 
     public static final Item GOLDEN_BROADSWORD = registerItem("golden_broadsword",
-            setting -> new Item(setting.sword(ToolMaterial.GOLD, 2, -2.1F)));
+            setting -> new Item(setting.sword(ToolMaterial.GOLD, 2.5F, -2.3F)));
 
     public static final Item STONE_BROADSWORD = registerItem("stone_broadsword",
-            setting -> new Item(setting.sword(ToolMaterial.STONE, 2, -2.1F)));
+            setting -> new Item(setting.sword(ToolMaterial.STONE, 2.5F, -2.3F)));
 
     public static final Item COPPER_BROADSWORD = registerItem("copper_broadsword",
-            setting -> new Item(setting.sword(ToolMaterial.COPPER, 2, -2.1F)));
+            setting -> new Item(setting.sword(ToolMaterial.COPPER, 2.5F, -2.3F)));
 
     public static final Item IRON_BROADSWORD = registerItem("iron_broadsword",
-            settings -> new Item(settings.sword(ToolMaterial.IRON, 2.0F, -2.2F)));
-
-    public static final Item DIAMOND_BROADSWORD = registerItem("diamond_broadsword",
-            settings -> new Item(settings.sword(ToolMaterial.DIAMOND, 2.0F, -2.2F)));
-
-    public static final Item NETHERITE_BROADSWORD = registerItem("netherite_broadsword",
-            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 2.0F, -2.2F).fireResistant()));
-
-    public static final Item WOODEN_SICKLE = registerItem("wooden_sickle",
-            settings -> new Item(settings.sword(ToolMaterial.WOOD, 2.5F, -2.3F)));
-
-    public static final Item GOLDEN_SICKLE = registerItem("golden_sickle",
-            settings -> new Item(settings.sword(ToolMaterial.GOLD, 2.5F, -2.3F)));
-
-    public static final Item STONE_SICKLE = registerItem("stone_sickle",
-            settings -> new Item(settings.sword(ToolMaterial.STONE, 2.5F, -2.3F)));
-
-    public static final Item COPPER_SICKLE = registerItem("copper_sickle",
-            settings -> new Item(settings.sword(ToolMaterial.COPPER, 2.5F, -2.3F)));
-
-    public static final Item IRON_SICKLE = registerItem("iron_sickle",
             settings -> new Item(settings.sword(ToolMaterial.IRON, 2.5F, -2.3F)));
 
-    public static final Item DIAMOND_SICKLE = registerItem("diamond_sickle",
+    public static final Item DIAMOND_BROADSWORD = registerItem("diamond_broadsword",
             settings -> new Item(settings.sword(ToolMaterial.DIAMOND, 2.5F, -2.3F)));
 
-    public static final Item NETHERITE_SICKLE = registerItem("netherite_sickle",
+    public static final Item NETHERITE_BROADSWORD = registerItem("netherite_broadsword",
             settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 2.5F, -2.3F).fireResistant()));
 
+    public static final Item WOODEN_SICKLE = registerItem("wooden_sickle",
+            settings -> new Item(settings.sword(ToolMaterial.WOOD, 4.0F, -2.6F)));
+
+    public static final Item GOLDEN_SICKLE = registerItem("golden_sickle",
+            settings -> new Item(settings.sword(ToolMaterial.GOLD, 4.0F, -2.6F)));
+
+    public static final Item STONE_SICKLE = registerItem("stone_sickle",
+            settings -> new Item(settings.sword(ToolMaterial.STONE, 4.0F, -2.6F)));
+
+    public static final Item COPPER_SICKLE = registerItem("copper_sickle",
+            settings -> new Item(settings.sword(ToolMaterial.COPPER, 4.0F, -2.6F)));
+
+    public static final Item IRON_SICKLE = registerItem("iron_sickle",
+            settings -> new Item(settings.sword(ToolMaterial.IRON, 4.0F, -2.6F)));
+
+    public static final Item DIAMOND_SICKLE = registerItem("diamond_sickle",
+            settings -> new Item(settings.sword(ToolMaterial.DIAMOND, 4.0F, -2.6F)));
+
+    public static final Item NETHERITE_SICKLE = registerItem("netherite_sickle",
+            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 4.0F, -2.6F).fireResistant()));
+
     public static final Item WOODEN_SCYTHE = registerItem("wooden_scythe",
-            settings -> new ScytheItem(ToolMaterial.WOOD, 4.0F, -2.5F, settings));
+            settings -> new Item(ModItemProperties.scythe(ToolMaterial.WOOD, 5.5F, -2.9F, settings)));
 
     public static final Item GOLDEN_SCYTHE = registerItem("golden_scythe",
-            settings -> new ScytheItem(ToolMaterial.GOLD, 4.0F, -2.5F, settings));
+            settings -> new Item(ModItemProperties.scythe(ToolMaterial.GOLD, 5.5F, -2.9F, settings)));
 
     public static final Item STONE_SCYTHE = registerItem("stone_scythe",
-            settings -> new ScytheItem(ToolMaterial.STONE, 4.0F, -2.5F, settings));
+            settings -> new Item(ModItemProperties.scythe(ToolMaterial.STONE, 5.5F, -2.9F, settings)));
 
     public static final Item COPPER_SCYTHE = registerItem("copper_scythe",
-            settings -> new ScytheItem(ToolMaterial.COPPER, 4.0F, -2.5F, settings));
+            settings -> new Item(ModItemProperties.scythe(ToolMaterial.COPPER, 5.5F, -2.9F, settings)));
 
     public static final Item IRON_SCYTHE = registerItem("iron_scythe",
-            settings -> new ScytheItem(ToolMaterial.IRON, 4.0F, -2.5F, settings));
+            settings -> new Item(ModItemProperties.scythe(ToolMaterial.IRON, 5.5F, -2.9F, settings)));
 
     public static final Item DIAMOND_SCYTHE = registerItem("diamond_scythe",
-            settings -> new ScytheItem(ToolMaterial.DIAMOND, 4.5F, -2.5F, settings));
+            settings -> new Item(ModItemProperties.scythe(ToolMaterial.DIAMOND, 5.5F, -2.9F, settings)));
 
     public static final Item NETHERITE_SCYTHE = registerItem("netherite_scythe",
-            settings -> new ScytheItem(ToolMaterial.NETHERITE, 4.5F, -2.5F, settings.fireResistant()));
+            settings -> new Item(ModItemProperties.scythe(ToolMaterial.NETHERITE, 5.5F, -2.9F, settings.fireResistant())));
 
     public static final Item WOODEN_LONGSWORD = registerItem("wooden_longsword",
-            settings -> new BastardSwordItem(ToolMaterial.WOOD, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.WOOD, 6.0F, -3.0F, 7.0F, -3.0F, settings));
 
     public static final Item GOLDEN_LONGSWORD = registerItem("golden_longsword",
-            settings -> new BastardSwordItem(ToolMaterial.GOLD, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.GOLD, 6.0F, -3.0F, 7.0F, -3.0F, settings));
 
     public static final Item STONE_LONGSWORD = registerItem("stone_longsword",
-            settings -> new BastardSwordItem(ToolMaterial.STONE, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.STONE, 6.0F, -3.0F, 7.0F, -3.0F, settings));
 
     public static final Item COPPER_LONGSWORD = registerItem("copper_longsword",
-            settings -> new BastardSwordItem(ToolMaterial.COPPER, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.COPPER, 6.0F, -3.0F, 7.0F, -3.0F, settings));
 
     public static final Item IRON_LONGSWORD = registerItem("iron_longsword",
-            settings -> new BastardSwordItem(ToolMaterial.IRON, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.IRON, 6.0F, -3.0F, 7.0F, -3.0F, settings));
 
     public static final Item DIAMOND_LONGSWORD = registerItem("diamond_longsword",
-            settings -> new BastardSwordItem(ToolMaterial.DIAMOND, 6.0F, -2.9F, 7.0F, -2.9F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.DIAMOND, 6.0F, -3.0F, 7.0F, -3.0F, settings));
 
     public static final Item NETHERITE_LONGSWORD = registerItem("netherite_longsword",
-            settings -> new BastardSwordItem(ToolMaterial.NETHERITE, 6.0F, -2.9F, 7.0F, -2.9F, settings.fireResistant()));
+            settings -> new BastardSwordItem(ToolMaterial.NETHERITE, 6.0F, -3.0F, 7.0F, -3.0F, settings.fireResistant()));
 
     public static final Item WOODEN_KATANA = registerItem("wooden_katana",
             settings -> new TwoHandedSwordItem(ToolMaterial.WOOD, 3.0F, -2.2F, settings));
@@ -147,25 +148,25 @@ public class ModItems {
             settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 3.0F, -2.2F, settings.fireResistant()));
 
     public static final Item WOODEN_HATCHET = registerItem("wooden_hatchet",
-            settings -> new AxeItem(ToolMaterial.WOOD, 5.0F, -3.0F, settings));
+            settings -> new AxeItem(ToolMaterial.WOOD, 4.0F, -2.9F, settings));
 
     public static final Item GOLDEN_HATCHET = registerItem("golden_hatchet",
-            settings -> new AxeItem(ToolMaterial.GOLD, 5.0F, -2.8F, settings));
+            settings -> new AxeItem(ToolMaterial.GOLD, 4.0F, -2.7F, settings));
 
     public static final Item STONE_HATCHET = registerItem("stone_hatchet",
-            settings -> new AxeItem(ToolMaterial.STONE, 6.0F, -3.0F, settings));
+            settings -> new AxeItem(ToolMaterial.STONE, 5.0F, -2.9F, settings));
 
     public static final Item COPPER_HATCHET = registerItem("copper_hatchet",
-            settings -> new AxeItem(ToolMaterial.COPPER, 6.0F, -3.0F, settings));
+            settings -> new AxeItem(ToolMaterial.COPPER, 5.0F, -2.9F, settings));
 
     public static final Item IRON_HATCHET = registerItem("iron_hatchet",
-            settings -> new AxeItem(ToolMaterial.IRON, 5.0F, -2.9F, settings));
+            settings -> new AxeItem(ToolMaterial.IRON, 4.0F, -2.8F, settings));
 
     public static final Item DIAMOND_HATCHET = registerItem("diamond_hatchet",
-            settings -> new AxeItem(ToolMaterial.DIAMOND, 4.0F, -2.8F, settings));
+            settings -> new AxeItem(ToolMaterial.DIAMOND, 3.0F, -2.7F, settings));
 
     public static final Item NETHERITE_HATCHET = registerItem("netherite_hatchet",
-            settings -> new AxeItem(ToolMaterial.NETHERITE, 4.0F, -2.8F, settings.fireResistant()));
+            settings -> new AxeItem(ToolMaterial.NETHERITE, 3.0F, -2.7F, settings.fireResistant()));
 
     public static final Item WOODEN_HAMMER = registerItem("wooden_hammer",
             settings -> new BluntWeaponItem(ModToolMaterials.FAUX_WOOD, 7.0F, -3.3F, settings));
@@ -210,46 +211,46 @@ public class ModItems {
             settings -> new AxeItem(ToolMaterial.NETHERITE, 7.0F, -3.2F, settings.fireResistant()));
 
     public static final Item WOODEN_GREATSWORD = registerItem("wooden_greatsword",
-            settings -> new TwoHandedSwordItem(ToolMaterial.WOOD, 8.0F, -3.3F, settings));
+            settings -> new TwoHandedSwordItem(ToolMaterial.WOOD, 8.0F, -3.2F, settings));
 
     public static final Item GOLDEN_GREATSWORD = registerItem("golden_greatsword",
-            settings -> new TwoHandedSwordItem(ToolMaterial.GOLD, 8.0F, -3.1F, settings));
+            settings -> new TwoHandedSwordItem(ToolMaterial.GOLD, 8.0F, -3.2F, settings));
 
     public static final Item STONE_GREATSWORD = registerItem("stone_greatsword",
-            settings -> new TwoHandedSwordItem(ToolMaterial.STONE, 8.0F, -3.3F, settings));
+            settings -> new TwoHandedSwordItem(ToolMaterial.STONE, 8.0F, -3.2F, settings));
 
     public static final Item COPPER_GREATSWORD = registerItem("copper_greatsword",
-            settings -> new TwoHandedSwordItem(ToolMaterial.COPPER, 8.0F, -3.3F, settings));
+            settings -> new TwoHandedSwordItem(ToolMaterial.COPPER, 8.0F, -3.2F, settings));
 
     public static final Item IRON_GREATSWORD = registerItem("iron_greatsword",
             settings -> new TwoHandedSwordItem(ToolMaterial.IRON, 8.0F, -3.2F, settings));
 
     public static final Item DIAMOND_GREATSWORD = registerItem("diamond_greatsword",
-            settings -> new TwoHandedSwordItem(ToolMaterial.DIAMOND, 8.0F, -3.1F, settings));
+            settings -> new TwoHandedSwordItem(ToolMaterial.DIAMOND, 8.0F, -3.2F, settings));
 
     public static final Item NETHERITE_GREATSWORD = registerItem("netherite_greatsword",
-            settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 8.0F, -3.1F, settings.fireResistant()));
+            settings -> new TwoHandedSwordItem(ToolMaterial.NETHERITE, 8.0F, -3.2F, settings.fireResistant()));
 
     public static final Item WOODEN_WARHAMMER = registerItem("wooden_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.WOOD, 5.0F, -3.1F, 5.0F, -2.7F, "wooden_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.WOOD, 5.0F, -3.1F, 5.0F, -2.8F, "wooden_warhammer", settings));
 
     public static final Item GOLDEN_WARHAMMER = registerItem("golden_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.GOLD, 5.0F, -2.9F, 5.0F, -2.7F, "golden_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.GOLD, 5.0F, -2.9F, 5.0F, -2.8F, "golden_warhammer", settings));
 
     public static final Item STONE_WARHAMMER = registerItem("stone_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.STONE, 6.0F, -3.1F, 5.0F, -2.7F, "stone_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.STONE, 6.0F, -3.1F, 5.0F, -2.8F, "stone_warhammer", settings));
 
     public static final Item COPPER_WARHAMMER = registerItem("copper_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.COPPER, 6.0F, -3.1F, 5.0F, -2.7F, "copper_warhammer",  settings));
+            settings -> new WarhammerItem(ToolMaterial.COPPER, 6.0F, -3.1F, 5.0F, -2.8F, "copper_warhammer",  settings));
 
     public static final Item IRON_WARHAMMER = registerItem("iron_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.IRON, 5.0F, -3.0F, 5.0F, -2.7F, "iron_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.IRON, 5.0F, -3.0F, 5.0F, -2.8F, "iron_warhammer", settings));
 
     public static final Item DIAMOND_WARHAMMER = registerItem("diamond_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.DIAMOND, 4.0F, -2.9F, 5.0F, -2.7F, "diamond_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.DIAMOND, 4.0F, -2.9F, 5.0F, -2.8F, "diamond_warhammer", settings));
 
     public static final Item NETHERITE_WARHAMMER = registerItem("netherite_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.NETHERITE, 4.0F, -2.9F, 5.0F, -2.7F, "netherite_warhammer", settings.fireResistant()));
+            settings -> new WarhammerItem(ToolMaterial.NETHERITE, 4.0F, -2.9F, 5.0F, -2.8F, "netherite_warhammer", settings.fireResistant()));
 
     public static final Item HEAVY_ARROW = registerItem("heavy_arrow",
             settings -> new HeavyArrowItem(settings.stacksTo(64)));
