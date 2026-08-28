@@ -175,6 +175,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .requires(Items.ARROW)
                         .requires(Items.ARROW)
                         .requires(Items.TNT)
+                        .requires(Items.STRING)
                         .group(getItemName(ModItems.EXPLOSIVE_ARROW))
                         .unlockedBy(getHasName(Items.TNT), has(Items.TNT))
                         .save(this.output, "explosive_arrow_from_arrow");

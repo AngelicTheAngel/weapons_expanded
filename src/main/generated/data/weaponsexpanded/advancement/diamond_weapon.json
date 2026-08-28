@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:story/mine_diamond",
   "criteria": {
-    "diamond_weapon": {
+    "has_diamond_weapon": {
       "conditions": {
         "items": [
           {
@@ -17,7 +17,6 @@
       "translate": "advancements.weaponsexpanded.diamond_weapon.description"
     },
     "icon": {
-      "count": 1,
       "id": "minecraft:diamond_sword"
     },
     "title": {
@@ -26,7 +25,7 @@
   },
   "requirements": [
     [
-      "diamond_weapon"
+      "has_diamond_weapon"
     ]
   ],
   "sends_telemetry_event": true

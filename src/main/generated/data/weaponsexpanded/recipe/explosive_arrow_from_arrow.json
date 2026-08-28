@@ -5,7 +5,8 @@
   "ingredients": [
     "minecraft:arrow",
     "minecraft:arrow",
-    "minecraft:tnt"
+    "minecraft:tnt",
+    "minecraft:string"
   ],
   "result": {
     "count": 2,

@@ -169,25 +169,25 @@ public class ModItems {
             settings -> new AxeItem(ToolMaterial.NETHERITE, 3.0F, -2.7F, settings.fireResistant()));
 
     public static final Item WOODEN_HAMMER = registerItem("wooden_hammer",
-            settings -> new Item(ModItemProperties.blunt(ModToolMaterials.FAUX_WOOD, 7.0F, -3.3F, settings)));
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.WOOD, 7.0F, -3.3F, settings)));
 
     public static final Item GOLDEN_HAMMER = registerItem("golden_hammer",
-            settings -> new Item(ModItemProperties.blunt(ModToolMaterials.FAUX_GOLD, 7.0F, -3.1F, settings)));
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.GOLD, 7.0F, -3.1F, settings)));
 
     public static final Item STONE_HAMMER = registerItem("stone_hammer",
-            settings -> new Item(ModItemProperties.blunt(ModToolMaterials.FAUX_STONE, 8.0F, -3.3F, settings)));
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.STONE, 8.0F, -3.3F, settings)));
 
     public static final Item COPPER_HAMMER = registerItem("copper_hammer",
-            settings -> new Item(ModItemProperties.blunt(ModToolMaterials.FAUX_COPPER, 8.0F, -3.3F, settings)));
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.COPPER, 8.0F, -3.3F, settings)));
 
     public static final Item IRON_HAMMER = registerItem("iron_hammer",
-            settings -> new Item(ModItemProperties.blunt(ModToolMaterials.FAUX_IRON, 7.0F, -3.2F, settings)));
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.IRON, 7.0F, -3.2F, settings)));
 
     public static final Item DIAMOND_HAMMER = registerItem("diamond_hammer",
-            settings -> new Item(ModItemProperties.blunt(ModToolMaterials.FAUX_DIAMOND, 6.0F, -3.1F, settings)));
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.DIAMOND, 6.0F, -3.1F, settings)));
 
     public static final Item NETHERITE_HAMMER = registerItem("netherite_hammer",
-            settings -> new Item(ModItemProperties.blunt(ModToolMaterials.FAUX_NETHERITE, 6.0F, -3.1F, settings.fireResistant())));
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.NETHERITE, 6.0F, -3.1F, settings.fireResistant())));
 
     public static final Item WOODEN_BATTLEAXE = registerItem("wooden_battleaxe",
             settings -> new AxeItem(ToolMaterial.WOOD, 8.0F, -3.4F, settings));

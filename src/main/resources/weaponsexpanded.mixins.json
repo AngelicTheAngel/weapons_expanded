@@ -32,7 +32,7 @@
     "defaultRequire": 1
   },
   "client": [
-    "ChainCrossbowFirstPersonMixin",
+    "chain_crossbow.ChainCrossbowFirstPersonMixin",
     "HeldItemRendererHideOffhandMixin",
     "LongbowFovMixin",
     "PlayerEntityRendererArmPoseMixin",

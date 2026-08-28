@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:nether/obtain_ancient_debris",
   "criteria": {
-    "netherite_weapon": {
+    "has_netherite_weapon": {
       "conditions": {
         "items": [
           {
@@ -17,7 +17,6 @@
       "translate": "advancements.weaponsexpanded.netherite_weapon.description"
     },
     "icon": {
-      "count": 1,
       "id": "minecraft:netherite_sword"
     },
     "title": {
@@ -26,7 +25,7 @@
   },
   "requirements": [
     [
-      "netherite_weapon"
+      "has_netherite_weapon"
     ]
   ],
   "sends_telemetry_event": true

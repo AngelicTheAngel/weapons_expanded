@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded;
 
+import net.angelic.weaponsexpanded.datagen.ModAdvancementProvider;
 import net.angelic.weaponsexpanded.datagen.ModItemTagProvider;
 import net.angelic.weaponsexpanded.datagen.ModModelProvider;
 import net.angelic.weaponsexpanded.datagen.ModRecipeProvider;
@@ -14,5 +15,6 @@ public class WeaponsExpandedDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModItemTagProvider::new);
         pack.addProvider(ModModelProvider::new);
         pack.addProvider(ModRecipeProvider::new);
+        pack.addProvider(ModAdvancementProvider::new);
     }
 }

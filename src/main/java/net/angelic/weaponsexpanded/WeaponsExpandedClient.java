@@ -47,8 +47,7 @@ public class WeaponsExpandedClient implements ClientModInitializer {
                 Component twoHanded = Component.translatable("tooltip.weaponsexpanded.twohandedsword").withStyle(ChatFormatting.BLUE);
                 int i = 1;
 
-                while (i < tooltip.size()
-                        && !tooltip.get(i).getString().isBlank()) {
+                while (i < tooltip.size() && !tooltip.get(i).getString().isBlank()) {
                     i++;
                 }
 

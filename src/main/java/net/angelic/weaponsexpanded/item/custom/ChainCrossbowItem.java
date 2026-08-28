@@ -70,7 +70,7 @@ public class ChainCrossbowItem extends CrossbowItem {
     @Override
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent,
-                              Consumer<Component> textConsumer, TooltipFlag type) {
+                                Consumer<Component> textConsumer, TooltipFlag type) {
         // queued shots (not counting the current chamber)
         int queued = weaponsexpanded$getQueuedChambers(stack);
 
@@ -119,6 +119,11 @@ public class ChainCrossbowItem extends CrossbowItem {
                 weaponsexpanded$refreshLoadedVisual(crossbow);
             }
 
+            return InteractionResult.FAIL;
+        }
+
+        if (isChargedNow && user.getProjectile(crossbow).isEmpty()) {
+            weaponsexpanded$refreshLoadedVisual(crossbow);
             return InteractionResult.FAIL;
         }
 
@@ -222,7 +227,7 @@ public class ChainCrossbowItem extends CrossbowItem {
         weaponsexpanded$setCustomNbt(crossbow, root);
 
         // Refresh model flag after charging/restoring chambers
-        //weaponsexpanded$updateLoadedVisual(crossbow);
+        weaponsexpanded$updateLoadedVisual(crossbow);
 
         return result;
     }
