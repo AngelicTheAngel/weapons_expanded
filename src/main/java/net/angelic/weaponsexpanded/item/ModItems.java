@@ -252,6 +252,48 @@ public class ModItems {
     public static final Item NETHERITE_WARHAMMER = registerItem("netherite_warhammer",
             settings -> new WarhammerItem(ToolMaterial.NETHERITE, 4.0F, -2.9F, 5.0F, -2.8F, "netherite_warhammer", settings.fireResistant()));
 
+    public static final Item WOODEN_MORNINGSTAR = registerItem("wooden_morningstar",
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.WOOD, 5.0F, -3.0F, settings)));
+
+    public static final Item GOLDEN_MORNINGSTAR = registerItem("golden_morningstar",
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.GOLD, 5.0F, -2.8F, settings)));
+
+    public static final Item STONE_MORNINGSTAR = registerItem("stone_morningstar",
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.STONE, 6.0F, -3.0F, settings)));
+
+    public static final Item COPPER_MORNINGSTAR = registerItem("copper_morningstar",
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.COPPER, 6.0F, -3.0F, settings)));
+
+    public static final Item IRON_MORNINGSTAR = registerItem("iron_morningstar",
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.IRON, 5.0F, -2.9F, settings)));
+
+    public static final Item DIAMOND_MORNINGSTAR = registerItem("diamond_morningstar",
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.DIAMOND, 4.0F, -2.8F, settings)));
+
+    public static final Item NETHERITE_MORNINGSTAR = registerItem("netherite_morningstar",
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.NETHERITE, 4.0F, -2.8F, settings.fireResistant())));
+
+    public static final Item WOODEN_GLAIVE = registerItem("wooden_glaive",
+            settings -> new Item(ModItemProperties.glaive(ToolMaterial.WOOD, 4.0F, -2.7F, settings)));
+
+    public static final Item GOLDEN_GLAIVE = registerItem("golden_glaive",
+            settings -> new Item(ModItemProperties.glaive(ToolMaterial.GOLD, 4.0F, -2.7F, settings)));
+
+    public static final Item STONE_GLAIVE = registerItem("stone_glaive",
+            settings -> new Item(ModItemProperties.glaive(ToolMaterial.STONE, 4.0F, -2.7F, settings)));
+
+    public static final Item COPPER_GLAIVE = registerItem("copper_glaive",
+            settings -> new Item(ModItemProperties.glaive(ToolMaterial.COPPER, 4.0F, -2.7F, settings)));
+
+    public static final Item IRON_GLAIVE = registerItem("iron_glaive",
+            settings -> new Item(ModItemProperties.glaive(ToolMaterial.IRON, 4.0F, -2.7F, settings)));
+
+    public static final Item DIAMOND_GLAIVE = registerItem("diamond_glaive",
+            settings -> new Item(ModItemProperties.glaive(ToolMaterial.DIAMOND, 4.0F, -2.7F, settings)));
+
+    public static final Item NETHERITE_GLAIVE = registerItem("netherite_glaive",
+            settings -> new Item(ModItemProperties.glaive(ToolMaterial.NETHERITE, 4.0F, -2.7F, settings)));
+
     public static final Item HEAVY_ARROW = registerItem("heavy_arrow",
             settings -> new HeavyArrowItem(settings.stacksTo(64)));
 
@@ -279,15 +321,25 @@ public class ModItems {
 
             Item anchor = Items.WOODEN_SWORD;
 
+            // Rapiers
+            entries.insertBefore(anchor, WOODEN_RAPIER);
+            entries.insertAfter(WOODEN_RAPIER, GOLDEN_RAPIER);
+            entries.insertAfter(GOLDEN_RAPIER, STONE_RAPIER);
+            entries.insertAfter(STONE_RAPIER, COPPER_RAPIER);
+            entries.insertAfter(COPPER_RAPIER, IRON_RAPIER);
+            entries.insertAfter(IRON_RAPIER, DIAMOND_RAPIER);
+            entries.insertAfter(DIAMOND_RAPIER, NETHERITE_RAPIER);
+            anchor = NETHERITE_RAPIER;
+
             // Broadswords
-            entries.insertBefore(anchor, WOODEN_BROADSWORD);
+            entries.insertAfter(anchor, WOODEN_BROADSWORD);
             entries.insertAfter(WOODEN_BROADSWORD, GOLDEN_BROADSWORD);
             entries.insertAfter(GOLDEN_BROADSWORD, STONE_BROADSWORD);
             entries.insertAfter(STONE_BROADSWORD, COPPER_BROADSWORD);
             entries.insertAfter(COPPER_BROADSWORD, IRON_BROADSWORD);
             entries.insertAfter(IRON_BROADSWORD, DIAMOND_BROADSWORD);
             entries.insertAfter(DIAMOND_BROADSWORD, NETHERITE_BROADSWORD);
-            anchor = NETHERITE_BROADSWORD;
+            anchor = NETHERITE_SWORD;
 
             // Sickles
             entries.insertAfter(anchor, WOODEN_SICKLE);
@@ -297,9 +349,19 @@ public class ModItems {
             entries.insertAfter(COPPER_SICKLE, IRON_SICKLE);
             entries.insertAfter(IRON_SICKLE, DIAMOND_SICKLE);
             entries.insertAfter(DIAMOND_SICKLE, NETHERITE_SICKLE);
-            anchor = NETHERITE_SWORD;
+            anchor = NETHERITE_SICKLE;
 
-            //
+            // Glaives
+            entries.insertAfter(anchor, WOODEN_GLAIVE);
+            entries.insertAfter(WOODEN_GLAIVE, GOLDEN_GLAIVE);
+            entries.insertAfter(GOLDEN_GLAIVE, STONE_GLAIVE);
+            entries.insertAfter(STONE_GLAIVE, COPPER_GLAIVE);
+            entries.insertAfter(COPPER_GLAIVE, IRON_GLAIVE);
+            entries.insertAfter(IRON_GLAIVE, DIAMOND_GLAIVE);
+            entries.insertAfter(DIAMOND_GLAIVE, NETHERITE_GLAIVE);
+            anchor = NETHERITE_GLAIVE;
+
+            // Scythes
             entries.insertAfter(anchor, WOODEN_SCYTHE);
             entries.insertAfter(WOODEN_SCYTHE, GOLDEN_SCYTHE);
             entries.insertAfter(GOLDEN_SCYTHE, STONE_SCYTHE);
@@ -327,6 +389,16 @@ public class ModItems {
             entries.insertAfter(COPPER_KATANA, IRON_KATANA);
             entries.insertAfter(IRON_KATANA, DIAMOND_KATANA);
             entries.insertAfter(DIAMOND_KATANA, NETHERITE_KATANA);
+            anchor = NETHERITE_KATANA;
+
+            // Greatswords
+            entries.insertAfter(anchor, WOODEN_GREATSWORD);
+            entries.insertAfter(WOODEN_GREATSWORD, GOLDEN_GREATSWORD);
+            entries.insertAfter(GOLDEN_GREATSWORD, STONE_GREATSWORD);
+            entries.insertAfter(STONE_GREATSWORD, COPPER_GREATSWORD);
+            entries.insertAfter(COPPER_GREATSWORD, IRON_GREATSWORD);
+            entries.insertAfter(IRON_GREATSWORD, DIAMOND_GREATSWORD);
+            entries.insertAfter(DIAMOND_GREATSWORD, NETHERITE_GREATSWORD);
             anchor = WOODEN_AXE;
 
             // Hatchets
@@ -337,6 +409,26 @@ public class ModItems {
             entries.insertAfter(COPPER_HATCHET, IRON_HATCHET);
             entries.insertAfter(IRON_HATCHET, DIAMOND_HATCHET);
             entries.insertAfter(DIAMOND_HATCHET, NETHERITE_HATCHET);
+            anchor = NETHERITE_HATCHET;
+
+            // Morningstars
+            entries.insertAfter(anchor, WOODEN_MORNINGSTAR);
+            entries.insertAfter(WOODEN_MORNINGSTAR, GOLDEN_MORNINGSTAR);
+            entries.insertAfter(GOLDEN_MORNINGSTAR, STONE_MORNINGSTAR);
+            entries.insertAfter(STONE_MORNINGSTAR, COPPER_MORNINGSTAR);
+            entries.insertAfter(COPPER_MORNINGSTAR, IRON_MORNINGSTAR);
+            entries.insertAfter(IRON_MORNINGSTAR, DIAMOND_MORNINGSTAR);
+            entries.insertAfter(DIAMOND_MORNINGSTAR, NETHERITE_MORNINGSTAR);
+            anchor = NETHERITE_MORNINGSTAR;
+
+            // Warhammer
+            entries.insertAfter(anchor, WOODEN_WARHAMMER);
+            entries.insertAfter(WOODEN_WARHAMMER, GOLDEN_WARHAMMER);
+            entries.insertAfter(GOLDEN_WARHAMMER, STONE_WARHAMMER);
+            entries.insertAfter(STONE_WARHAMMER, COPPER_WARHAMMER);
+            entries.insertAfter(COPPER_WARHAMMER, IRON_WARHAMMER);
+            entries.insertAfter(IRON_WARHAMMER, DIAMOND_WARHAMMER);
+            entries.insertAfter(DIAMOND_WARHAMMER, NETHERITE_WARHAMMER);
             anchor = NETHERITE_AXE;
 
             // Hammers
@@ -357,26 +449,7 @@ public class ModItems {
             entries.insertAfter(COPPER_BATTLEAXE, IRON_BATTLEAXE);
             entries.insertAfter(IRON_BATTLEAXE, DIAMOND_BATTLEAXE);
             entries.insertAfter(DIAMOND_BATTLEAXE, NETHERITE_BATTLEAXE);
-            anchor = NETHERITE_KATANA;
-
-            // Greatswords
-            entries.insertAfter(anchor, WOODEN_GREATSWORD);
-            entries.insertAfter(WOODEN_GREATSWORD, GOLDEN_GREATSWORD);
-            entries.insertAfter(GOLDEN_GREATSWORD, STONE_GREATSWORD);
-            entries.insertAfter(STONE_GREATSWORD, COPPER_GREATSWORD);
-            entries.insertAfter(COPPER_GREATSWORD, IRON_GREATSWORD);
-            entries.insertAfter(IRON_GREATSWORD, DIAMOND_GREATSWORD);
-            entries.insertAfter(DIAMOND_GREATSWORD, NETHERITE_GREATSWORD);
-            anchor = NETHERITE_GREATSWORD;
-
-            // Warhammer
-            entries.insertAfter(anchor, WOODEN_WARHAMMER);
-            entries.insertAfter(WOODEN_WARHAMMER, GOLDEN_WARHAMMER);
-            entries.insertAfter(GOLDEN_WARHAMMER, STONE_WARHAMMER);
-            entries.insertAfter(STONE_WARHAMMER, COPPER_WARHAMMER);
-            entries.insertAfter(COPPER_WARHAMMER, IRON_WARHAMMER);
-            entries.insertAfter(IRON_WARHAMMER, DIAMOND_WARHAMMER);
-            entries.insertAfter(DIAMOND_WARHAMMER, NETHERITE_WARHAMMER);
+            anchor = NETHERITE_BATTLEAXE;
         });
     }
 }

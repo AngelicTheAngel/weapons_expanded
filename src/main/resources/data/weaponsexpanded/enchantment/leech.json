@@ -12,8 +12,8 @@
     "per_level_above_first": 0
   },
 
-  "primary_items": "#minecraft:enchantable/shield",
+  "primary_items": "#weaponsexpanded:enchantable/leech",
   "slots": ["offhand", "mainhand"],
-  "supported_items": "#minecraft:enchantable/shield",
+  "supported_items": "#weaponsexpanded:enchantable/leech",
   "weight": 2
 }

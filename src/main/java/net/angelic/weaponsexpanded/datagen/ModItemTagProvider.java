@@ -30,10 +30,6 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .forceAddTag(ModItemTags.BLUNT)
                 .forceAddTag(ModItemTags.PIERCE);
 
-        builder(ModItemTags.CLEAVING_ENCHANTABLE)
-                .forceAddTag(ItemTags.AXES)
-                .forceAddTag(ModItemTags.BLUNT);
-
         builder(ItemTags.DURABILITY_ENCHANTABLE)
                 .forceAddTag(ModItemTags.BLUNT)
                 .forceAddTag(ModItemTags.PIERCE)
@@ -49,6 +45,13 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         builder(ItemTags.CROSSBOW_ENCHANTABLE)
                 .add(key(ModItems.CHAIN_CROSSBOW));
 
+        builder(ModItemTags.CLEAVING_ENCHANTABLE)
+                .forceAddTag(ItemTags.AXES)
+                .forceAddTag(ModItemTags.BLUNT);
+
+        builder(ModItemTags.LEECH_ENCHANTABLE)
+                .add(ItemIds.SHIELD);
+
         builder(ItemTags.PIGLIN_LOVED)
                 .add(key(ModItems.GOLDEN_BROADSWORD))
                 .add(key(ModItems.GOLDEN_SICKLE))
@@ -59,7 +62,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.GOLDEN_HAMMER))
                 .add(key(ModItems.GOLDEN_WARHAMMER))
                 .add(key(ModItems.GOLDEN_BATTLEAXE))
-                .add(key(ModItems.GOLDEN_GREATSWORD));
+                .add(key(ModItems.GOLDEN_GREATSWORD))
+                .add(key(ModItems.GOLDEN_GLAIVE))
+                .add(key(ModItems.GOLDEN_MORNINGSTAR));
 
         builder(ModItemTags.WOODEN_WEAPON_FUEL)
                 .add(key(ModItems.WOODEN_RAPIER))
@@ -72,7 +77,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.WOODEN_HATCHET))
                 .add(key(ModItems.WOODEN_HAMMER))
                 .add(key(ModItems.WOODEN_WARHAMMER))
-                .add(key(ModItems.WOODEN_BATTLEAXE));
+                .add(key(ModItems.WOODEN_BATTLEAXE))
+                .add(key(ModItems.WOODEN_GLAIVE))
+                .add(key(ModItems.WOODEN_MORNINGSTAR));
 
         builder(ModItemTags.DIAMOND_WEAPON)
                 .add(ItemIds.DIAMOND_SWORD)
@@ -88,7 +95,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.DIAMOND_HATCHET))
                 .add(key(ModItems.DIAMOND_HAMMER))
                 .add(key(ModItems.DIAMOND_WARHAMMER))
-                .add(key(ModItems.DIAMOND_BATTLEAXE));
+                .add(key(ModItems.DIAMOND_BATTLEAXE))
+                .add(key(ModItems.DIAMOND_GLAIVE))
+                .add(key(ModItems.DIAMOND_MORNINGSTAR));
 
         builder(ModItemTags.NETHERITE_WEAPON)
                 .add(ItemIds.NETHERITE_SWORD)
@@ -104,7 +113,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.NETHERITE_HATCHET))
                 .add(key(ModItems.NETHERITE_HAMMER))
                 .add(key(ModItems.NETHERITE_WARHAMMER))
-                .add(key(ModItems.NETHERITE_BATTLEAXE));
+                .add(key(ModItems.NETHERITE_BATTLEAXE))
+                .add(key(ModItems.NETHERITE_GLAIVE))
+                .add(key(ModItems.NETHERITE_MORNINGSTAR));
 
         builder(ModItemTags.TWOHANDED)
                 .add(key(ModItems.WOODEN_SCYTHE))
@@ -190,7 +201,15 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.COPPER_WARHAMMER))
                 .add(key(ModItems.IRON_WARHAMMER))
                 .add(key(ModItems.DIAMOND_WARHAMMER))
-                .add(key(ModItems.NETHERITE_WARHAMMER));
+                .add(key(ModItems.NETHERITE_WARHAMMER))
+
+                .add(key(ModItems.WOODEN_GLAIVE))
+                .add(key(ModItems.GOLDEN_GLAIVE))
+                .add(key(ModItems.STONE_GLAIVE))
+                .add(key(ModItems.COPPER_GLAIVE))
+                .add(key(ModItems.IRON_GLAIVE))
+                .add(key(ModItems.DIAMOND_GLAIVE))
+                .add(key(ModItems.NETHERITE_GLAIVE));
 
         builder(ItemTags.AXES)
                 .add(key(ModItems.WOODEN_HATCHET))
@@ -224,7 +243,15 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.COPPER_WARHAMMER))
                 .add(key(ModItems.IRON_WARHAMMER))
                 .add(key(ModItems.DIAMOND_WARHAMMER))
-                .add(key(ModItems.NETHERITE_WARHAMMER));
+                .add(key(ModItems.NETHERITE_WARHAMMER))
+
+                .add(key(ModItems.WOODEN_MORNINGSTAR))
+                .add(key(ModItems.GOLDEN_MORNINGSTAR))
+                .add(key(ModItems.STONE_MORNINGSTAR))
+                .add(key(ModItems.COPPER_MORNINGSTAR))
+                .add(key(ModItems.IRON_MORNINGSTAR))
+                .add(key(ModItems.DIAMOND_MORNINGSTAR))
+                .add(key(ModItems.NETHERITE_MORNINGSTAR));
 
         builder(ModItemTags.PIERCE)
                 .add(key(ModItems.WOODEN_RAPIER))

@@ -31,6 +31,16 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "has_netherite_glaive": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:netherite_glaive"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_netherite_greatsword": {
       "conditions": {
         "items": [
@@ -76,6 +86,16 @@
         "items": [
           {
             "items": "weaponsexpanded:netherite_longsword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_netherite_morningstar": {
+      "conditions": {
+        "items": [
+          {
+            "items": "weaponsexpanded:netherite_morningstar"
           }
         ]
       },
@@ -187,6 +207,12 @@
     ],
     [
       "has_netherite_warhammer"
+    ],
+    [
+      "has_netherite_glaive"
+    ],
+    [
+      "has_netherite_morningstar"
     ],
     [
       "has_netherite_sword"

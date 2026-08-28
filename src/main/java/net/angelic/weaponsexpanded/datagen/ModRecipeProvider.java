@@ -120,6 +120,20 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 offerWarhammerRecipe(ModItems.IRON_WARHAMMER, ItemTags.IRON_TOOL_MATERIALS);
                 offerWarhammerRecipe(ModItems.DIAMOND_WARHAMMER, ItemTags.DIAMOND_TOOL_MATERIALS);
 
+                offerGlaiveRecipe(ModItems.WOODEN_GLAIVE, ItemTags.WOODEN_TOOL_MATERIALS);
+                offerGlaiveRecipe(ModItems.GOLDEN_GLAIVE, ItemTags.GOLD_TOOL_MATERIALS);
+                offerGlaiveRecipe(ModItems.STONE_GLAIVE, ItemTags.STONE_TOOL_MATERIALS);
+                offerGlaiveRecipe(ModItems.COPPER_GLAIVE, ItemTags.COPPER_TOOL_MATERIALS);
+                offerGlaiveRecipe(ModItems.IRON_GLAIVE, ItemTags.IRON_TOOL_MATERIALS);
+                offerGlaiveRecipe(ModItems.DIAMOND_GLAIVE, ItemTags.DIAMOND_TOOL_MATERIALS);
+
+                offerMorningstarRecipe(ModItems.WOODEN_MORNINGSTAR, ItemTags.WOODEN_TOOL_MATERIALS);
+                offerMorningstarRecipe(ModItems.GOLDEN_MORNINGSTAR, ItemTags.GOLD_TOOL_MATERIALS);
+                offerMorningstarRecipe(ModItems.STONE_MORNINGSTAR, ItemTags.STONE_TOOL_MATERIALS);
+                offerMorningstarRecipe(ModItems.COPPER_MORNINGSTAR, ItemTags.COPPER_TOOL_MATERIALS);
+                offerMorningstarRecipe(ModItems.IRON_MORNINGSTAR, ItemTags.IRON_TOOL_MATERIALS);
+                offerMorningstarRecipe(ModItems.DIAMOND_MORNINGSTAR, ItemTags.DIAMOND_TOOL_MATERIALS);
+
                 netheriteSmithing(ModItems.DIAMOND_BROADSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_BROADSWORD);
                 netheriteSmithing(ModItems.DIAMOND_SICKLE, RecipeCategory.COMBAT, ModItems.NETHERITE_SICKLE);
                 netheriteSmithing(ModItems.DIAMOND_SCYTHE, RecipeCategory.COMBAT, ModItems.NETHERITE_SCYTHE);
@@ -130,6 +144,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 netheriteSmithing(ModItems.DIAMOND_HAMMER, RecipeCategory.COMBAT, ModItems.NETHERITE_HAMMER);
                 netheriteSmithing(ModItems.DIAMOND_BATTLEAXE, RecipeCategory.COMBAT, ModItems.NETHERITE_BATTLEAXE);
                 netheriteSmithing(ModItems.DIAMOND_WARHAMMER, RecipeCategory.COMBAT, ModItems.NETHERITE_WARHAMMER);
+                netheriteSmithing(ModItems.DIAMOND_GLAIVE, RecipeCategory.COMBAT, ModItems.NETHERITE_GLAIVE);
+                netheriteSmithing(ModItems.DIAMOND_MORNINGSTAR, RecipeCategory.COMBAT, ModItems.NETHERITE_MORNINGSTAR);
 
                 this.shaped(RecipeCategory.COMBAT, ModItems.CHAIN_CROSSBOW, 1)
                         .define('I', Items.IRON_INGOT)
@@ -450,6 +466,54 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern("MMM")
                             .pattern("MS ")
                             .pattern(" S ")
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
+                }
+            }
+
+            public void offerMorningstarRecipe(Item output, TagKey<Item> input) {
+                if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
+                            .pattern(" M ")
+                            .pattern("MSM")
+                            .pattern(" S ")
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
+                } else {
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
+                            .pattern(" M ")
+                            .pattern("MSM")
+                            .pattern(" S ")
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
+                }
+            }
+
+            public void offerGlaiveRecipe(Item output, TagKey<Item> input) {
+                if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
+                            .pattern(" MM")
+                            .pattern(" S ")
+                            .pattern("S  ")
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
+                } else {
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
+                            .pattern(" MM")
+                            .pattern(" S ")
+                            .pattern("S  ")
                             .group(getItemName(output))
                             .unlockedBy("has_" + input.location().getPath(), this.has(input))
                             .save(this.output);

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "iron_glaive",
+  "key": {
+    "M": "#minecraft:iron_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " MM",
+    " S ",
+    "S  "
+  ],
+  "result": {
+    "id": "weaponsexpanded:iron_glaive"
+  }
+}

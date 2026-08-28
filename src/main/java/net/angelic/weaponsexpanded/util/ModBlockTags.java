@@ -13,12 +13,6 @@ public final class ModBlockTags {
                     Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "mineable/blunt")
             );
 
-    public static final TagKey<Block> PIERCE_MINEABLE =
-            TagKey.create(
-                    Registries.BLOCK,
-                    Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "mineable/pierce")
-            );
-
     private ModBlockTags() {
     }
 }
