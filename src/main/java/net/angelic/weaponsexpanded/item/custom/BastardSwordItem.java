@@ -21,38 +21,14 @@ public class BastardSwordItem extends Item {
 
     private static final String WEAPONSEXPANDED$TWO_HANDED_KEY = "weaponsexpanded:bastard_sword_two_handed";
 
-    private final ToolMaterial material;
-
-    private final float oneHandedAttackDamage;
-    private final float oneHandedAttackSpeed;
-
-    private final float twoHandedAttackDamage;
-    private final float twoHandedAttackSpeed;
-
     private final ItemAttributeModifiers weaponsexpanded$oneHandedModifiers;
     private final ItemAttributeModifiers weaponsexpanded$twoHandedModifiers;
 
-    public BastardSwordItem(
-            ToolMaterial material,
-            float attackDamage,
-            float attackSpeed,
-            float twoHandedAttackDamage,
-            float twoHandedAttackSpeed,
-            Properties settings
-    ) {
+    public BastardSwordItem(ToolMaterial material, float attackDamage, float attackSpeed, float twoHandedAttackDamage, float twoHandedAttackSpeed, Properties settings) {
         super(settings.sword(material, attackDamage, attackSpeed));
-        this.material = material;
 
-        this.oneHandedAttackDamage = attackDamage;
-        this.oneHandedAttackSpeed = attackSpeed;
-
-        this.twoHandedAttackDamage = twoHandedAttackDamage;
-        this.twoHandedAttackSpeed = twoHandedAttackSpeed;
-
-        // Build explicit modifier sets (matching vanilla sword math).
         this.weaponsexpanded$oneHandedModifiers = ItemAttributeModifiers.builder()
-                .add(
-                        Attributes.ATTACK_DAMAGE,
+                .add(Attributes.ATTACK_DAMAGE,
                         new AttributeModifier(
                                 Item.BASE_ATTACK_DAMAGE_ID,
                                 (double) material.attackDamageBonus() + (double) attackDamage,
@@ -60,8 +36,7 @@ public class BastardSwordItem extends Item {
                         ),
                         EquipmentSlotGroup.MAINHAND
                 )
-                .add(
-                        Attributes.ATTACK_SPEED,
+                .add(Attributes.ATTACK_SPEED,
                         new AttributeModifier(
                                 Item.BASE_ATTACK_SPEED_ID,
                                 attackSpeed,
@@ -72,8 +47,7 @@ public class BastardSwordItem extends Item {
                 .build();
 
         this.weaponsexpanded$twoHandedModifiers = ItemAttributeModifiers.builder()
-                .add(
-                        Attributes.ATTACK_DAMAGE,
+                .add(Attributes.ATTACK_DAMAGE,
                         new AttributeModifier(
                                 Item.BASE_ATTACK_DAMAGE_ID,
                                 (double) material.attackDamageBonus() + (double) twoHandedAttackDamage,
@@ -81,8 +55,7 @@ public class BastardSwordItem extends Item {
                         ),
                         EquipmentSlotGroup.MAINHAND
                 )
-                .add(
-                        Attributes.ATTACK_SPEED,
+                .add(Attributes.ATTACK_SPEED,
                         new AttributeModifier(
                                 Item.BASE_ATTACK_SPEED_ID,
                                 twoHandedAttackSpeed,
@@ -100,14 +73,6 @@ public class BastardSwordItem extends Item {
             textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.twohandedsword").withStyle(ChatFormatting.BLUE));
             super.appendHoverText(stack, context, displayComponent, textConsumer, type);
         }
-    }
-
-    public float getTwoHandedAttackDamage() {
-        return twoHandedAttackDamage;
-    }
-
-    public float getTwoHandedAttackSpeed() {
-        return twoHandedAttackSpeed;
     }
 
     public boolean isTwoHanded(ItemStack stack) {
@@ -133,7 +98,6 @@ public class BastardSwordItem extends Item {
             stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
         }
 
-        // Swap modifiers explicitly (don't remove), so we always keep sword-like stats.
         stack.set(
                 DataComponents.ATTRIBUTE_MODIFIERS,
                 twoHanded ? this.weaponsexpanded$twoHandedModifiers : this.weaponsexpanded$oneHandedModifiers
@@ -141,28 +105,12 @@ public class BastardSwordItem extends Item {
 
         stack.set(DataComponents.ATTACK_RANGE,
                 twoHanded ? new AttackRange(1.0F, 3.5F, 1.0F, 5.5F, 0.0F, 0.5F)
-                        : new AttackRange(0.0F, 3.0F, 0.0F, 5.0F, 0.0F, 0.5F));
+                        : new AttackRange(0.0F, 3.0F, 0.0F, 5.0F, 0.0F, 0.5F)
+        );
     }
 
     public void toggleTwoHanded(ItemStack stack) {
         boolean next = !isTwoHanded(stack);
         setTwoHanded(stack, next);
-    }
-
-    /**
-     * Matches vanilla tooltip math:
-     * - Attack Damage tooltip shows (1.0 base + damage modifier)
-     * - Damage modifier for weapons is (material bonus + item damage value)
-     */
-    public double getTwoHandedDisplayedAttackDamage() {
-        return 1.0D + (double) material.attackDamageBonus() + (double) twoHandedAttackDamage;
-    }
-
-    /**
-     * Matches vanilla tooltip math:
-     * - Attack Speed tooltip shows (4.0 base + speed modifier)
-     */
-    public double getTwoHandedDisplayedAttackSpeed() {
-        return 4.0D + (double) twoHandedAttackSpeed;
     }
 }

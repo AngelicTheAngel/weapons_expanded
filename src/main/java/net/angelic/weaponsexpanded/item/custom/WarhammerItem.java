@@ -25,14 +25,7 @@ public class WarhammerItem extends Item {
     private final ItemAttributeModifiers weaponsexpanded$bluntSideModifiers;
     private final ItemAttributeModifiers weaponsexpanded$sharpSideModifiers;
 
-    public WarhammerItem(
-            ToolMaterial material,
-            float attackDamage,
-            float attackSpeed,
-            float sharpSideAttackDamage,
-            float sharpSideAttackSpeed,
-            Properties settings
-    ) {
+    public WarhammerItem(ToolMaterial material, float attackDamage, float attackSpeed, float sharpSideAttackDamage, float sharpSideAttackSpeed, Properties settings) {
         super(settings.sword(material, attackDamage, attackSpeed)
                 .component(DataComponents.WEAPON, new Weapon(1, Weapon.AXE_DISABLES_BLOCKING_FOR_SECONDS))
         );
@@ -41,30 +34,34 @@ public class WarhammerItem extends Item {
                 .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(
                                 Item.BASE_ATTACK_DAMAGE_ID,
                                 (double) material.attackDamageBonus() + (double) attackDamage,
-                                AttributeModifier.Operation.ADD_VALUE),
-                        EquipmentSlotGroup.MAINHAND)
-
+                                AttributeModifier.Operation.ADD_VALUE
+                        ),
+                        EquipmentSlotGroup.MAINHAND
+                )
                 .add(Attributes.ATTACK_SPEED, new AttributeModifier(
                                 Item.BASE_ATTACK_SPEED_ID,
                                 attackSpeed,
-                                AttributeModifier.Operation.ADD_VALUE),
-                        EquipmentSlotGroup.MAINHAND)
-
+                                AttributeModifier.Operation.ADD_VALUE
+                        ),
+                        EquipmentSlotGroup.MAINHAND
+                )
                 .build();
 
         this.weaponsexpanded$sharpSideModifiers = ItemAttributeModifiers.builder()
                 .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(
                                 Item.BASE_ATTACK_DAMAGE_ID,
                                 (double) material.attackDamageBonus() + (double) sharpSideAttackDamage,
-                                AttributeModifier.Operation.ADD_VALUE),
-                        EquipmentSlotGroup.MAINHAND)
-
+                                AttributeModifier.Operation.ADD_VALUE
+                        ),
+                        EquipmentSlotGroup.MAINHAND
+                )
                 .add(Attributes.ATTACK_SPEED, new AttributeModifier(
                                 Item.BASE_ATTACK_SPEED_ID,
                                 sharpSideAttackSpeed,
-                                AttributeModifier.Operation.ADD_VALUE),
-                        EquipmentSlotGroup.MAINHAND)
-
+                                AttributeModifier.Operation.ADD_VALUE
+                        ),
+                        EquipmentSlotGroup.MAINHAND
+                )
                 .build();
     }
 

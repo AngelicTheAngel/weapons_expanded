@@ -130,6 +130,19 @@
   "tooltip.weaponsexpanded.warhammer.blunt_side": "Blunt",
   "tooltip.weaponsexpanded.warhammer.sharp_side": "Sharp",
 
+  "tag.item.weaponsexpanded.blunt": "Blunt Weapons",
+  "tag.item.weaponsexpanded.pierce": "Piercing Weapons",
+  "tag.item.weaponsexpanded.two_handed": "Two-Handed Weapons",
+  "tag.item.weaponsexpanded.diamond_weapons": "Diamond Weapons",
+  "tag.item.weaponsexpanded.netherite_weapons": "Netherite Weapons",
+  "tag.item.weaponsexpanded.wooden_weapon_fuel": "Wooden Weapons",
+  "tag.item.weaponsexpanded.enchantable.leech": "Leech Enchantable",
+  "tag.item.weaponsexpanded.enchantable.cleaving": "Cleaving Enchantable",
+  "tag.item.weaponsexpanded.enchantable.capacity": "Capacity Enchantable",
+  "tag.enchantment.weaponsexpanded.exclusive_set.post_attack": "Post Attack Exclusive Set",
+  "tag.enchantment.weaponsexpanded.exclusive_set.bow_effects": "Bow Effects Exclusive Set",
+  "tag.block.weaponsexpanded.mineable.blunt": "Blunt Weapon Mineable Blocks",
+
   "item.modifiers.bothhands": "When in Both Hands:",
 
   "subtitles.weaponsexpanded.item.chain_crossbow.chamber": "Chain Crossbow chambers",
