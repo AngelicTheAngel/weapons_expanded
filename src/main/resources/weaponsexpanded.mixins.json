@@ -26,6 +26,7 @@
     "heavy_arrow.CrossbowHeavyArrowMultishotMixin",
     "heavy_arrow.HeavyArrowSidePickupVanishMixin",
     "invoker.PersistentProjectileEntityPierceInvoker",
+    "pierce.PierceWeaponShieldStunMixin",
     "two_handed_weapon.TwoHandedWeaponMixin",
     "warhammer.WarhammerSweepingMixin"
   ],

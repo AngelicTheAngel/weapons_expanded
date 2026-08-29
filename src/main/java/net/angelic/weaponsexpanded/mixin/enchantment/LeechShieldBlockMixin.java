@@ -2,6 +2,7 @@ package net.angelic.weaponsexpanded.mixin.enchantment;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.angelic.weaponsexpanded.enchantment.ModEnchantmentHelper;
 import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -45,7 +46,7 @@ public abstract class LeechShieldBlockMixin {
         // AND do not apply Leech healing / extra durability.
         Entity attackerEntity = source.getEntity();
         if (attackerEntity instanceof LivingEntity attacker) {
-            if (attacker.getSecondsToDisableBlocking() > 0.0F) {
+            if (attacker.getSecondsToDisableBlocking() > 0.0F && ModEnchantmentHelper.getLevel(level, blockingItem, ModEnchantments.LEECH) > 0) {
                 return damage * 0.75F; // defender takes 75% damage
             }
         }
