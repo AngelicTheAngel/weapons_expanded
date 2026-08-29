@@ -7,6 +7,7 @@
     "accessor.CrossbowItemAccessor",
     "accessor.EntityAccessor",
     "accessor.PersistentProjectileEntityAccessor",
+    "chain_crossbow.ChainCrossbowCapacityMixin",
     "chain_crossbow.ChainCrossbowFireMixin",
     "chain_crossbow.ChainCrossbowPullTimeMixin",
     "enchantment.CleavingShieldStunMixin",
@@ -32,10 +33,10 @@
     "defaultRequire": 1
   },
   "client": [
-    "chain_crossbow.ChainCrossbowFirstPersonMixin",
     "HeldItemRendererHideOffhandMixin",
     "LongbowFovMixin",
     "PlayerEntityRendererArmPoseMixin",
+    "chain_crossbow.ChainCrossbowFirstPersonMixin",
     "chain_crossbow.MinecraftClientChainCrossbowAttackMixin",
     "two_handed_weapon.TwoHandedWeaponTooltipMixin"
   ]

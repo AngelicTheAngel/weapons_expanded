@@ -19,6 +19,12 @@ public final class ModItemTags {
                     Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "enchantable/leech")
             );
 
+    public static final TagKey<Item> CAPACITY_ENCHANTABLE =
+            TagKey.create(
+                    Registries.ITEM,
+                    Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "enchantable/capacity")
+            );
+
     public static final TagKey<Item> BLUNT =
             TagKey.create(
                     Registries.ITEM,

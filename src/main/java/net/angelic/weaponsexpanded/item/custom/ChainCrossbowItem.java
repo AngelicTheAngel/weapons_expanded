@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.item.custom;
 
+import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -32,11 +33,28 @@ public class ChainCrossbowItem extends CrossbowItem {
 
     private static final String WEAPONSEXPANDED$QUEUE_KEY = "weaponsexpanded:chain_crossbow_queue";
     private static final String WEAPONSEXPANDED$SAVED_CHAMBER_KEY = "weaponsexpanded:chain_crossbow_saved_chamber";
-
-    private static final int WEAPONSEXPANDED$MAX_TOTAL_SHOTS = 4;
+    private static final String WEAPONSEXPANDED$MAX_TOTAL_SHOTS_KEY = "weaponsexpanded:chain_crossbow_max_total_shots";
 
     // Use float slot 0 in CustomModelDataComponent to drive item model selection
     private static final float WEAPONSEXPANDED$CMD_EXPLOSIVE_LOADED = 1.0F;
+
+    public void setMaxShots(ItemStack stack, int level) {
+        int maxTotalShots = Math.max(1, WeaponsExpandedConfig.get().chainCrossbowMagazineSize + level);
+        CompoundTag root = weaponsexpanded$getOrCreateCustomNbt(stack);
+
+        if (root.getInt(WEAPONSEXPANDED$MAX_TOTAL_SHOTS_KEY).orElse(-1) == maxTotalShots) {
+            return;
+        }
+
+        root.putInt(WEAPONSEXPANDED$MAX_TOTAL_SHOTS_KEY, maxTotalShots);
+        weaponsexpanded$setCustomNbt(stack, root);
+    }
+
+    private static int weaponsexpanded$getMaxTotalShots(ItemStack stack) {
+        CompoundTag root = weaponsexpanded$getOrCreateCustomNbt(stack);
+        return Math.max(1, root.getInt(WEAPONSEXPANDED$MAX_TOTAL_SHOTS_KEY)
+                .orElse(WeaponsExpandedConfig.get().chainCrossbowMagazineSize));
+    }
 
     private static void weaponsexpanded$updateLoadedVisual(ItemStack stack) {
         ChargedProjectiles charged =
@@ -80,9 +98,10 @@ public class ChainCrossbowItem extends CrossbowItem {
         boolean isCharged = CrossbowItem.isCharged(stack);
         int currentOrSaved = (isCharged || hasSaved) ? 1 : 0;
 
-        int total = Math.min(WEAPONSEXPANDED$MAX_TOTAL_SHOTS, currentOrSaved + queued);
+        int maxTotalShots = weaponsexpanded$getMaxTotalShots(stack);
+        int total = Math.min(maxTotalShots, currentOrSaved + queued);
 
-        textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.chain_crossbow_shots", total, WEAPONSEXPANDED$MAX_TOTAL_SHOTS));
+        textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.chain_crossbow_shots", total, maxTotalShots));
 
         super.appendHoverText(stack, context, displayComponent, textConsumer, type);
     }
@@ -93,7 +112,8 @@ public class ChainCrossbowItem extends CrossbowItem {
 
         // Compute fullness on BOTH sides so the client doesn't run vanilla "shootAll" when full.
         CompoundTag root = weaponsexpanded$getOrCreateCustomNbt(crossbow);
-        weaponsexpanded$trimQueueToMax(root);
+        int maxTotalShots = weaponsexpanded$getMaxTotalShots(crossbow);
+        weaponsexpanded$trimQueueToMax(root, maxTotalShots);
 
         boolean hasSavedChamber = root.contains(WEAPONSEXPANDED$SAVED_CHAMBER_KEY);
         boolean isChargedNow = CrossbowItem.isCharged(crossbow);
@@ -102,7 +122,7 @@ public class ChainCrossbowItem extends CrossbowItem {
         int currentOrSaved = (isChargedNow || hasSavedChamber) ? 1 : 0;
         int total = currentOrSaved + queued;
 
-        if (total >= WEAPONSEXPANDED$MAX_TOTAL_SHOTS) {
+        if (total >= maxTotalShots) {
             // Server plays the sound; client just returns FAIL to avoid clearing CHARGED_PROJECTILES.
             if (!world.isClientSide()) {
                 user.level().playSound(
@@ -207,12 +227,13 @@ public class ChainCrossbowItem extends CrossbowItem {
         if (world.isClientSide()) return result;
 
         CompoundTag root = weaponsexpanded$getOrCreateCustomNbt(crossbow);
-        weaponsexpanded$trimQueueToMax(root);
+        int maxTotalShots = weaponsexpanded$getMaxTotalShots(crossbow);
+        weaponsexpanded$trimQueueToMax(root, maxTotalShots);
 
         boolean toppingUp = root.contains(WEAPONSEXPANDED$SAVED_CHAMBER_KEY);
 
         if (result && CrossbowItem.isCharged(crossbow) && toppingUp) {
-            weaponsexpanded$appendCurrentChamberToQueue(world, crossbow, root);
+            weaponsexpanded$appendCurrentChamberToQueue(world, crossbow, root, maxTotalShots);
         }
 
         if (toppingUp) {
@@ -256,9 +277,9 @@ public class ChainCrossbowItem extends CrossbowItem {
         return root.getListOrEmpty(WEAPONSEXPANDED$QUEUE_KEY).size();
     }
 
-    private static void weaponsexpanded$trimQueueToMax(CompoundTag root) {
+    private static void weaponsexpanded$trimQueueToMax(CompoundTag root, int maxTotalShots) {
         ListTag queue = root.getListOrEmpty(WEAPONSEXPANDED$QUEUE_KEY);
-        int queuedMax = WEAPONSEXPANDED$MAX_TOTAL_SHOTS - 1;
+        int queuedMax = maxTotalShots - 1;
 
         if (queue.size() <= queuedMax) return;
 
@@ -273,9 +294,9 @@ public class ChainCrossbowItem extends CrossbowItem {
         }
     }
 
-    private static void weaponsexpanded$appendCurrentChamberToQueue(Level world, ItemStack crossbow, CompoundTag root) {
+    private static void weaponsexpanded$appendCurrentChamberToQueue(Level world, ItemStack crossbow, CompoundTag root, int maxTotalShots) {
         ListTag queue = root.getListOrEmpty(WEAPONSEXPANDED$QUEUE_KEY);
-        int queuedMax = WEAPONSEXPANDED$MAX_TOTAL_SHOTS - 1;
+        int queuedMax = maxTotalShots - 1;
         if (queue.size() >= queuedMax) return;
 
         queue.add(weaponsexpanded$encodeChamber(world, crossbow));

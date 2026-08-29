@@ -44,14 +44,7 @@ public class WeaponsExpandedClient implements ClientModInitializer {
 
         ItemTooltipCallback.EVENT.register((stack, context, flag, tooltip) -> {
             if(stack.is(ModItemTags.TWOHANDED)) {
-                Component twoHanded = Component.translatable("tooltip.weaponsexpanded.twohandedsword").withStyle(ChatFormatting.BLUE);
-                int i = 1;
-
-                while (i < tooltip.size() && !tooltip.get(i).getString().isBlank()) {
-                    i++;
-                }
-
-                tooltip.add(i, twoHanded);
+                tooltip.add(1, Component.translatable("tooltip.weaponsexpanded.twohandedsword").withStyle(ChatFormatting.BLUE));
             }
         });
 

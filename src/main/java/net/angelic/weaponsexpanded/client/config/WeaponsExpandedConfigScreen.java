@@ -31,6 +31,11 @@ public final class WeaponsExpandedConfigScreen {
                 .setSaveConsumer(v -> cfg.dynamiteArrowsDestroyBlocks = v)
                 .build());
 
+        general.addEntry(eb.startIntField(Component.translatable("config.weaponsexpanded.option.chainCrossbowMagazineSize"), cfg.chainCrossbowMagazineSize)
+                .setDefaultValue(3)
+                .setSaveConsumer(v -> cfg.chainCrossbowMagazineSize = v)
+                .build());
+
         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableEntityMeleeEquipment"), cfg.enableEntityMeleeEquipment)
                 .setDefaultValue(true)
                 .setSaveConsumer(v -> cfg.enableEntityMeleeEquipment = v)

@@ -52,6 +52,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         builder(ModItemTags.LEECH_ENCHANTABLE)
                 .add(ItemIds.SHIELD);
 
+        builder(ModItemTags.CAPACITY_ENCHANTABLE)
+                .add(key(ModItems.CHAIN_CROSSBOW));
+
         builder(ItemTags.PIGLIN_LOVED)
                 .add(key(ModItems.GOLDEN_BROADSWORD))
                 .add(key(ModItems.GOLDEN_SICKLE))

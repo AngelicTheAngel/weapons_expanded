@@ -1,0 +1,14 @@
+{
+  "item.chain_crossbow.chamber": {
+    "sounds": [
+      "weaponsexpanded:item/chain_crossbow_chamber"
+    ],
+    "subtitle": "subtitles.weaponsexpanded.item.chain_crossbow.chamber"
+  },
+  "item.chain_crossbow.full": {
+    "sounds": [
+      "weaponsexpanded:item/chain_crossbow_full"
+    ],
+    "subtitle": "subtitles.weaponsexpanded.item.chain_crossbow.full"
+  }
+}

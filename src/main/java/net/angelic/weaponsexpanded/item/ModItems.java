@@ -2,8 +2,8 @@ package net.angelic.weaponsexpanded.item;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.item.custom.*;
-import net.angelic.weaponsexpanded.item.custom.arrow.ExplosiveArrowItem;
-import net.angelic.weaponsexpanded.item.custom.arrow.HeavyArrowItem;
+import net.angelic.weaponsexpanded.item.custom.projectile.ExplosiveArrowItem;
+import net.angelic.weaponsexpanded.item.custom.projectile.HeavyArrowItem;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -232,25 +232,25 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 8.0F, -3.2F).fireResistant()));
 
     public static final Item WOODEN_WARHAMMER = registerItem("wooden_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.WOOD, 5.0F, -3.1F, 5.0F, -2.8F, "wooden_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.WOOD, 5.0F, -3.1F, 5.0F, -2.8F, settings));
 
     public static final Item GOLDEN_WARHAMMER = registerItem("golden_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.GOLD, 5.0F, -2.9F, 5.0F, -2.8F, "golden_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.GOLD, 5.0F, -2.9F, 5.0F, -2.8F, settings));
 
     public static final Item STONE_WARHAMMER = registerItem("stone_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.STONE, 6.0F, -3.1F, 5.0F, -2.8F, "stone_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.STONE, 6.0F, -3.1F, 5.0F, -2.8F, settings));
 
     public static final Item COPPER_WARHAMMER = registerItem("copper_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.COPPER, 6.0F, -3.1F, 5.0F, -2.8F, "copper_warhammer",  settings));
+            settings -> new WarhammerItem(ToolMaterial.COPPER, 6.0F, -3.1F, 5.0F, -2.8F, settings));
 
     public static final Item IRON_WARHAMMER = registerItem("iron_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.IRON, 5.0F, -3.0F, 5.0F, -2.8F, "iron_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.IRON, 5.0F, -3.0F, 5.0F, -2.8F, settings));
 
     public static final Item DIAMOND_WARHAMMER = registerItem("diamond_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.DIAMOND, 4.0F, -2.9F, 5.0F, -2.8F, "diamond_warhammer", settings));
+            settings -> new WarhammerItem(ToolMaterial.DIAMOND, 4.0F, -2.9F, 5.0F, -2.8F, settings));
 
     public static final Item NETHERITE_WARHAMMER = registerItem("netherite_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.NETHERITE, 4.0F, -2.9F, 5.0F, -2.8F, "netherite_warhammer", settings.fireResistant()));
+            settings -> new WarhammerItem(ToolMaterial.NETHERITE, 4.0F, -2.9F, 5.0F, -2.8F, settings.fireResistant()));
 
     public static final Item WOODEN_MORNINGSTAR = registerItem("wooden_morningstar",
             settings -> new Item(ModItemProperties.blunt(ToolMaterial.WOOD, 5.0F, -3.0F, settings)));
@@ -449,7 +449,6 @@ public class ModItems {
             entries.insertAfter(COPPER_BATTLEAXE, IRON_BATTLEAXE);
             entries.insertAfter(IRON_BATTLEAXE, DIAMOND_BATTLEAXE);
             entries.insertAfter(DIAMOND_BATTLEAXE, NETHERITE_BATTLEAXE);
-            anchor = NETHERITE_BATTLEAXE;
         });
     }
 }
