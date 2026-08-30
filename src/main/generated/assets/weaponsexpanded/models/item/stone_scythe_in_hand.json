@@ -1,0 +1,6 @@
+{
+  "parent": "weaponsexpanded:item/scythe_in_hand",
+  "textures": {
+    "layer0": "weaponsexpanded:item/stone_scythe_in_hand"
+  }
+}

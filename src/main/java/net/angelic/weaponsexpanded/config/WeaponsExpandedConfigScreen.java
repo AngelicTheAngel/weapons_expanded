@@ -1,9 +1,8 @@
-package net.angelic.weaponsexpanded.client.config;
+package net.angelic.weaponsexpanded.config;
 
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
-import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 

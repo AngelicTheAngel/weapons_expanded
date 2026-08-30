@@ -34,11 +34,13 @@
     "defaultRequire": 1
   },
   "client": [
-    "HeldItemRendererHideOffhandMixin",
-    "LongbowFovMixin",
-    "PlayerEntityRendererArmPoseMixin",
+    "armpose.ArmPoseTransformMixin",
+    "armpose.HumanoidModelArmPoseMixin",
+    "armpose.PlayerEntityRendererArmPoseMixin",
     "chain_crossbow.ChainCrossbowFirstPersonMixin",
     "chain_crossbow.MinecraftClientChainCrossbowAttackMixin",
+    "longbow.LongbowFovMixin",
+    "two_handed_weapon.HeldItemRendererHideOffhandMixin",
     "two_handed_weapon.TwoHandedWeaponTooltipMixin"
   ]
 }

@@ -1,4 +1,4 @@
-package net.angelic.weaponsexpanded.mixin;
+package net.angelic.weaponsexpanded.mixin.armpose;
 
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
@@ -24,12 +24,17 @@ public abstract class PlayerEntityRendererArmPoseMixin {
     )
     private static void weaponsexpanded$overrideArmPose(Avatar player, ItemStack itemInHand, InteractionHand hand, CallbackInfoReturnable<HumanoidModel.ArmPose> cir) {
         if (itemInHand.is(ModItemTags.TWOHANDED) && hand == InteractionHand.MAIN_HAND) {
-            cir.setReturnValue(HumanoidModel.ArmPose.CROSSBOW_HOLD);
+            if (itemInHand.is(ModItemTags.SCYTHE)) {
+                cir.setReturnValue(HumanoidModel.ArmPose.WEAPONSEXPANDED_SCYTHE_HOLD);
+            } else {
+                cir.setReturnValue(HumanoidModel.ArmPose.CROSSBOW_HOLD);
+            }
             return;
         }
 
         if (itemInHand.is(ModItemTags.PIERCE) && hand == InteractionHand.MAIN_HAND) {
             cir.setReturnValue(HumanoidModel.ArmPose.SPEAR);
+            return;
         }
 
         if (itemInHand.getItem() instanceof BastardSwordItem && ((BastardSwordItem) itemInHand.getItem()).isTwoHanded(itemInHand) && hand == InteractionHand.MAIN_HAND) {
@@ -41,6 +46,7 @@ public abstract class PlayerEntityRendererArmPoseMixin {
 
         if (itemInHand.getItem() instanceof ChainCrossbowItem && CrossbowItem.isCharged(itemInHand) && hand == InteractionHand.MAIN_HAND) {
             cir.setReturnValue(HumanoidModel.ArmPose.CROSSBOW_HOLD);
+            return;
         }
     }
 }

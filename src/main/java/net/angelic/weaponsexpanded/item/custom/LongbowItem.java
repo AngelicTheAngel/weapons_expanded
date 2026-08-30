@@ -24,19 +24,11 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 
 public class LongbowItem extends BowItem {
-    // Vanilla bow effectively “full draws” at 20 ticks
-    private static final int FULL_DRAW_TICKS = 32;     // longbow: slower draw
+    private static final int FULL_DRAW_TICKS = 32;   // vanilla bow: 20
     private static final float VELOCITY_MULT = 4f;   // vanilla uses 3.0f
 
     public LongbowItem(Properties settings) {
         super(settings);
-    }
-
-    @Override
-    public int getUseDuration(ItemStack stack, LivingEntity user) {
-        // How long you *can* hold it drawn. This doesn’t define full power,
-        // but it affects client pull animation and how long “using” can last.
-        return 72000;
     }
 
     private static float getLongbowPullProgress(int useTicks) {

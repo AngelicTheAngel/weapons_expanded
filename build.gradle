@@ -11,6 +11,10 @@ repositories {
 	maven { url "https://maven.terraformersmc.com/releases/" }
 }
 
+loom {
+	accessWidenerPath = file("src/main/resources/weaponsexpanded.classtweaker")
+}
+
 fabricApi {
 	configureDataGeneration {
 		client = true

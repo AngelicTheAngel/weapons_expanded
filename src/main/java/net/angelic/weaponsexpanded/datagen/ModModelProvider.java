@@ -34,6 +34,12 @@ public class ModModelProvider extends FabricModelProvider {
     public static class CustomItemModelGenerator {
         public static final ModelTemplate GLAIVE_IN_HAND = item("glaive_in_hand", TextureSlot.LAYER0);
         public static final ModelTemplate SCYTHE_IN_HAND = item("scythe_in_hand", TextureSlot.LAYER0);
+        public static final ModelTemplate LONGSWORD_IN_HAND = item("longsword_in_hand", TextureSlot.LAYER0);
+
+        public static void registerLongswordInHand(Item item, ItemModelGenerators generator) {
+            Identifier itemModel = LONGSWORD_IN_HAND.create(item, TextureMapping.singleSlot(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(item))), generator.modelOutput);
+            generator.itemModelOutput.accept(item, ItemModelUtils.plainModel(itemModel));
+        }
 
         @SuppressWarnings("SameParameterValue")
         private static ModelTemplate item(String parent, TextureSlot requiredTextureKeys) {
@@ -72,22 +78,6 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.IRON_SICKLE, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_SICKLE, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_SICKLE, ModelTemplates.FLAT_HANDHELD_ITEM);
-
-        itemModelGenerator.generateFlatItem(ModItems.WOODEN_SCYTHE, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.GOLDEN_SCYTHE, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.STONE_SCYTHE, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.COPPER_SCYTHE, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.IRON_SCYTHE, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.DIAMOND_SCYTHE, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_SCYTHE, ModelTemplates.FLAT_HANDHELD_ITEM);
-
-        itemModelGenerator.generateFlatItem(ModItems.WOODEN_LONGSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.GOLDEN_LONGSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.STONE_LONGSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.COPPER_LONGSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.IRON_LONGSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.DIAMOND_LONGSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_LONGSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
 
         itemModelGenerator.generateFlatItem(ModItems.WOODEN_KATANA, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.GOLDEN_KATANA, ModelTemplates.FLAT_HANDHELD_ITEM);
@@ -136,6 +126,14 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.IRON_MORNINGSTAR, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_MORNINGSTAR, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_MORNINGSTAR, ModelTemplates.FLAT_HANDHELD_ITEM);
+
+        CustomItemModelGenerator.registerLongswordInHand(ModItems.WOODEN_LONGSWORD, itemModelGenerator);
+        CustomItemModelGenerator.registerLongswordInHand(ModItems.GOLDEN_LONGSWORD, itemModelGenerator);
+        CustomItemModelGenerator.registerLongswordInHand(ModItems.STONE_LONGSWORD, itemModelGenerator);
+        CustomItemModelGenerator.registerLongswordInHand(ModItems.COPPER_LONGSWORD, itemModelGenerator);
+        CustomItemModelGenerator.registerLongswordInHand(ModItems.IRON_LONGSWORD, itemModelGenerator);
+        CustomItemModelGenerator.registerLongswordInHand(ModItems.DIAMOND_LONGSWORD, itemModelGenerator);
+        CustomItemModelGenerator.registerLongswordInHand(ModItems.NETHERITE_LONGSWORD, itemModelGenerator);
 
         itemModelGenerator.generateFlatItem(ModItems.HEAVY_ARROW, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.EXPLOSIVE_ARROW, ModelTemplates.FLAT_ITEM);
@@ -236,6 +234,27 @@ public class ModModelProvider extends FabricModelProvider {
                     ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(glaive).withSuffix("_in_hand")),
                     ItemModelUtils.when(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED, ItemDisplayContext.ON_SHELF),
                             ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(glaive, ModelTemplates.FLAT_HANDHELD_ITEM)))));
+        }
+
+        for (Item scythe : List.of(
+                ModItems.WOODEN_SCYTHE,
+                ModItems.GOLDEN_SCYTHE,
+                ModItems.STONE_SCYTHE,
+                ModItems.COPPER_SCYTHE,
+                ModItems.IRON_SCYTHE,
+                ModItems.DIAMOND_SCYTHE,
+                ModItems.NETHERITE_SCYTHE
+        )) {
+            CustomItemModelGenerator.SCYTHE_IN_HAND.create(
+                    ModelLocationUtils.getModelLocation(scythe).withSuffix("_in_hand"),
+                    TextureMapping.singleSlot(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(scythe).withSuffix("_in_hand"))),
+                    itemModelGenerator.modelOutput);
+
+            itemModelGenerator.itemModelOutput.accept(scythe, ItemModelUtils.select(
+                    new DisplayContext(),
+                    ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(scythe).withSuffix("_in_hand")),
+                    ItemModelUtils.when(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED, ItemDisplayContext.ON_SHELF),
+                            ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(scythe, ModelTemplates.FLAT_HANDHELD_ITEM)))));
         }
     }
 }

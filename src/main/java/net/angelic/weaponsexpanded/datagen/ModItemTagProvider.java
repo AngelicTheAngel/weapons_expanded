@@ -145,6 +145,15 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.DIAMOND_GREATSWORD))
                 .add(key(ModItems.NETHERITE_GREATSWORD));
 
+        builder(ModItemTags.SCYTHE)
+                .add(key(ModItems.WOODEN_SCYTHE))
+                .add(key(ModItems.GOLDEN_SCYTHE))
+                .add(key(ModItems.STONE_SCYTHE))
+                .add(key(ModItems.COPPER_SCYTHE))
+                .add(key(ModItems.IRON_SCYTHE))
+                .add(key(ModItems.DIAMOND_SCYTHE))
+                .add(key(ModItems.NETHERITE_SCYTHE));
+
         builder(ItemTags.ARROWS)
                 .add(key(ModItems.HEAVY_ARROW))
                 .add(key(ModItems.EXPLOSIVE_ARROW));

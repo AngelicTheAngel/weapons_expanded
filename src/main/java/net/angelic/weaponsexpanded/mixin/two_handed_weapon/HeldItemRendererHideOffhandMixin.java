@@ -1,4 +1,4 @@
-package net.angelic.weaponsexpanded.mixin;
+package net.angelic.weaponsexpanded.mixin.two_handed_weapon;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;

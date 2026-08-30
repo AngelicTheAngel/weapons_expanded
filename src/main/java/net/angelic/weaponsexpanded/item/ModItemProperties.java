@@ -13,7 +13,8 @@ import java.util.Optional;
 public class ModItemProperties extends Item.Properties{
     public static Item.Properties scythe(ToolMaterial material, float attackDamage, float attackSpeed, Item.Properties properties) {
         return properties.sword(material, attackDamage, attackSpeed)
-                .component(DataComponents.ATTACK_RANGE, new AttackRange(1.5F, 4.0F, 1.5F, 6.0F, 0.0F, 0.5F));
+                .component(DataComponents.ATTACK_RANGE, new AttackRange(1.5F, 4.0F, 1.5F, 6.0F, 0.0F, 0.5F))
+                .component(DataComponents.SWING_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, (int) ((4 + attackSpeed) * 9.0F)));
     }
 
     public static Item.Properties glaive(ToolMaterial material, float attackDamage, float attackSpeed, Item.Properties properties) {

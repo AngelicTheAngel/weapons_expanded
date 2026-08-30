@@ -26,14 +26,15 @@
 			"net.angelic.weaponsexpanded.WeaponsExpandedDataGenerator"
 		],
 		"modmenu": [
-			"net.angelic.weaponsexpanded.client.config.WeaponsExpandedModMenu"
+			"net.angelic.weaponsexpanded.config.WeaponsExpandedModMenu"
 		]
 	},
 	"mixins": [
 		"weaponsexpanded.mixins.json"
 	],
+	"accessWidener": "weaponsexpanded.classtweaker",
 	"depends": {
-		"fabricloader": ">=0.16.9",
+		"fabricloader": ">=0.19.0",
 		"minecraft": "~26.2",
 		"java": ">=25",
 		"fabric-api": "*"

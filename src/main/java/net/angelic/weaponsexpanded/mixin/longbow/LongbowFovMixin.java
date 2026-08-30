@@ -1,4 +1,4 @@
-package net.angelic.weaponsexpanded.mixin;
+package net.angelic.weaponsexpanded.mixin.longbow;
 
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.angelic.weaponsexpanded.item.custom.LongbowItem;
