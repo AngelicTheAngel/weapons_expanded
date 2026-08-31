@@ -35,11 +35,7 @@ public class ModModelProvider extends FabricModelProvider {
         public static final ModelTemplate GLAIVE_IN_HAND = item("glaive_in_hand", TextureSlot.LAYER0);
         public static final ModelTemplate SCYTHE_IN_HAND = item("scythe_in_hand", TextureSlot.LAYER0);
         public static final ModelTemplate LONGSWORD_IN_HAND = item("longsword_in_hand", TextureSlot.LAYER0);
-
-        public static void registerLongswordInHand(Item item, ItemModelGenerators generator) {
-            Identifier itemModel = LONGSWORD_IN_HAND.create(item, TextureMapping.singleSlot(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(item))), generator.modelOutput);
-            generator.itemModelOutput.accept(item, ItemModelUtils.plainModel(itemModel));
-        }
+        public static final ModelTemplate GREATSWORD_IN_HAND = item("greatsword_in_hand", TextureSlot.LAYER0);
 
         @SuppressWarnings("SameParameterValue")
         private static ModelTemplate item(String parent, TextureSlot requiredTextureKeys) {
@@ -111,14 +107,6 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_BATTLEAXE, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_BATTLEAXE, ModelTemplates.FLAT_HANDHELD_ITEM);
 
-        itemModelGenerator.generateFlatItem(ModItems.WOODEN_GREATSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.GOLDEN_GREATSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.STONE_GREATSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.COPPER_GREATSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.IRON_GREATSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.DIAMOND_GREATSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_GREATSWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-
         itemModelGenerator.generateFlatItem(ModItems.WOODEN_MORNINGSTAR, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.GOLDEN_MORNINGSTAR, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.STONE_MORNINGSTAR, ModelTemplates.FLAT_HANDHELD_ITEM);
@@ -126,14 +114,6 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.IRON_MORNINGSTAR, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_MORNINGSTAR, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_MORNINGSTAR, ModelTemplates.FLAT_HANDHELD_ITEM);
-
-        CustomItemModelGenerator.registerLongswordInHand(ModItems.WOODEN_LONGSWORD, itemModelGenerator);
-        CustomItemModelGenerator.registerLongswordInHand(ModItems.GOLDEN_LONGSWORD, itemModelGenerator);
-        CustomItemModelGenerator.registerLongswordInHand(ModItems.STONE_LONGSWORD, itemModelGenerator);
-        CustomItemModelGenerator.registerLongswordInHand(ModItems.COPPER_LONGSWORD, itemModelGenerator);
-        CustomItemModelGenerator.registerLongswordInHand(ModItems.IRON_LONGSWORD, itemModelGenerator);
-        CustomItemModelGenerator.registerLongswordInHand(ModItems.DIAMOND_LONGSWORD, itemModelGenerator);
-        CustomItemModelGenerator.registerLongswordInHand(ModItems.NETHERITE_LONGSWORD, itemModelGenerator);
 
         itemModelGenerator.generateFlatItem(ModItems.HEAVY_ARROW, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.EXPLOSIVE_ARROW, ModelTemplates.FLAT_ITEM);
@@ -255,6 +235,48 @@ public class ModModelProvider extends FabricModelProvider {
                     ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(scythe).withSuffix("_in_hand")),
                     ItemModelUtils.when(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED, ItemDisplayContext.ON_SHELF),
                             ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(scythe, ModelTemplates.FLAT_HANDHELD_ITEM)))));
+        }
+
+        for (Item longsword : List.of(
+                ModItems.WOODEN_LONGSWORD,
+                ModItems.GOLDEN_LONGSWORD,
+                ModItems.STONE_LONGSWORD,
+                ModItems.COPPER_LONGSWORD,
+                ModItems.IRON_LONGSWORD,
+                ModItems.DIAMOND_LONGSWORD,
+                ModItems.NETHERITE_LONGSWORD
+        )) {
+            CustomItemModelGenerator.LONGSWORD_IN_HAND.create(
+                    ModelLocationUtils.getModelLocation(longsword).withSuffix("_in_hand"),
+                    TextureMapping.singleSlot(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(longsword).withSuffix("_in_hand"))),
+                    itemModelGenerator.modelOutput);
+
+            itemModelGenerator.itemModelOutput.accept(longsword, ItemModelUtils.select(
+                    new DisplayContext(),
+                    ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(longsword).withSuffix("_in_hand")),
+                    ItemModelUtils.when(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED, ItemDisplayContext.ON_SHELF),
+                            ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(longsword, ModelTemplates.FLAT_HANDHELD_ITEM)))));
+        }
+
+        for (Item greatsword : List.of(
+                ModItems.WOODEN_GREATSWORD,
+                ModItems.GOLDEN_GREATSWORD,
+                ModItems.STONE_GREATSWORD,
+                ModItems.COPPER_GREATSWORD,
+                ModItems.IRON_GREATSWORD,
+                ModItems.DIAMOND_GREATSWORD,
+                ModItems.NETHERITE_GREATSWORD
+        )) {
+            CustomItemModelGenerator.GREATSWORD_IN_HAND.create(
+                    ModelLocationUtils.getModelLocation(greatsword).withSuffix("_in_hand"),
+                    TextureMapping.singleSlot(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(greatsword).withSuffix("_in_hand"))),
+                    itemModelGenerator.modelOutput);
+
+            itemModelGenerator.itemModelOutput.accept(greatsword, ItemModelUtils.select(
+                    new DisplayContext(),
+                    ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(greatsword).withSuffix("_in_hand")),
+                    ItemModelUtils.when(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED, ItemDisplayContext.ON_SHELF),
+                            ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(greatsword, ModelTemplates.FLAT_HANDHELD_ITEM)))));
         }
     }
 }

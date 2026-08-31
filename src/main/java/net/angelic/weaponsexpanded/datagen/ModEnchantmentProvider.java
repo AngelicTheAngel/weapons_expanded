@@ -114,7 +114,7 @@ public class ModEnchantmentProvider extends FabricDynamicRegistryProvider {
                                 Enchantment.definition(
                                         context.lookup(Registries.ITEM).getOrThrow(ModItemTags.LEECH_ENCHANTABLE),
                                         2,
-                                        2,
+                                        1,
                                         Enchantment.dynamicCost(10, 20),
                                         Enchantment.dynamicCost(60, 20),
                                         4,

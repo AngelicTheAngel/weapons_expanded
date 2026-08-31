@@ -51,8 +51,8 @@ public abstract class ArmPoseTransformMixin {
             model.leftArm.yRot = 0.35F;
             model.leftArm.zRot = 0.0F;
         } else {
-            model.rightArm.xRot = -1.65F;
-            model.rightArm.yRot = -0.45F;
+            model.rightArm.xRot = -1.75F;
+            model.rightArm.yRot = -0.35F;
             model.rightArm.zRot = 0.0F;
 
             model.leftArm.xRot = -1.5F;

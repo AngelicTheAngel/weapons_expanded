@@ -104,7 +104,7 @@ public class BastardSwordItem extends Item {
         );
 
         stack.set(DataComponents.ATTACK_RANGE,
-                twoHanded ? new AttackRange(1.0F, 3.5F, 1.0F, 5.5F, 0.0F, 0.5F)
+                twoHanded ? new AttackRange(0.25F, 3.25F, 0.25F, 5.25F, 0.0F, 0.5F)
                         : new AttackRange(0.0F, 3.0F, 0.0F, 5.0F, 0.0F, 0.5F)
         );
     }
