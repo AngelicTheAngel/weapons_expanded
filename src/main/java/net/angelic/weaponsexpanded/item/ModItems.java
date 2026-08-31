@@ -211,25 +211,25 @@ public class ModItems {
             settings -> new AxeItem(ToolMaterial.NETHERITE, 7.0F, -3.2F, settings.fireResistant()));
 
     public static final Item WOODEN_GREATSWORD = registerItem("wooden_greatsword",
-            settings -> new Item(settings.sword(ToolMaterial.WOOD, 8.0F, -3.2F)));
+            settings -> new Item(ModItemProperties.greatsword(ToolMaterial.WOOD, 8.0F, -3.2F, settings)));
 
     public static final Item GOLDEN_GREATSWORD = registerItem("golden_greatsword",
-            settings -> new Item(settings.sword(ToolMaterial.GOLD, 8.0F, -3.2F)));
+            settings -> new Item(ModItemProperties.greatsword(ToolMaterial.GOLD, 8.0F, -3.2F, settings)));
 
     public static final Item STONE_GREATSWORD = registerItem("stone_greatsword",
-            settings -> new Item(settings.sword(ToolMaterial.STONE, 8.0F, -3.2F)));
+            settings -> new Item(ModItemProperties.greatsword(ToolMaterial.STONE, 8.0F, -3.2F, settings)));
 
     public static final Item COPPER_GREATSWORD = registerItem("copper_greatsword",
-            settings -> new Item(settings.sword(ToolMaterial.COPPER, 8.0F, -3.2F)));
+            settings -> new Item(ModItemProperties.greatsword(ToolMaterial.COPPER, 8.0F, -3.2F, settings)));
 
     public static final Item IRON_GREATSWORD = registerItem("iron_greatsword",
-            settings -> new Item(settings.sword(ToolMaterial.IRON, 8.0F, -3.2F)));
+            settings -> new Item(ModItemProperties.greatsword(ToolMaterial.IRON, 8.0F, -3.2F, settings)));
 
     public static final Item DIAMOND_GREATSWORD = registerItem("diamond_greatsword",
-            settings -> new Item(settings.sword(ToolMaterial.DIAMOND, 8.0F, -3.2F)));
+            settings -> new Item(ModItemProperties.greatsword(ToolMaterial.DIAMOND, 8.0F, -3.2F, settings)));
 
     public static final Item NETHERITE_GREATSWORD = registerItem("netherite_greatsword",
-            settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 8.0F, -3.2F).fireResistant()));
+            settings -> new Item(ModItemProperties.greatsword(ToolMaterial.NETHERITE, 8.0F, -3.2F, settings).fireResistant()));
 
     public static final Item WOODEN_WARHAMMER = registerItem("wooden_warhammer",
             settings -> new WarhammerItem(ToolMaterial.WOOD, 5.0F, -3.1F, 5.0F, -2.8F, settings));

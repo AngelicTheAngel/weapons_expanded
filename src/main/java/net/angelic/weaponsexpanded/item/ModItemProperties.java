@@ -22,6 +22,11 @@ public class ModItemProperties extends Item.Properties{
                 .component(DataComponents.ATTACK_RANGE, new AttackRange(0.5F, 3.5F, 0.5F, 5.5F, 0.0F, 0.5F));
     }
 
+    public static Item.Properties greatsword(ToolMaterial material, float attackDamage, float attackSpeed, Item.Properties properties) {
+        return properties.sword(material, attackDamage, attackSpeed)
+                .component(DataComponents.ATTACK_RANGE, new AttackRange(0.25F, 3.25F, 0.25F, 5.25F, 0.0F, 0.5F));
+    }
+
     public static Item.Properties blunt(ToolMaterial material, float attackDamage, float attackSpeed, Item.Properties properties) {
         return properties.tool(material, ModBlockTags.BLUNT_MINEABLE, attackDamage, attackSpeed, 6.0F)
             .component(DataComponents.WEAPON, new Weapon(1));
