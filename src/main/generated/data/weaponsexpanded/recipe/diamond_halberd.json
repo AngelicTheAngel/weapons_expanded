@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
-  "group": "golden_warhammer",
+  "group": "diamond_halberd",
   "key": {
-    "M": "#minecraft:gold_tool_materials",
+    "M": "#minecraft:diamond_tool_materials",
     "S": "minecraft:stick"
   },
   "pattern": [
-    "MSM",
+    "MMM",
     "MS ",
     " S "
   ],
   "result": {
-    "id": "weaponsexpanded:golden_warhammer"
+    "id": "weaponsexpanded:diamond_halberd"
   }
 }

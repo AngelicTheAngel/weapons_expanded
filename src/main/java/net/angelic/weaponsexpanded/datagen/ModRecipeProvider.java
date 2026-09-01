@@ -134,6 +134,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 offerMorningstarRecipe(ModItems.IRON_MORNINGSTAR, ItemTags.IRON_TOOL_MATERIALS);
                 offerMorningstarRecipe(ModItems.DIAMOND_MORNINGSTAR, ItemTags.DIAMOND_TOOL_MATERIALS);
 
+                offerHalberdRecipe(ModItems.WOODEN_HALBERD, ItemTags.WOODEN_TOOL_MATERIALS);
+                offerHalberdRecipe(ModItems.GOLDEN_HALBERD, ItemTags.GOLD_TOOL_MATERIALS);
+                offerHalberdRecipe(ModItems.STONE_HALBERD, ItemTags.STONE_TOOL_MATERIALS);
+                offerHalberdRecipe(ModItems.COPPER_HALBERD, ItemTags.COPPER_TOOL_MATERIALS);
+                offerHalberdRecipe(ModItems.IRON_HALBERD, ItemTags.IRON_TOOL_MATERIALS);
+                offerHalberdRecipe(ModItems.DIAMOND_HALBERD, ItemTags.DIAMOND_TOOL_MATERIALS);
+
                 netheriteSmithing(ModItems.DIAMOND_BROADSWORD, RecipeCategory.COMBAT, ModItems.NETHERITE_BROADSWORD);
                 netheriteSmithing(ModItems.DIAMOND_SICKLE, RecipeCategory.COMBAT, ModItems.NETHERITE_SICKLE);
                 netheriteSmithing(ModItems.DIAMOND_SCYTHE, RecipeCategory.COMBAT, ModItems.NETHERITE_SCYTHE);
@@ -146,6 +153,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 netheriteSmithing(ModItems.DIAMOND_WARHAMMER, RecipeCategory.COMBAT, ModItems.NETHERITE_WARHAMMER);
                 netheriteSmithing(ModItems.DIAMOND_GLAIVE, RecipeCategory.COMBAT, ModItems.NETHERITE_GLAIVE);
                 netheriteSmithing(ModItems.DIAMOND_MORNINGSTAR, RecipeCategory.COMBAT, ModItems.NETHERITE_MORNINGSTAR);
+                netheriteSmithing(ModItems.DIAMOND_HALBERD, RecipeCategory.COMBAT, ModItems.NETHERITE_HALBERD);
 
                 this.shaped(RecipeCategory.COMBAT, ModItems.CHAIN_CROSSBOW, 1)
                         .define('I', Items.IRON_INGOT)
@@ -453,7 +461,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     this.shaped(RecipeCategory.COMBAT, output)
                             .define('M', input)
                             .define('S', Items.STICK)
-                            .pattern("MMM")
+                            .pattern("MSM")
                             .pattern("MS ")
                             .pattern(" S ")
                             .group(getItemName(output))
@@ -463,7 +471,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     this.shaped(RecipeCategory.COMBAT, output)
                             .define('M', input)
                             .define('S', Items.STICK)
-                            .pattern("MMM")
+                            .pattern("MSM")
                             .pattern("MS ")
                             .pattern(" S ")
                             .group(getItemName(output))
@@ -514,6 +522,30 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             .pattern(" MM")
                             .pattern(" S ")
                             .pattern("S  ")
+                            .group(getItemName(output))
+                            .unlockedBy("has_" + input.location().getPath(), this.has(input))
+                            .save(this.output);
+                }
+            }
+
+            public void offerHalberdRecipe(Item output, TagKey<Item> input) {
+                if (input == ItemTags.WOODEN_TOOL_MATERIALS) {
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
+                            .pattern("MMM")
+                            .pattern("MS ")
+                            .pattern(" S ")
+                            .group(getItemName(output))
+                            .unlockedBy(getHasName(Items.STICK), this.has(Items.STICK))
+                            .save(this.output);
+                } else {
+                    this.shaped(RecipeCategory.COMBAT, output)
+                            .define('M', input)
+                            .define('S', Items.STICK)
+                            .pattern("MMM")
+                            .pattern("MS ")
+                            .pattern(" S ")
                             .group(getItemName(output))
                             .unlockedBy("has_" + input.location().getPath(), this.has(input))
                             .save(this.output);
