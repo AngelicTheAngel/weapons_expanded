@@ -1,5 +1,6 @@
 {
   "values": [
+    "weaponsexpanded:golden_rapier",
     "weaponsexpanded:golden_broadsword",
     "weaponsexpanded:golden_sickle",
     "weaponsexpanded:golden_scythe",
@@ -11,6 +12,7 @@
     "weaponsexpanded:golden_battleaxe",
     "weaponsexpanded:golden_greatsword",
     "weaponsexpanded:golden_glaive",
-    "weaponsexpanded:golden_morningstar"
+    "weaponsexpanded:golden_morningstar",
+    "weaponsexpanded:golden_halberd"
   ]
 }

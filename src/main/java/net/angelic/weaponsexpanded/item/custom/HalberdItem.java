@@ -67,10 +67,10 @@ public class HalberdItem extends Item {
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
         if(isPiercing(stack)) {
-            textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.halberd_piercing").withStyle(ChatFormatting.BLUE));
+            textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.halberd.piercing").withStyle(ChatFormatting.BLUE));
             super.appendHoverText(stack, context, displayComponent, textConsumer, type);
         } else {
-            textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.halberd_slashing").withStyle(ChatFormatting.BLUE));
+            textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.halberd.slashing").withStyle(ChatFormatting.BLUE));
             super.appendHoverText(stack, context, displayComponent, textConsumer, type);
         }
     }

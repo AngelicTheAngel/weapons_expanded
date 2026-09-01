@@ -84,6 +84,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                 .addCriterion("has_netherite_warhammer", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.NETHERITE_WARHAMMER))
                 .addCriterion("has_netherite_glaive", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.NETHERITE_GLAIVE))
                 .addCriterion("has_netherite_morningstar", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.NETHERITE_MORNINGSTAR))
+                .addCriterion("has_netherite_halberd", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.NETHERITE_HALBERD))
                 .addCriterion("has_netherite_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_SWORD))
                 .addCriterion("has_netherite_axe", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_AXE))
                 .addCriterion("has_netherite_spear", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_SPEAR))

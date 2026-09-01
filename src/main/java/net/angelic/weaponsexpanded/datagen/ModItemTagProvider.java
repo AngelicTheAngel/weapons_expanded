@@ -56,6 +56,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.CHAIN_CROSSBOW));
 
         builder(ItemTags.PIGLIN_LOVED)
+                .add(key(ModItems.GOLDEN_RAPIER))
                 .add(key(ModItems.GOLDEN_BROADSWORD))
                 .add(key(ModItems.GOLDEN_SICKLE))
                 .add(key(ModItems.GOLDEN_SCYTHE))
@@ -67,7 +68,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.GOLDEN_BATTLEAXE))
                 .add(key(ModItems.GOLDEN_GREATSWORD))
                 .add(key(ModItems.GOLDEN_GLAIVE))
-                .add(key(ModItems.GOLDEN_MORNINGSTAR));
+                .add(key(ModItems.GOLDEN_MORNINGSTAR))
+                .add(key(ModItems.GOLDEN_HALBERD));
 
         builder(ModItemTags.WOODEN_WEAPON_FUEL)
                 .add(key(ModItems.WOODEN_RAPIER))
@@ -82,7 +84,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.WOODEN_WARHAMMER))
                 .add(key(ModItems.WOODEN_BATTLEAXE))
                 .add(key(ModItems.WOODEN_GLAIVE))
-                .add(key(ModItems.WOODEN_MORNINGSTAR));
+                .add(key(ModItems.WOODEN_MORNINGSTAR))
+                .add(key(ModItems.WOODEN_HALBERD));
 
         builder(ModItemTags.DIAMOND_WEAPON)
                 .add(ItemIds.DIAMOND_SWORD)
@@ -100,7 +103,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.DIAMOND_WARHAMMER))
                 .add(key(ModItems.DIAMOND_BATTLEAXE))
                 .add(key(ModItems.DIAMOND_GLAIVE))
-                .add(key(ModItems.DIAMOND_MORNINGSTAR));
+                .add(key(ModItems.DIAMOND_MORNINGSTAR))
+                .add(key(ModItems.DIAMOND_HALBERD));
 
         builder(ModItemTags.NETHERITE_WEAPON)
                 .add(ItemIds.NETHERITE_SWORD)
@@ -118,7 +122,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.NETHERITE_WARHAMMER))
                 .add(key(ModItems.NETHERITE_BATTLEAXE))
                 .add(key(ModItems.NETHERITE_GLAIVE))
-                .add(key(ModItems.NETHERITE_MORNINGSTAR));
+                .add(key(ModItems.NETHERITE_MORNINGSTAR))
+                .add(key(ModItems.NETHERITE_HALBERD));
 
         builder(ModItemTags.TWOHANDED)
                 .add(key(ModItems.WOODEN_SCYTHE))
