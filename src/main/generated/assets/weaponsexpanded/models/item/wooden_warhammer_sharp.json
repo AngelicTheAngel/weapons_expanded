@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/handheld",
+  "parent": "weaponsexpanded:item/warhammer_sharp",
   "textures": {
     "layer0": "weaponsexpanded:item/wooden_warhammer_sharp"
   }

@@ -294,6 +294,27 @@ public class ModItems {
     public static final Item NETHERITE_GLAIVE = registerItem("netherite_glaive",
             settings -> new Item(ModItemProperties.glaive(ToolMaterial.NETHERITE, 4.0F, -2.7F, settings)));
 
+    public static final Item WOODEN_HALBERD = registerItem("wooden_halberd",
+            settings -> new HalberdItem(ToolMaterial.WOOD, 6.5F, -3.1F, 6.0F, -3.2F, settings));
+
+    public static final Item GOLDEN_HALBERD = registerItem("golden_halberd",
+            settings -> new HalberdItem(ToolMaterial.GOLD, 6.5F, -3.1F, 6.0F, -3.2F, settings));
+
+    public static final Item STONE_HALBERD = registerItem("stone_halberd",
+            settings -> new HalberdItem(ToolMaterial.STONE, 6.5F, -3.1F, 6.0F, -3.2F, settings));
+
+    public static final Item COPPER_HALBERD = registerItem("copper_halberd",
+            settings -> new HalberdItem(ToolMaterial.COPPER, 6.5F, -3.1F, 6.0F, -3.2F, settings));
+
+    public static final Item IRON_HALBERD = registerItem("iron_halberd",
+            settings -> new HalberdItem(ToolMaterial.IRON, 6.5F, -3.1F, 6.0F, -3.2F, settings));
+
+    public static final Item DIAMOND_HALBERD = registerItem("diamond_halberd",
+            settings -> new HalberdItem(ToolMaterial.DIAMOND, 6.5F, -3.1F, 6.0F, -3.2F, settings));
+
+    public static final Item NETHERITE_HALBERD = registerItem("netherite_halberd",
+            settings -> new HalberdItem(ToolMaterial.NETHERITE, 6.5F, -3.1F, 6.0F, -3.2F, settings.fireResistant()));
+
     public static final Item HEAVY_ARROW = registerItem("heavy_arrow",
             settings -> new HeavyArrowItem(settings.stacksTo(64)));
 
@@ -370,6 +391,16 @@ public class ModItems {
             entries.insertAfter(IRON_SCYTHE, DIAMOND_SCYTHE);
             entries.insertAfter(DIAMOND_SCYTHE, NETHERITE_SCYTHE);
             anchor = NETHERITE_SCYTHE;
+
+            // Halberds
+            entries.insertAfter(anchor, WOODEN_HALBERD);
+            entries.insertAfter(WOODEN_HALBERD, GOLDEN_HALBERD);
+            entries.insertAfter(GOLDEN_HALBERD, STONE_HALBERD);
+            entries.insertAfter(STONE_HALBERD, COPPER_HALBERD);
+            entries.insertAfter(COPPER_HALBERD, IRON_HALBERD);
+            entries.insertAfter(IRON_HALBERD, DIAMOND_HALBERD);
+            entries.insertAfter(DIAMOND_HALBERD, NETHERITE_HALBERD);
+            anchor = NETHERITE_HALBERD;
 
             // Longswords
             entries.insertAfter(anchor, WOODEN_LONGSWORD);

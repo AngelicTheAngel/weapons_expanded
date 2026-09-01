@@ -2,6 +2,7 @@ package net.angelic.weaponsexpanded.mixin.armpose;
 
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
+import net.angelic.weaponsexpanded.item.custom.HalberdItem;
 import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.entity.player.AvatarRenderer;
@@ -33,7 +34,15 @@ public abstract class PlayerEntityRendererArmPoseMixin {
         }
 
         if (itemInHand.is(ModItemTags.PIERCE) && hand == InteractionHand.MAIN_HAND) {
-            cir.setReturnValue(HumanoidModel.ArmPose.SPEAR);
+            if (itemInHand.getItem() instanceof HalberdItem halberd) {
+                if (halberd.isPiercing(itemInHand)) {
+                    cir.setReturnValue(HumanoidModel.ArmPose.SPEAR);
+                } else {
+                    return;
+                }
+            } else {
+                cir.setReturnValue(HumanoidModel.ArmPose.SPEAR);
+            }
             return;
         }
 

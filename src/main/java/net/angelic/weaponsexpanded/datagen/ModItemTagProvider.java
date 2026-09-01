@@ -221,7 +221,15 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.COPPER_GLAIVE))
                 .add(key(ModItems.IRON_GLAIVE))
                 .add(key(ModItems.DIAMOND_GLAIVE))
-                .add(key(ModItems.NETHERITE_GLAIVE));
+                .add(key(ModItems.NETHERITE_GLAIVE))
+
+                .add(key(ModItems.WOODEN_HALBERD))
+                .add(key(ModItems.GOLDEN_HALBERD))
+                .add(key(ModItems.STONE_HALBERD))
+                .add(key(ModItems.COPPER_HALBERD))
+                .add(key(ModItems.IRON_HALBERD))
+                .add(key(ModItems.DIAMOND_HALBERD))
+                .add(key(ModItems.NETHERITE_HALBERD));
 
         builder(ItemTags.AXES)
                 .add(key(ModItems.WOODEN_HATCHET))
@@ -272,6 +280,14 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.COPPER_RAPIER))
                 .add(key(ModItems.IRON_RAPIER))
                 .add(key(ModItems.DIAMOND_RAPIER))
-                .add(key(ModItems.NETHERITE_RAPIER));
+                .add(key(ModItems.NETHERITE_RAPIER))
+
+                .add(key(ModItems.WOODEN_HALBERD))
+                .add(key(ModItems.GOLDEN_HALBERD))
+                .add(key(ModItems.STONE_HALBERD))
+                .add(key(ModItems.COPPER_HALBERD))
+                .add(key(ModItems.IRON_HALBERD))
+                .add(key(ModItems.DIAMOND_HALBERD))
+                .add(key(ModItems.NETHERITE_HALBERD));
     }
 }

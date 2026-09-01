@@ -4,11 +4,9 @@ import net.angelic.weaponsexpanded.client.render.HeavyArrowEntityRenderer;
 import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
+import net.angelic.weaponsexpanded.item.custom.HalberdItem;
 import net.angelic.weaponsexpanded.item.custom.WarhammerItem;
-import net.angelic.weaponsexpanded.network.FireChainCrossbowPayload;
-import net.angelic.weaponsexpanded.network.ModPackets;
-import net.angelic.weaponsexpanded.network.ToggleBastardSwordModePayload;
-import net.angelic.weaponsexpanded.network.ToggleWarhammerModePayload;
+import net.angelic.weaponsexpanded.network.*;
 import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -56,7 +54,6 @@ public class WeaponsExpandedClient implements ClientModInitializer {
                 )
         );
 
-        // Register payload types once (guarded against double-register)
         ModPackets.register();
 
         ClientTickEvents.END_CLIENT_TICK.register(WeaponsExpandedClient::weaponsexpanded$handleChainCrossbowLeftClick);
@@ -68,7 +65,7 @@ public class WeaponsExpandedClient implements ClientModInitializer {
 
         while (weaponsexpanded$toggleBastardSwordModeKey.consumeClick()) {
             ItemStack stack = client.player.getMainHandItem();
-            if (!(stack.getItem() instanceof BastardSwordItem || stack.getItem() instanceof WarhammerItem)) return;
+            if (!(stack.getItem() instanceof BastardSwordItem || stack.getItem() instanceof WarhammerItem || stack.getItem() instanceof HalberdItem)) return;
 
             if(stack.getItem() instanceof BastardSwordItem) {
                 ClientPlayNetworking.send(new ToggleBastardSwordModePayload());
@@ -77,6 +74,11 @@ public class WeaponsExpandedClient implements ClientModInitializer {
 
             if(stack.getItem() instanceof WarhammerItem) {
                 ClientPlayNetworking.send(new ToggleWarhammerModePayload());
+                client.player.resetAttackStrengthTicker();
+            }
+
+            if(stack.getItem() instanceof HalberdItem) {
+                ClientPlayNetworking.send(new ToggleHalberdModePayload());
                 client.player.resetAttackStrengthTicker();
             }
         }

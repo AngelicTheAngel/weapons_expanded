@@ -1,33 +1,30 @@
 package net.angelic.weaponsexpanded.item.custom;
 
-import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ToolMaterial;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.AttackRange;
-import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.*;
 
-public class BastardSwordItem extends Item {
+import java.util.Optional;
+import java.util.function.Consumer;
 
-    private static final String WEAPONSEXPANDED$TWO_HANDED_KEY = "weaponsexpanded:bastard_sword_two_handed";
+public class HalberdItem extends Item {
 
-    private final ItemAttributeModifiers weaponsexpanded$oneHandedModifiers;
-    private final ItemAttributeModifiers weaponsexpanded$twoHandedModifiers;
+    private static final String WEAPONSEXPANDED$HALBERD_PIERCE_KEY = "weaponsexpanded:halberd_pierce";
 
-    public BastardSwordItem(ToolMaterial material, float attackDamage, float attackSpeed, float twoHandedAttackDamage, float twoHandedAttackSpeed, Properties settings) {
+    private final ItemAttributeModifiers weaponsexpanded$slashModifiers;
+    private final ItemAttributeModifiers weaponsexpanded$pierceModifiers;
+
+    public HalberdItem(ToolMaterial material, float attackDamage, float attackSpeed, float pierceAttackDamage, float pierceAttackSpeed, Properties settings) {
         super(settings.sword(material, attackDamage, attackSpeed));
 
-        this.weaponsexpanded$oneHandedModifiers = ItemAttributeModifiers.builder()
+        this.weaponsexpanded$slashModifiers = ItemAttributeModifiers.builder()
                 .add(Attributes.ATTACK_DAMAGE,
                         new AttributeModifier(
                                 Item.BASE_ATTACK_DAMAGE_ID,
@@ -46,11 +43,11 @@ public class BastardSwordItem extends Item {
                 )
                 .build();
 
-        this.weaponsexpanded$twoHandedModifiers = ItemAttributeModifiers.builder()
+        this.weaponsexpanded$pierceModifiers = ItemAttributeModifiers.builder()
                 .add(Attributes.ATTACK_DAMAGE,
                         new AttributeModifier(
                                 Item.BASE_ATTACK_DAMAGE_ID,
-                                (double) material.attackDamageBonus() + (double) twoHandedAttackDamage,
+                                (double) material.attackDamageBonus() + (double) pierceAttackDamage,
                                 AttributeModifier.Operation.ADD_VALUE
                         ),
                         EquipmentSlotGroup.MAINHAND
@@ -58,7 +55,7 @@ public class BastardSwordItem extends Item {
                 .add(Attributes.ATTACK_SPEED,
                         new AttributeModifier(
                                 Item.BASE_ATTACK_SPEED_ID,
-                                twoHandedAttackSpeed,
+                                pierceAttackSpeed,
                                 AttributeModifier.Operation.ADD_VALUE
                         ),
                         EquipmentSlotGroup.MAINHAND
@@ -69,27 +66,30 @@ public class BastardSwordItem extends Item {
     @Override
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        if(isTwoHanded(stack)) {
-            textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.twohandedsword").withStyle(ChatFormatting.BLUE));
+        if(isPiercing(stack)) {
+            textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.halberd_piercing").withStyle(ChatFormatting.BLUE));
+            super.appendHoverText(stack, context, displayComponent, textConsumer, type);
+        } else {
+            textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.halberd_slashing").withStyle(ChatFormatting.BLUE));
             super.appendHoverText(stack, context, displayComponent, textConsumer, type);
         }
     }
 
-    public boolean isTwoHanded(ItemStack stack) {
+    public boolean isPiercing(ItemStack stack) {
         CustomData custom = stack.get(DataComponents.CUSTOM_DATA);
         if (custom == null) return false;
         CompoundTag nbt = custom.copyTag();
-        return nbt.getBoolean(WEAPONSEXPANDED$TWO_HANDED_KEY).orElse(false);
+        return nbt.getBoolean(WEAPONSEXPANDED$HALBERD_PIERCE_KEY).orElse(false);
     }
 
-    public void setTwoHanded(ItemStack stack, boolean twoHanded) {
+    public void setPiercing(ItemStack stack, boolean piercing) {
         CustomData custom = stack.get(DataComponents.CUSTOM_DATA);
         CompoundTag nbt = (custom != null) ? custom.copyTag() : new CompoundTag();
 
-        if (twoHanded) {
-            nbt.putBoolean(WEAPONSEXPANDED$TWO_HANDED_KEY, true);
+        if (piercing) {
+            nbt.putBoolean(WEAPONSEXPANDED$HALBERD_PIERCE_KEY, true);
         } else {
-            nbt.remove(WEAPONSEXPANDED$TWO_HANDED_KEY);
+            nbt.remove(WEAPONSEXPANDED$HALBERD_PIERCE_KEY);
         }
 
         if (nbt.isEmpty()) {
@@ -100,18 +100,26 @@ public class BastardSwordItem extends Item {
 
         stack.set(
                 DataComponents.ATTRIBUTE_MODIFIERS,
-                twoHanded ? this.weaponsexpanded$twoHandedModifiers : this.weaponsexpanded$oneHandedModifiers
+                piercing ? this.weaponsexpanded$pierceModifiers : this.weaponsexpanded$slashModifiers
         );
 
-        if(twoHanded) {
-            stack.set(DataComponents.ATTACK_RANGE, new AttackRange(0.25F, 3.25F, 0.25F, 5.25F, 0.0F, 0.5F));
+        if(piercing) {
+            stack.set(DataComponents.MINIMUM_ATTACK_CHARGE, 1.0F);
+            stack.set(DataComponents.ATTACK_RANGE, new AttackRange(2.0F, 4.5F, 2.0F, 6.5F, 0.0F, 0.5F));
+            stack.set(DataComponents.SWING_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, 23));
+            stack.set(DataComponents.PIERCING_WEAPON, new PiercingWeapon(true, false,
+                    Optional.of(SoundEvents.SPEAR_ATTACK),
+                    Optional.of(SoundEvents.SPEAR_HIT)));
         } else {
+            stack.remove(DataComponents.MINIMUM_ATTACK_CHARGE);
             stack.remove(DataComponents.ATTACK_RANGE);
+            stack.remove(DataComponents.SWING_ANIMATION);
+            stack.remove(DataComponents.PIERCING_WEAPON);
         }
     }
 
-    public void toggleTwoHanded(ItemStack stack) {
-        boolean next = !isTwoHanded(stack);
-        setTwoHanded(stack, next);
+    public void togglePiercing(ItemStack stack) {
+        boolean next = !isPiercing(stack);
+        setPiercing(stack, next);
     }
 }

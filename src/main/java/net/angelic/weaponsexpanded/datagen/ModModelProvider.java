@@ -36,13 +36,16 @@ public class ModModelProvider extends FabricModelProvider {
         public static final ModelTemplate SCYTHE_IN_HAND = item("scythe_in_hand", TextureSlot.LAYER0);
         public static final ModelTemplate LONGSWORD_IN_HAND = item("longsword_in_hand", TextureSlot.LAYER0);
         public static final ModelTemplate GREATSWORD_IN_HAND = item("greatsword_in_hand", TextureSlot.LAYER0);
-
+        public static final ModelTemplate HALBERD_IN_HAND = item("halberd_in_hand", TextureSlot.LAYER0);
+        
         @SuppressWarnings("SameParameterValue")
         private static ModelTemplate item(String parent, TextureSlot requiredTextureKeys) {
             return new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "item/" + parent)), Optional.empty(), requiredTextureKeys);
         }
 
     }
+
+    private static final ModelTemplate WARHAMMER_SHARP = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "item/warhammer_sharp")), Optional.empty(), TextureSlot.LAYER0);
 
     @Override
     public void generateBlockStateModels(@NonNull BlockModelGenerators blockStateModelGenerator) {
@@ -190,7 +193,7 @@ public class ModModelProvider extends FabricModelProvider {
             itemModelGenerator.generateBooleanDispatch(
                     warhammer,
                     new HasComponent(DataComponents.CUSTOM_DATA, false),
-                    ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(warhammer, "_sharp", ModelTemplates.FLAT_HANDHELD_ITEM)),
+                    ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(warhammer, "_sharp", WARHAMMER_SHARP)),
                     ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(warhammer, ModelTemplates.FLAT_HANDHELD_ITEM))
             );
         }
@@ -277,6 +280,27 @@ public class ModModelProvider extends FabricModelProvider {
                     ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(greatsword).withSuffix("_in_hand")),
                     ItemModelUtils.when(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED, ItemDisplayContext.ON_SHELF),
                             ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(greatsword, ModelTemplates.FLAT_HANDHELD_ITEM)))));
+        }
+
+        for (Item halberd : List.of(
+                ModItems.WOODEN_HALBERD,
+                ModItems.GOLDEN_HALBERD,
+                ModItems.STONE_HALBERD,
+                ModItems.COPPER_HALBERD,
+                ModItems.IRON_HALBERD,
+                ModItems.DIAMOND_HALBERD,
+                ModItems.NETHERITE_HALBERD
+        )) {
+            CustomItemModelGenerator.HALBERD_IN_HAND.create(
+                    ModelLocationUtils.getModelLocation(halberd).withSuffix("_in_hand"),
+                    TextureMapping.singleSlot(TextureSlot.LAYER0, new Material(ModelLocationUtils.getModelLocation(halberd).withSuffix("_in_hand"))),
+                    itemModelGenerator.modelOutput);
+
+            itemModelGenerator.itemModelOutput.accept(halberd, ItemModelUtils.select(
+                    new DisplayContext(),
+                    ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(halberd).withSuffix("_in_hand")),
+                    ItemModelUtils.when(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED, ItemDisplayContext.ON_SHELF),
+                            ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(halberd, ModelTemplates.FLAT_HANDHELD_ITEM)))));
         }
     }
 }
