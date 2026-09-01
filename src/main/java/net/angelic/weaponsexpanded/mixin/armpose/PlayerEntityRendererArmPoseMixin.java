@@ -38,7 +38,7 @@ public abstract class PlayerEntityRendererArmPoseMixin {
                 if (halberd.isPiercing(itemInHand)) {
                     cir.setReturnValue(HumanoidModel.ArmPose.SPEAR);
                 } else {
-                    return;
+                    cir.setReturnValue(HumanoidModel.ArmPose.WEAPONSEXPANDED_SCYTHE_HOLD);
                 }
             } else {
                 cir.setReturnValue(HumanoidModel.ArmPose.SPEAR);
@@ -47,10 +47,8 @@ public abstract class PlayerEntityRendererArmPoseMixin {
         }
 
         if (itemInHand.getItem() instanceof BastardSwordItem && ((BastardSwordItem) itemInHand.getItem()).isTwoHanded(itemInHand) && hand == InteractionHand.MAIN_HAND) {
-            if (((BastardSwordItem) itemInHand.getItem()).isTwoHanded(itemInHand)) {
                 cir.setReturnValue(HumanoidModel.ArmPose.CROSSBOW_HOLD);
                 return;
-            }
         }
 
         if (itemInHand.getItem() instanceof ChainCrossbowItem && CrossbowItem.isCharged(itemInHand) && hand == InteractionHand.MAIN_HAND) {

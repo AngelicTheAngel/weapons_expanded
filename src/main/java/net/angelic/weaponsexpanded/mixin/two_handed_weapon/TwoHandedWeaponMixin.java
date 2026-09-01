@@ -2,6 +2,7 @@ package net.angelic.weaponsexpanded.mixin.two_handed_weapon;
 
 import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
+import net.angelic.weaponsexpanded.item.custom.HalberdItem;
 import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,6 +22,9 @@ public abstract class TwoHandedWeaponMixin {
         if (mainHandStack.is(ModItemTags.TWOHANDED)) return true;
         if (mainHandStack.getItem() instanceof BastardSwordItem bastardSword) {
             return bastardSword.isTwoHanded(mainHandStack);
+        }
+        if (mainHandStack.getItem() instanceof HalberdItem halberd) {
+            return !halberd.isPiercing(mainHandStack);
         }
         return false;
     }

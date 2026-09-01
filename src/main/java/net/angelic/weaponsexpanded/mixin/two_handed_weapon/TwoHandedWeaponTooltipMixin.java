@@ -1,6 +1,7 @@
 package net.angelic.weaponsexpanded.mixin.two_handed_weapon;
 
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
+import net.angelic.weaponsexpanded.item.custom.HalberdItem;
 import net.angelic.weaponsexpanded.util.ModItemTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -29,6 +30,8 @@ public abstract class TwoHandedWeaponTooltipMixin {
         boolean usesBothHands;
         if (stack.getItem() instanceof BastardSwordItem bastardSword) {
             usesBothHands = bastardSword.isTwoHanded(stack);
+        } else if (stack.getItem() instanceof HalberdItem halberd) {
+            usesBothHands = !halberd.isPiercing(stack);
         } else {
             usesBothHands = stack.is(ModItemTags.TWOHANDED);
         }
