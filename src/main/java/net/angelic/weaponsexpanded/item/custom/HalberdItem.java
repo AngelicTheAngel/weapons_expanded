@@ -22,7 +22,8 @@ public class HalberdItem extends Item {
     private final ItemAttributeModifiers weaponsexpanded$pierceModifiers;
 
     public HalberdItem(ToolMaterial material, float attackDamage, float attackSpeed, float pierceAttackDamage, float pierceAttackSpeed, Properties settings) {
-        super(settings.sword(material, attackDamage, attackSpeed));
+        super(settings.sword(material, attackDamage, attackSpeed)
+                .component(DataComponents.ATTACK_RANGE, new AttackRange(1.0F, 3.5F, 1.0F, 5.5F, 0F, 0.5F)));
 
         this.weaponsexpanded$slashModifiers = ItemAttributeModifiers.builder()
                 .add(Attributes.ATTACK_DAMAGE,
@@ -70,6 +71,7 @@ public class HalberdItem extends Item {
             textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.halberd.piercing").withStyle(ChatFormatting.BLUE));
             super.appendHoverText(stack, context, displayComponent, textConsumer, type);
         } else {
+            textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.twohandedsword").withStyle(ChatFormatting.BLUE));
             textConsumer.accept(Component.translatable("tooltip.weaponsexpanded.halberd.slashing").withStyle(ChatFormatting.BLUE));
             super.appendHoverText(stack, context, displayComponent, textConsumer, type);
         }
@@ -105,16 +107,16 @@ public class HalberdItem extends Item {
 
         if(piercing) {
             stack.set(DataComponents.MINIMUM_ATTACK_CHARGE, 1.0F);
-            stack.set(DataComponents.ATTACK_RANGE, new AttackRange(2.0F, 4.5F, 2.0F, 6.5F, 0.0F, 0.5F));
+            stack.set(DataComponents.ATTACK_RANGE, new AttackRange(2.0F, 4.5F, 2.0F, 6.5F, 0.125F, 0.5F));
             stack.set(DataComponents.SWING_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, 23));
             stack.set(DataComponents.PIERCING_WEAPON, new PiercingWeapon(true, false,
                     Optional.of(SoundEvents.SPEAR_ATTACK),
                     Optional.of(SoundEvents.SPEAR_HIT)));
         } else {
             stack.remove(DataComponents.MINIMUM_ATTACK_CHARGE);
-            stack.remove(DataComponents.ATTACK_RANGE);
             stack.remove(DataComponents.SWING_ANIMATION);
             stack.remove(DataComponents.PIERCING_WEAPON);
+            stack.set(DataComponents.ATTACK_RANGE, new AttackRange(1.0F, 3.5F, 1.0F, 5.5F, 0F, 0.5F));
         }
     }
 
