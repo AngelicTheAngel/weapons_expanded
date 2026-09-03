@@ -18,6 +18,7 @@ public final class WeaponsExpandedConfigScreen {
                 .setSavingRunnable(cfg::save);
 
         ConfigCategory general = builder.getOrCreateCategory(Component.translatable("config.weaponsexpanded.category.general"));
+        //ConfigCategory chainCrossbow = builder.getOrCreateCategory(Component.translatable("config.weaponsexpanded.category.chain_crossbow"));
         ConfigEntryBuilder eb = builder.entryBuilder();
 
         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableCustomLootTables"), cfg.enableCustomLootTables)
@@ -30,9 +31,19 @@ public final class WeaponsExpandedConfigScreen {
                 .setSaveConsumer(v -> cfg.dynamiteArrowsDestroyBlocks = v)
                 .build());
 
-        general.addEntry(eb.startIntField(Component.translatable("config.weaponsexpanded.option.chainCrossbowMagazineSize"), cfg.chainCrossbowMagazineSize)
+        general.addEntry(eb.startIntSlider(Component.translatable("config.weaponsexpanded.option.chainCrossbowMagazineSize"), cfg.chainCrossbowMagazineSize, 1, 10)
                 .setDefaultValue(3)
                 .setSaveConsumer(v -> cfg.chainCrossbowMagazineSize = v)
+                .build());
+
+        general.addEntry(eb.startIntSlider(Component.translatable("config.weaponsexpanded.option.chainCrossbowCooldown"), cfg.chainCrossbowCooldown, 0, 20)
+                .setDefaultValue(8)
+                .setSaveConsumer(v -> cfg.chainCrossbowCooldown = v)
+                .build());
+
+        general.addEntry(eb.startIntSlider(Component.translatable("config.weaponsexpanded.option.chainCrossbowLoadTime"), cfg.chainCrossbowLoadTime, 1, 50)
+                .setDefaultValue(38)
+                .setSaveConsumer(v -> cfg.chainCrossbowLoadTime = v)
                 .build());
 
         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableEntityMeleeEquipment"), cfg.enableEntityMeleeEquipment)
@@ -45,10 +56,11 @@ public final class WeaponsExpandedConfigScreen {
                 .setSaveConsumer(v -> cfg.enableTrialChamberMeleeEquipment = v)
                 .build());
 
-         //general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableWeaponsmithTrades"), cfg.enableWeaponsmithTrades)
-         //       .setDefaultValue(true)
-         //       .setSaveConsumer(v -> cfg.enableWeaponsmithTrades = v)
-         //       .build());
+        general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableWeaponsmithTrades"), cfg.enableWeaponsmithTrades)
+                .setDefaultValue(true)
+                .requireRestart()
+                .setSaveConsumer(v -> cfg.enableWeaponsmithTrades = v)
+                .build());
 
         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.altTwoHandedSwordHandling"), cfg.altTwoHandedSwordHandling)
                 .setDefaultValue(false)

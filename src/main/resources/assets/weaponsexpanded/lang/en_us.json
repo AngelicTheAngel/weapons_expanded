@@ -160,6 +160,7 @@
 
   "config.weaponsexpanded.title": "Weapons Expanded Config",
   "config.weaponsexpanded.category.general": "General",
+  "config.weaponsexpanded.category.chain_crossbow": "Chain Crossbow",
 
   "config.weaponsexpanded.option.enableCustomLootTables": "Enable Custom Loot Tables",
   "config.weaponsexpanded.option.enableEntityMeleeEquipment": "Enable Entity Melee Equipment",
@@ -169,6 +170,8 @@
   "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "Disable Extra Durability Damage for Axes",
   "config.weaponsexpanded.option.dynamiteArrowsDestroyBlocks": "Dynamite Arrows Destroy Blocks",
   "config.weaponsexpanded.option.chainCrossbowMagazineSize": "Chain Crossbow Magazine Size",
+  "config.weaponsexpanded.option.chainCrossbowCooldown": "Chain Crossbow Cooldown",
+  "config.weaponsexpanded.option.chainCrossbowLoadTime": "Chain Crossbow Load Time",
 
   "key.category.weaponsexpanded.general": "Weapons Expanded",
   "key.weaponsexpanded.toggle_bastard_sword_mode": "Toggle Weapon Mode"

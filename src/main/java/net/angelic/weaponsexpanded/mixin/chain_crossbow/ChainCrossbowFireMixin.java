@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.mixin.chain_crossbow;
 
+import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.mixin.accessor.PersistentProjectileEntityAccessor;
 import net.angelic.weaponsexpanded.sound.ModSounds;
@@ -95,7 +96,7 @@ public abstract class ChainCrossbowFireMixin {
 
         // Apply 8-tick cooldown after firing
         if (shooter instanceof Player player) {
-            player.getCooldowns().addCooldown(stack, 8);
+            player.getCooldowns().addCooldown(stack, WeaponsExpandedConfig.get().chainCrossbowCooldown);
         }
 
         ChargedProjectiles charged =

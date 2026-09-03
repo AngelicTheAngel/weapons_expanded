@@ -1,4 +1,4 @@
-package net.angelic.weaponsexpanded.datagen;
+package net.angelic.weaponsexpanded.datagen.enchantment;
 
 import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
 import net.angelic.weaponsexpanded.util.ModEnchantmentTags;
