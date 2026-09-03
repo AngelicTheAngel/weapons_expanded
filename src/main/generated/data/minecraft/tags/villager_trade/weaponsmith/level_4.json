@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "weaponsexpanded:weaponsmith/4/emerald_enchanted_diamond_hatchet",
+      "required": false
+    },
+    {
+      "id": "weaponsexpanded:weaponsmith/4/emerald_enchanted_diamond_morningstar",
+      "required": false
+    },
+    {
+      "id": "weaponsexpanded:weaponsmith/4/emerald_enchanted_diamond_warhammer",
+      "required": false
+    },
+    {
+      "id": "weaponsexpanded:weaponsmith/4/emerald_enchanted_diamond_hammer",
+      "required": false
+    },
+    {
+      "id": "weaponsexpanded:weaponsmith/4/emerald_enchanted_diamond_battleaxe",
+      "required": false
+    },
+    {
+      "id": "weaponsexpanded:weaponsmith/4/emerald_enchanted_diamond_halberd",
+      "required": false
+    }
+  ]
+}

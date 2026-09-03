@@ -17,7 +17,22 @@ public class ModVillagerTradeTags extends FabricTagsProvider<VillagerTrade> {
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
+        getOrCreateRawBuilder(VillagerTradeTags.WEAPONSMITH_LEVEL_4)
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_HATCHET.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_MORNINGSTAR.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_WARHAMMER.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_HAMMER.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_BATTLEAXE.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_HALBERD.identifier()));
+
         getOrCreateRawBuilder(VillagerTradeTags.WEAPONSMITH_LEVEL_5)
-                .add(TagEntry.element(ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_BROADSWORD.identifier()));
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_RAPIER.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_BROADSWORD.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_SICKLE.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_GLAIVE.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_SCYTHE.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_LONGSWORD.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_GREATSWORD.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_KATANA.identifier()));
     }
 }

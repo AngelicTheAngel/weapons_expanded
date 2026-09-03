@@ -18,7 +18,7 @@
     {
       "function": "minecraft:filtered",
       "item_filter": {
-        "items": "weaponsexpanded:diamond_broadsword",
+        "items": "weaponsexpanded:diamond_scythe",
         "predicates": {
           "minecraft:enchantments": [
             {}
@@ -31,7 +31,7 @@
     }
   ],
   "gives": {
-    "id": "weaponsexpanded:diamond_broadsword"
+    "id": "weaponsexpanded:diamond_scythe"
   },
   "max_uses": 3.0,
   "reputation_discount": 0.2,

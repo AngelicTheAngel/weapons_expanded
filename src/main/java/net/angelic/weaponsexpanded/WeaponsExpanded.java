@@ -14,6 +14,7 @@ import net.angelic.weaponsexpanded.potion.ModPotions;
 import net.angelic.weaponsexpanded.registries.ModFuels;
 import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.angelic.weaponsexpanded.util.ModLootTableModifiers;
+import net.angelic.weaponsexpanded.util.conditions.ModResourceConditions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.registry.FabricPotionBrewingBuilder;
@@ -55,6 +56,7 @@ public class WeaponsExpanded implements ModInitializer {
         ModSounds.register();
         ModFuels.registerFuels();
         ModPotions.registerPotions();
+        ModResourceConditions.register();
 
         // Register loot modifications (these will be gated by config inside the callback)
         ModLootTableModifiers.modifyLootTables();

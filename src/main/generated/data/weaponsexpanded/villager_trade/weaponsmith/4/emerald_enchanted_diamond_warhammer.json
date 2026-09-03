@@ -18,7 +18,7 @@
     {
       "function": "minecraft:filtered",
       "item_filter": {
-        "items": "weaponsexpanded:diamond_broadsword",
+        "items": "weaponsexpanded:diamond_warhammer",
         "predicates": {
           "minecraft:enchantments": [
             {}
@@ -31,13 +31,13 @@
     }
   ],
   "gives": {
-    "id": "weaponsexpanded:diamond_broadsword"
+    "id": "weaponsexpanded:diamond_warhammer"
   },
   "max_uses": 3.0,
   "reputation_discount": 0.2,
   "wants": {
-    "count": 8.0,
+    "count": 12.0,
     "id": "minecraft:emerald"
   },
-  "xp": 30.0
+  "xp": 15.0
 }
