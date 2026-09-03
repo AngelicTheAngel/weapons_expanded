@@ -30,6 +30,7 @@ public final class WeaponsExpandedConfig {
     public int chainCrossbowMagazineSize = 3;    // 3 by default
     public int chainCrossbowCooldown = 8;    // 8 by default
     public int chainCrossbowLoadTime = 38;    // 38 by default
+    public int extraSizePerCapacityLevel = 1;    // 1 by default
 
     private WeaponsExpandedConfig() {}
 
