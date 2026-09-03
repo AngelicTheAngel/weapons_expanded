@@ -46,6 +46,11 @@ public final class WeaponsExpandedConfigScreen {
                 .setSaveConsumer(v -> cfg.chainCrossbowLoadTime = v)
                 .build());
 
+        general.addEntry(eb.startIntSlider(Component.translatable("config.weaponsexpanded.option.extraSizePerCapacityLevel"), cfg.extraSizePerCapacityLevel, 1, 3)
+                .setDefaultValue(1)
+                .setSaveConsumer(v -> cfg.extraSizePerCapacityLevel = v)
+                .build());
+
         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableEntityMeleeEquipment"), cfg.enableEntityMeleeEquipment)
                 .setDefaultValue(true)
                 .setSaveConsumer(v -> cfg.enableEntityMeleeEquipment = v)

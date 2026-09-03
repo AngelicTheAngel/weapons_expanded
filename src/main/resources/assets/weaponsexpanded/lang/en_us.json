@@ -1,11 +1,11 @@
 {
-  "item.weaponsexpanded.wooden_broadsword": "Wooden Broadsword",
-  "item.weaponsexpanded.golden_broadsword": "Golden Broadsword",
-  "item.weaponsexpanded.stone_broadsword": "Stone Broadsword",
-  "item.weaponsexpanded.copper_broadsword": "Copper Broadsword",
-  "item.weaponsexpanded.iron_broadsword": "Iron Broadsword",
-  "item.weaponsexpanded.diamond_broadsword": "Diamond Broadsword",
-  "item.weaponsexpanded.netherite_broadsword": "Netherite Broadsword",
+  "item.weaponsexpanded.wooden_broadsword": "Wooden Shortsword",
+  "item.weaponsexpanded.golden_broadsword": "Golden Shortsword",
+  "item.weaponsexpanded.stone_broadsword": "Stone Shortsword",
+  "item.weaponsexpanded.copper_broadsword": "Copper Shortsword",
+  "item.weaponsexpanded.iron_broadsword": "Iron Shortsword",
+  "item.weaponsexpanded.diamond_broadsword": "Diamond Shortsword",
+  "item.weaponsexpanded.netherite_broadsword": "Netherite Shortsword",
   "item.weaponsexpanded.wooden_sickle": "Wooden Sickle",
   "item.weaponsexpanded.golden_sickle": "Golden Sickle",
   "item.weaponsexpanded.stone_sickle": "Stone Sickle",
@@ -172,6 +172,7 @@
   "config.weaponsexpanded.option.chainCrossbowMagazineSize": "Chain Crossbow Magazine Size",
   "config.weaponsexpanded.option.chainCrossbowCooldown": "Chain Crossbow Cooldown",
   "config.weaponsexpanded.option.chainCrossbowLoadTime": "Chain Crossbow Load Time",
+  "config.weaponsexpanded.option.extraSizePerCapacityLevel": "Extra Magazine Size per Capacity Level",
 
   "key.category.weaponsexpanded.general": "Weapons Expanded",
   "key.weaponsexpanded.toggle_bastard_sword_mode": "Toggle Weapon Mode"
