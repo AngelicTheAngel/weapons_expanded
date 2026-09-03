@@ -37,7 +37,6 @@ public class WeaponsExpanded implements ModInitializer {
     public static final String MOD_ID = "weaponsexpanded";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    // Global version variable fetched from fabric.mod.json
     public static final String VERSION = FabricLoader.getInstance()
             .getModContainer(MOD_ID)
             .map(container -> container.getMetadata().getVersion().getFriendlyString())
@@ -48,7 +47,6 @@ public class WeaponsExpanded implements ModInitializer {
         LOGGER.info("Initializing {} version {}", MOD_ID, VERSION);
 
         WeaponsExpandedConfig.get();
-
         ModItems.registerModItems();
         ModEnchantmentEffects.registerEnchantmentEffects();
         ModEffects.registerEffects();
@@ -57,11 +55,7 @@ public class WeaponsExpanded implements ModInitializer {
         ModFuels.registerFuels();
         ModPotions.registerPotions();
         ModResourceConditions.register();
-
-        // Register loot modifications (these will be gated by config inside the callback)
         ModLootTableModifiers.modifyLootTables();
-
-        // Register payload types once (safe if called again elsewhere)
         ModPackets.register();
 
         ServerPlayNetworking.registerGlobalReceiver(FireChainCrossbowPayload.ID, (payload, context) ->
