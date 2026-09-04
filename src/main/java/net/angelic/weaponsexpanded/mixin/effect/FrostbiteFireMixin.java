@@ -1,4 +1,4 @@
-package net.angelic.weaponsexpanded.mixin.enchantment;
+package net.angelic.weaponsexpanded.mixin.effect;
 
 import net.angelic.weaponsexpanded.effect.ModEffects;
 import net.minecraft.core.Holder;

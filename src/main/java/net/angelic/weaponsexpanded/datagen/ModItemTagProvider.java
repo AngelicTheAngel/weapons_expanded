@@ -34,7 +34,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .forceAddTag(ModItemTags.BLUNT)
                 .forceAddTag(ModItemTags.PIERCE)
                 .add(key(ModItems.LONGBOW))
-                .add(key(ModItems.CHAIN_CROSSBOW));
+                .add(key(ModItems.CHAIN_CROSSBOW))
+                .add(key(ModItems.RITUAL_DAGGER));
 
         builder(ItemTags.MINING_ENCHANTABLE)
                 .forceAddTag(ModItemTags.BLUNT);

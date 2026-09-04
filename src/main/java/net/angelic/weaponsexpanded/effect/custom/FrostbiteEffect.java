@@ -1,4 +1,4 @@
-package net.angelic.weaponsexpanded.effect;
+package net.angelic.weaponsexpanded.effect.custom;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;

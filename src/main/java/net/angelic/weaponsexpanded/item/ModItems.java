@@ -327,6 +327,9 @@ public class ModItems {
     public static final Item CHAIN_CROSSBOW = registerItem("chain_crossbow",
             settings -> new ChainCrossbowItem(settings.durability(465).enchantable(1)));
 
+    public static final Item RITUAL_DAGGER = registerItem("ritual_dagger",
+            settings -> new RitualDaggerItem(ToolMaterial.IRON, 2.0F, -3.0F, settings.durability(100)));
+
     private static Item registerItem(String name, Function<Item.Properties, Item> function) {
         return Registry.register(BuiltInRegistries.ITEM, Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, name),
                 function.apply(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, name)))));

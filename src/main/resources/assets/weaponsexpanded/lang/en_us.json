@@ -102,6 +102,7 @@
   "item.weaponsexpanded.explosive_arrow": "Dynamite Arrow",
   "item.weaponsexpanded.longbow": "Longbow",
   "item.weaponsexpanded.chain_crossbow": "Chain Crossbow",
+  "item.weaponsexpanded.ritual_dagger": "Ritual Dagger",
 
   "item.minecraft.potion.effect.frostbite": "Potion of Frostbite",
   "item.minecraft.splash_potion.effect.frostbite": "Splash Potion of Frostbite",
@@ -124,6 +125,7 @@
   "enchantment.weaponsexpanded.capacity.desc": "Increases the magazine size of chain crossbows",
 
   "effect.weaponsexpanded.frostbite": "Frostbite",
+  "effect.weaponsexpanded.degradation": "Degradation",
 
   "advancements.weaponsexpanded.diamond_weapon": "Diamond Warrior",
   "advancements.weaponsexpanded.diamond_weapon.description": "Obtain a diamond weapon",
@@ -138,6 +140,9 @@
   "tooltip.weaponsexpanded.warhammer.sharp_side": "Sweeping",
   "tooltip.weaponsexpanded.halberd.piercing": "Piercing",
   "tooltip.weaponsexpanded.halberd.slashing": "Sweeping",
+
+  "death.attack.ritual": "%s gave their blood",
+  "death.attack.ritual.player": "%s gave their blood to %s",
 
   "tag.item.weaponsexpanded.blunt": "Blunt Weapons",
   "tag.item.weaponsexpanded.pierce": "Piercing Weapons",

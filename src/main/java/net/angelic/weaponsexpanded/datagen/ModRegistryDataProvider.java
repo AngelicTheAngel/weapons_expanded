@@ -40,6 +40,9 @@ public class ModRegistryDataProvider extends FabricDynamicRegistryProvider {
         for (ResourceKey<VillagerTrade> trade : weaponsmithTrades) {
             entries.add(registries.lookupOrThrow(Registries.VILLAGER_TRADE), trade, WeaponsmithTradesCondition.INSTANCE);
         }
+
+
+        entries.addAll(registries.lookupOrThrow(Registries.DAMAGE_TYPE));
     }
 
     @Override

@@ -30,5 +30,6 @@ public class WeaponsExpandedDataGenerator implements DataGeneratorEntrypoint {
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
         registryBuilder.add(Registries.ENCHANTMENT, ModEnchantmentProvider::bootstrap);
         registryBuilder.add(Registries.VILLAGER_TRADE, ModVillagerTrades::bootstrap);
+        registryBuilder.add(Registries.DAMAGE_TYPE, ModDamageTypes::bootstrap);
     }
 }
