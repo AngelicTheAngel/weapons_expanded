@@ -32,6 +32,7 @@ public final class WeaponsExpandedConfig {
     public int chainCrossbowCooldown = 8;                         // 8 by default
     public int chainCrossbowLoadTime = 38;                        // 38 by default
     public int chainCrossbowExtraSizePerCapacityLevel = 1;        // 1 by default
+    public int ritualDaggerMaxLevel = 2;                          // 2 by default
 
     private WeaponsExpandedConfig() {}
 

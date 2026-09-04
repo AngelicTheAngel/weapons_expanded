@@ -62,6 +62,11 @@ public final class WeaponsExpandedConfigScreen {
                 .setSaveConsumer(v -> cfg.enableTrialChamberMeleeEquipment = v)
                 .build());
 
+//        general.addEntry(eb.startIntSlider(Component.translatable("config.weaponsexpanded.option.ritualDaggerMaxLevel"), cfg.ritualDaggerMaxLevel, 1, 4)
+//                .setDefaultValue(2)
+//                .setSaveConsumer(v -> cfg.ritualDaggerMaxLevel = v)
+//                .build());
+
         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableWeaponsmithTrades"), cfg.enableWeaponsmithTrades)
                 .setDefaultValue(true)
                 .requireRestart()

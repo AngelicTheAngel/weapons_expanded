@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.item.custom;
 
+import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.datagen.ModDamageTypes;
 import net.angelic.weaponsexpanded.effect.ModEffects;
 import net.minecraft.core.component.DataComponents;
@@ -25,37 +26,68 @@ public class RitualDaggerItem extends Item {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        if(player.hasEffect(MobEffects.STRENGTH)) {
-            if(player.getEffect(MobEffects.STRENGTH).getAmplifier() >= 1) {
-                player.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 1200, player.getEffect(MobEffects.STRENGTH).getAmplifier()));
-            } else {
-                player.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 1200, player.getEffect(MobEffects.STRENGTH).getAmplifier() + 1));
-            }
-        } else {
-            player.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 1200, 0));
-        }
+//        if(player.hasEffect(MobEffects.STRENGTH)) {
+//            if(player.getEffect(MobEffects.STRENGTH).getAmplifier() >= (WeaponsExpandedConfig.get().ritualDaggerMaxLevel - 1)) {
+//                if (player.getEffect(MobEffects.STRENGTH).getDuration() < 1200) {
+//                    player.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 1200, player.getEffect(MobEffects.STRENGTH).getAmplifier()));
+//                }
+//            } else {
+//                player.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 1200, player.getEffect(MobEffects.STRENGTH).getAmplifier() + 1));
+//            }
+//        } else {
+//            player.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 1200, 0));
+//        }
+//
+//        if(player.hasEffect(MobEffects.SPEED)) {
+//            if(player.getEffect(MobEffects.SPEED).getAmplifier() >= (WeaponsExpandedConfig.get().ritualDaggerMaxLevel - 1)) {
+//                if (player.getEffect(MobEffects.SPEED).getDuration() < 1200) {
+//                    player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1200, player.getEffect(MobEffects.SPEED).getAmplifier()));
+//                }
+//            } else {
+//                player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1200, player.getEffect(MobEffects.SPEED).getAmplifier() + 1));
+//            }
+//        } else {
+//            player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1200, 0));
+//        }
 
-        if(player.hasEffect(MobEffects.SPEED)) {
-            if(player.getEffect(MobEffects.SPEED).getAmplifier() >= 1) {
-                player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1200, player.getEffect(MobEffects.SPEED).getAmplifier()));
-            } else {
-                player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1200, player.getEffect(MobEffects.SPEED).getAmplifier() + 1));
-            }
-        } else {
-            player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1200, 0));
+        if (player.level() instanceof ServerLevel serverLevel) {
+            player.hurtServer(serverLevel, ModDamageTypes.create(serverLevel, ModDamageTypes.RITUAL), 2.0F);
         }
 
         if(player.hasEffect(ModEffects.DEGRADATION)) {
-            if(player.getEffect(ModEffects.DEGRADATION).getAmplifier() >= 1 && player.getEffect(MobEffects.STRENGTH).getAmplifier() >= 1) {
-                player.addEffect(new MobEffectInstance(ModEffects.DEGRADATION, 1200, player.getEffect(ModEffects.DEGRADATION).getAmplifier()));
-                if (player.level() instanceof ServerLevel serverLevel) {
-                    player.hurtServer(serverLevel, ModDamageTypes.create(serverLevel, ModDamageTypes.RITUAL), 2.0F);
-                }
-            } else {
+//            if(player.getEffect(ModEffects.DEGRADATION).getAmplifier() >= (WeaponsExpandedConfig.get().ritualDaggerMaxLevel - 1)) {
+//                if (player.getEffect(ModEffects.DEGRADATION).getDuration() < 1200) {
+//                    player.addEffect(new MobEffectInstance(ModEffects.DEGRADATION, 1200, player.getEffect(ModEffects.DEGRADATION).getAmplifier()));
+//                }
+//            } else {
                 player.addEffect(new MobEffectInstance(ModEffects.DEGRADATION, 1200, player.getEffect(ModEffects.DEGRADATION).getAmplifier() + 1));
-            }
+//            }
         } else {
             player.addEffect(new MobEffectInstance(ModEffects.DEGRADATION, 1200, 0));
+        }
+
+        if(player.hasEffect(MobEffects.ABSORPTION)) {
+//            if(player.getEffect(MobEffects.ABSORPTION).getAmplifier() >= (WeaponsExpandedConfig.get().ritualDaggerMaxLevel - 1)) {
+//                if (player.getEffect(MobEffects.ABSORPTION).getDuration() < 1200) {
+//                    player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 1200, player.getEffect(MobEffects.ABSORPTION).getAmplifier()));
+//                }
+//            } else {
+                player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 1200, player.getEffect(MobEffects.ABSORPTION).getAmplifier() + 2));
+//            }
+        } else {
+            player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 1200, 1));
+        }
+
+        if(player.hasEffect(MobEffects.RESISTANCE)) {
+            if(player.getEffect(MobEffects.RESISTANCE).getAmplifier() >= (WeaponsExpandedConfig.get().ritualDaggerMaxLevel - 1)) {
+                if (player.getEffect(MobEffects.RESISTANCE).getDuration() < 1200) {
+                    player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1200, player.getEffect(MobEffects.RESISTANCE).getAmplifier()));
+                }
+            } else {
+                player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1200, player.getEffect(MobEffects.RESISTANCE).getAmplifier() + 1));
+            }
+        } else {
+            player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1200, 0));
         }
 
         player.getItemInHand(hand).hurtAndBreak(1, player, hand.asEquipmentSlot());

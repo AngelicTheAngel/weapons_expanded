@@ -135,14 +135,16 @@
   "advancements.weaponsexpanded.weapons_expanded.description": "Obtain every Netherite weapon",
 
   "tooltip.weaponsexpanded.twohandedsword": "Two-Handed",
-  "tooltip.weaponsexpanded.chain_crossbow_shots": "Shots: %s/%s",
+  "tooltip.weaponsexpanded.chain_crossbow_shots": "Magazine: %s/%s",
   "tooltip.weaponsexpanded.warhammer.blunt_side": "Blunt",
   "tooltip.weaponsexpanded.warhammer.sharp_side": "Sweeping",
   "tooltip.weaponsexpanded.halberd.piercing": "Piercing",
   "tooltip.weaponsexpanded.halberd.slashing": "Sweeping",
 
-  "death.attack.ritual": "%s gave their blood",
-  "death.attack.ritual.player": "%s gave their blood to %s",
+  "death.attack.ritual": "%s gave up their blood",
+  "death.attack.ritual.player": "%s gave up their blood to %s",
+  "death.attack.degradation": "%s degraded into nothing",
+  "death.attack.degradation.player": "%s degraded into nothing whilst trying to escape %s",
 
   "tag.item.weaponsexpanded.blunt": "Blunt Weapons",
   "tag.item.weaponsexpanded.pierce": "Piercing Weapons",
@@ -178,6 +180,7 @@
   "config.weaponsexpanded.option.chainCrossbowCooldown": "Chain Crossbow Cooldown",
   "config.weaponsexpanded.option.chainCrossbowLoadTime": "Chain Crossbow Load Time",
   "config.weaponsexpanded.option.extraSizePerCapacityLevel": "Extra Magazine Size per Capacity Level",
+  "config.weaponsexpanded.option.frostbitePotionRecipe": "Enable Frostbite Potion Recipe",
 
   "key.category.weaponsexpanded.general": "Weapons Expanded",
   "key.weaponsexpanded.toggle_bastard_sword_mode": "Toggle Weapon Mode"
