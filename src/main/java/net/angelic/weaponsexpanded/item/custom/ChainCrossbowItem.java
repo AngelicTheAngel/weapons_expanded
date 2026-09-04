@@ -39,7 +39,7 @@ public class ChainCrossbowItem extends CrossbowItem {
     private static final float WEAPONSEXPANDED$CMD_EXPLOSIVE_LOADED = 1.0F;
 
     public void setMaxShots(ItemStack stack, int level) {
-        int maxTotalShots = Math.max(1, WeaponsExpandedConfig.get().chainCrossbowMagazineSize + (level * WeaponsExpandedConfig.get().extraSizePerCapacityLevel));
+        int maxTotalShots = Math.max(1, WeaponsExpandedConfig.get().chainCrossbowMagazineSize + (level * WeaponsExpandedConfig.get().chainCrossbowExtraSizePerCapacityLevel));
         CompoundTag root = weaponsexpanded$getOrCreateCustomNbt(stack);
 
         if (root.getInt(WEAPONSEXPANDED$MAX_TOTAL_SHOTS_KEY).orElse(-1) == maxTotalShots) {

@@ -75,8 +75,10 @@ public class WeaponsExpanded implements ModInitializer {
         );
 
         FabricPotionBrewingBuilder.BUILD.register(builder -> {
-            builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(Items.BLUE_ICE), ModPotions.FROSTBITE_POTION);
-            builder.registerPotionRecipe(ModPotions.FROSTBITE_POTION, Ingredient.of(Items.REDSTONE), ModPotions.LONG_FROSTBITE_POTION);
+            if(WeaponsExpandedConfig.get().frostbitePotionRecipe) {
+                builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(Items.BLUE_ICE), ModPotions.FROSTBITE_POTION);
+                builder.registerPotionRecipe(ModPotions.FROSTBITE_POTION, Ingredient.of(Items.REDSTONE), ModPotions.LONG_FROSTBITE_POTION);
+            }
         });
     }
 
