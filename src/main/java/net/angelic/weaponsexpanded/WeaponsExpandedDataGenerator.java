@@ -24,6 +24,7 @@ public class WeaponsExpandedDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModSoundsProvider::new);
         pack.addProvider(ModVillagerTradeTags::new);
         pack.addProvider(ModRegistryDataProvider::new);
+        pack.addProvider(ModEntityTypeTagProvider::new);
     }
 
     @Override

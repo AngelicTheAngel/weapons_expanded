@@ -1,7 +1,7 @@
 package net.angelic.weaponsexpanded.datagen;
 
 import net.angelic.weaponsexpanded.item.ModItems;
-import net.angelic.weaponsexpanded.util.ModItemTags;
+import net.angelic.weaponsexpanded.util.tags.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;

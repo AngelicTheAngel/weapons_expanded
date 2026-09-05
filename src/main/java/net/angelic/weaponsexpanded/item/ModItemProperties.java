@@ -1,6 +1,6 @@
 package net.angelic.weaponsexpanded.item;
 
-import net.angelic.weaponsexpanded.util.ModBlockTags;
+import net.angelic.weaponsexpanded.util.tags.ModBlockTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;

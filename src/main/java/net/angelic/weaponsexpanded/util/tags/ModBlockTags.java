@@ -1,4 +1,4 @@
-package net.angelic.weaponsexpanded.util;
+package net.angelic.weaponsexpanded.util.tags;
 
 import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.minecraft.core.registries.Registries;

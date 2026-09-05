@@ -25,4 +25,8 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> CLEAVING = key("cleaving");
 
     public static final ResourceKey<Enchantment> CAPACITY = key("capacity");
+
+    public static final ResourceKey<Enchantment> NETHERS_SCOURGE = key("nethers_scourge");
+
+    public static final ResourceKey<Enchantment> ENDS_BANE = key("ends_bane");
 }

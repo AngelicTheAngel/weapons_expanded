@@ -1,6 +1,6 @@
 package net.angelic.weaponsexpanded.mixin.pierce;
 
-import net.angelic.weaponsexpanded.util.ModItemTags;
+import net.angelic.weaponsexpanded.util.tags.ModItemTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;

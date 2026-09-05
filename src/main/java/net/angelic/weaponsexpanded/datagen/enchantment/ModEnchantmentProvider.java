@@ -5,19 +5,27 @@ import net.angelic.weaponsexpanded.enchantment.effect.FreezeEnchantmentEffect;
 import net.angelic.weaponsexpanded.enchantment.effect.FrostbiteEnchantmentEffect;
 import net.angelic.weaponsexpanded.enchantment.effect.PollutingEnchantmentEffect;
 import net.angelic.weaponsexpanded.enchantment.effect.WitheringEnchantmentEffect;
-import net.angelic.weaponsexpanded.util.ModEnchantmentTags;
-import net.angelic.weaponsexpanded.util.ModItemTags;
+import net.angelic.weaponsexpanded.util.tags.ModEnchantmentTags;
+import net.angelic.weaponsexpanded.util.tags.ModEntityTypeTags;
+import net.angelic.weaponsexpanded.util.tags.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
+import net.minecraft.world.item.enchantment.LevelBasedValue;
+import net.minecraft.world.item.enchantment.effects.AddValue;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -147,6 +155,48 @@ public class ModEnchantmentProvider extends FabricDynamicRegistryProvider {
                                         EquipmentSlotGroup.HAND
                                 )
                         ));
+
+        register(context, ModEnchantments.NETHERS_SCOURGE,
+                Enchantment.enchantment(
+                                Enchantment.definition(
+                                        context.lookup(Registries.ITEM).getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                                        context.lookup(Registries.ITEM).getOrThrow(ItemTags.MELEE_WEAPON_ENCHANTABLE),
+                                        5,
+                                        5,
+                                        Enchantment.dynamicCost(5, 8),
+                                        Enchantment.dynamicCost(25, 8),
+                                        2, EquipmentSlotGroup.MAINHAND
+                                )
+                        )
+                        .exclusiveWith(context.lookup(Registries.ENCHANTMENT).getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE))
+
+                        .withEffect(EnchantmentEffectComponents.DAMAGE, new AddValue(LevelBasedValue.perLevel(2.5F)),
+                                LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+                                        net.minecraft.advancements.predicates.entity.EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(context.lookup(Registries.ENTITY_TYPE), ModEntityTypeTags.SENSITIVE_TO_NETHERS_SCOURGE))
+                                )
+                        )
+        );
+
+        register(context, ModEnchantments.ENDS_BANE,
+                Enchantment.enchantment(
+                                Enchantment.definition(
+                                        context.lookup(Registries.ITEM).getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                                        context.lookup(Registries.ITEM).getOrThrow(ItemTags.MELEE_WEAPON_ENCHANTABLE),
+                                        5,
+                                        5,
+                                        Enchantment.dynamicCost(5, 8),
+                                        Enchantment.dynamicCost(25, 8),
+                                        2, EquipmentSlotGroup.MAINHAND
+                                )
+                        )
+                        .exclusiveWith(context.lookup(Registries.ENCHANTMENT).getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE))
+
+                        .withEffect(EnchantmentEffectComponents.DAMAGE, new AddValue(LevelBasedValue.perLevel(2.5F)),
+                                LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+                                        net.minecraft.advancements.predicates.entity.EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(context.lookup(Registries.ENTITY_TYPE), ModEntityTypeTags.SENSITIVE_TO_ENDS_BANE))
+                                )
+                        )
+        );
     }
 
     @Override

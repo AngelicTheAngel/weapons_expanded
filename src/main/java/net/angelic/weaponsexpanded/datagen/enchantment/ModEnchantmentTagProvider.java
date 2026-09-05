@@ -1,7 +1,7 @@
 package net.angelic.weaponsexpanded.datagen.enchantment;
 
 import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
-import net.angelic.weaponsexpanded.util.ModEnchantmentTags;
+import net.angelic.weaponsexpanded.util.tags.ModEnchantmentTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
@@ -31,7 +31,13 @@ public class ModEnchantmentTagProvider extends FabricTagsProvider<Enchantment> {
                 .add(ModEnchantments.FROSTBITE)
                 .add(ModEnchantments.FREEZE)
                 .add(ModEnchantments.CLEAVING)
-                .add(ModEnchantments.CAPACITY);
+                .add(ModEnchantments.CAPACITY)
+                .add(ModEnchantments.NETHERS_SCOURGE)
+                .add(ModEnchantments.ENDS_BANE);
+
+        builder(EnchantmentTags.DAMAGE_EXCLUSIVE)
+                .add(ModEnchantments.NETHERS_SCOURGE)
+                .add(ModEnchantments.ENDS_BANE);
 
         builder(ModEnchantmentTags.POST_ATTACK_EXCLUSIVE_SET)
                 .add(Enchantments.FIRE_ASPECT)

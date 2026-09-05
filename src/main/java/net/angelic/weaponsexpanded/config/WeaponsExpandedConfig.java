@@ -23,6 +23,7 @@ public final class WeaponsExpandedConfig {
     public boolean enableCustomLootTables = true;                 // enabled by default
     public boolean enableEntityMeleeEquipment = true;             // enabled by default
     public boolean enableTrialChamberMeleeEquipment = true;       // enabled by default
+    public boolean enableEntityTypeChanges = true;                   // enabled by default
     public boolean enableWeaponsmithTrades = true;                // enabled by default
     public boolean altTwoHandedSwordHandling = false;             // disabled by default
     public boolean disableExtraDurabilityDamageForAxes = true;    // enabled by default

@@ -1,6 +1,6 @@
 package net.angelic.weaponsexpanded.registries;
 
-import net.angelic.weaponsexpanded.util.ModItemTags;
+import net.angelic.weaponsexpanded.util.tags.ModItemTags;
 import net.fabricmc.fabric.api.registry.FuelValueEvents;
 
 public class ModFuels {

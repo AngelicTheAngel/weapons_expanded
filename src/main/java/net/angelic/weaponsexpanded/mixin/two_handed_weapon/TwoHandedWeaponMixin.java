@@ -3,7 +3,7 @@ package net.angelic.weaponsexpanded.mixin.two_handed_weapon;
 import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.HalberdItem;
-import net.angelic.weaponsexpanded.util.ModItemTags;
+import net.angelic.weaponsexpanded.util.tags.ModItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;

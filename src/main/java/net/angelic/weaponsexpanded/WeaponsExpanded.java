@@ -18,9 +18,15 @@ import net.angelic.weaponsexpanded.util.conditions.ModResourceConditions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.registry.FabricPotionBrewingBuilder;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
+import net.fabricmc.fabric.impl.resource.loader.ResourceManagerHelperImpl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -57,6 +63,14 @@ public class WeaponsExpanded implements ModInitializer {
         ModResourceConditions.register();
         ModLootTableModifiers.modifyLootTables();
         ModPackets.register();
+
+        if (WeaponsExpandedConfig.get().enableEntityTypeChanges) {
+            FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(
+                    container -> ResourceLoader.registerBuiltinPack(
+                            Identifier.fromNamespaceAndPath(MOD_ID, "entity_type_changes"),
+                            container,
+                            PackActivationType.ALWAYS_ENABLED));
+        }
 
         ServerPlayNetworking.registerGlobalReceiver(FireChainCrossbowPayload.ID, (payload, context) ->
                 context.server().execute(() -> weaponsexpanded$tryFireChainCrossbow(context.player()))

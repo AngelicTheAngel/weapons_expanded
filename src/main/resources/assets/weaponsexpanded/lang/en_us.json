@@ -123,6 +123,10 @@
   "enchantment.weaponsexpanded.cleaving.desc": "Increases how long shields are stunned when stuck down",
   "enchantment.weaponsexpanded.capacity": "Capacity",
   "enchantment.weaponsexpanded.capacity.desc": "Increases the magazine size of chain crossbows",
+  "enchantment.weaponsexpanded.nethers_scourge": "Nether's Scourge",
+  "enchantment.weaponsexpanded.nethers_scourge.desc": "Increases damage against Nether mobs such as Piglins and Blazes",
+  "enchantment.weaponsexpanded.ends_bane": "End's Bane",
+  "enchantment.weaponsexpanded.ends_bane.desc": "Increases damage against End mobs such as Endermen and Shulkers",
 
   "effect.weaponsexpanded.frostbite": "Frostbite",
   "effect.weaponsexpanded.degradation": "Degradation",
@@ -144,7 +148,7 @@
   "death.attack.ritual": "%s gave up their blood",
   "death.attack.ritual.player": "%s gave up their blood to %s",
   "death.attack.degradation": "%s degraded into nothing",
-  "death.attack.degradation.player": "%s degraded into nothing whilst trying to escape %s",
+  "death.attack.degradation.player": "%s degraded into nothing whilst fighting %s",
 
   "tag.item.weaponsexpanded.blunt": "Blunt Weapons",
   "tag.item.weaponsexpanded.pierce": "Piercing Weapons",
@@ -171,7 +175,9 @@
 
   "config.weaponsexpanded.option.enableCustomLootTables": "Enable Custom Loot Tables",
   "config.weaponsexpanded.option.enableEntityMeleeEquipment": "Enable Entity Melee Equipment",
+  "config.weaponsexpanded.option.enableEntityMeleeEquipment.description": "Allows Zombies and Piglins to spawn with custom weapons",
   "config.weaponsexpanded.option.enableTrialChamberMeleeEquipment": "Enable Trial Chamber Melee Equipment",
+  "config.weaponsexpanded.option.enableTrialChamberMeleeEquipment.description": "Allows Zombies to spawn with custom weapons in trial chambers",
   "config.weaponsexpanded.option.enableWeaponsmithTrades": "Enable Weaponsmith Trades",
   "config.weaponsexpanded.option.altTwoHandedSwordHandling": "Alt Two-Handed Sword Handling",
   "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "Disable Extra Durability Damage for Axes",
@@ -181,6 +187,8 @@
   "config.weaponsexpanded.option.chainCrossbowLoadTime": "Chain Crossbow Load Time",
   "config.weaponsexpanded.option.extraSizePerCapacityLevel": "Extra Magazine Size per Capacity Level",
   "config.weaponsexpanded.option.frostbitePotionRecipe": "Enable Frostbite Potion Recipe",
+  "config.weaponsexpanded.option.enableEntityTypeChanges": "Enable Entity Type Changes",
+  "config.weaponsexpanded.option.enableEntityTypeChanges.description": "Adds Creepers to arthropods and adds Wardens and Vex to undead",
 
   "key.category.weaponsexpanded.general": "Weapons Expanded",
   "key.weaponsexpanded.toggle_bastard_sword_mode": "Toggle Weapon Mode"

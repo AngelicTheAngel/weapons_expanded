@@ -54,12 +54,21 @@ public final class WeaponsExpandedConfigScreen {
 
         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableEntityMeleeEquipment"), cfg.enableEntityMeleeEquipment)
                 .setDefaultValue(true)
+                .setTooltip(Component.translatable("config.weaponsexpanded.option.enableEntityMeleeEquipment.description"))
                 .setSaveConsumer(v -> cfg.enableEntityMeleeEquipment = v)
                 .build());
 
         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableTrialChamberMeleeEquipment"), cfg.enableTrialChamberMeleeEquipment)
                 .setDefaultValue(true)
+                .setTooltip(Component.translatable("config.weaponsexpanded.option.enableTrialChamberMeleeEquipment.description"))
                 .setSaveConsumer(v -> cfg.enableTrialChamberMeleeEquipment = v)
+                .build());
+
+        general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableEntityTypeChanges"), cfg.enableEntityTypeChanges)
+                .setDefaultValue(true)
+                .setTooltip(Component.translatable("config.weaponsexpanded.option.enableEntityTypeChanges.description"))
+                .requireRestart()
+                .setSaveConsumer(v -> cfg.enableEntityTypeChanges = v)
                 .build());
 
 //        general.addEntry(eb.startIntSlider(Component.translatable("config.weaponsexpanded.option.ritualDaggerMaxLevel"), cfg.ritualDaggerMaxLevel, 1, 4)

@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.item.custom.HalberdItem;
-import net.angelic.weaponsexpanded.util.ModItemTags;
+import net.angelic.weaponsexpanded.util.tags.ModItemTags;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
