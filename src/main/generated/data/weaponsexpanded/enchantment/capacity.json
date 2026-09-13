@@ -9,12 +9,12 @@
   },
   "max_level": 2,
   "min_cost": {
-    "base": 12,
+    "base": 14,
     "per_level_above_first": 20
   },
   "slots": [
     "hand"
   ],
   "supported_items": "#weaponsexpanded:enchantable/capacity",
-  "weight": 5
+  "weight": 4
 }

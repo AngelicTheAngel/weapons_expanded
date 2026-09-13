@@ -147,9 +147,9 @@ public class ModEnchantmentProvider extends FabricDynamicRegistryProvider {
                 Enchantment.enchantment(
                                 Enchantment.definition(
                                         context.lookup(Registries.ITEM).getOrThrow(ModItemTags.CAPACITY_ENCHANTABLE),
-                                        5,
+                                        4,
                                         2,
-                                        Enchantment.dynamicCost(12, 20),
+                                        Enchantment.dynamicCost(14, 20),
                                         Enchantment.constantCost(50),
                                         4,
                                         EquipmentSlotGroup.HAND
@@ -162,7 +162,7 @@ public class ModEnchantmentProvider extends FabricDynamicRegistryProvider {
                                 context.lookup(Registries.ITEM).getOrThrow(ItemTags.CROSSBOW_ENCHANTABLE),
                                 2,
                                 1,
-                                Enchantment.constantCost(20),
+                                Enchantment.constantCost(25),
                                 Enchantment.constantCost(50),
                                 4,
                                 EquipmentSlotGroup.HAND
