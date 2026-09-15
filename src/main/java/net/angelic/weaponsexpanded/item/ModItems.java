@@ -10,11 +10,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+
 import java.util.function.Function;
 
 import static net.minecraft.world.item.Items.*;
@@ -22,7 +23,7 @@ import static net.minecraft.world.item.Items.*;
 public class ModItems {
 
     public static final Item WOODEN_RAPIER = registerItem("wooden_rapier",
-            settings -> new Item(ModItemProperties.pierce(ToolMaterial.WOOD, 1.5F, -2.2F, settings)));
+            settings -> new Item(ModItemProperties.pierce(ToolMaterial.WOOD, 1.5F, -2.2F, settings.cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE))));
 
     public static final Item GOLDEN_RAPIER = registerItem("golden_rapier",
             settings -> new Item(ModItemProperties.pierce(ToolMaterial.GOLD, 1.5F, -2.2F, settings)));
@@ -43,7 +44,7 @@ public class ModItems {
             settings -> new Item(ModItemProperties.pierce(ToolMaterial.NETHERITE, 1.5F, -2.2F, settings.fireResistant())));
 
     public static final Item WOODEN_BROADSWORD = registerItem("wooden_broadsword",
-            settings -> new Item(settings.sword(ToolMaterial.WOOD, 2.5F, -2.3F)));
+            settings -> new Item(settings.sword(ToolMaterial.WOOD, 2.5F, -2.3F).cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE)));
 
     public static final Item GOLDEN_BROADSWORD = registerItem("golden_broadsword",
             settings -> new Item(settings.sword(ToolMaterial.GOLD, 2.5F, -2.3F)));
@@ -64,7 +65,7 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 2.5F, -2.3F).fireResistant()));
 
     public static final Item WOODEN_SICKLE = registerItem("wooden_sickle",
-            settings -> new Item(settings.sword(ToolMaterial.WOOD, 4.0F, -2.6F)));
+            settings -> new Item(settings.sword(ToolMaterial.WOOD, 4.0F, -2.6F).cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE)));
 
     public static final Item GOLDEN_SICKLE = registerItem("golden_sickle",
             settings -> new Item(settings.sword(ToolMaterial.GOLD, 4.0F, -2.6F)));
@@ -85,7 +86,7 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 4.0F, -2.6F).fireResistant()));
 
     public static final Item WOODEN_SCYTHE = registerItem("wooden_scythe",
-            settings -> new Item(ModItemProperties.scythe(ToolMaterial.WOOD, 5.5F, -2.9F, settings)));
+            settings -> new Item(ModItemProperties.scythe(ToolMaterial.WOOD, 5.5F, -2.9F, settings).cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE)));
 
     public static final Item GOLDEN_SCYTHE = registerItem("golden_scythe",
             settings -> new Item(ModItemProperties.scythe(ToolMaterial.GOLD, 5.5F, -2.9F, settings)));
@@ -106,7 +107,7 @@ public class ModItems {
             settings -> new Item(ModItemProperties.scythe(ToolMaterial.NETHERITE, 5.5F, -2.9F, settings.fireResistant())));
 
     public static final Item WOODEN_LONGSWORD = registerItem("wooden_longsword",
-            settings -> new BastardSwordItem(ToolMaterial.WOOD, 6.0F, -3.0F, 7.0F, -3.0F, settings));
+            settings -> new BastardSwordItem(ToolMaterial.WOOD, 6.0F, -3.0F, 7.0F, -3.0F, settings.cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE)));
 
     public static final Item GOLDEN_LONGSWORD = registerItem("golden_longsword",
             settings -> new BastardSwordItem(ToolMaterial.GOLD, 6.0F, -3.0F, 7.0F, -3.0F, settings));
@@ -127,7 +128,7 @@ public class ModItems {
             settings -> new BastardSwordItem(ToolMaterial.NETHERITE, 6.0F, -3.0F, 7.0F, -3.0F, settings.fireResistant()));
 
     public static final Item WOODEN_KATANA = registerItem("wooden_katana",
-            settings -> new Item(settings.sword(ToolMaterial.WOOD, 3.0F, -2.2F)));
+            settings -> new Item(settings.sword(ToolMaterial.WOOD, 3.0F, -2.2F).cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE)));
 
     public static final Item GOLDEN_KATANA = registerItem("golden_katana",
             settings -> new Item(settings.sword(ToolMaterial.GOLD, 3.0F, -2.2F)));
@@ -148,28 +149,28 @@ public class ModItems {
             settings -> new Item(settings.sword(ToolMaterial.NETHERITE, 3.0F, -2.2F).fireResistant()));
 
     public static final Item WOODEN_HATCHET = registerItem("wooden_hatchet",
-            settings -> new AxeItem(ToolMaterial.WOOD, 4.0F, -2.9F, settings));
+            settings -> new Item(settings.axe(ToolMaterial.WOOD, 4.0F, -2.9F)));
 
     public static final Item GOLDEN_HATCHET = registerItem("golden_hatchet",
-            settings -> new AxeItem(ToolMaterial.GOLD, 4.0F, -2.7F, settings));
+            settings -> new Item(settings.axe(ToolMaterial.GOLD, 4.0F, -2.7F)));
 
     public static final Item STONE_HATCHET = registerItem("stone_hatchet",
-            settings -> new AxeItem(ToolMaterial.STONE, 5.0F, -2.9F, settings));
+            settings -> new Item(settings.axe(ToolMaterial.STONE, 5.0F, -2.9F)));
 
     public static final Item COPPER_HATCHET = registerItem("copper_hatchet",
-            settings -> new AxeItem(ToolMaterial.COPPER, 5.0F, -2.9F, settings));
+            settings -> new Item(settings.axe(ToolMaterial.COPPER, 5.0F, -2.9F)));
 
     public static final Item IRON_HATCHET = registerItem("iron_hatchet",
-            settings -> new AxeItem(ToolMaterial.IRON, 4.0F, -2.8F, settings));
+            settings -> new Item(settings.axe(ToolMaterial.IRON, 4.0F, -2.8F)));
 
     public static final Item DIAMOND_HATCHET = registerItem("diamond_hatchet",
-            settings -> new AxeItem(ToolMaterial.DIAMOND, 3.0F, -2.7F, settings));
+            settings -> new Item(settings.axe(ToolMaterial.DIAMOND, 3.0F, -2.7F)));
 
     public static final Item NETHERITE_HATCHET = registerItem("netherite_hatchet",
-            settings -> new AxeItem(ToolMaterial.NETHERITE, 3.0F, -2.7F, settings.fireResistant()));
+            settings -> new Item(settings.axe(ToolMaterial.NETHERITE, 3.0F, -2.7F).fireResistant()));
 
     public static final Item WOODEN_HAMMER = registerItem("wooden_hammer",
-            settings -> new Item(ModItemProperties.blunt(ToolMaterial.WOOD, 7.0F, -3.3F, settings)));
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.WOOD, 7.0F, -3.3F, settings.cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE))));
 
     public static final Item GOLDEN_HAMMER = registerItem("golden_hammer",
             settings -> new Item(ModItemProperties.blunt(ToolMaterial.GOLD, 7.0F, -3.1F, settings)));
@@ -190,28 +191,28 @@ public class ModItems {
             settings -> new Item(ModItemProperties.blunt(ToolMaterial.NETHERITE, 6.0F, -3.1F, settings.fireResistant())));
 
     public static final Item WOODEN_BATTLEAXE = registerItem("wooden_battleaxe",
-            settings -> new AxeItem(ToolMaterial.WOOD, 8.0F, -3.4F, settings));
+            settings -> new Item(settings.axe(ToolMaterial.WOOD, 8.0F, -3.4F)));
 
     public static final Item GOLDEN_BATTLEAXE = registerItem("golden_battleaxe",
-            settings -> new AxeItem(ToolMaterial.GOLD, 8.0F, -3.2F, settings));
+            settings -> new Item(settings.axe(ToolMaterial.GOLD, 8.0F, -3.2F)));
 
     public static final Item STONE_BATTLEAXE = registerItem("stone_battleaxe",
-            settings -> new AxeItem(ToolMaterial.STONE, 9.0F, -3.4F, settings));
+            settings -> new Item(settings.axe(ToolMaterial.STONE, 9.0F, -3.4F)));
 
     public static final Item COPPER_BATTLEAXE = registerItem("copper_battleaxe",
-            settings -> new AxeItem(ToolMaterial.COPPER, 9.0F, -3.4F, settings));
+            settings -> new Item(settings.axe(ToolMaterial.COPPER, 9.0F, -3.4F)));
 
     public static final Item IRON_BATTLEAXE = registerItem("iron_battleaxe",
-            settings -> new AxeItem(ToolMaterial.IRON, 8.0F, -3.3F, settings));
+            settings -> new Item(settings.axe(ToolMaterial.IRON, 8.0F, -3.3F)));
 
     public static final Item DIAMOND_BATTLEAXE = registerItem("diamond_battleaxe",
-            settings -> new AxeItem(ToolMaterial.DIAMOND, 7.0F, -3.2F, settings));
+            settings -> new Item(settings.axe(ToolMaterial.DIAMOND, 7.0F, -3.2F)));
 
     public static final Item NETHERITE_BATTLEAXE = registerItem("netherite_battleaxe",
-            settings -> new AxeItem(ToolMaterial.NETHERITE, 7.0F, -3.2F, settings.fireResistant()));
+            settings -> new Item(settings.axe(ToolMaterial.NETHERITE, 7.0F, -3.2F).fireResistant()));
 
     public static final Item WOODEN_GREATSWORD = registerItem("wooden_greatsword",
-            settings -> new Item(ModItemProperties.greatsword(ToolMaterial.WOOD, 8.0F, -3.2F, settings)));
+            settings -> new Item(ModItemProperties.greatsword(ToolMaterial.WOOD, 8.0F, -3.2F, settings.cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE))));
 
     public static final Item GOLDEN_GREATSWORD = registerItem("golden_greatsword",
             settings -> new Item(ModItemProperties.greatsword(ToolMaterial.GOLD, 8.0F, -3.2F, settings)));
@@ -232,7 +233,7 @@ public class ModItems {
             settings -> new Item(ModItemProperties.greatsword(ToolMaterial.NETHERITE, 8.0F, -3.2F, settings).fireResistant()));
 
     public static final Item WOODEN_WARHAMMER = registerItem("wooden_warhammer",
-            settings -> new WarhammerItem(ToolMaterial.WOOD, 5.0F, -3.1F, 5.0F, -2.8F, settings));
+            settings -> new WarhammerItem(ToolMaterial.WOOD, 5.0F, -3.1F, 5.0F, -2.8F, settings.cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE)));
 
     public static final Item GOLDEN_WARHAMMER = registerItem("golden_warhammer",
             settings -> new WarhammerItem(ToolMaterial.GOLD, 5.0F, -2.9F, 5.0F, -2.8F, settings));
@@ -253,7 +254,7 @@ public class ModItems {
             settings -> new WarhammerItem(ToolMaterial.NETHERITE, 4.0F, -2.9F, 5.0F, -2.8F, settings.fireResistant()));
 
     public static final Item WOODEN_MORNINGSTAR = registerItem("wooden_morningstar",
-            settings -> new Item(ModItemProperties.blunt(ToolMaterial.WOOD, 5.0F, -3.0F, settings)));
+            settings -> new Item(ModItemProperties.blunt(ToolMaterial.WOOD, 5.0F, -3.0F, settings.cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE))));
 
     public static final Item GOLDEN_MORNINGSTAR = registerItem("golden_morningstar",
             settings -> new Item(ModItemProperties.blunt(ToolMaterial.GOLD, 5.0F, -2.8F, settings)));
@@ -274,7 +275,7 @@ public class ModItems {
             settings -> new Item(ModItemProperties.blunt(ToolMaterial.NETHERITE, 4.0F, -2.8F, settings.fireResistant())));
 
     public static final Item WOODEN_GLAIVE = registerItem("wooden_glaive",
-            settings -> new Item(ModItemProperties.glaive(ToolMaterial.WOOD, 4.0F, -2.7F, settings)));
+            settings -> new Item(ModItemProperties.glaive(ToolMaterial.WOOD, 4.0F, -2.7F, settings.cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE))));
 
     public static final Item GOLDEN_GLAIVE = registerItem("golden_glaive",
             settings -> new Item(ModItemProperties.glaive(ToolMaterial.GOLD, 4.0F, -2.7F, settings)));
@@ -295,7 +296,7 @@ public class ModItems {
             settings -> new Item(ModItemProperties.glaive(ToolMaterial.NETHERITE, 4.0F, -2.7F, settings)));
 
     public static final Item WOODEN_HALBERD = registerItem("wooden_halberd",
-            settings -> new HalberdItem(ToolMaterial.WOOD, 6.5F, -3.1F, 6.0F, -3.2F, settings));
+            settings -> new HalberdItem(ToolMaterial.WOOD, 6.5F, -3.1F, 6.0F, -3.2F, settings.cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE)));
 
     public static final Item GOLDEN_HALBERD = registerItem("golden_halberd",
             settings -> new HalberdItem(ToolMaterial.GOLD, 6.5F, -3.1F, 6.0F, -3.2F, settings));
@@ -322,7 +323,7 @@ public class ModItems {
             settings -> new ExplosiveArrowItem(settings.stacksTo(64)));
 
     public static final Item LONGBOW = registerItem("longbow",
-            settings -> new LongbowItem(settings.durability(384).enchantable(1)));
+            settings -> new LongbowItem(settings.durability(384).enchantable(1).cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE)));
 
     public static final Item CHAIN_CROSSBOW = registerItem("chain_crossbow",
             settings -> new ChainCrossbowItem(settings.durability(465).enchantable(1)));

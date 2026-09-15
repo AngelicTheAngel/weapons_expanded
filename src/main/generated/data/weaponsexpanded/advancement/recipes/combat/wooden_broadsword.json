@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:wooden_broadsword"
+        "recipes": "weaponsexpanded:wooden_broadsword"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

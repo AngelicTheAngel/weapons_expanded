@@ -11,13 +11,11 @@ import net.angelic.weaponsexpanded.item.custom.HalberdItem;
 import net.angelic.weaponsexpanded.item.custom.WarhammerItem;
 import net.angelic.weaponsexpanded.network.*;
 import net.angelic.weaponsexpanded.potion.ModPotions;
-import net.angelic.weaponsexpanded.registries.ModFuels;
 import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.angelic.weaponsexpanded.util.ModLootTableModifiers;
 import net.angelic.weaponsexpanded.util.conditions.ModResourceConditions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.registry.FabricPotionBrewingBuilder;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -30,9 +28,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShieldItem;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.component.ChargedProjectiles;
-import net.minecraft.world.item.crafting.Ingredient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +52,6 @@ public class WeaponsExpanded implements ModInitializer {
         ModEffects.registerEffects();
         ModEntities.registerEntities();
         ModSounds.register();
-        ModFuels.registerFuels();
         ModPotions.registerPotions();
         ModResourceConditions.register();
         ModLootTableModifiers.modifyLootTables();
@@ -117,13 +112,6 @@ public class WeaponsExpanded implements ModInitializer {
         ServerPlayNetworking.registerGlobalReceiver(ToggleHalberdModePayload.ID, (payload, context) ->
                 context.server().execute(() -> weaponsexpanded$toggleHalberdMode(context.player()))
         );
-
-        FabricPotionBrewingBuilder.BUILD.register(builder -> {
-            if(WeaponsExpandedConfig.get().frostbitePotionRecipe) {
-                builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(Items.BLUE_ICE), ModPotions.FROSTBITE_POTION);
-                builder.registerPotionRecipe(ModPotions.FROSTBITE_POTION, Ingredient.of(Items.REDSTONE), ModPotions.LONG_FROSTBITE_POTION);
-            }
-        });
     }
 
     private static void weaponsexpanded$toggleBastardSwordMode(Player player) {

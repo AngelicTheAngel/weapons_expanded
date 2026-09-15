@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:copper_broadsword"
+        "recipes": "weaponsexpanded:copper_broadsword"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

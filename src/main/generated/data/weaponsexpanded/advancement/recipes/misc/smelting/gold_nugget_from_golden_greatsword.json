@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:smelting/gold_nugget_from_golden_greatsword"
+        "recipes": "weaponsexpanded:smelting/gold_nugget_from_golden_greatsword"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

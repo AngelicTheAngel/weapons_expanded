@@ -33,7 +33,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:chain_crossbow"
+        "recipes": "weaponsexpanded:chain_crossbow"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

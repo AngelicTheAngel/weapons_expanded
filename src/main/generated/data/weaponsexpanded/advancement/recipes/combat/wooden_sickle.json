@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:wooden_sickle"
+        "recipes": "weaponsexpanded:wooden_sickle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

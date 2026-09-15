@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:copper_battleaxe"
+        "recipes": "weaponsexpanded:copper_battleaxe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

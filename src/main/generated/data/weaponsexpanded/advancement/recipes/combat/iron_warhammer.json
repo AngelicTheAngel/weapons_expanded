@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:iron_warhammer"
+        "recipes": "weaponsexpanded:iron_warhammer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

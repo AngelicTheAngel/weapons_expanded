@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:diamond_longsword"
+        "recipes": "weaponsexpanded:diamond_longsword"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

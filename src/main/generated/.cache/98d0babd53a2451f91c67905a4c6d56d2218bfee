@@ -1,0 +1,5 @@
+// 26.3	-999999999-01-01T00:00:00	Weapons Expanded/Tags for minecraft:entity_type
+7e8ccf4dfd95cc8e89542aac3c307a35640013fa data/weaponsexpanded/tags/entity_type/end.json
+eb9ff52362cc52417bb009e59c85efd47fc75aa0 data/weaponsexpanded/tags/entity_type/nether.json
+b07ee24b0a2d24350f58006ef1545ada082374c6 data/weaponsexpanded/tags/entity_type/sensitive_to_ends_bane.json
+05328cd83756521cc120121c111517299b935bc3 data/weaponsexpanded/tags/entity_type/sensitive_to_nethers_scourge.json

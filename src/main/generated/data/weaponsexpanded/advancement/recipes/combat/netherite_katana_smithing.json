@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:netherite_katana_smithing"
+        "recipes": "weaponsexpanded:netherite_katana_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

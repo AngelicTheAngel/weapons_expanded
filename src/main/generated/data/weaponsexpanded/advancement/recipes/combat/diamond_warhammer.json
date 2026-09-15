@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:diamond_warhammer"
+        "recipes": "weaponsexpanded:diamond_warhammer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

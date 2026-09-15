@@ -22,10 +22,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.HitResult;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 
 import static net.angelic.weaponsexpanded.WeaponsExpanded.MOD_ID;
 
+@SuppressWarnings({"unused", "ConstantValue"})
 public class WeaponsExpandedClient implements ClientModInitializer {
 
     private static final KeyMapping.Category WEAPONSEXPANDED$KEY_CATEGORY =
@@ -49,7 +50,7 @@ public class WeaponsExpandedClient implements ClientModInitializer {
         weaponsexpanded$toggleBastardSwordModeKey = KeyMappingHelper.registerKeyMapping(
                 new KeyMapping(
                         WEAPONSEXPANDED$KEY_TOGGLE_BASTARD_SWORD,
-                        GLFW.GLFW_KEY_V,
+                        InputConstants.KEY_V,
                         WEAPONSEXPANDED$KEY_CATEGORY
                 )
         );

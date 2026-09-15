@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:golden_halberd"
+        "recipes": "weaponsexpanded:golden_halberd"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

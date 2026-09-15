@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:netherite_battleaxe_smithing"
+        "recipes": "weaponsexpanded:netherite_battleaxe_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

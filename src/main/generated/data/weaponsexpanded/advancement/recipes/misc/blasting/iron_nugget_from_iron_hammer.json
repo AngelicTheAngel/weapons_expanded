@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:blasting/iron_nugget_from_iron_hammer"
+        "recipes": "weaponsexpanded:blasting/iron_nugget_from_iron_hammer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:wooden_hatchet"
+        "recipes": "weaponsexpanded:wooden_hatchet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

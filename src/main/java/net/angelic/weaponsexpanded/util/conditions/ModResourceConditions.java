@@ -12,7 +12,14 @@ public final class ModResourceConditions {
             WeaponsmithTradesCondition.CODEC
     );
 
+    public static final ResourceConditionType<FrostbitePotionRecipeCondition>
+            FROSTBITE_POTION = ResourceConditionType.create(
+            Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "frosbite_potion"),
+            FrostbitePotionRecipeCondition.CODEC
+    );
+
     public static void register() {
         ResourceConditions.register(WEAPONSMITH_TRADES);
+        ResourceConditions.register(FROSTBITE_POTION);
     }
 }

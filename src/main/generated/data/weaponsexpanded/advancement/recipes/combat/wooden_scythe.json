@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:wooden_scythe"
+        "recipes": "weaponsexpanded:wooden_scythe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

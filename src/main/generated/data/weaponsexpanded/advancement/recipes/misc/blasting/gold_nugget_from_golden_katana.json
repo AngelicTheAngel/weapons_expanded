@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:blasting/gold_nugget_from_golden_katana"
+        "recipes": "weaponsexpanded:blasting/gold_nugget_from_golden_katana"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

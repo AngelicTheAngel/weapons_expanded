@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:iron_rapier"
+        "recipes": "weaponsexpanded:iron_rapier"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

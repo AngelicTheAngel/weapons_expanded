@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:smelting/iron_nugget_from_iron_katana"
+        "recipes": "weaponsexpanded:smelting/iron_nugget_from_iron_katana"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -1,0 +1,19 @@
+// 26.3	-999999999-01-01T00:00:00	Weapons Expanded/Tags for minecraft:item
+3dc59f4f3a7d480cdf07fafd554a21fb26f86fa2 data/minecraft/tags/item/arrows.json
+47148f548e7150b0f826016fc0d05675f69939bc data/minecraft/tags/item/axes.json
+f3cfd4baa044bb19a6f422d91ec15d6321bd6d71 data/minecraft/tags/item/enchantable/bow.json
+25f9f224421c38040fd27f91b433a834886df9db data/minecraft/tags/item/enchantable/crossbow.json
+8cb91a982169ed87acea37f7de1a554e2961ee06 data/minecraft/tags/item/enchantable/durability.json
+3c300f276987550e94ab58ed3312a6cde180c68b data/minecraft/tags/item/enchantable/melee_weapon.json
+db2e309ed73c64f1e644b7a3ebc8e0f2e5066a57 data/minecraft/tags/item/enchantable/mining.json
+68cac0562c2a3f92fc3c570141f21ad04cf944f0 data/minecraft/tags/item/piglin_loved.json
+0c0772b46b6c76833936f6dfd12a3624fd1cbb18 data/minecraft/tags/item/swords.json
+4f74a139725c9e019aae2b80e25d1462b43469a7 data/weaponsexpanded/tags/item/blunt.json
+765be2a651b90a30859b89c5767a8f3dd7b90cd2 data/weaponsexpanded/tags/item/diamond_weapons.json
+25f9f224421c38040fd27f91b433a834886df9db data/weaponsexpanded/tags/item/enchantable/capacity.json
+29a1f41422136cee917f3db94bd1eec7da252f95 data/weaponsexpanded/tags/item/enchantable/cleaving.json
+ea404a0ab7a6f867ef91e88ed35fb7429c480842 data/weaponsexpanded/tags/item/enchantable/leech.json
+66516ecb656a0a2d98f996a61cbde732bb46bec1 data/weaponsexpanded/tags/item/netherite_weapons.json
+f290fbb409ebec5453f49c139cb790bba81bfa29 data/weaponsexpanded/tags/item/pierce.json
+a08884cd7cf373ae533485489d396ca336c95a15 data/weaponsexpanded/tags/item/scythe.json
+81f05bc3a8e2deab1883ec54334728e8838795c9 data/weaponsexpanded/tags/item/two_handed.json

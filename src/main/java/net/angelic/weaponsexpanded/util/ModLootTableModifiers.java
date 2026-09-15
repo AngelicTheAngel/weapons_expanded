@@ -4,18 +4,20 @@ import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.entries.UniformContainerBase;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProviders;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
+@SuppressWarnings("unused")
 public class ModLootTableModifiers {
 
     // Trial chamber tables don’t always have constants; match by ID.
@@ -44,7 +46,7 @@ public class ModLootTableModifiers {
 
             if (BuiltInLootTables.IGLOO_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
                         .add(weightedItem(ModItems.STONE_HATCHET, 1));
                 tableBuilder.pool(pool.build());
@@ -52,7 +54,7 @@ public class ModLootTableModifiers {
 
             if (VILLAGE_WEAPONSMITH.equals(id)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
                         .add(weightedItem(ModItems.IRON_LONGSWORD, 2))
                         .add(weightedItem(ModItems.IRON_HAMMER, 1));
@@ -61,7 +63,7 @@ public class ModLootTableModifiers {
 
             if (BuiltInLootTables.PILLAGER_OUTPOST.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
                         .add(weightedItem(ModItems.CHAIN_CROSSBOW, 1));
                 tableBuilder.pool(pool.build());
@@ -69,7 +71,7 @@ public class ModLootTableModifiers {
 
             if (TRIAL_ENTRANCE.equals(id)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
                         .add(weightedItem(ModItems.WOODEN_BATTLEAXE, 3))
                         .add(weightedItem(ModItems.WOODEN_HATCHET, 3));
@@ -78,7 +80,7 @@ public class ModLootTableModifiers {
 
             if (TRIAL_CORRIDOR.equals(id)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL))
                         .add(enchantRandomly(withDamage(weightedItem(ModItems.IRON_HATCHET, 1), 0.4f, 0.9f), registry))
                         .add(enchantRandomly(withDamage(weightedItem(ModItems.IRON_BATTLEAXE, 1), 0.4f, 0.9f), registry));
@@ -87,7 +89,7 @@ public class ModLootTableModifiers {
 
             if (TRIAL_INTERSECTION.equals(id)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL))
                         .add(withDamage(weightedItem(ModItems.DIAMOND_HATCHET, 2), 0.1f, 0.5f))
                         .add(withDamage(weightedItem(ModItems.DIAMOND_BATTLEAXE, 1), 0.1f, 0.5f));
@@ -96,7 +98,7 @@ public class ModLootTableModifiers {
 
             if (TRIAL_INTERSECTION_BARREL.equals(id)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL))
                         .add(enchantRandomly(withDamage(weightedItem(ModItems.DIAMOND_HATCHET, 1), 0.4f, 0.9f), registry))
                         .add(enchantRandomly(withDamage(weightedItem(ModItems.DIAMOND_BATTLEAXE, 1), 0.4f, 0.9f), registry))
@@ -107,7 +109,7 @@ public class ModLootTableModifiers {
 
             if (BuiltInLootTables.RUINED_PORTAL.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL_HIGH))
                         .add(enchantRandomly(weightedItem(ModItems.GOLDEN_LONGSWORD, 5), registry))
                         .add(enchantRandomly(weightedItem(ModItems.GOLDEN_GREATSWORD, 5), registry))
@@ -118,7 +120,7 @@ public class ModLootTableModifiers {
 
             if (BuiltInLootTables.NETHER_BRIDGE.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
                         .add(weightedItem(ModItems.GOLDEN_LONGSWORD, 2))
                         .add(weightedItem(ModItems.GOLDEN_GREATSWORD, 1));
@@ -127,7 +129,7 @@ public class ModLootTableModifiers {
 
             if (TRIAL_REWARD_RARE.equals(id)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL))
                         .add(enchantWithLevels(weightedItem(ModItems.IRON_HATCHET, 1), registry, 5, 15));
                 tableBuilder.pool(pool.build());
@@ -135,7 +137,7 @@ public class ModLootTableModifiers {
 
             if (TRIAL_REWARD_OMINOUS_RARE.equals(id)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL))
                         .add(enchantWithLevels(weightedItem(ModItems.DIAMOND_HAMMER, 1), registry, 10, 20))
                         .add(enchantWithLevels(weightedItem(ModItems.DIAMOND_BATTLEAXE, 1), registry, 10, 20));
@@ -144,7 +146,7 @@ public class ModLootTableModifiers {
 
             if (BuiltInLootTables.UNDERWATER_RUIN_SMALL.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
                         .add(weightedItem(ModItems.STONE_HAMMER, 1));
                 tableBuilder.pool(pool.build());
@@ -152,7 +154,7 @@ public class ModLootTableModifiers {
 
             if (BuiltInLootTables.STRONGHOLD_CORRIDOR.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
                         .add(weightedItem(ModItems.IRON_HAMMER, 2))
                         .add(weightedItem(ModItems.IRON_KATANA, 1));
@@ -161,7 +163,7 @@ public class ModLootTableModifiers {
 
             if (BuiltInLootTables.BURIED_TREASURE.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_COMMON))
                         .add(weightedItem(ModItems.IRON_BROADSWORD, 1))
                         .add(weightedItem(ModItems.IRON_SICKLE, 1))
@@ -171,7 +173,7 @@ public class ModLootTableModifiers {
 
             if (BuiltInLootTables.BASTION_BRIDGE.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL_HIGH))
                         .add(weightedItem(ModItems.GOLDEN_LONGSWORD, 1))
                         .add(enchantRandomly(weightedItem(ModItems.GOLDEN_BATTLEAXE, 1), registry))
@@ -181,7 +183,7 @@ public class ModLootTableModifiers {
 
             if (BuiltInLootTables.BASTION_HOGLIN_STABLE.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL_HIGH))
                         .add(enchantRandomly(weightedItem(ModItems.GOLDEN_BATTLEAXE, 1), registry));
                 tableBuilder.pool(pool.build());
@@ -189,7 +191,7 @@ public class ModLootTableModifiers {
 
             if (BuiltInLootTables.BASTION_OTHER.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL_HIGH))
                         .add(enchantRandomly(withDamage(weightedItem(ModItems.IRON_SCYTHE, 2), 0.1f, 0.9f), registry))
                         .add(enchantRandomly(weightedItem(ModItems.GOLDEN_HATCHET, 1), registry))
@@ -200,7 +202,7 @@ public class ModLootTableModifiers {
 
             if (BuiltInLootTables.BASTION_TREASURE.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL))
                         .add(enchantRandomly(withDamage(weightedItem(ModItems.DIAMOND_SCYTHE, 2), 0.8f, 1.0f), registry))
                         .add(enchantRandomly(withDamage(weightedItem(ModItems.DIAMOND_LONGSWORD, 2), 0.8f, 1.0f), registry))
@@ -211,7 +213,7 @@ public class ModLootTableModifiers {
 
             if (BuiltInLootTables.END_CITY_TREASURE.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(LootItemRandomChanceCondition.randomChance(CHANCE_SPECIAL))
                         .add(enchantWithLevels(weightedItem(ModItems.DIAMOND_SCYTHE, 1), registry, 20, 39))
                         .add(enchantWithLevels(weightedItem(ModItems.DIAMOND_GREATSWORD, 1), registry, 20, 39))
@@ -224,19 +226,19 @@ public class ModLootTableModifiers {
 
     // -------- helper builders --------
 
-    private static LootPoolSingletonContainer.Builder<?> weightedItem(net.minecraft.world.item.Item item, int weight) {
+    private static UniformContainerBase.Builder<?> weightedItem(net.minecraft.world.item.Item item, int weight) {
         return LootItem.lootTableItem(item).setWeight(weight);
     }
 
-    private static LootPoolSingletonContainer.Builder<?> withDamage(LootPoolSingletonContainer.Builder<?> entry, float min, float max) {
-        return entry.apply(SetItemDamageFunction.setDamage(UniformGenerator.between(min, max)));
+    private static UniformContainerBase.Builder<?> withDamage(UniformContainerBase.Builder<?> entry, float min, float max) {
+        return entry.apply(SetItemDamageFunction.setDamage(ContextFloatProviders.between(min, max)));
     }
 
-    private static LootPoolSingletonContainer.Builder<?> enchantRandomly(LootPoolSingletonContainer.Builder<?> entry, HolderLookup.Provider registry) {
-        return entry.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registry));
+    private static UniformContainerBase.Builder<?> enchantRandomly(UniformContainerBase.Builder<?> entry, HolderLookup.Provider registry) {
+        return entry.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registry.lookupOrThrow(Registries.ENCHANTMENT)));
     }
 
-    private static LootPoolSingletonContainer.Builder<?> enchantWithLevels(LootPoolSingletonContainer.Builder<?> entry, HolderLookup.Provider registry, int min, int max) {
-        return entry.apply(EnchantWithLevelsFunction.enchantWithLevels(registry, UniformGenerator.between(min, max)));
+    private static UniformContainerBase.Builder<?> enchantWithLevels(UniformContainerBase.Builder<?> entry, HolderLookup.Provider registry, int min, int max) {
+        return entry.apply(EnchantWithLevelsFunction.enchantWithLevels(registry.lookupOrThrow(Registries.ENCHANTMENT), ContextIntProviders.between(min, max)));
     }
 }

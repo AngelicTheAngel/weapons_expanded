@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:netherite_morningstar_smithing"
+        "recipes": "weaponsexpanded:netherite_morningstar_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

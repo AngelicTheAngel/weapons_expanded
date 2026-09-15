@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:golden_katana"
+        "recipes": "weaponsexpanded:golden_katana"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

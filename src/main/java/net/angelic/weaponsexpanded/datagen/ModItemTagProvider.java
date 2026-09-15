@@ -72,22 +72,6 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.GOLDEN_MORNINGSTAR))
                 .add(key(ModItems.GOLDEN_HALBERD));
 
-        builder(ModItemTags.WOODEN_WEAPON_FUEL)
-                .add(key(ModItems.WOODEN_RAPIER))
-                .add(key(ModItems.WOODEN_BROADSWORD))
-                .add(key(ModItems.WOODEN_SICKLE))
-                .add(key(ModItems.WOODEN_SCYTHE))
-                .add(key(ModItems.WOODEN_LONGSWORD))
-                .add(key(ModItems.WOODEN_KATANA))
-                .add(key(ModItems.WOODEN_GREATSWORD))
-                .add(key(ModItems.WOODEN_HATCHET))
-                .add(key(ModItems.WOODEN_HAMMER))
-                .add(key(ModItems.WOODEN_WARHAMMER))
-                .add(key(ModItems.WOODEN_BATTLEAXE))
-                .add(key(ModItems.WOODEN_GLAIVE))
-                .add(key(ModItems.WOODEN_MORNINGSTAR))
-                .add(key(ModItems.WOODEN_HALBERD));
-
         builder(ModItemTags.DIAMOND_WEAPON)
                 .add(ItemIds.DIAMOND_SWORD)
                 .add(ItemIds.DIAMOND_AXE)

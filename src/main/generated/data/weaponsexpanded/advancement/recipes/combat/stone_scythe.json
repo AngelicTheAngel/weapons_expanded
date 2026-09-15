@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:stone_scythe"
+        "recipes": "weaponsexpanded:stone_scythe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

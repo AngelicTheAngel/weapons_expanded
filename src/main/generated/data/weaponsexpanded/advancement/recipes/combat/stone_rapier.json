@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:stone_rapier"
+        "recipes": "weaponsexpanded:stone_rapier"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

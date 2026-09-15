@@ -1,0 +1,8 @@
+// 26.3	-999999999-01-01T00:00:00	Weapons Expanded/Tags for minecraft:enchantment
+38122bb62afcbf833b09fcafb0671b7555401e10 data/minecraft/tags/enchantment/exclusive_set/damage.json
+6ce36a9e29f46c83a8ceb21a1b7eb1abf2584942 data/minecraft/tags/enchantment/non_treasure.json
+48d43080a27ada7dcb6ad7d4574f539d7d043429 data/minecraft/tags/enchantment/tradeable.json
+48d43080a27ada7dcb6ad7d4574f539d7d043429 data/minecraft/tags/enchantment/treasure.json
+089192b81fe61d3674094d31ab6e31f65e09561e data/weaponsexpanded/tags/enchantment/exclusive_set/bow_effects.json
+6d2dbc478f10136002ab7acb6221e2e6bca51837 data/weaponsexpanded/tags/enchantment/exclusive_set/crossbow_load.json
+6fd4e86dc62c4d1116e7d21b0c8b4c1068183e7e data/weaponsexpanded/tags/enchantment/exclusive_set/post_attack.json

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:iron_katana"
+        "recipes": "weaponsexpanded:iron_katana"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

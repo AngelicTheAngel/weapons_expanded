@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:stone_battleaxe"
+        "recipes": "weaponsexpanded:stone_battleaxe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -1,24 +1,32 @@
 package net.angelic.weaponsexpanded.datagen;
 
+import net.angelic.weaponsexpanded.WeaponsExpanded;
 import net.angelic.weaponsexpanded.item.ModItems;
+import net.angelic.weaponsexpanded.potion.ModPotions;
+import net.angelic.weaponsexpanded.util.conditions.FrostbitePotionRecipeCondition;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.*;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("NullableProblems")
 public class ModRecipeProvider extends FabricRecipeProvider {
 
     public ModRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
@@ -26,10 +34,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    protected @NonNull RecipeProvider createRecipeProvider(HolderLookup.@NonNull Provider registries, @NonNull RecipeOutput exporter) {
-        return new RecipeProvider(registries, exporter) {
+    protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
+        return new RecipeProvider(recipes, advancements) {
             @Override
             public void buildRecipes() {
+                RecipeOutput frostbiteOutput = ModRecipeProvider.this.withConditions(output, new FrostbitePotionRecipeCondition());
+
                 float xp = 0.1f;
                 int smeltTime = 200;
                 int blastTime = 100;
@@ -214,6 +224,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .group(getItemName(ModItems.HEAVY_ARROW))
                         .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
                         .save(this.output);
+
+                BrewingRecipeBuilder.brewingMix(Items.POTION, Potions.AWKWARD, Items.BLUE_ICE, ModPotions.FROSTBITE_POTION).save(frostbiteOutput, recipeKey("brewing/potion_awkward_blue_ice"));
+                BrewingRecipeBuilder.brewingMix(Items.SPLASH_POTION, Potions.AWKWARD, Items.BLUE_ICE, ModPotions.FROSTBITE_POTION).save(frostbiteOutput, recipeKey("brewing/splash_potion_awkward_blue_ice"));
+                BrewingRecipeBuilder.brewingMix(Items.LINGERING_POTION, Potions.AWKWARD, Items.BLUE_ICE, ModPotions.FROSTBITE_POTION).save(frostbiteOutput, recipeKey("brewing/lingering_potion_awkward_blue_ice"));
+
+                BrewingRecipeBuilder.brewingMix(Items.POTION, ModPotions.FROSTBITE_POTION, Items.REDSTONE, ModPotions.LONG_FROSTBITE_POTION).save(frostbiteOutput, recipeKey("brewing/frostbite_potion_redstone"));
+                BrewingRecipeBuilder.brewingMix(Items.SPLASH_POTION, ModPotions.FROSTBITE_POTION, Items.REDSTONE, ModPotions.LONG_FROSTBITE_POTION).save(frostbiteOutput, recipeKey("brewing/splash_potion_frostbite_potion_redstone"));
+                BrewingRecipeBuilder.brewingMix(Items.LINGERING_POTION, ModPotions.FROSTBITE_POTION, Items.REDSTONE, ModPotions.LONG_FROSTBITE_POTION).save(frostbiteOutput, recipeKey("brewing/lingering_potion_frostbite_potion_redstone"));
             }
 
             public void offerRapierRecipe(Item output, TagKey<Item> input) {
@@ -642,6 +660,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         ModItems.COPPER_HAMMER,
                         ModItems.COPPER_BATTLEAXE,
                         ModItems.COPPER_GREATSWORD
+                );
+            }
+
+            private static ResourceKey<Recipe<?>> recipeKey(String path) {
+                return ResourceKey.create(
+                        Registries.RECIPE,
+                        Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, path)
                 );
             }
         };

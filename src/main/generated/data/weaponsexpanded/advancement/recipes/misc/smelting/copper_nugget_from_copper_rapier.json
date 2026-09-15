@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:smelting/copper_nugget_from_copper_rapier"
+        "recipes": "weaponsexpanded:smelting/copper_nugget_from_copper_rapier"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

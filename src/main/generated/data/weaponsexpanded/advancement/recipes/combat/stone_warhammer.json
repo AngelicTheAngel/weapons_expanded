@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:stone_warhammer"
+        "recipes": "weaponsexpanded:stone_warhammer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

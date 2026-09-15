@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:copper_glaive"
+        "recipes": "weaponsexpanded:copper_glaive"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

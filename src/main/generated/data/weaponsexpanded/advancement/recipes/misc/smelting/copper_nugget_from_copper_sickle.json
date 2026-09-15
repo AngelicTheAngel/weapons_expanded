@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:smelting/copper_nugget_from_copper_sickle"
+        "recipes": "weaponsexpanded:smelting/copper_nugget_from_copper_sickle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

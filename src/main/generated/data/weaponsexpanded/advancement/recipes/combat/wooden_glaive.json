@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:wooden_glaive"
+        "recipes": "weaponsexpanded:wooden_glaive"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

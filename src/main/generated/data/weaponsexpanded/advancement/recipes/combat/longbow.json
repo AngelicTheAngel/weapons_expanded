@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:longbow"
+        "recipes": "weaponsexpanded:longbow"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

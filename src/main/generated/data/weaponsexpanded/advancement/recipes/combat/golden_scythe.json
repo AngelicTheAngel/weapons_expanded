@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:golden_scythe"
+        "recipes": "weaponsexpanded:golden_scythe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

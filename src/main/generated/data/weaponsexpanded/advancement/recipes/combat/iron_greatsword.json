@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:iron_greatsword"
+        "recipes": "weaponsexpanded:iron_greatsword"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

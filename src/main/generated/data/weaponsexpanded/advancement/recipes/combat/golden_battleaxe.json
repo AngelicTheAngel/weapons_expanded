@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:golden_battleaxe"
+        "recipes": "weaponsexpanded:golden_battleaxe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

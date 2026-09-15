@@ -5,9 +5,10 @@ import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.item.custom.HalberdItem;
 import net.angelic.weaponsexpanded.util.tags.ModItemTags;
-import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.ItemInHandRenderer;
+import net.minecraft.client.renderer.FirstPersonHandsAndItemsRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.state.level.FirstPersonHandsAndItemsRenderState;
+import net.minecraft.client.renderer.state.level.PlayerRenderState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
@@ -16,38 +17,37 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ItemInHandRenderer.class)
+@Mixin(FirstPersonHandsAndItemsRenderer.class)
 public abstract class HeldItemRendererHideOffhandMixin {
 
     @Inject(method = "submitArmWithItem", at = @At("HEAD"), cancellable = true)
     private void weaponsexpanded$hideOffhandForCertainMainhandItems(
-            AbstractClientPlayer player,
-            float frameInterp,
+            PlayerRenderState playerState,
+            FirstPersonHandsAndItemsRenderState state,
+            float partialTicks,
             float xRot,
             InteractionHand hand,
             float attack,
-            ItemStack item,
+            ItemStack itemStack,
             float inverseArmHeight,
-            PoseStack matrices,
-            SubmitNodeCollector orderedRenderCommandQueue,
-            int light,
+            PoseStack poseStack,
+            SubmitNodeCollector submitNodeCollector,
+            int lightCoords,
             CallbackInfo ci
     ) {
         if (hand != InteractionHand.OFF_HAND) return;
 
-        ItemStack main = player.getMainHandItem();
-
-        boolean isTwoHanded = main.is(ModItemTags.TWOHANDED);
+        boolean isTwoHanded = itemStack.is(ModItemTags.TWOHANDED);
 
         if (isTwoHanded) {
             ci.cancel();
             return;
         }
 
-        boolean isTwoHandedBastardSword = false;
+        boolean isTwoHandedBastardSword;
 
-        if (main.getItem() instanceof BastardSwordItem bastardSword) {
-            isTwoHandedBastardSword = bastardSword.isTwoHanded(main);
+        if (itemStack.getItem() instanceof BastardSwordItem bastardSword) {
+            isTwoHandedBastardSword = bastardSword.isTwoHanded(itemStack);
         } else {
             isTwoHandedBastardSword = false;
         }
@@ -57,10 +57,10 @@ public abstract class HeldItemRendererHideOffhandMixin {
             return;
         }
 
-        boolean isTwoHandedHalberd = false;
+        boolean isTwoHandedHalberd;
 
-        if (main.getItem() instanceof HalberdItem halberd) {
-            isTwoHandedHalberd = !halberd.isPiercing(main);
+        if (itemStack.getItem() instanceof HalberdItem halberd) {
+            isTwoHandedHalberd = !halberd.isPiercing(itemStack);
         } else {
             isTwoHandedHalberd = false;
         }
@@ -70,13 +70,12 @@ public abstract class HeldItemRendererHideOffhandMixin {
             return;
         }
 
-        boolean isChainCrossbow = main.getItem() instanceof ChainCrossbowItem;
+        boolean isChainCrossbow = itemStack.getItem() instanceof ChainCrossbowItem;
         if (!isChainCrossbow) return;
 
-        boolean mainIsCharged = CrossbowItem.isCharged(main);
-        boolean mainIsBeingUsed = player.isUsingItem() && player.getUsedItemHand() == InteractionHand.MAIN_HAND;
+        boolean mainIsCharged = CrossbowItem.isCharged(itemStack);
 
-        if (mainIsCharged || mainIsBeingUsed) {
+        if (mainIsCharged) {
             ci.cancel();
         }
     }

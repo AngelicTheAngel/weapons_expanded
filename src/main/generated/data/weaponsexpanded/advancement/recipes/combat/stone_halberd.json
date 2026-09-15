@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:stone_halberd"
+        "recipes": "weaponsexpanded:stone_halberd"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

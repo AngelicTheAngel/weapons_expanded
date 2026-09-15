@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:copper_greatsword"
+        "recipes": "weaponsexpanded:copper_greatsword"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

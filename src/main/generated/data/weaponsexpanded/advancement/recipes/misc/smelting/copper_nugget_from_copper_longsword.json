@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:smelting/copper_nugget_from_copper_longsword"
+        "recipes": "weaponsexpanded:smelting/copper_nugget_from_copper_longsword"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

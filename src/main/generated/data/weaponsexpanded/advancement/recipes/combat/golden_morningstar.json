@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:golden_morningstar"
+        "recipes": "weaponsexpanded:golden_morningstar"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

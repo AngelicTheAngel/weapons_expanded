@@ -49,12 +49,6 @@ public final class ModItemTags {
                     Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "two_handed")
             );
 
-    public static final TagKey<Item> WOODEN_WEAPON_FUEL =
-            TagKey.create(
-                    Registries.ITEM,
-                    Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "wooden_weapon_fuel")
-            );
-
     public static final TagKey<Item> DIAMOND_WEAPON =
             TagKey.create(
                     Registries.ITEM,

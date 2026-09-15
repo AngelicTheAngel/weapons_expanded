@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:wooden_katana"
+        "recipes": "weaponsexpanded:wooden_katana"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

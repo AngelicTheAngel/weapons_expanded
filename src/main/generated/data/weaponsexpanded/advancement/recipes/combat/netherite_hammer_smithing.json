@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "weaponsexpanded:netherite_hammer_smithing"
+        "recipes": "weaponsexpanded:netherite_hammer_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
