@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "weaponsexpanded:fletcher/4/emerald_dynamite_arrow",
+      "required": false
+    },
+    {
+      "id": "weaponsexpanded:fletcher/4/emerald_enchanted_longbow",
+      "required": false
+    }
+  ]
+}

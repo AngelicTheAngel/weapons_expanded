@@ -1,3 +1,7 @@
 // 26.3	-999999999-01-01T00:00:00	Weapons Expanded/Tags for minecraft:villager_trade
+40cb55fa53befbd3c4cca2517a48abb7e4916cac data/minecraft/tags/villager_trade/fletcher/level_2.json
+abfadb24b6795aa798cf6d6224f67bc9cd5c0a42 data/minecraft/tags/villager_trade/fletcher/level_3.json
+89e850a7720649359d04c81d08de6dc705b21a17 data/minecraft/tags/villager_trade/fletcher/level_4.json
+512417c424ea0e98655b35f11d2947cbb24da765 data/minecraft/tags/villager_trade/fletcher/level_5.json
 5735892c8399541e690723f6a333e2164632fe20 data/minecraft/tags/villager_trade/weaponsmith/level_4.json
 eff4924091c19742105ad43cbb32a7dbaa7a73e0 data/minecraft/tags/villager_trade/weaponsmith/level_5.json

@@ -7,6 +7,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.VillagerTradeTags;
 import net.minecraft.world.item.trading.VillagerTrade;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -16,7 +17,7 @@ public class ModVillagerTradeTags extends FabricTagsProvider<VillagerTrade> {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider registries) {
+    protected void addTags(HolderLookup.@NonNull Provider registries) {
         getOrCreateRawBuilder(VillagerTradeTags.WEAPONSMITH_LEVEL_4)
                 .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_HATCHET.identifier()))
                 .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_MORNINGSTAR.identifier()))
@@ -34,5 +35,18 @@ public class ModVillagerTradeTags extends FabricTagsProvider<VillagerTrade> {
                 .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_LONGSWORD.identifier()))
                 .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_GREATSWORD.identifier()))
                 .add(TagEntry.optionalElement(ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_KATANA.identifier()));
+
+        getOrCreateRawBuilder(VillagerTradeTags.FLETCHER_LEVEL_2)
+                .add(TagEntry.optionalElement(ModVillagerTrades.FLETCHER_2_EMERALD_LONGBOW.identifier()));
+
+        getOrCreateRawBuilder(VillagerTradeTags.FLETCHER_LEVEL_3)
+                .add(TagEntry.optionalElement(ModVillagerTrades.FLETCHER_3_EMERALD_CHAIN_CROSSBOW.identifier()));
+
+        getOrCreateRawBuilder(VillagerTradeTags.FLETCHER_LEVEL_4)
+                .add(TagEntry.optionalElement(ModVillagerTrades.FLETCHER_4_EMERALD_DYNAMITE_ARROW.identifier()))
+                .add(TagEntry.optionalElement(ModVillagerTrades.FLETCHER_4_EMERALD_ENCHANTED_LONGBOW.identifier()));
+
+        getOrCreateRawBuilder(VillagerTradeTags.FLETCHER_LEVEL_5)
+                .add(TagEntry.optionalElement(ModVillagerTrades.FLETCHER_5_EMERALD_ENCHANTED_CHAIN_CROSSBOW.identifier()));
     }
 }

@@ -140,6 +140,13 @@ public final class WeaponsExpandedConfigScreen {
                 .setSaveConsumer(v -> cfg.enableWeaponsmithTrades = v)
                 .build());
 
+        general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.enableFletcherTrades"), cfg.enableFletcherTrades)
+                .setDefaultValue(true)
+                .setTooltip(Component.translatable("config.weaponsexpanded.option.enableFletcherTrades.description"))
+                .requireRestart()
+                .setSaveConsumer(v -> cfg.enableFletcherTrades = v)
+                .build());
+
         general.addEntry(eb.startBooleanToggle(Component.translatable("config.weaponsexpanded.option.frostbitePotionRecipe"), cfg.frostbitePotionRecipe)
                 .setDefaultValue(true)
                 .setTooltip(Component.translatable("config.weaponsexpanded.option.frostbitePotionRecipe.description"))

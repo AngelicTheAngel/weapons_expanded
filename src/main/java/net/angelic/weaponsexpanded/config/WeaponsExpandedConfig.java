@@ -31,6 +31,7 @@ public final class WeaponsExpandedConfig {
     public boolean enableEntityTypeChanges = true;                // enabled by default
     public boolean enableExtraNetherEntities = false;             // disabled by default
     public boolean enableWeaponsmithTrades = true;                // enabled by default
+    public boolean enableFletcherTrades = true;                   // enabled by default
     public boolean altTwoHandedSwordHandling = false;             // disabled by default
     public boolean disableExtraDurabilityDamageForAxes = true;    // enabled by default
     public boolean frostbitePotionRecipe = true;                  // enabled by default
@@ -41,7 +42,7 @@ public final class WeaponsExpandedConfig {
     public int chainCrossbowCooldown = 8;                         // 8 by default
     public int chainCrossbowLoadTime = 38;                        // 38 by default
     public int chainCrossbowExtraSizePerCapacityLevel = 1;        // 1 by default
-    public float autoLoadChargeMultiplier = 2;                   // 2 by default
+    public float autoLoadChargeMultiplier = 2;                    // 2 by default
     public int autoLoadFiringDelay = 20;                          // 20 by default
 //    public int ritualDaggerMaxLevel = 2;                          // 2 by default
 
