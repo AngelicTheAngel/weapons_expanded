@@ -221,6 +221,8 @@
   "config.weaponsexpanded.option.autoLoadFiringDelay.description": "The delay between firing a crossbow and Auto Load starting to load (in ticks)",
   "config.weaponsexpanded.option.autoLoadChargeMultiplier": "Auto Load Charge Multiplier",
   "config.weaponsexpanded.option.autoLoadChargeMultiplier.description": "How many times longer Auto Load takes to load than a player",
+  "config.weaponsexpanded.option.enableFletcherTrades": "Enable Fletcher Trades",
+  "config.weaponsexpanded.option.enableFletcherTrades.description": "Allows Fletchers to sell custom weapons and arrows",
 
   "key.category.weaponsexpanded.general": "Weapons Expanded",
   "key.weaponsexpanded.toggle_bastard_sword_mode": "Toggle Weapon Mode"

@@ -12,7 +12,14 @@ public final class ModResourceConditions {
             WeaponsmithTradesCondition.CODEC
     );
 
+    public static final ResourceConditionType<WeaponsmithTradesCondition>
+            FLETCHER_TRADES = ResourceConditionType.create(
+            Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "fletcher_trades"),
+            WeaponsmithTradesCondition.CODEC
+    );
+
     public static void register() {
         ResourceConditions.register(WEAPONSMITH_TRADES);
+        ResourceConditions.register(FLETCHER_TRADES);
     }
 }

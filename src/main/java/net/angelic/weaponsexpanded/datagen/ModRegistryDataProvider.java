@@ -1,6 +1,7 @@
 package net.angelic.weaponsexpanded.datagen;
 
 import net.angelic.weaponsexpanded.datagen.villager.ModVillagerTrades;
+import net.angelic.weaponsexpanded.util.conditions.FletcherTradesCondition;
 import net.angelic.weaponsexpanded.util.conditions.WeaponsmithTradesCondition;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
@@ -38,10 +39,21 @@ public class ModRegistryDataProvider extends FabricDynamicRegistryProvider {
                 ModVillagerTrades.WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_KATANA
         );
 
+        List<ResourceKey<VillagerTrade>> fletcherTrades = List.of(
+                ModVillagerTrades.FLETCHER_2_EMERALD_LONGBOW,
+                ModVillagerTrades.FLETCHER_3_EMERALD_CHAIN_CROSSBOW,
+                ModVillagerTrades.FLETCHER_4_EMERALD_DYNAMITE_ARROW,
+                ModVillagerTrades.FLETCHER_4_EMERALD_ENCHANTED_LONGBOW,
+                ModVillagerTrades.FLETCHER_5_EMERALD_ENCHANTED_CHAIN_CROSSBOW
+        );
+
         for (ResourceKey<VillagerTrade> trade : weaponsmithTrades) {
             entries.add(registries.lookupOrThrow(Registries.VILLAGER_TRADE), trade, WeaponsmithTradesCondition.INSTANCE);
         }
 
+        for (ResourceKey<VillagerTrade> trade : fletcherTrades) {
+            entries.add(registries.lookupOrThrow(Registries.VILLAGER_TRADE), trade, FletcherTradesCondition.INSTANCE);
+        }
 
         entries.addAll(registries.lookupOrThrow(Registries.DAMAGE_TYPE));
     }
