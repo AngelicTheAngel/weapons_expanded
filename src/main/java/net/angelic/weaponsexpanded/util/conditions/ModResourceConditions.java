@@ -26,6 +26,7 @@ public final class ModResourceConditions {
 
     public static void register() {
         ResourceConditions.register(WEAPONSMITH_TRADES);
+        ResourceConditions.register(FLETCHER_TRADES);
         ResourceConditions.register(FROSTBITE_POTION);
     }
 }
