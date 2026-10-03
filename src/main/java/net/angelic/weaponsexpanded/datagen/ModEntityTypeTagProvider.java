@@ -4,7 +4,9 @@ import net.angelic.weaponsexpanded.util.tags.ModEntityTypeTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.entity.EntityTypeIds;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EntityType;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -12,6 +14,10 @@ import java.util.concurrent.CompletableFuture;
 public class ModEntityTypeTagProvider extends FabricTagsProvider.EntityTypeTagsProvider {
     public ModEntityTypeTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
         super(output, registryLookupFuture);
+    }
+
+    private static ResourceKey<EntityType<?>> key(EntityType<?> entityType) {
+        return BuiltInRegistries.ENTITY_TYPE.getResourceKey(entityType).orElseThrow();
     }
 
     @Override
@@ -23,18 +29,18 @@ public class ModEntityTypeTagProvider extends FabricTagsProvider.EntityTypeTagsP
                 .forceAddTag(ModEntityTypeTags.NETHER_MOBS);
 
         builder(ModEntityTypeTags.END_MOBS)
-                .add(EntityTypeIds.ENDER_DRAGON)
-                .add(EntityTypeIds.ENDERMAN)
-                .add(EntityTypeIds.ENDERMITE)
-                .add(EntityTypeIds.SHULKER);
+                .add(key(EntityType.ENDER_DRAGON))
+                .add(key(EntityType.ENDERMAN))
+                .add(key(EntityType.ENDERMITE))
+                .add(key(EntityType.SHULKER));
 
         builder(ModEntityTypeTags.NETHER_MOBS)
-                .add(EntityTypeIds.PIGLIN)
-                .add(EntityTypeIds.PIGLIN_BRUTE)
-                .add(EntityTypeIds.HOGLIN)
-                .add(EntityTypeIds.BLAZE)
-                .add(EntityTypeIds.GHAST)
-                .add(EntityTypeIds.MAGMA_CUBE)
-                .add(EntityTypeIds.STRIDER);
+                .add(key(EntityType.PIGLIN))
+                .add(key(EntityType.PIGLIN_BRUTE))
+                .add(key(EntityType.HOGLIN))
+                .add(key(EntityType.BLAZE))
+                .add(key(EntityType.GHAST))
+                .add(key(EntityType.MAGMA_CUBE))
+                .add(key(EntityType.STRIDER));
     }
 }

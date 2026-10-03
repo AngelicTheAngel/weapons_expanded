@@ -9,8 +9,8 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.predicates.ItemPredicate;
-import net.minecraft.advancements.triggers.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -21,6 +21,8 @@ import org.jspecify.annotations.NonNull;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+import static net.minecraft.data.advancements.AdvancementSubProvider.createPlaceholder;
+
 public class ModAdvancementProvider extends FabricAdvancementProvider {
     public ModAdvancementProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
@@ -29,7 +31,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
     @Override
     public void generateAdvancement(HolderLookup.Provider registryLookup, @NonNull Consumer<AdvancementHolder> consumer) {
         Advancement.Builder.advancement()
-                .parent(createPlaceholder(Identifier.withDefaultNamespace("story/mine_diamond")))
+                .parent(createPlaceholder(String.valueOf(Identifier.withDefaultNamespace("story/mine_diamond"))))
                 .display(
                         Items.DIAMOND_SWORD,
                         Component.translatable("advancements.weaponsexpanded.diamond_weapon"),
@@ -42,10 +44,10 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                 )
                 .addCriterion("has_diamond_weapon", InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(registryLookup.lookupOrThrow(Registries.ITEM), ModItemTags.DIAMOND_WEAPON)))
-                .save(consumer, Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "diamond_weapon"));
+                .save(consumer, String.valueOf(Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "diamond_weapon")));
 
         Advancement.Builder.advancement()
-                .parent(createPlaceholder(Identifier.withDefaultNamespace("nether/obtain_ancient_debris")))
+                .parent(createPlaceholder(String.valueOf(Identifier.withDefaultNamespace("nether/obtain_ancient_debris"))))
                 .display(
                         Items.NETHERITE_SWORD,
                         Component.translatable("advancements.weaponsexpanded.netherite_weapon"),
@@ -58,10 +60,10 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                 )
                 .addCriterion("has_netherite_weapon", InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(registryLookup.lookupOrThrow(Registries.ITEM), ModItemTags.NETHERITE_WEAPON)))
-                .save(consumer, Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "netherite_weapon"));
+                .save(consumer, String.valueOf(Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "netherite_weapon")));
 
         Advancement.Builder.advancement()
-                .parent(createPlaceholder(Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "netherite_weapon")))
+                .parent(createPlaceholder(String.valueOf(Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "netherite_weapon"))))
                 .display(
                         ModItems.NETHERITE_SCYTHE,
                         Component.translatable("advancements.weaponsexpanded.weapons_expanded"),
@@ -90,6 +92,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                 .addCriterion("has_netherite_axe", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_AXE))
                 .addCriterion("has_netherite_spear", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_SPEAR))
                 .rewards(AdvancementRewards.Builder.experience(200))
-                .save(consumer, Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "weapons_expanded"));
+                .save(consumer, String.valueOf(Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, "weapons_expanded")));
     }
 }

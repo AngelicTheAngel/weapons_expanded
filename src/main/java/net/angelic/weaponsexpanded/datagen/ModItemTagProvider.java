@@ -6,10 +6,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.references.ItemIds;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -51,7 +51,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .forceAddTag(ModItemTags.BLUNT);
 
         builder(ModItemTags.LEECH_ENCHANTABLE)
-                .add(ItemIds.SHIELD);
+                .add(key(Items.SHIELD));
 
         builder(ModItemTags.CAPACITY_ENCHANTABLE)
                 .add(key(ModItems.CHAIN_CROSSBOW));
@@ -89,9 +89,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.WOODEN_HALBERD));
 
         builder(ModItemTags.DIAMOND_WEAPON)
-                .add(ItemIds.DIAMOND_SWORD)
-                .add(ItemIds.DIAMOND_AXE)
-                .add(ItemIds.DIAMOND_SPEAR)
+                .add(key(Items.DIAMOND_SWORD))
+                .add(key(Items.DIAMOND_AXE))
+                .add(key(Items.DIAMOND_SPEAR))
                 .add(key(ModItems.DIAMOND_RAPIER))
                 .add(key(ModItems.DIAMOND_BROADSWORD))
                 .add(key(ModItems.DIAMOND_SICKLE))
@@ -108,9 +108,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.DIAMOND_HALBERD));
 
         builder(ModItemTags.NETHERITE_WEAPON)
-                .add(ItemIds.NETHERITE_SWORD)
-                .add(ItemIds.NETHERITE_AXE)
-                .add(ItemIds.NETHERITE_SPEAR)
+                .add(key(Items.NETHERITE_SWORD))
+                .add(key(Items.NETHERITE_AXE))
+                .add(key(Items.NETHERITE_SPEAR))
                 .add(key(ModItems.NETHERITE_RAPIER))
                 .add(key(ModItems.NETHERITE_BROADSWORD))
                 .add(key(ModItems.NETHERITE_SICKLE))

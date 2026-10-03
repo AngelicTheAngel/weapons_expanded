@@ -10,7 +10,7 @@ import net.angelic.weaponsexpanded.util.tags.ModEntityTypeTags;
 import net.angelic.weaponsexpanded.util.tags.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
+import net.minecraft.advancements.criterion.EntityTypePredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -187,7 +187,7 @@ public class ModEnchantmentProvider extends FabricDynamicRegistryProvider {
 
                         .withEffect(EnchantmentEffectComponents.DAMAGE, new AddValue(LevelBasedValue.perLevel(2.5F)),
                                 LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
-                                        net.minecraft.advancements.predicates.entity.EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(context.lookup(Registries.ENTITY_TYPE), ModEntityTypeTags.SENSITIVE_TO_NETHERS_SCOURGE))
+                                        net.minecraft.advancements.criterion.EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(context.lookup(Registries.ENTITY_TYPE), ModEntityTypeTags.SENSITIVE_TO_NETHERS_SCOURGE))
                                 )
                         )
         );
@@ -208,7 +208,7 @@ public class ModEnchantmentProvider extends FabricDynamicRegistryProvider {
 
                         .withEffect(EnchantmentEffectComponents.DAMAGE, new AddValue(LevelBasedValue.perLevel(2.5F)),
                                 LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
-                                        net.minecraft.advancements.predicates.entity.EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(context.lookup(Registries.ENTITY_TYPE), ModEntityTypeTags.SENSITIVE_TO_ENDS_BANE))
+                                        net.minecraft.advancements.criterion.EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(context.lookup(Registries.ENTITY_TYPE), ModEntityTypeTags.SENSITIVE_TO_ENDS_BANE))
                                 )
                         )
         );

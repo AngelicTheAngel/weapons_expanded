@@ -72,98 +72,98 @@ public class ModVillagerTrades {
                 new TradeCost(Items.EMERALD, 2),
                 new ItemStackTemplate(ModItems.LONGBOW),
                 3, 15, 0.05F, Optional.empty(),
-                enchantedItem(items, enchantmentsForTradedEquipment, ModItems.LONGBOW)));
+                enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.LONGBOW)));
 
         context.register(FLETCHER_5_EMERALD_ENCHANTED_CHAIN_CROSSBOW, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 3),
                 new ItemStackTemplate(ModItems.CHAIN_CROSSBOW),
                 3, 15, 0.05F, Optional.empty(),
-                enchantedItem(items, enchantmentsForTradedEquipment, ModItems.CHAIN_CROSSBOW)));
+                enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.CHAIN_CROSSBOW)));
 
         context.register(WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_HATCHET, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 12),
                 new ItemStackTemplate(ModItems.DIAMOND_HATCHET),
                 3, 15, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_HATCHET)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_HATCHET)));
 
         context.register(WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_MORNINGSTAR, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 12),
                 new ItemStackTemplate(ModItems.DIAMOND_MORNINGSTAR),
                 3, 15, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_MORNINGSTAR)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_MORNINGSTAR)));
 
         context.register(WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_WARHAMMER, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 12),
                 new ItemStackTemplate(ModItems.DIAMOND_WARHAMMER),
                 3, 15, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_WARHAMMER)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_WARHAMMER)));
 
         context.register(WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_HAMMER, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 12),
                 new ItemStackTemplate(ModItems.DIAMOND_HAMMER),
                 3, 15, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_HAMMER)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_HAMMER)));
 
         context.register(WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_BATTLEAXE, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 12),
                 new ItemStackTemplate(ModItems.DIAMOND_BATTLEAXE),
                 3, 15, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_BATTLEAXE)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_BATTLEAXE)));
 
         context.register(WEAPONSMITH_4_EMERALD_ENCHANTED_DIAMOND_HALBERD, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 12),
                 new ItemStackTemplate(ModItems.DIAMOND_HALBERD),
                 3, 15, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_HALBERD)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_HALBERD)));
 
 
         context.register(WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_RAPIER, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 8),
                 new ItemStackTemplate(ModItems.DIAMOND_RAPIER),
                 3, 30, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_RAPIER)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_RAPIER)));
 
         context.register(WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_BROADSWORD, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 8),
                 new ItemStackTemplate(ModItems.DIAMOND_BROADSWORD),
                 3, 30, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_BROADSWORD)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_BROADSWORD)));
 
         context.register(WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_SICKLE, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 8),
                 new ItemStackTemplate(ModItems.DIAMOND_SICKLE),
                 3, 30, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_SICKLE)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_SICKLE)));
 
         context.register(WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_GLAIVE, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 8),
                 new ItemStackTemplate(ModItems.DIAMOND_GLAIVE),
                 3, 30, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_GLAIVE)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_GLAIVE)));
 
         context.register(WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_SCYTHE, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 8),
                 new ItemStackTemplate(ModItems.DIAMOND_SCYTHE),
                 3, 30, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_SCYTHE)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_SCYTHE)));
 
         context.register(WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_LONGSWORD, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 8),
                 new ItemStackTemplate(ModItems.DIAMOND_LONGSWORD),
                 3, 30, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_LONGSWORD)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_LONGSWORD)));
 
         context.register(WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_GREATSWORD, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 8),
                 new ItemStackTemplate(ModItems.DIAMOND_GREATSWORD),
                 3, 30, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_GREATSWORD)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_GREATSWORD)));
 
         context.register(WEAPONSMITH_5_EMERALD_ENCHANTED_DIAMOND_KATANA, new VillagerTrade(
                 new TradeCost(Items.EMERALD, 8),
                 new ItemStackTemplate(ModItems.DIAMOND_KATANA),
                 3, 30, 0.2F, Optional.empty(),
-                VillagerTrades.enchantedItem(items, enchantmentsForTradedEquipment, ModItems.DIAMOND_KATANA)));
+                VillagerTrades.enchantedItem(items, Optional.of(enchantmentsForTradedEquipment), ModItems.DIAMOND_KATANA)));
     }
 
     private static ResourceKey<VillagerTrade> createKey(String name) {
