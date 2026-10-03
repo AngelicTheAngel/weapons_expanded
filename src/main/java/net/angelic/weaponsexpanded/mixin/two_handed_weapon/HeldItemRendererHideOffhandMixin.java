@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemInHandRenderer.class)
 public abstract class HeldItemRendererHideOffhandMixin {
 
-    @Inject(method = "submitArmWithItem", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
     private void weaponsexpanded$hideOffhandForCertainMainhandItems(
             AbstractClientPlayer player,
             float frameInterp,
@@ -44,7 +44,7 @@ public abstract class HeldItemRendererHideOffhandMixin {
             return;
         }
 
-        boolean isTwoHandedBastardSword = false;
+        boolean isTwoHandedBastardSword;
 
         if (main.getItem() instanceof BastardSwordItem bastardSword) {
             isTwoHandedBastardSword = bastardSword.isTwoHanded(main);
@@ -57,7 +57,7 @@ public abstract class HeldItemRendererHideOffhandMixin {
             return;
         }
 
-        boolean isTwoHandedHalberd = false;
+        boolean isTwoHandedHalberd;
 
         if (main.getItem() instanceof HalberdItem halberd) {
             isTwoHandedHalberd = !halberd.isPiercing(main);

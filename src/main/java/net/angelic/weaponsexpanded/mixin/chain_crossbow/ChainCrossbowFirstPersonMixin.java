@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class ChainCrossbowFirstPersonMixin {
 
     @WrapOperation(
-            method = "submitArmWithItem",
+            method = "renderArmWithItem",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z",

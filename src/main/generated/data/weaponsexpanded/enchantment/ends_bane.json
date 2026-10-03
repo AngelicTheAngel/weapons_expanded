@@ -18,7 +18,7 @@
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "#weaponsexpanded:sensitive_to_ends_bane"
+            "type": "#weaponsexpanded:sensitive_to_ends_bane"
           }
         }
       }
