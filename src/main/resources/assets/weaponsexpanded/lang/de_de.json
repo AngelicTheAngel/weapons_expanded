@@ -176,6 +176,7 @@
   "config.weaponsexpanded.option.weaponModeSwapSetsShieldCooldown": "Der Wechsel des Waffenmodus legt die Abklingzeit des Schildes fest",
   "config.weaponsexpanded.option.autoLoadFiringDelay": "Verzögerung beim automatischen Laden und Abfeuern",
   "config.weaponsexpanded.option.autoLoadChargeMultiplier": "Multiplikator für die automatische Ladung",
+  "config.weaponsexpanded.option.enableFletcherTrades": "Fletcher Trades aktivieren",
 
   "config.weaponsexpanded.option.enableCustomLootTables.description": "Ermöglicht das Erscheinen benutzerdefinierter Waffen in Gebäuden",
   "config.weaponsexpanded.option.enableEntityMeleeEquipment.description": "Ermöglicht es Zombies und Piglins, mit benutzerdefinierten Waffen zu erscheinen",
@@ -198,6 +199,7 @@
   "config.weaponsexpanded.option.weaponModeSwapSetsShieldCooldown.description": "Determina si, al salir del modo de espada larga, se aplica un tiempo de recarga de 20 ticks a los escudos",
   "config.weaponsexpanded.option.autoLoadFiringDelay.description": "Die Verzögerung zwischen dem Abfeuern einer Armbrust und dem Beginn des Ladevorgangs durch Auto Load",
   "config.weaponsexpanded.option.autoLoadChargeMultiplier.description": "Wie viel länger dauert das Laden mit Auto Load im Vergleich zum Laden mit einem Player?",
+  "config.weaponsexpanded.option.enableFletcherTrades.description": "Ermöglicht es Bogenschmieden, maßgefertigte Waffen und Pfeile zu verkaufen",
 
   "key.category.weaponsexpanded.general": "Erweiterte Waffen",
   "key.weaponsexpanded.toggle_bastard_sword_mode": "Waffenmodus umschalten"
