@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.mixin.chain_crossbow;
 
+import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
 import net.angelic.weaponsexpanded.mixin.accessor.PersistentProjectileEntityAccessor;
 import net.angelic.weaponsexpanded.sound.ModSounds;
@@ -48,8 +49,7 @@ public abstract class ChainCrossbowFireMixin {
             boolean isChainCrossbow = (main.getItem() instanceof ChainCrossbowItem) || (off.getItem() instanceof ChainCrossbowItem);
 
             if (isChainCrossbow) {
-                // Spoof the weapon as a vanilla crossbow so advancements like "Two Birds, One Stone" 
-                // which check for "minecraft:crossbow" specifically will trigger.
+                // Spoof the weapon as a vanilla crossbow so advancements that check for "minecraft:crossbow" specifically will trigger.
                 ItemStack spoofedWeapon = new ItemStack(Items.CROSSBOW);
                 // Copy enchantments and components so Piercing/Multishot are recognized
                 spoofedWeapon.applyComponents((main.getItem() instanceof ChainCrossbowItem ? main : off).getComponents());
@@ -96,7 +96,7 @@ public abstract class ChainCrossbowFireMixin {
 
         // Apply 8-tick cooldown after firing
         if (shooter instanceof Player player) {
-            player.getCooldowns().addCooldown(stack, 8);
+            player.getCooldowns().addCooldown(stack, WeaponsExpandedConfig.get().chainCrossbowCooldown);
         }
 
         ChargedProjectiles charged =
@@ -120,7 +120,7 @@ public abstract class ChainCrossbowFireMixin {
 
         stack.set(DataComponents.CHARGED_PROJECTILES, new ChargedProjectiles(nextChamber));
 
-        // NEW: refresh custom model data based on what we just loaded
+        //refresh custom model data based on what we just loaded
         ChainCrossbowItem.weaponsexpanded$refreshLoadedVisual(stack);
 
         // SYNC FIX: Ensure the client knows the item has been updated

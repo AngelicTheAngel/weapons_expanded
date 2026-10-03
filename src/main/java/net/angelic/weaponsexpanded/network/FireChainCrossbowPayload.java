@@ -7,6 +7,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 
+@SuppressWarnings("NullableProblems")
 public record FireChainCrossbowPayload() implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<FireChainCrossbowPayload> ID =

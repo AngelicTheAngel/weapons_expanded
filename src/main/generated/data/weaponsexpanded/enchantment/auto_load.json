@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.weaponsexpanded.auto_load"
+  },
+  "exclusive_set": "#weaponsexpanded:exclusive_set/crossbow_load",
+  "max_cost": {
+    "base": 50,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#minecraft:enchantable/crossbow",
+  "weight": 2
+}

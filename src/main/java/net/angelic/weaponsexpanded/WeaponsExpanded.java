@@ -7,21 +7,23 @@ import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.angelic.weaponsexpanded.item.ModItems;
 import net.angelic.weaponsexpanded.item.custom.BastardSwordItem;
 import net.angelic.weaponsexpanded.item.custom.ChainCrossbowItem;
+import net.angelic.weaponsexpanded.item.custom.HalberdItem;
 import net.angelic.weaponsexpanded.item.custom.WarhammerItem;
-import net.angelic.weaponsexpanded.network.FireChainCrossbowPayload;
-import net.angelic.weaponsexpanded.network.ModPackets;
-import net.angelic.weaponsexpanded.network.ToggleBastardSwordModePayload;
-import net.angelic.weaponsexpanded.network.ToggleWarhammerModePayload;
+import net.angelic.weaponsexpanded.network.*;
 import net.angelic.weaponsexpanded.potion.ModPotions;
 import net.angelic.weaponsexpanded.registries.ModFuels;
 import net.angelic.weaponsexpanded.sound.ModSounds;
 import net.angelic.weaponsexpanded.util.ModLootTableModifiers;
+import net.angelic.weaponsexpanded.util.conditions.ModResourceConditions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.registry.FabricPotionBrewingBuilder;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -34,11 +36,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("unused")
 public class WeaponsExpanded implements ModInitializer {
     public static final String MOD_ID = "weaponsexpanded";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    // Global version variable fetched from fabric.mod.json
     public static final String VERSION = FabricLoader.getInstance()
             .getModContainer(MOD_ID)
             .map(container -> container.getMetadata().getVersion().getFriendlyString())
@@ -49,7 +51,6 @@ public class WeaponsExpanded implements ModInitializer {
         LOGGER.info("Initializing {} version {}", MOD_ID, VERSION);
 
         WeaponsExpandedConfig.get();
-
         ModItems.registerModItems();
         ModEnchantmentEffects.registerEnchantmentEffects();
         ModEffects.registerEffects();
@@ -57,12 +58,49 @@ public class WeaponsExpanded implements ModInitializer {
         ModSounds.register();
         ModFuels.registerFuels();
         ModPotions.registerPotions();
-
-        // Register loot modifications (these will be gated by config inside the callback)
+        ModResourceConditions.register();
         ModLootTableModifiers.modifyLootTables();
-
-        // Register payload types once (safe if called again elsewhere)
         ModPackets.register();
+
+        if (WeaponsExpandedConfig.get().enableEntityTypeChanges) {
+            FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(
+                    container -> ResourceLoader.registerBuiltinPack(
+                            Identifier.fromNamespaceAndPath(MOD_ID, "entity_type_changes"),
+                            container,
+                            PackActivationType.ALWAYS_ENABLED));
+        }
+
+        if (WeaponsExpandedConfig.get().enableExtraNetherEntities) {
+            FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(
+                    container -> ResourceLoader.registerBuiltinPack(
+                            Identifier.fromNamespaceAndPath(MOD_ID, "nether_entity_type_changes"),
+                            container,
+                            PackActivationType.ALWAYS_ENABLED));
+        }
+
+        if (WeaponsExpandedConfig.get().enableExtraDamageEnchants) {
+            FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(
+                    container -> ResourceLoader.registerBuiltinPack(
+                            Identifier.fromNamespaceAndPath(MOD_ID, "extra_damage_enchantments"),
+                            container,
+                            PackActivationType.ALWAYS_ENABLED));
+        } else {
+            if (WeaponsExpandedConfig.get().enableExtraDamageEnchantsVillager) {
+                FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(
+                        container -> ResourceLoader.registerBuiltinPack(
+                                Identifier.fromNamespaceAndPath(MOD_ID, "extra_damage_enchantments_villager"),
+                                container,
+                                PackActivationType.ALWAYS_ENABLED));
+            }
+
+            if (WeaponsExpandedConfig.get().enableExtraDamageEnchantsLoot) {
+                FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(
+                        container -> ResourceLoader.registerBuiltinPack(
+                                Identifier.fromNamespaceAndPath(MOD_ID, "extra_damage_enchantments_loot"),
+                                container,
+                                PackActivationType.ALWAYS_ENABLED));
+            }
+        }
 
         ServerPlayNetworking.registerGlobalReceiver(FireChainCrossbowPayload.ID, (payload, context) ->
                 context.server().execute(() -> weaponsexpanded$tryFireChainCrossbow(context.player()))
@@ -76,9 +114,15 @@ public class WeaponsExpanded implements ModInitializer {
                 context.server().execute(() -> weaponsexpanded$toggleWarhammerMode(context.player()))
         );
 
+        ServerPlayNetworking.registerGlobalReceiver(ToggleHalberdModePayload.ID, (payload, context) ->
+                context.server().execute(() -> weaponsexpanded$toggleHalberdMode(context.player()))
+        );
+
         FabricPotionBrewingBuilder.BUILD.register(builder -> {
-            builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(Items.BLUE_ICE), ModPotions.FROSTBITE_POTION);
-            builder.registerPotionRecipe(ModPotions.FROSTBITE_POTION, Ingredient.of(Items.REDSTONE), ModPotions.LONG_FROSTBITE_POTION);
+            if(WeaponsExpandedConfig.get().frostbitePotionRecipe) {
+                builder.registerPotionRecipe(Potions.AWKWARD, Ingredient.of(Items.BLUE_ICE), ModPotions.FROSTBITE_POTION);
+                builder.registerPotionRecipe(ModPotions.FROSTBITE_POTION, Ingredient.of(Items.REDSTONE), ModPotions.LONG_FROSTBITE_POTION);
+            }
         });
     }
 
@@ -87,7 +131,7 @@ public class WeaponsExpanded implements ModInitializer {
         if (!(stack.getItem() instanceof BastardSwordItem bastardSword)) return;
 
         bastardSword.toggleTwoHanded(stack);
-        if (player.getOffhandItem().getItem() instanceof ShieldItem shield) {
+        if (player.getOffhandItem().getItem() instanceof ShieldItem shield && WeaponsExpandedConfig.get().weaponModeSwapSetsShieldCooldown) {
             player.getCooldowns().addCooldown(shield.getDefaultInstance(), 20);
         }
         player.resetAttackStrengthTicker();
@@ -98,6 +142,20 @@ public class WeaponsExpanded implements ModInitializer {
         if (!(stack.getItem() instanceof WarhammerItem warhammer)) return;
 
         warhammer.toggleSharpSide(stack);
+        if (player.getOffhandItem().getItem() instanceof ShieldItem shield && WeaponsExpandedConfig.get().weaponModeSwapSetsShieldCooldown) {
+            player.getCooldowns().addCooldown(shield.getDefaultInstance(), 20);
+        }
+        player.resetAttackStrengthTicker();
+    }
+
+    private static void weaponsexpanded$toggleHalberdMode(Player player) {
+        ItemStack stack = player.getMainHandItem();
+        if (!(stack.getItem() instanceof HalberdItem halberd)) return;
+
+        halberd.togglePiercing(stack);
+        if (player.getOffhandItem().getItem() instanceof ShieldItem shield && WeaponsExpandedConfig.get().weaponModeSwapSetsShieldCooldown) {
+            player.getCooldowns().addCooldown(shield.getDefaultInstance(), 20);
+        }
         player.resetAttackStrengthTicker();
     }
 

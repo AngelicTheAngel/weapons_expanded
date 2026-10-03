@@ -1,6 +1,24 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "weaponsexpanded:item/wooden_longsword"
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "weaponsexpanded:item/wooden_longsword"
+        },
+        "when": [
+          "gui",
+          "ground",
+          "fixed",
+          "on_shelf"
+        ]
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "weaponsexpanded:item/wooden_longsword_in_hand"
+    },
+    "property": "minecraft:display_context"
   }
 }

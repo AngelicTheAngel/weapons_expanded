@@ -1,5 +1,6 @@
 package net.angelic.weaponsexpanded.entity.projectile;
 
+import net.angelic.weaponsexpanded.config.WeaponsExpandedConfig;
 import net.angelic.weaponsexpanded.entity.ModEntities;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -9,6 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
+@SuppressWarnings("NullableProblems")
 public class ExplosiveArrowEntity extends Arrow {
     private static final float EXPLOSION_POWER = 2f;
 
@@ -58,13 +60,20 @@ public class ExplosiveArrowEntity extends Arrow {
         this.weaponsexpanded$exploded = true;
 
         Level world = this.level();
+        Level.ExplosionInteraction explosion;
+
+        if (WeaponsExpandedConfig.get().dynamiteArrowsDestroyBlocks) {
+             explosion = Level.ExplosionInteraction.TNT;
+        } else {
+            explosion = Level.ExplosionInteraction.NONE;
+        }
 
         world.explode(
                 this,
                 this.getX(), this.getY(), this.getZ(),
                 EXPLOSION_POWER,
                 false,
-                Level.ExplosionInteraction.TNT
+                explosion
         );
 
         this.discard();

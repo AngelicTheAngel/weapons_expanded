@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "stone_morningstar",
+  "key": {
+    "M": "#minecraft:stone_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " M ",
+    "MSM",
+    " S "
+  ],
+  "result": {
+    "id": "weaponsexpanded:stone_morningstar"
+  }
+}

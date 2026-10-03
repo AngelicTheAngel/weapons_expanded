@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "heavy_arrow",
+  "key": {
+    "F": "minecraft:feather",
+    "I": "minecraft:iron_ingot",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " I ",
+    " S ",
+    " F "
+  ],
+  "result": {
+    "count": 4,
+    "id": "weaponsexpanded:heavy_arrow"
+  }
+}

@@ -14,6 +14,8 @@ import java.nio.file.Path;
  * Simple JSON config stored at: config/weaponsexpanded.json
  * Safe to call early (also from mixin plugin).
  */
+
+@SuppressWarnings("unused")
 public final class WeaponsExpandedConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final String FILE_NAME = "weaponsexpanded.json";
@@ -21,11 +23,28 @@ public final class WeaponsExpandedConfig {
     private static volatile WeaponsExpandedConfig INSTANCE;
 
     public boolean enableCustomLootTables = true;                 // enabled by default
+    public boolean enableExtraDamageEnchants = true;              // enabled by default
+    public boolean enableExtraDamageEnchantsVillager = false;     // disabled by default
+    public boolean enableExtraDamageEnchantsLoot = false;         // disabled by default
     public boolean enableEntityMeleeEquipment = true;             // enabled by default
     public boolean enableTrialChamberMeleeEquipment = true;       // enabled by default
+    public boolean enableEntityTypeChanges = true;                // enabled by default
+    public boolean enableExtraNetherEntities = false;             // disabled by default
     public boolean enableWeaponsmithTrades = true;                // enabled by default
+    public boolean enableFletcherTrades = true;                   // enabled by default
     public boolean altTwoHandedSwordHandling = false;             // disabled by default
     public boolean disableExtraDurabilityDamageForAxes = true;    // enabled by default
+    public boolean frostbitePotionRecipe = true;                  // enabled by default
+    public boolean weaponModeSwapSetsShieldCooldown = false;      // disabled by default
+    public boolean dynamiteArrowsDestroyBlocks = true;            // enabled by default
+    public int dynamiteArrowDurabilityDamage = 4;                 // 4 by default
+    public int chainCrossbowMagazineSize = 3;                     // 3 by default
+    public int chainCrossbowCooldown = 8;                         // 8 by default
+    public int chainCrossbowLoadTime = 38;                        // 38 by default
+    public int chainCrossbowExtraSizePerCapacityLevel = 1;        // 1 by default
+    public float autoLoadChargeMultiplier = 2;                    // 2 by default
+    public int autoLoadFiringDelay = 20;                          // 20 by default
+//    public int ritualDaggerMaxLevel = 2;                          // 2 by default
 
     private WeaponsExpandedConfig() {}
 

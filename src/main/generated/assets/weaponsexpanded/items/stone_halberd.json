@@ -1,0 +1,24 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "weaponsexpanded:item/stone_halberd"
+        },
+        "when": [
+          "gui",
+          "ground",
+          "fixed",
+          "on_shelf"
+        ]
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "weaponsexpanded:item/stone_halberd_in_hand"
+    },
+    "property": "minecraft:display_context"
+  }
+}

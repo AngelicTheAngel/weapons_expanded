@@ -1,0 +1,30 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.weaponsexpanded.freeze"
+  },
+  "effects": {
+    "minecraft:projectile_spawned": [
+      {
+        "effect": {
+          "type": "weaponsexpanded:freeze"
+        }
+      }
+    ]
+  },
+  "exclusive_set": "#weaponsexpanded:exclusive_set/bow_effects",
+  "max_cost": {
+    "base": 50,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 20,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#minecraft:enchantable/bow",
+  "weight": 2
+}

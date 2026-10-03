@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "golden_rapier",
+  "key": {
+    "M": "#minecraft:gold_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " M ",
+    " M ",
+    "MS "
+  ],
+  "result": {
+    "id": "weaponsexpanded:golden_rapier"
+  }
+}

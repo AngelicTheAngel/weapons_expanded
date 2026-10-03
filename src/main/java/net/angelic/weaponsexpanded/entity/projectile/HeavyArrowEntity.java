@@ -10,10 +10,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+@SuppressWarnings({"NullableProblems", "unused"})
 public class HeavyArrowEntity extends Arrow {
-    public static final double BASE_DAMAGE = 3.6;
-    private static final float EXTRA_AIR_DRAG = 0.9f;
-    private static final float GRAVITY = 0.1f;
+    public static final double BASE_DAMAGE = 3.0;
+    private static final float EXTRA_AIR_DRAG = 0.99f;
+    private static final float GRAVITY = 0.03f;
 
     private ItemStack weaponsexpanded$pickupStack = ItemStack.EMPTY;
 

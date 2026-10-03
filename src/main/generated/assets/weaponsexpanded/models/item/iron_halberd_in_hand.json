@@ -1,0 +1,6 @@
+{
+  "parent": "weaponsexpanded:item/halberd_in_hand",
+  "textures": {
+    "layer0": "weaponsexpanded:item/iron_halberd_in_hand"
+  }
+}

@@ -1,17 +1,20 @@
 {
   "required": true,
   "package": "net.angelic.weaponsexpanded.mixin",
-  "compatibilityLevel": "JAVA_25",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AxeDurabilityMixin",
-    "CleavingShieldStunMixin",
     "accessor.CrossbowItemAccessor",
     "accessor.EntityAccessor",
     "accessor.PersistentProjectileEntityAccessor",
+    "chain_crossbow.ChainCrossbowCapacityMixin",
     "chain_crossbow.ChainCrossbowFireMixin",
     "chain_crossbow.ChainCrossbowPullTimeMixin",
+    "effect.FrostbiteFireMixin",
+    "enchantment.AutoLoadDelayMixin",
+    "enchantment.AutoLoadMixin",
+    "enchantment.CleavingShieldStunMixin",
     "enchantment.FrostbiteCleanupMixin",
-    "enchantment.FrostbiteFireMixin",
     "enchantment.LeechShieldBlockMixin",
     "enchantment.ProjectileFreezeMixin",
     "entity_equipment.LivingEntityEquipStackZombieSwapMixin",
@@ -24,19 +27,23 @@
     "explosive_arrow.CrossbowItemExplosiveVisualMixin",
     "heavy_arrow.CrossbowHeavyArrowMultishotMixin",
     "heavy_arrow.HeavyArrowSidePickupVanishMixin",
+    "invoker.CrossbowItemInvoker",
     "invoker.PersistentProjectileEntityPierceInvoker",
-    "two_handed_sword.TwoHandedSwordMixin",
+    "pierce.PierceWeaponShieldStunMixin",
+    "two_handed_weapon.TwoHandedWeaponMixin",
     "warhammer.WarhammerSweepingMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "ChainCrossbowFirstPersonMixin",
-    "HeldItemRendererHideOffhandMixin",
-    "LongbowFovMixin",
-    "PlayerEntityRendererArmPoseMixin",
+    "armpose.ArmPoseTransformMixin",
+    "armpose.HumanoidModelArmPoseMixin",
+    "armpose.PlayerEntityRendererArmPoseMixin",
+    "chain_crossbow.ChainCrossbowFirstPersonMixin",
     "chain_crossbow.MinecraftClientChainCrossbowAttackMixin",
-    "two_handed_sword.TwoHandedSwordTooltipMixin"
+    "longbow.LongbowFovMixin",
+    "two_handed_weapon.HeldItemRendererHideOffhandMixin",
+    "two_handed_weapon.TwoHandedWeaponTooltipMixin"
   ]
 }

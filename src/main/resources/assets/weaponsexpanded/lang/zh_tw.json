@@ -81,6 +81,9 @@
   "enchantment.weaponsexpanded.freeze": "冰凍",
   "enchantment.weaponsexpanded.leech": "吸血",
   "enchantment.weaponsexpanded.cleaving": "劈",
+  "enchantment.weaponsexpanded.capacity": "容量",
+  "enchantment.weaponsexpanded.nethers_scourge": "下界之災",
+  "enchantment.weaponsexpanded.ends_bane": "末日的禍根",
 
   "effect.weaponsexpanded.frostbite": "凍傷",
   "item.minecraft.potion.effect.frostbite": "凍傷藥水",
@@ -98,7 +101,9 @@
   "tooltip.weaponsexpanded.twohandedsword": "雙手武器",
   "tooltip.weaponsexpanded.chain_crossbow_shots": "射擊次數：%s/%s",
   "tooltip.weaponsexpanded.warhammer.blunt_side": "鈍",
-  "tooltip.weaponsexpanded.warhammer.sharp_side": "畟",
+  "tooltip.weaponsexpanded.warhammer.sharp_side": "清掃",
+  "tooltip.weaponsexpanded.halberd.piercing": "穿刺",
+  "tooltip.weaponsexpanded.halberd.slashing": "清掃",
 
   "item.modifiers.bothhands": "雙手持握時:",
 
@@ -107,12 +112,25 @@
 
   "config.weaponsexpanded.title": "武器擴充",
   "config.weaponsexpanded.category.general": "一般的",
+  "config.weaponsexpanded.category.chain_crossbow": "鏈弩",
+
   "config.weaponsexpanded.option.enableCustomLootTables": "啟用自訂戰利品表",
   "config.weaponsexpanded.option.enableEntityMeleeEquipment": "為實體啟用近戰裝備",
   "config.weaponsexpanded.option.enableTrialChamberMeleeEquipment": "為試煉室中的實體啟用近戰裝備",
   "config.weaponsexpanded.option.enableWeaponsmithTrades": "啟用武器匠交易",
   "config.weaponsexpanded.option.altTwoHandedSwordHandling": "雙手劍的另一種握持方式",
   "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "禁用斧頭的額外耐久度傷害",
+  "config.weaponsexpanded.option.dynamiteArrowsDestroyBlocks": "炸藥箭摧毀方塊",
+  "config.weaponsexpanded.option.chainCrossbowMagazineSize": "鏈式弩彈匣容量",
+  "config.weaponsexpanded.option.chainCrossbowCooldown": "鏈弩冷卻時間",
+  "config.weaponsexpanded.option.chainCrossbowLoadTime": "鏈式弩裝填時間",
+  "config.weaponsexpanded.option.extraSizePerCapacityLevel": "各容量等級的額外雜誌數量",
+  "config.weaponsexpanded.option.frostbitePotionRecipe": "啟用「凍傷藥水」配方",
+  "config.weaponsexpanded.option.enableEntityTypeChanges": "啟用實體類型變更",
+  "config.weaponsexpanded.option.enableExtraNetherEntities": "啟用額外的下界實體",
+  "config.weaponsexpanded.option.enableExtraDamageEnchants": "啟用額外傷害附魔",
+  "config.weaponsexpanded.option.enableExtraDamageEnchantsVillager": "為村民啟用額外傷害附魔",
+  "config.weaponsexpanded.option.enableExtraDamageEnchantsLoot": "為戰利品啟用額外傷害附魔",
 
   "key.category.weaponsexpanded.general": "武器擴充",
   "key.weaponsexpanded.toggle_bastard_sword_mode": "切換武器模式"

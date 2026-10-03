@@ -1,0 +1,6 @@
+{
+  "parent": "weaponsexpanded:item/scythe_in_hand",
+  "textures": {
+    "layer0": "weaponsexpanded:item/copper_scythe_in_hand"
+  }
+}

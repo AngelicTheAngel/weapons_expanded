@@ -2,7 +2,7 @@ package net.angelic.weaponsexpanded.enchantment;
 
 import com.mojang.serialization.MapCodec;
 import net.angelic.weaponsexpanded.WeaponsExpanded;
-import net.angelic.weaponsexpanded.enchantment.custom.*;
+import net.angelic.weaponsexpanded.enchantment.effect.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -17,8 +17,6 @@ public class ModEnchantmentEffects {
             registerEntityEffect("frostbite", FrostbiteEnchantmentEffect.CODEC);
     public static final MapCodec<? extends EnchantmentEntityEffect> FREEZE =
             registerEntityEffect("freeze", FreezeEnchantmentEffect.CODEC);
-    public static final MapCodec<? extends EnchantmentEntityEffect> LEECH =
-            registerEntityEffect("leech", LeechEnchantmentEffect.CODEC);
 
     private static MapCodec<? extends EnchantmentEntityEffect> registerEntityEffect(String name, MapCodec<? extends EnchantmentEntityEffect> codec) {
         return Registry.register(BuiltInRegistries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Identifier.fromNamespaceAndPath(WeaponsExpanded.MOD_ID, name), codec);

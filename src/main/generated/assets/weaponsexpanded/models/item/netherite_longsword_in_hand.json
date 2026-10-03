@@ -1,0 +1,6 @@
+{
+  "parent": "weaponsexpanded:item/longsword_in_hand",
+  "textures": {
+    "layer0": "weaponsexpanded:item/netherite_longsword_in_hand"
+  }
+}

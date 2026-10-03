@@ -1,0 +1,56 @@
+package net.angelic.weaponsexpanded.datagen.enchantment;
+
+import net.angelic.weaponsexpanded.enchantment.ModEnchantments;
+import net.angelic.weaponsexpanded.util.tags.ModEnchantmentTags;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import org.jspecify.annotations.NonNull;
+
+import java.util.concurrent.CompletableFuture;
+
+public class ModEnchantmentTagProvider extends FabricTagsProvider<Enchantment> {
+    public ModEnchantmentTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(output, Registries.ENCHANTMENT, registriesFuture);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.@NonNull Provider registries) {
+        builder(EnchantmentTags.TRADEABLE)
+                .add(ModEnchantments.LEECH);
+
+        builder(EnchantmentTags.TREASURE)
+                .add(ModEnchantments.LEECH);
+
+        builder(EnchantmentTags.NON_TREASURE)
+                .add(ModEnchantments.POLLUTING)
+                .add(ModEnchantments.WITHERING)
+                .add(ModEnchantments.FROSTBITE)
+                .add(ModEnchantments.FREEZE)
+                .add(ModEnchantments.CLEAVING)
+                .add(ModEnchantments.CAPACITY)
+                .add(ModEnchantments.AUTO_LOAD);
+
+        builder(EnchantmentTags.DAMAGE_EXCLUSIVE)
+                .add(ModEnchantments.NETHERS_SCOURGE)
+                .add(ModEnchantments.ENDS_BANE);
+
+        builder(ModEnchantmentTags.POST_ATTACK_EXCLUSIVE_SET)
+                .add(Enchantments.FIRE_ASPECT)
+                .add(ModEnchantments.POLLUTING)
+                .add(ModEnchantments.WITHERING)
+                .add(ModEnchantments.FROSTBITE);
+
+        builder(ModEnchantmentTags.BOW_EFFECTS_EXCLUSIVE_SET)
+                .add(Enchantments.FLAME)
+                .add(ModEnchantments.FREEZE);
+
+        builder(ModEnchantmentTags.CROSSBOW_LOAD_EXCLUSIVE_SET)
+                .add(Enchantments.QUICK_CHARGE)
+                .add(ModEnchantments.AUTO_LOAD);
+    }
+}

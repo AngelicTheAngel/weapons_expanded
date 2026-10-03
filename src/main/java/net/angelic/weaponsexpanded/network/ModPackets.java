@@ -15,8 +15,6 @@ public final class ModPackets {
         PayloadTypeRegistry.serverboundPlay().register(FireChainCrossbowPayload.ID, FireChainCrossbowPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(ToggleBastardSwordModePayload.ID, ToggleBastardSwordModePayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(ToggleWarhammerModePayload.ID, ToggleWarhammerModePayload.CODEC);
-
-        // If you later add server->client payloads:
-        // PayloadTypeRegistry.clientboundPlay().register(SomePayload.ID, SomePayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ToggleHalberdModePayload.ID, ToggleHalberdModePayload.CODEC);
     }
 }

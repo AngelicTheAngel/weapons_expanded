@@ -1,0 +1,6 @@
+{
+  "parent": "weaponsexpanded:item/warhammer_sharp",
+  "textures": {
+    "layer0": "weaponsexpanded:item/copper_warhammer_sharp"
+  }
+}

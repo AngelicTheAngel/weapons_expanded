@@ -38,11 +38,9 @@ public class ModLootTableModifiers {
 
     public static void modifyLootTables() {
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registry) -> {
-            var cfg = WeaponsExpandedConfig.get();
             Identifier id = key.identifier();
 
-            // --- General toggle: custom chest loot tweaks ---
-            if (!cfg.enableCustomLootTables) return;
+            if (!WeaponsExpandedConfig.get().enableCustomLootTables) return;
 
             if (BuiltInLootTables.IGLOO_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()

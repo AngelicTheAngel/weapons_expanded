@@ -86,6 +86,9 @@
   "enchantment.weaponsexpanded.freeze": "冻结",
   "enchantment.weaponsexpanded.leech": "吸血",
   "enchantment.weaponsexpanded.cleaving": "劈开",
+  "enchantment.weaponsexpanded.capacity": "容量",
+  "enchantment.weaponsexpanded.nethers_scourge": "地狱之灾",
+  "enchantment.weaponsexpanded.ends_bane": "末日的祸根",
 
   "effect.weaponsexpanded.frostbite": "冻伤",
 
@@ -99,7 +102,9 @@
   "tooltip.weaponsexpanded.twohandedsword": "双手持握",
   "tooltip.weaponsexpanded.chain_crossbow_shots": "装填：%s/%s",
   "tooltip.weaponsexpanded.warhammer.blunt_side": "钝的",
-  "tooltip.weaponsexpanded.warhammer.sharp_side": "夏普",
+  "tooltip.weaponsexpanded.warhammer.sharp_side": "清扫",
+  "tooltip.weaponsexpanded.halberd.piercing": "穿孔",
+  "tooltip.weaponsexpanded.halberd.slashing": "清扫",
 
   "item.modifiers.bothhands": "双手持握时：",
 
@@ -108,6 +113,7 @@
 
   "config.weaponsexpanded.title": "武器扩展配置",
   "config.weaponsexpanded.category.general": "通用",
+  "config.weaponsexpanded.category.chain_crossbow": "连发弩",
 
   "config.weaponsexpanded.option.enableCustomLootTables": "启用自定义战利品表",
   "config.weaponsexpanded.option.enableEntityMeleeEquipment": "启用实体近战装备",
@@ -115,6 +121,17 @@
   "config.weaponsexpanded.option.enableWeaponsmithTrades": "启用武器匠交易",
   "config.weaponsexpanded.option.altTwoHandedSwordHandling": "使用替代双手剑处理方式",
   "config.weaponsexpanded.option.disableExtraDurabilityDamageForAxes": "禁用斧类额外耐久损耗",
+  "config.weaponsexpanded.option.dynamiteArrowsDestroyBlocks": "炸药箭摧毁方块",
+  "config.weaponsexpanded.option.chainCrossbowMagazineSize": "链式弩弹匣容量",
+  "config.weaponsexpanded.option.chainCrossbowCooldown": "链弩冷却时间",
+  "config.weaponsexpanded.option.chainCrossbowLoadTime": "链弩装填时间",
+  "config.weaponsexpanded.option.extraSizePerCapacityLevel": "各容量等级的额外杂志数量",
+  "config.weaponsexpanded.option.frostbitePotionRecipe": "解锁“寒霜药水”配方",
+  "config.weaponsexpanded.option.enableEntityTypeChanges": "启用实体类型更改",
+  "config.weaponsexpanded.option.enableExtraNetherEntities": "启用额外的下界生物",
+  "config.weaponsexpanded.option.enableExtraDamageEnchants": "启用额外伤害附魔",
+  "config.weaponsexpanded.option.enableExtraDamageEnchantsVillager": "为村民启用额外伤害附魔",
+  "config.weaponsexpanded.option.enableExtraDamageEnchantsLoot": "为战利品启用额外伤害附魔",
 
   "key.category.weaponsexpanded.general": "武器扩展",
   "key.weaponsexpanded.toggle_bastard_sword_mode": "切换武器模式"

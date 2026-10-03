@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "iron_rapier",
+  "key": {
+    "M": "#minecraft:iron_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " M ",
+    " M ",
+    "MS "
+  ],
+  "result": {
+    "id": "weaponsexpanded:iron_rapier"
+  }
+}
